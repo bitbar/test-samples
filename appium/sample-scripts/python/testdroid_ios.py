@@ -3,13 +3,11 @@
 ## http://help.testdroid.com/customer/portal/topics/631129-appium/articles
 ##
 
-
-import unittest
 import os
 import sys
 import time
-from selenium import webdriver
 from time import sleep
+from selenium import webdriver
 
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
@@ -25,11 +23,6 @@ testdroid_password = "p4s$w0rd"
 
 testdroid_device = "iPad 3 A1416 7.0.4" # Example device. Change if you desire.
 
-# set up webdriver
-log ("WebDriver request initiated. Waiting for response, this may take a while.")
-
-#sys.exit()
-
 desired_capabilities_cloud={
         'app': 'com.bitbar.testdroid.BitbarIOSSample',
         'device': 'iphone',
@@ -41,6 +34,9 @@ desired_capabilities_cloud={
         'testdroid_testrun': 'Test Run 1',
         'testdroid_device': testdroid_device,
     }
+    
+# set up webdriver
+log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
 
 driver = webdriver.Remote(command_executor=appium_Url,desired_capabilities=desired_capabilities_cloud)
 log ("WebDriver response received")
