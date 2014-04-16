@@ -120,8 +120,8 @@ describe "BitbarAndroidSample testing" do
 
   it "should get window size" do
     size = @driver.manage.window.size
-    size.width.should eq(768)
-    size.height.should eq(1024)
+    size.width.should eq(1080)
+    size.height.should eq(1920)
   end
 
 end
