@@ -17,8 +17,7 @@ appium_Url = 'http://appium.testdroid.com/wd/hub';
 ##
 ## IMPORTANT: Set the following parameters.
 ##
-#screenshotDir= "/absolute/path/to/desired/directory"
-screenshotDir = '/Users/saad/Documents/appium/sample-code/examples/python/testdroid_samples/screenshots/android';
+screenshotDir= "/absolute/path/to/desired/directory"
 testdroid_username = "user@example.com"
 testdroid_password = "p4s$w0rd"
 
