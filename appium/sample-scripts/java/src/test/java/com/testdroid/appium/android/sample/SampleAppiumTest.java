@@ -32,7 +32,7 @@ public class SampleAppiumTest {
     private static final String TESTDROID_USERNAME = "admin@localhost";
     private static final String TESTDROID_PASSWORD = "admin";
 
-    private static final String TARGET_APP_PATH = "/Users/sakari/Downloads/BitbarAndroidSample.apk";
+    private static final String TARGET_APP_PATH = "/your/application/path";
     private static final String TESTDROID_SERVER = "http://appium.testdroid.com";
 
     private static AppiumDriver wd;
