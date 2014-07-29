@@ -38,7 +38,7 @@ public class SampleAppiumiOSTest {
 
     private static final String TESTDROID_SERVER = "http://appium.testdroid.com";
 
-    private static final String TARGET_APP_PATH = "/Users/sakari/Downloads/BitbarIOSSample.ipa";
+    private static final String TARGET_APP_PATH = "/your/application/path";
     private static AppiumDriver wd;
 
     @BeforeClass
