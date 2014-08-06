@@ -61,7 +61,8 @@ public class SampleAppiumiOSTest {
         capabilities.setCapability("testdroid_description", "Appium project description");
         capabilities.setCapability("testdroid_testrun", "iOS Run");
         capabilities.setCapability("testdroid_device", "iPhone 4S A1387 6.1.3");
-        capabilities.setCapability("testdroid_app", fileUUID);
+        capabilities.setCapability("testdroid_app", fileUUID); //to use existing app using "latest" as fileUUID
+        capabilities.setCapability("testdroid_target", "iOS");
         capabilities.setCapability("app", "com.bitbar.testdroid.BitbarIOSSample");
         System.out.println("Capabilities:" + capabilities.toString());
         wd = new AppiumDriver(new URL(TESTDROID_SERVER+"/wd/hub"), capabilities);
@@ -84,7 +85,7 @@ public class SampleAppiumiOSTest {
 
                 });
         MultipartFormDataContent multipartContent = new MultipartFormDataContent();
-        FileContent fileContent = new FileContent("application/zip", new File(filePath));
+        FileContent fileContent = new FileContent("application/octet-stream", new File(filePath));
 
         MultipartFormDataContent.Part filePart = new MultipartFormDataContent.Part("file", fileContent);
         multipartContent.addPart(filePart);
