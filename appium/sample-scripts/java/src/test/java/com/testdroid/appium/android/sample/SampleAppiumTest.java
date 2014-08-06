@@ -62,7 +62,8 @@ public class SampleAppiumTest {
         capabilities.setCapability("testdroid_testrun", "Android Run 1");
         //capabilities.setCapability("testdroid_device", "samsung Nexus 10");
         capabilities.setCapability("testdroid_device", "LG Google Nexus 5 D821 4.4");
-        capabilities.setCapability("testdroid_app", fileUUID);
+        capabilities.setCapability("testdroid_app", fileUUID); //to use existing app using "latest" as fileUUID
+        capabilities.setCapability("testdroid_target", "Android");
         capabilities.setCapability("app", "com.bitbar.testdroid");
         System.out.println("Capabilities:" + capabilities.toString());
         wd = new AppiumDriver(new URL(TESTDROID_SERVER+"/wd/hub"), capabilities);
@@ -85,7 +86,7 @@ public class SampleAppiumTest {
 
                 });
         MultipartFormDataContent multipartContent = new MultipartFormDataContent();
-        FileContent fileContent = new FileContent("application/zip", new File(filePath));
+        FileContent fileContent = new FileContent("application/octet-stream", new File(filePath));
 
         MultipartFormDataContent.Part filePart = new MultipartFormDataContent.Part("file", fileContent);
         multipartContent.addPart(filePart);
