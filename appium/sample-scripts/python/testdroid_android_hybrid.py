@@ -35,13 +35,16 @@ def screenshot(name):
 desired_capabilities_cloud = {}
 desired_capabilities_cloud['testdroid_username'] = testdroid_username
 desired_capabilities_cloud['testdroid_password'] = testdroid_password
+desired_capabilities_cloud['testdroid_target'] = 'chrome'
 desired_capabilities_cloud['testdroid_project'] = 'Appium Android Hybrid Demo'
 desired_capabilities_cloud['testdroid_testrun'] = 'TestRun 1'
 desired_capabilities_cloud['testdroid_device'] = testdroid_device
 desired_capabilities_cloud['testdroid_app'] = 'sample/testdroid-sample.apk'
-desired_capabilities_cloud['device'] = 'selendroid'
-desired_capabilities_cloud['app-package'] = 'com.testdroid.sample.android'
-desired_capabilities_cloud['app-activity'] = '.MA_MainActivity'
+desired_capabilities_cloud['platformName'] = 'Android'
+desired_capabilities_cloud['deviceName'] = 'Android Phone'
+desired_capabilities_cloud['automationName'] = 'selendroid'
+desired_capabilities_cloud['appPackage'] = 'com.testdroid.sample.android'
+desired_capabilities_cloud['appActivity'] = '.MA_MainActivity'
 
 desired_caps = desired_capabilities_cloud;
 

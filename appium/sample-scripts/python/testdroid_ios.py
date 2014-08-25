@@ -24,15 +24,17 @@ testdroid_password = "p4s$w0rd"
 testdroid_device = "iPad 3 A1416 7.0.4" # Example device. Change if you desire.
 
 desired_capabilities_cloud={
-        'app': 'com.bitbar.testdroid.BitbarIOSSample',
-        'device': 'iphone',
-        'testdroid_app': 'sample/BitbarIOSSample.ipa',
         'testdroid_username': testdroid_username,
         'testdroid_password': testdroid_password,
         'testdroid_project': 'Appium iOS Project1',
+        'testdroid_target': 'ios',
         'testdroid_description': 'Appium project description',
         'testdroid_testrun': 'Test Run 1',
         'testdroid_device': testdroid_device,
+        'testdroid_app': 'sample/BitbarIOSSample.ipa',
+        'platformName': 'iOS',
+        'deviceName': 'iPhone device',
+        'bundleId': 'com.bitbar.testdroid.BitbarIOSSample',
     }
     
 # set up webdriver

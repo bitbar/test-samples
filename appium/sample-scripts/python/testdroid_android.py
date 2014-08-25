@@ -26,13 +26,16 @@ testdroid_device = "LG Google Nexus 5 D821 4.4" # Example device. Change if you 
 desired_capabilities_cloud = {}
 desired_capabilities_cloud['testdroid_username'] = testdroid_username
 desired_capabilities_cloud['testdroid_password'] = testdroid_password
-desired_capabilities_cloud['testdroid_project'] = 'Appium Android Demo'
-desired_capabilities_cloud['testdroid_testrun'] = 'TestRun A'
+desired_capabilities_cloud['testdroid_target'] = 'Android'
+desired_capabilities_cloud['testdroid_project'] = 'Appium 1.2.0 Android Demo'
+desired_capabilities_cloud['testdroid_testrun'] = 'TestRun 1'
 desired_capabilities_cloud['testdroid_device'] = testdroid_device
-desired_capabilities_cloud['testdroid_app'] = 'sample/BitbarAndroidSample.apk'
-desired_capabilities_cloud['device'] = 'Android'
-desired_capabilities_cloud['app-package'] = 'com.bitbar.testdroid'
-desired_capabilities_cloud['app-activity'] = '.BitbarSampleApplicationActivity'
+desired_capabilities_cloud['testdroid_app'] = 'sample/BitbarSampleApp.apk'
+desired_capabilities_cloud['app'] = '/Users/saad/Documents/Quick/BitbarSampleApp.apk'
+desired_capabilities_cloud['platformName'] = 'Android'
+desired_capabilities_cloud['deviceName'] = 'Android Phone'
+desired_capabilities_cloud['appPackage'] = 'com.bitbar.testdroid'
+desired_capabilities_cloud['appActivity'] = '.BitbarSampleApplicationActivity'
 
 desired_caps = desired_capabilities_cloud;
 
@@ -52,7 +55,7 @@ log ("  Taking screenshot: 1_appLaunch.png")
 driver.save_screenshot(screenshotDir + "/1_appLaunch.png")
 
 log ("  Typing in name")
-elems=driver.find_elements_by_tag_name('EditText')
+elems=driver.find_elements_by_class_name('android.widget.EditText')
 log ("  info: EditText:" + `len(elems)`)
 log ("  Filling in name")
 elems[0].click()
