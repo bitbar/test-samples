@@ -27,12 +27,13 @@ testdroid_device = "LG Google Nexus 5 D821 4.4" # Example device. Change if you 
 desired_capabilities_cloud = {}
 desired_capabilities_cloud['testdroid_username'] = testdroid_username
 desired_capabilities_cloud['testdroid_password'] = testdroid_password
+desired_capabilities_cloud['testdroid_target'] = 'chrome'
 desired_capabilities_cloud['testdroid_project'] = 'Appium Chrome Demo'
 desired_capabilities_cloud['testdroid_testrun'] = 'TestRun A'
 desired_capabilities_cloud['testdroid_device'] = testdroid_device
-desired_capabilities_cloud['testdroid_app'] = 'sample/ApiDemos.apk'
-desired_capabilities_cloud['device'] = 'Android'
-desired_capabilities_cloud['app'] = 'chrome'
+desired_capabilities_cloud['platformName'] = 'Android'
+desired_capabilities_cloud['deviceName'] = 'AndroidDevice'
+desired_capabilities_cloud['browserName'] = 'chrome'
 
 desired_caps = desired_capabilities_cloud;
 
