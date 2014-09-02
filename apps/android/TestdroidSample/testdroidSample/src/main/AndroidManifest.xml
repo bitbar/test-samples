@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.testdroid.sample.android" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MM_MainMenu"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:name=".AB_About"
+            android:label="@string/ab_title" >
+        </activity>
+        <activity
+            android:name=".NA_Native"
+            android:label="@string/na_title" >
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:name=".AN_Answer"
+            android:screenOrientation="portrait"
+            android:label="@string/an_title" >
+        </activity>
+        <activity
+            android:name=".HY_Hybrid"
+            android:screenOrientation="portrait"
+            android:label="@string/hy_title" >
+        </activity>
+        <activity
+            android:name=".PT_PingTest"
+            android:screenOrientation="portrait"
+            android:label="@string/pt_title" >
+        </activity>
+        <activity
+            android:name=".FC_Functions"
+            android:screenOrientation="portrait"
+            android:label="@string/fc_title" >
+        </activity>
+        <activity
+            android:name=".SE_Settings"
+            android:screenOrientation="portrait"
+            android:label="@string/se_title" >
+        </activity>
+    </application>
+
+</manifest>

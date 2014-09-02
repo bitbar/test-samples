@@ -1,0 +1,119 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.testdroid.sample.android.AB_About">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:background="@color/bitbar_grey_light"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:adjustViewBounds="true"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/logo_bitbar"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="18sp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/ab_textBitbar"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:background="@color/bitbar_grey_light"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:adjustViewBounds="true"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/logo_testdroid"
+                    android:layout_height="30dp" />
+
+                <ImageView
+                    android:layout_marginTop="20dp"
+                    android:adjustViewBounds="true"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/logo_cloud"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="18sp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/ab_textCloud"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginTop="20dp"
+                    android:adjustViewBounds="true"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/logo_privatecloud"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="18sp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/ab_textPrivateCloud"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginTop="20dp"
+                    android:adjustViewBounds="true"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/logo_enterprise"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="18sp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/ab_textEnterprise"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginTop="20dp"
+                    android:adjustViewBounds="true"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/logo_recorder"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="18sp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/ab_textRecorder"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

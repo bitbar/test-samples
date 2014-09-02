@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.testdroid.sample.android.MM_MainMenu">
+
+    <LinearLayout
+        android:layout_width="110dp"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/mm_iv_title"
+            android:layout_width="0dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_weight="1"
+            android:src="@drawable/set_button_testdroid_horizontal_background"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="10dp"
+        android:background="@drawable/bg_depth_left"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="10dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_width="0dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/mm_b_native"
+                    android:text="@string/na_title"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/icon_native"
+                    style="@style/button_Menu"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/mm_b_hybrid"
+                    android:text="@string/hy_title"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    style="@style/button_Menu"
+                    android:drawableLeft="@drawable/icon_hybrid"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/mm_b_game"
+                    android:text="@string/ga_title"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    style="@style/button_Menu"
+                    android:enabled="false"
+                    android:alpha="0.5"
+                    android:drawableLeft="@drawable/icon_game"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/mm_b_functions"
+                    android:text="@string/fc_title"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    style="@style/button_Menu"
+                    android:drawableLeft="@drawable/icon_functions"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/mm_b_settings"
+                    android:text="@string/se_title"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    style="@style/button_Menu"
+                    android:drawableLeft="@drawable/icon_settings"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textColor="@color/black_50"
+            android:text="@string/app_version"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

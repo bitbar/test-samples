@@ -1,0 +1,70 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowBackground">@drawable/bg_gradient</item>
+        <item name="android:windowTitleSize">30dp</item>
+        <item name="android:actionBarStyle">@style/actionBarStyle</item>
+        <item name="android:actionBarItemBackground">@drawable/set_button_actionbar_background</item>
+        <item name="android:itemBackground">@drawable/set_button_actionbar_background</item>
+        <item name="android:windowActionBarOverlay">false</item>
+        <item name="android:textViewStyle">@style/TextView</item>
+        <item name="android:buttonStyle">@style/Button</item>
+        <item name="android:radioButtonStyle">@style/RadioButton</item>
+        <item name="android:checkboxStyle">@style/CheckBox</item>
+        <item name="android:editTextStyle">@style/EditText</item>
+    </style>
+
+    <style name="actionBarStyle" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/bg_title</item>
+        <item name="android:backgroundSplit">@drawable/bg_title2</item>
+        <item name="android:backgroundStacked">@drawable/bg_gradient</item>
+    </style>
+
+    <style name="TextView" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/bitbar_grey_dark</item>
+    </style>
+
+    <style name="Button" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/set_button_default_background</item>
+        <item name="android:textColor">@drawable/set_button_default_textcolor</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="RadioButton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/set_radio_default</item>
+        <item name="android:textColor">@color/bitbar_grey_dark</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+    <style name="CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/set_check_default</item>
+    </style>
+
+    <style name="EditText" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/set_edittext_default_background</item>
+        <item name="android:textColor">@drawable/set_edittext_default_textcolor</item>
+    </style>
+
+    <!-- Manually applied styles-->
+
+    <style name="button_Menu" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/set_button_default_background</item>
+        <item name="android:textColor">@drawable/set_button_default_textcolor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="imageButton_Game" parent="@android:style/Widget.ImageButton">
+        <item name="android:contentDescription">image</item>
+        <item name="android:background">@drawable/set_button_game_background</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+</resources>

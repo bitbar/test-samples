@@ -1,0 +1,217 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.testdroid.sample.android.NA_Native">
+
+    <LinearLayout
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:singleLine="false"
+            android:text="@string/na_question"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/na_tv_score"
+            android:background="@drawable/button_score"
+            android:textStyle="bold"
+            android:textSize="26sp"
+            android:text="88"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/na_ll_game"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3">
+
+            <ImageButton
+                android:id="@+id/na_ib_tile1"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+            <ImageButton
+                android:id="@+id/na_ib_tile2"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+            <ImageButton
+                android:id="@+id/na_ib_tile3"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+
+            <ImageButton
+                android:id="@+id/na_ib_tile4"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+            <ImageButton
+                android:id="@+id/na_ib_tile5"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+            <ImageButton
+                android:id="@+id/na_ib_tile6"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+            <ImageButton
+                android:id="@+id/na_ib_tile7"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+            <ImageButton
+                android:id="@+id/na_ib_tile8"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+            <ImageButton
+                android:id="@+id/na_ib_tile9"
+                style="@style/imageButton_Game"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_margin="1dp" />
+
+        </GridLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/na_ll_question"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/na_rg_options"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/na_rb_option1"
+                    android:drawablePadding="50dp"
+                    android:textSize="22sp"
+                    android:text="@string/na_option1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/na_rb_option2"
+                    android:textSize="22sp"
+                    android:text="@string/na_option2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/na_rb_option3"
+                    android:textSize="22sp"
+                    android:text="@string/na_option3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/na_et_name"
+                android:layout_marginTop="30dp"
+                android:hint="@string/na_answerHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp" />
+
+        <LinearLayout
+            android:background="@drawable/bg_title2"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+
+            <Button
+                android:id="@+id/na_b_answer"
+                android:adjustViewBounds="true"
+                android:text="@string/na_answer"
+                android:background="@drawable/set_button_actionbar_background"
+                android:scaleType="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

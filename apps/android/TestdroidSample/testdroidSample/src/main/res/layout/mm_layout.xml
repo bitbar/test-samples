@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.testdroid.sample.android.MM_MainMenu">
+
+    <ImageView
+        android:id="@+id/mm_iv_title"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:layout_width="match_parent"
+        android:src="@drawable/set_button_testdroid_background"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_height="110dp" />
+
+    <ScrollView
+        android:background="@drawable/bg_depth_top"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/mm_b_native"
+                android:text="@string/na_title"
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/icon_native"
+                style="@style/button_Menu"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/mm_b_hybrid"
+                android:text="@string/hy_title"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                style="@style/button_Menu"
+                android:drawableLeft="@drawable/icon_hybrid"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/mm_b_game"
+                android:text="@string/ga_title"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                style="@style/button_Menu"
+                android:enabled="false"
+                android:alpha="0.5"
+                android:drawableLeft="@drawable/icon_game"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/mm_b_functions"
+                android:text="@string/fc_title"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                style="@style/button_Menu"
+                android:drawableLeft="@drawable/icon_functions"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/mm_b_settings"
+                android:text="@string/se_title"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                style="@style/button_Menu"
+                android:drawableLeft="@drawable/icon_settings"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="@color/black_50"
+        android:text="@string/app_version"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
