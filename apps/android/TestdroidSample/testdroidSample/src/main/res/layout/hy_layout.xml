@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.testdroid.sample.android.HY_Hybrid">
+
+    <FrameLayout
+        android:id="@+id/hy_fl_urlPanel"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+
+        <EditText
+            android:id="@+id/hy_et_url"
+            android:paddingRight="50dp"
+            android:layout_width="match_parent"
+            android:singleLine="true"
+            android:hint="@string/hy_urlHint"
+            android:inputType="textNoSuggestions"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/hy_ib_loadUrl"
+            android:layout_width="50dp"
+            android:layout_gravity="right"
+            android:src="@drawable/set_button_go_background"
+            android:adjustViewBounds="true"
+            android:layout_alignRight="@id/hy_et_url"
+            android:background="@color/transparent"
+            android:scaleType="centerInside"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:background="@color/bitbar_tone2"
+            android:layout_height="3dp" />
+
+        <ProgressBar
+            android:layout_gravity="bottom"
+            android:id="@+id/hy_pb_loading"
+            android:visibility="gone"
+            android:indeterminate="true"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminateDrawable="@drawable/set_progressbar_indeterminate_default_background"
+            android:layout_width="match_parent"
+            android:layout_height="3dp" />
+
+    </FrameLayout>
+
+
+    <WebView
+        android:id="@+id/hy_wv_webview"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"></WebView>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_title2"
+        android:layout_height="50dp">
+
+        <ImageButton
+            android:background="@drawable/set_button_actionbar_background"
+            android:id="@+id/hy_ib_navigateBack"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/button_back"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:background="@drawable/set_button_actionbar_background"
+            android:id="@+id/hy_ib_navigateForward"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/button_forward"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>

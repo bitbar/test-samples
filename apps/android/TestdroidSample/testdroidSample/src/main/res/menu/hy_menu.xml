@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.testdroid.sample.android.MM_MainMenu">
+
+    <item
+        android:id="@+id/hy_menu_type"
+        android:title="@string/hy_menu_type_local"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/hy_menu_clearCache"
+        android:title="@string/hy_menu_clearCache"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+</menu>

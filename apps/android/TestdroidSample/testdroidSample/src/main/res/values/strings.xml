@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Testdroid</string>
+    <string name="app_version">Version 0.1 © Bitbar</string>
+
+    <!-- MM_MainMenu -->
+    <string name="mm_action_about">About</string>
+
+    <!-- AB_About -->
+    <string name="ab_title">About</string>
+    <string name="ab_textBitbar">Bitbar is a technology and services company that provides high-performance mobile software development and testing solutions based on widely adopted open standards. The company’s flagship cloud-based Android testing solution, Testdroid Cloud, is the first automated, real-time testing tool for mobile application developers. The company also offers Testdroid Recorder to automatically generate standards-based test scripts and Testdroid Enterprise for Android and iOS for companies to build in-house test labs. Bitbar helps accelerate time to market and lowers costs of developing software on mobile platforms – from smartphones to tablet computers and even cameras.</string>
+    <string name="ab_textCloud">Online service for testing your application on 280+ Real Android devices and 20+ iOS devices hosted by Bitbar.</string>
+    <string name="ab_textPrivateCloud">A cloud-based – devices-as-a-service – access for company to access real mobile devices privately on pre-selected set of Android and iOS devices.</string>
+    <string name="ab_textEnterprise">Server software for managing all aspects of automated testing on multiple real Android and iOS devices simultaneously.</string>
+    <string name="ab_textRecorder">Testdroid Recorder is a unique tool for recording user actions, generating reusable Android JUnit test cases and running them in Testdroid Cloud.</string>
+
+    <!-- NA_Native -->
+    <string name="na_title">Native Activity</string>
+    <string name="na_question">What is the best way to test your app on hundreds of devices?</string>
+    <string name="na_option1">Buy 101 devices</string>
+    <string name="na_option2">Use Testdroid Cloud</string>
+    <string name="na_option3">Ask mommy for help</string>
+    <string name="na_answerHint">Your name?</string>
+    <string name="na_answer">Answer</string>
+
+    <!-- AN_Answer -->
+    <string name="an_title">Answer</string>
+    <string name="an_headingCorrect">Correct !!!</string>
+    <string name="an_headingWrong">Oops !!!</string>
+    <string name="an_commentCorrect">You are right</string>
+    <string name="an_commentWrong">Haven\'t you heard about Testdroid Cloud</string>
+
+    <!-- HY_Hybrid -->
+    <string name="hy_title">Hybrid Activity</string>
+    <string name="hy_urlHint">http://www.google.com</string>
+    <!--<string name="hy_urlHint">http://testdroid.com/automate-app-testing-on-real-mobile-devices</string>-->
+    <string name="hy_menu_clearCache">Clear cache</string>
+    <string name="hy_menu_type_local">Local web</string>
+    <string name="hy_menu_type_internet">Internet</string>
+
+    <!-- GA_Game -->
+    <string name="ga_title">Game</string>
+
+    <!-- PT_PingTest -->
+    <string name="pt_title">Ping Test</string>
+    <string name="pt_ping">Ping</string>
+    <string name="pt_defaultHost">google.com</string>
+    <string name="pt_host">Host</string>
+    <string name="pt_count">Packets</string>
+    <string name="pt_statusPinging">Pinging</string>
+    <string name="pt_statusSuccess">Success</string>
+    <string name="pt_statusFail">Fail</string>
+
+    <!-- FC_Functions -->
+    <string name="fc_title">Functions</string>
+    <string name="fc_explode">Explode</string>
+    <string name="fc_anr">ANR</string>
+
+    <!-- SE_Settings -->
+    <string name="se_title">Settings</string>
+    <string name="se_deleteCache">Delete Cache</string>
+
+    <!-- toasts -->
+    <string name="toast_invalidUrl">Invalid URL</string>
+
+</resources>
