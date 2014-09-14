@@ -198,7 +198,7 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_height="50dp">
+            android:layout_height="@dimen/height_actionbar">
 
             <Button
                 android:id="@+id/na_b_answer"

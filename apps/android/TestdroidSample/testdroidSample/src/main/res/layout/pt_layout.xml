@@ -41,7 +41,7 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_height="40dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="@string/pt_count"
@@ -228,7 +228,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:background="@drawable/bg_title2"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/height_actionbar">
 
         <Button
             android:id="@+id/pt_b_ping"
