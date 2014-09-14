@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.testdroid.sample.android.MM_MainMenu">
+
+    <ExpandableListView
+        android:id="@+id/di_elv_deviceInfo"
+        android:layout_width="match_parent"
+        android:listSelector="@drawable/set_listview_default"
+        android:groupIndicator="@color/transparent"
+        android:childDivider="@color/black_10"
+        android:divider="@color/bitbar_tone2"
+        android:dividerHeight="1dp"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

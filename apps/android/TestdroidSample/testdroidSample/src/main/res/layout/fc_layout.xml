@@ -18,6 +18,17 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/fc_b_rest"
+        android:text="@string/re_title"
+        style="@style/button_Menu"
+        android:drawableLeft="@drawable/icon_rest"
+        android:enabled="false"
+        android:alpha="0.5"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
         android:id="@+id/fc_b_explode"
         android:layout_width="match_parent"
         android:text="@string/fc_explode"

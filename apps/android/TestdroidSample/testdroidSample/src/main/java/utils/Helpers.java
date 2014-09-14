@@ -1,6 +1,8 @@
 package utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Pair;
@@ -70,6 +72,16 @@ public class Helpers {
             return !ViewConfiguration.get(context).hasPermanentMenuKey();
         }
         return false;
+    }
+
+    public static String getAppVersion(Context context) {
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            String version = pInfo.versionName;
+            return version;
+        } catch (PackageManager.NameNotFoundException e) {
+            return null;
+        }
     }
 
 }

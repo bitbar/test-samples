@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Normal -->
+    <item android:drawable="@color/transparent" android:state_window_focused="false" />
+
+    <!-- Disabled -->
+    <item android:drawable="@color/black" android:state_enabled="false" android:state_focused="true" android:state_pressed="true" />
+    <item android:drawable="@color/black" android:state_enabled="false" android:state_focused="true" />
+
+    <item android:drawable="@drawable/set_listview_default_transition" android:state_focused="true" android:state_pressed="true" />
+    <item android:drawable="@drawable/set_listview_default_transition" android:state_focused="false" android:state_pressed="true" />
+
+    <!-- Focus -->
+    <item android:drawable="@color/bitbar_tone1" android:state_focused="true" />
+
+</selector>
