@@ -4,10 +4,11 @@
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">false</item>
-        <item name="android:windowBackground">@drawable/bg_gradient</item>
+        <item name="android:windowBackground">@drawable/bg_default</item>
         <item name="android:windowTitleSize">30dp</item>
         <item name="android:actionBarStyle">@style/actionBarStyle</item>
-        <item name="android:actionBarItemBackground">@drawable/set_button_actionbar_background</item>
+        <item name="android:actionBarItemBackground">@drawable/set_button_actionbar_background
+        </item>
         <item name="android:itemBackground">@drawable/set_button_actionbar_background</item>
         <item name="android:windowActionBarOverlay">false</item>
         <item name="android:textViewStyle">@style/TextView</item>
@@ -20,7 +21,7 @@
     <style name="actionBarStyle" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">@drawable/bg_title</item>
         <item name="android:backgroundSplit">@drawable/bg_title2</item>
-        <item name="android:backgroundStacked">@drawable/bg_gradient</item>
+        <item name="android:backgroundStacked">@drawable/bg_default</item>
     </style>
 
     <style name="TextView" parent="@android:style/Widget.TextView">
@@ -49,6 +50,21 @@
     </style>
 
     <!-- Manually applied styles-->
+
+    <style name="textView_Divider" parent="@android:style/Widget.TextView">
+        <item name="android:background">@drawable/divider</item>
+        <item name="android:layout_height">3dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <style name="textView_Header" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/bitbar_grey_dark</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
 
     <style name="button_Menu" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/set_button_default_background</item>

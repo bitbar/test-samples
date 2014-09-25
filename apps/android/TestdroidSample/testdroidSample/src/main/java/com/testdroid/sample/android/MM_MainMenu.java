@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import utils.Helpers;
 
 /**
  * @author Saad Chaudhry <saad.chaudry@bitbar.com>
@@ -18,10 +21,12 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
     private static final String TAG = MM_MainMenu.class.getName().toString();
 
     // UI Widgets
+    private static TextView tv_version;
     private static ImageView iv_title;
     private static Button b_native;
     private static Button b_hybrid;
-    private static Button b_funtions;
+    private static Button b_functions;
+    private static Button b_deviceInfo;
     private static Button b_settings;
 
     @Override
@@ -31,18 +36,23 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
         getActionBar().hide();
         setContentView(R.layout.mm_layout);
 
+        tv_version = (TextView) findViewById(R.id.mm_tv_version);
         iv_title = (ImageView) findViewById(R.id.mm_iv_title);
         b_native = (Button) findViewById(R.id.mm_b_native);
         b_hybrid = (Button) findViewById(R.id.mm_b_hybrid);
-        b_funtions = (Button) findViewById(R.id.mm_b_functions);
+        b_functions = (Button) findViewById(R.id.mm_b_functions);
+        b_deviceInfo = (Button) findViewById(R.id.mm_b_deviceInfo);
         b_settings = (Button) findViewById(R.id.mm_b_settings);
 
 
         iv_title.setOnClickListener(this);
         b_native.setOnClickListener(this);
         b_hybrid.setOnClickListener(this);
-        b_funtions.setOnClickListener(this);
+        b_functions.setOnClickListener(this);
+        b_deviceInfo.setOnClickListener(this);
         b_settings.setOnClickListener(this);
+
+        tv_version.setText(String.format(getString(R.string.app_version), Helpers.getAppVersion(getApplicationContext())));
 
     }
 
@@ -82,6 +92,9 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
             case R.id.mm_b_functions:
                 goto_FC();
                 break;
+            case R.id.mm_b_deviceInfo:
+                goto_DI();
+                break;
             case R.id.mm_b_settings:
                 goto_SE();
                 break;
@@ -108,6 +121,12 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
 
     private void goto_FC() {
         Intent intent = new Intent(MM_MainMenu.this, FC_Functions.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    private void goto_DI() {
+        Intent intent = new Intent(MM_MainMenu.this, DI_DeviceInfo.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

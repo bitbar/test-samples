@@ -89,6 +89,15 @@
                     android:layout_height="wrap_content" />
 
                 <Button
+                    android:id="@+id/mm_b_deviceInfo"
+                    android:text="@string/di_title"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    style="@style/button_Menu"
+                    android:drawableLeft="@drawable/icon_device"
+                    android:layout_height="wrap_content" />
+
+                <Button
                     android:id="@+id/mm_b_settings"
                     android:text="@string/se_title"
                     android:layout_width="match_parent"
@@ -102,6 +111,7 @@
         </ScrollView>
 
         <TextView
+            android:id="@+id/mm_tv_version"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:gravity="center"

@@ -9,10 +9,76 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.testdroid.sample.android.SE_Settings">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:text="@string/se_defaults"
+        style="@style/textView_Header"
+        android:layout_height="wrap_content" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow android:gravity="center_vertical">
+
+            <TextView
+                android:text="@string/se_hybridUrl"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:hint="TODO"
+                android:layout_weight="2" />
+
+        </TableRow>
+
+        <TableRow
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:text="@string/se_pingHost"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:hint="TODO"
+                android:layout_width="0dp"
+                android:layout_weight="2" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        style="@style/textView_Divider"
+        android:layout_width="match_parent"
+        android:background="@drawable/divider"
+        android:layout_height="3dp" />
+
     <Button
         android:id="@+id/se_b_deleteCache"
-        android:text="@string/se_deleteCache"
-        android:padding="10dp"
+        android:text="@string/se_deleteAppCache"
+        android:drawableLeft="@drawable/icon_delete"
+        style="@style/button_Menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/se_b_deleteData"
+        android:text="@string/se_deleteAppData"
+        style="@style/button_Menu"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/icon_delete"
+        android:enabled="false"
+        android:alpha="0.5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

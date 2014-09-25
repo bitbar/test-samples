@@ -61,7 +61,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:background="@drawable/bg_title2"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/height_actionbar">
 
         <ImageButton
             android:background="@drawable/set_button_actionbar_background"

@@ -32,6 +32,8 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
     Menu menu;
 
     private boolean isLocalWeb = false;
+    private boolean isClearHistoryAfterLoad = false;
+
 
     // UI Widgets
     private static FrameLayout fl_urlPanel;
@@ -55,9 +57,12 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
         ib_navigateBackward = (ImageButton) findViewById(R.id.hy_ib_navigateBack);
         ib_navigateForward = (ImageButton) findViewById(R.id.hy_ib_navigateForward);
 
+        et_url.setOnClickListener(this);
         ib_loadUrl.setOnClickListener(this);
         ib_navigateBackward.setOnClickListener(this);
         ib_navigateForward.setOnClickListener(this);
+
+        et_url.setOnFocusChangeListener(this.onFocusChangeListener);
 
         // setting WebView
         {
@@ -112,6 +117,9 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.hy_et_url:
+                urlBarClicked();
+                break;
             case R.id.hy_ib_loadUrl:
                 loadUrl();
                 break;
@@ -124,6 +132,15 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
         }
 
     }
+
+    View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                urlBarClicked();
+            }
+        }
+    };
 
     WebViewClient webViewClient = new WebViewClient() {
         @Override
@@ -138,7 +155,12 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
             if (url.startsWith("http")) {
                 et_url.setText(url);
             }
+            if (isClearHistoryAfterLoad) {
+                wv_webView.clearHistory();
+                isClearHistoryAfterLoad = false;
+            }
             setNavigationButtons();
+
             super.onPageFinished(view, url);
         }
 
@@ -153,6 +175,10 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
             super.doUpdateVisitedHistory(view, url, isReload);
         }
     };
+
+    private void urlBarClicked() {
+        et_url.setText("");
+    }
 
     private void loadUrl() {
         String url = et_url.getText().toString().replace(" ", "");
@@ -215,6 +241,7 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
             Helpers.toastDefault(getApplicationContext(), "Switched to local web", Toast.LENGTH_SHORT);
         }
 
+        isClearHistoryAfterLoad = true;
         wv_webView.clearHistory();
     }
 

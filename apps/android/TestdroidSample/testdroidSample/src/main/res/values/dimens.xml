@@ -3,4 +3,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="margin_activity_dialog_narrow">15dp</dimen>
     <dimen name="margin_activity_dialog_wide">20dp</dimen>
+    <dimen name="height_actionbar">45dp</dimen>
 </resources>
