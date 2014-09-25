@@ -1,0 +1,4 @@
+gem "parallel_tests"
+gem "rspec-core"
+gem "selenium-webdriver"
+gem "curb"
