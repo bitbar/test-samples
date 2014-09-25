@@ -63,7 +63,7 @@ require 'selenium-webdriver'
   config.after(:suite) do
     puts "Configure done "+ENV['TEST_ENV_NUMBER']
     #make sure quit webdriver
-    #config.web_driver.quit
+    config.web_driver.quit if config.web_driver 
   end
 
 end
