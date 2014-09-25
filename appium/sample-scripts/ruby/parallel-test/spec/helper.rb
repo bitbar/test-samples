@@ -1,0 +1,86 @@
+
+require "parallel_tests"
+require 'selenium-webdriver'
+require 'curb'
+require 'selenium/webdriver/remote/http/curb'
+
+#make sure that credentials has been set
+testdroid_username = ENV["TESTDROID_USERNAME"]
+testdroid_password = ENV["TESTDROID_PASSWORD"]
+
+
+server_url = 'http://appium.testdroid.com/wd/hub'
+
+
+RSpec.configure do |config|
+  #require 'parallel_tests'
+require 'selenium-webdriver'
+  config.before(:suite) do
+    #Define all the devices where tests will be executed 
+  	device = ["Asus Google Nexus 7 ME370T 4.2.2", "Asus Google Nexus 7 ME370T 4.3 JWR66Y", "Asus Google Nexus 7 ME370T 4.4.2"]
+    File.delete("upload.completed") if File.exist?('upload.completed')
+    #Only the first process should do the app uploading - now it returns "latest" which means that use earlier uploaded file
+    testdroid_app = ParallelTests.first_process? ? upload_file() : sleep_until_upload_completed()
+    index = 0
+    #TEST_ENV_NUMBER - has the current process number (1st = "" , 2nd = 1, 3rd = 2..etc)
+    if (ENV['TEST_ENV_NUMBER'] == "" )
+      index = 0
+    else 
+      index = ENV['TEST_ENV_NUMBER'].to_i-1
+    end
+    puts "Current device:"+device[index];
+   
+    #Set Testdroid cloud appium settings
+    desired_capabilities_cloud={
+          'device'=> 'Android',
+        'testdroid_app'=> nil,
+        'testdroid_username'=> testdroid_username,
+        'testdroid_password'=> testdroid_password,
+        'testdroid_project'=> 'Appium Android demo',
+        'testdroid_description'=> 'Appium project description',
+        'testdroid_testrun'=> 'Test Run 1',
+        'testdroid_device'=> device[index],
+        'appPackage' => 'com.bitbar.testdroid',
+         'appActivity' => '.BitbarSampleApplicationActivity',
+         'testdroid_target' => 'Android',
+         'deviceName' => 'Android Phone',
+         'platformName' => 'Android',
+    }
+
+    desired_capabilities_cloud['testdroid_app']=testdroid_app
+    http_client = WebDriver::Remote::Http::Curb.new
+    http_client.timeout = nil #not timeout for Webdriver calls
+    log ("Start Wbdriver with [#{desired_capabilities_cloud}]")
+    driver = Selenium::WebDriver.for(:remote, :desired_capabilities => desired_capabilities_cloud, :url => server_url, :http_client => http_client)
+    puts "Driver #{driver}"
+    #Adding webdriver to Rspec configuration so we can access it from our tests
+    config.add_setting :web_driver
+    config.web_driver = driver
+
+
+  end
+
+  config.after(:suite) do
+    puts "Configure done "+ENV['TEST_ENV_NUMBER']
+    #make sure quit webdriver
+    #config.web_driver.quit
+  end
+
+end
+
+#Do the test uploading here - now this is just static sleep
+def upload_file
+  puts "uploading"
+  
+  sleep 20
+  File.open("upload.completed", "w") {}
+  puts "done"
+  return "latest"
+end
+
+def sleep_until_upload_completed
+  puts "Sleeping until upload completed"
+  sleep(1) until  File.exist?('upload.completed')
+  puts "File was uploaded"
+  return "latest"
+end
