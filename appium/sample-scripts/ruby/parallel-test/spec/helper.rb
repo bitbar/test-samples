@@ -50,9 +50,10 @@ require 'selenium-webdriver'
     desired_capabilities_cloud['testdroid_app']=testdroid_app
     http_client = WebDriver::Remote::Http::Curb.new
     http_client.timeout = nil #not timeout for Webdriver calls
-    log ("Start Wbdriver with [#{desired_capabilities_cloud}]")
+    log ("Start Webdriver with [#{desired_capabilities_cloud}]")
+
     driver = Selenium::WebDriver.for(:remote, :desired_capabilities => desired_capabilities_cloud, :url => server_url, :http_client => http_client)
-    puts "Driver #{driver}"
+
     #Adding webdriver to Rspec configuration so we can access it from our tests
     config.add_setting :web_driver
     config.web_driver = driver
@@ -61,9 +62,9 @@ require 'selenium-webdriver'
   end
 
   config.after(:suite) do
-    puts "Configure done "+ENV['TEST_ENV_NUMBER']
+    puts "Test suite done"
     #make sure quit webdriver
-    config.web_driver.quit if config.web_driver 
+    config.web_driver.quit if defined? config.web_driver 
   end
 
 end
