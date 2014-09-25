@@ -84,3 +84,4 @@ def sleep_until_upload_completed
   puts "File was uploaded"
   return "latest"
 end
+
