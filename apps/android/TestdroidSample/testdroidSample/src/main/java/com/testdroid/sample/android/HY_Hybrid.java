@@ -22,6 +22,8 @@ import java.net.URISyntaxException;
 
 import utils.Helpers;
 
+import static android.webkit.WebView.setWebContentsDebuggingEnabled;
+
 /**
  * @author Saad Chaudhry <saad.chaudry@bitbar.com>
  */
@@ -70,6 +72,9 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
             webSettings.setJavaScriptEnabled(true);
             wv_webView.setWebViewClient(this.webViewClient);
         }
+
+        // enable WebView debugging - for Appium to be able to switch to WebView context
+        setWebContentsDebuggingEnabled(true);
 
         // don't auto-pop keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

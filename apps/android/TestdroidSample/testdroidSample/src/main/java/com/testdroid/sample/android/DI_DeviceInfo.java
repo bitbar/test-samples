@@ -3,10 +3,15 @@ package com.testdroid.sample.android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -19,6 +24,7 @@ import com.testdroid.sample.android.models.DeviceProperty;
 import com.testdroid.sample.android.models.DevicePropertyGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickListener {
 
@@ -101,12 +107,33 @@ public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickList
         // GPS
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         boolean isGps = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        propertyGroup.add(new DeviceProperty("GPS", "" + isGps));
+        String gpsString;
+        if (isGps) {
+            gpsString = "On";
+        } else {
+            gpsString = "Off";
+        }
+        propertyGroup.add(new DeviceProperty("GPS", "" + gpsString));
 
-        propertyGroup.add(new DeviceProperty("WiFi", "TODO"));
-        propertyGroup.add(new DeviceProperty("Camera", "TODO"));
-        propertyGroup.add(new DeviceProperty("Front camera", "TODO"));
-        propertyGroup.add(new DeviceProperty("SDCard", "TODO"));
+        // Wifi
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        String wifiString;
+        if (wifi.isConnected()) {
+            wifiString = "Connected";
+        } else {
+            wifiString = "Disconnected";
+        }
+        propertyGroup.add(new DeviceProperty("WiFi", wifiString));
+
+        // SDCard
+        String sdCardString;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            sdCardString = "Mounted";
+        } else {
+            sdCardString = "Unavailable";
+        }
+        propertyGroup.add(new DeviceProperty("SDCard", sdCardString));
 
         propertyGroupList.add(new DevicePropertyGroup("Hardware", propertyGroup));
 
@@ -116,11 +143,11 @@ public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickList
 
         ArrayList<DeviceProperty> propertyGroup = new ArrayList<DeviceProperty>();
 
-        propertyGroup.add(new DeviceProperty("SensorA", "TODO"));
-        propertyGroup.add(new DeviceProperty("SensorB", "TODO"));
-        propertyGroup.add(new DeviceProperty("SensorC", "TODO"));
-        propertyGroup.add(new DeviceProperty("SensorD", "TODO"));
-        propertyGroup.add(new DeviceProperty("SensorE", "TODO"));
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+        for (Sensor sensor : sensorList) {
+            propertyGroup.add(new DeviceProperty(sensor.getName(), "" + sensor.getType()));
+        }
 
         propertyGroupList.add(new DevicePropertyGroup("Sensors", propertyGroup));
 

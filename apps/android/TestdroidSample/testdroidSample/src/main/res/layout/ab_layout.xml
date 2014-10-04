@@ -63,7 +63,9 @@
                 android:text="@string/ab_textCloud"
                 android:layout_height="wrap_content" />
 
-            <TextView style="@style/textView_Divider" />
+            <TextView
+                style="@style/textView_Divider"
+                android:alpha="0.7" />
 
             <ImageView
                 android:adjustViewBounds="true"
@@ -78,7 +80,9 @@
                 android:text="@string/ab_textPrivateCloud"
                 android:layout_height="wrap_content" />
 
-            <TextView style="@style/textView_Divider" />
+            <TextView
+                style="@style/textView_Divider"
+                android:alpha="0.7" />
 
             <ImageView
                 android:adjustViewBounds="true"
@@ -93,7 +97,9 @@
                 android:text="@string/ab_textEnterprise"
                 android:layout_height="wrap_content" />
 
-            <TextView style="@style/textView_Divider" />
+            <TextView
+                style="@style/textView_Divider"
+                android:alpha="0.7" />
 
             <ImageView
                 android:adjustViewBounds="true"
