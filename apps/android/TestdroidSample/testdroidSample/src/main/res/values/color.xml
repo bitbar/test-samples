@@ -11,6 +11,9 @@
     <color name="status_yellow">#FFFFFF00</color>
     <color name="status_green">#FFA9CF3A</color>
 
+    <color name="bg_gradient1">#FFDEDEDE</color>
+    <color name="bg_gradient2">#FFAAAAAA</color>
+
     <!--  -->
     <color name="black">#FF000000</color>
     <color name="black_10">#1A000000</color>

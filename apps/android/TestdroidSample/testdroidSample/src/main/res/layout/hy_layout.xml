@@ -12,7 +12,9 @@
         android:layout_height="50dp">
 
         <EditText
+            android:background="@color/white"
             android:id="@+id/hy_et_url"
+            android:paddingLeft="10dp"
             android:paddingRight="50dp"
             android:layout_width="match_parent"
             android:singleLine="true"
@@ -51,6 +53,7 @@
 
 
     <WebView
+        android:contentDescription="com.testdroid.sample.android_webview"
         android:id="@+id/hy_wv_webview"
         android:layout_width="match_parent"
         android:layout_weight="1"

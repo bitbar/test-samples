@@ -31,6 +31,7 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:contentDescription="native_button"
                 android:id="@+id/mm_b_native"
                 android:text="@string/na_title"
                 android:layout_width="match_parent"

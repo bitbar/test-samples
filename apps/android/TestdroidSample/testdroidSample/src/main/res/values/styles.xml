@@ -11,6 +11,7 @@
         </item>
         <item name="android:itemBackground">@drawable/set_button_actionbar_background</item>
         <item name="android:windowActionBarOverlay">false</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="android:textViewStyle">@style/TextView</item>
         <item name="android:buttonStyle">@style/Button</item>
         <item name="android:radioButtonStyle">@style/RadioButton</item>
@@ -49,8 +50,12 @@
         <item name="android:textColor">@drawable/set_edittext_default_textcolor</item>
     </style>
 
-    <!-- Manually applied styles-->
+    <!-- Actionbar drop down background -->
+    <style name="PopupMenu" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@color/bg_gradient1</item>
+    </style>
 
+    <!-- Manually applied styles-->
     <style name="textView_Divider" parent="@android:style/Widget.TextView">
         <item name="android:background">@drawable/divider</item>
         <item name="android:layout_height">3dp</item>
