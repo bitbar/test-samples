@@ -26,7 +26,6 @@ def log(msg)
 end
 @testdroid_app=nil
 desired_capabilities_cloud={
-        'app'=> 'com.bitbar.testdroid.BitbarIOSSample',
         'device'=> 'iphone',
         'testdroid_app'=> nil,
         'testdroid_username'=> testdroid_username,
@@ -35,6 +34,10 @@ desired_capabilities_cloud={
         'testdroid_description'=> 'Appium project description',
         'testdroid_testrun'=> 'Test Run 1',
         'testdroid_device'=> testdroid_device,
+        'testdroid_target' => 'ios',
+        'deviceName' => 'iPhone device',
+        'platformName' => 'iOS',
+        'bundleId' => 'com.bitbar.testdroid.BitbarIOSSample'
     }
 
 
@@ -64,7 +67,7 @@ describe "BitbarIOSSample testing" do
     desired_capabilities_cloud['testdroid_app']=@testdroid_app
     http_client = WebDriver::Remote::Http::Curb.new
     http_client.timeout = nil #not timeout for Webdriver calls
-    log ("Start Wbdriver with [#{desired_capabilities_cloud}]")
+    log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Selenium::WebDriver.for(:remote, :desired_capabilities => desired_capabilities_cloud, :url => server_url, :http_client => http_client)
 
     log ("WebDriver response received")
@@ -78,28 +81,21 @@ describe "BitbarIOSSample testing" do
 
   it "should show failure page"  do
     log ("view1: Finding buttons")
-    buttons = @driver.find_elements(:tag_name, :button)
+    buttons = @driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
     log ("view1: Clicking button [0] - RadioButton 1")
     buttons[0].click()
 
     log ("view1: Typing in textfield[0]: Testdroid user")
-    @driver.find_elements(:tag_name,  :textField)[0].send_keys("Testdroid user")
-
-    y = 0.95
-    x = 0.5
-    log ("view1: Tapping at position (384, 0.95) - Estimated position of SpaceBar")
-    @driver.execute_script("mobile: tap",{"touchCount" => "1","x" => x,"y" => y})
+    @driver.find_element(:name, "userName").send_keys("Testdroid user\n")
 
     log ("view1: Taking screenshot screenshot1.png")
     @driver.save_screenshot(screen_shot_dir + "/screenshot1.png")
     sleep(5)
-    log ("view1: Hiding Keyboard")
-    @driver.execute_script('UIATarget.localTarget().frontMostApp().keyboard().buttons()["Hide keyboard"].tap();')
 
     log ("view1: Taking screenshot screenshot2.png")
     @driver.save_screenshot(screen_shot_dir + "/screenshot2.png")
     sleep(5)
-    log ("view1: Clicking button[6] - OK  Button")
+    log ("view1: Clicking button[6] - Answer  Button")
     buttons[6].click()
 
     log ("view2: Taking screenshot screenshot3.png")
@@ -110,19 +106,21 @@ describe "BitbarIOSSample testing" do
   it "should click back button" do
      # view2
     log ("view2: Finding buttons")
-    buttons = @driver.find_elements(:tag_name, :button)
+    buttons = @driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
     log ("view2: Clicking button[0] - Back/OK button")
     buttons[0].click()
   end
 
   it "should click 2nd radio button" do
-    log ("view1: Finding buttons")
-    buttons = @driver.find_elements(:tag_name, :button)
+
     log ("view1: Clicking button[2] - RadioButton 2")
+
+    buttons = @driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
     buttons[2].click()
 
-    log ("view1: Clicking button[6] - OK Button")
+    log ("view1: Clicking button[6] - Answer Button")
     buttons[6].click()
+
     log ("view1: Taking screenshot screenshot4.png")
     @driver.save_screenshot(screen_shot_dir + "/screenshot4.png")
 
