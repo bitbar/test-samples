@@ -7,8 +7,10 @@ require 'json'
 require 'rspec'
 require 'selenium-webdriver'
 require 'curb'
+require 'appium_lib'
 require 'selenium/webdriver/remote/http/curb'
-include Selenium
+require 'fileutils'
+
 
 
 ##
@@ -59,16 +61,18 @@ end
 
 describe "BitbarIOSSample testing" do
   before :all do
- 
+    
+    FileUtils.mkdir_p screen_shot_dir
+
     log ("Upload application #{testdroid_app_file}")
-    upload_application(testdroid_app_file, testdroid_username , testdroid_password)
+    # => upload_application(testdroid_app_file, testdroid_username , testdroid_password)
     log ("Uploaded file uuid #{@testdroid_app}")
 
-    desired_capabilities_cloud['testdroid_app']=@testdroid_app
-    http_client = WebDriver::Remote::Http::Curb.new
-    http_client.timeout = nil #not timeout for Webdriver calls
+    desired_capabilities_cloud['testdroid_app']="latest"
+
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
-    @driver = Selenium::WebDriver.for(:remote, :desired_capabilities => desired_capabilities_cloud, :url => server_url, :http_client => http_client)
+    @appium_driver = Appium::Driver.new  ({:caps => desired_capabilities_cloud, :appium_lib =>{ :server_url => server_url}})
+    @web_driver = @appium_driver.start_driver()
 
     log ("WebDriver response received")
    end
@@ -76,37 +80,37 @@ describe "BitbarIOSSample testing" do
   after :all do
     log ("Stop WebDriver")
 
-    @driver.quit
+    @appium_driver.driver_quit
   end
 
   it "should show failure page"  do
     log ("view1: Finding buttons")
-    buttons = @driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
+    buttons = @appium_driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
     log ("view1: Clicking button [0] - RadioButton 1")
     buttons[0].click()
 
     log ("view1: Typing in textfield[0]: Testdroid user")
-    @driver.find_element(:name, "userName").send_keys("Testdroid user\n")
+    @appium_driver.find_element(:name, "userName").send_keys("Testdroid user\n")
 
     log ("view1: Taking screenshot screenshot1.png")
-    @driver.save_screenshot(screen_shot_dir + "/screenshot1.png")
+    @appium_driver.screenshot(screen_shot_dir + "/screenshot1.png")
     sleep(5)
 
     log ("view1: Taking screenshot screenshot2.png")
-    @driver.save_screenshot(screen_shot_dir + "/screenshot2.png")
+    @appium_driver.screenshot(screen_shot_dir + "/screenshot2.png")
     sleep(5)
     log ("view1: Clicking button[6] - Answer  Button")
     buttons[6].click()
 
     log ("view2: Taking screenshot screenshot3.png")
-    @driver.save_screenshot(screen_shot_dir + "/screenshot3.png")
+    @appium_driver.screenshot(screen_shot_dir + "/screenshot3.png")
     sleep(5)
   end
 
   it "should click back button" do
      # view2
     log ("view2: Finding buttons")
-    buttons = @driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
+    buttons = @appium_driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
     log ("view2: Clicking button[0] - Back/OK button")
     buttons[0].click()
   end
@@ -115,14 +119,14 @@ describe "BitbarIOSSample testing" do
 
     log ("view1: Clicking button[2] - RadioButton 2")
 
-    buttons = @driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
+    buttons = @appium_driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
     buttons[2].click()
 
     log ("view1: Clicking button[6] - Answer Button")
     buttons[6].click()
 
     log ("view1: Taking screenshot screenshot4.png")
-    @driver.save_screenshot(screen_shot_dir + "/screenshot4.png")
+    @appium_driver.screenshot(screen_shot_dir + "/screenshot4.png")
 
     log ("view1: Sleeping 3 before quitting webdriver")
     sleep(3)
@@ -130,7 +134,7 @@ describe "BitbarIOSSample testing" do
   end
 
   it "should get window size" do
-    size = @driver.manage.window.size
+    size = @appium_driver.manage.window.size
     size.width.should eq(768)
     size.height.should eq(1024)
   end
