@@ -65,10 +65,10 @@ describe "BitbarIOSSample testing" do
     FileUtils.mkdir_p screen_shot_dir
 
     log ("Upload application #{testdroid_app_file}")
-    # => upload_application(testdroid_app_file, testdroid_username , testdroid_password)
+    upload_application(testdroid_app_file, testdroid_username , testdroid_password)
     log ("Uploaded file uuid #{@testdroid_app}")
 
-    desired_capabilities_cloud['testdroid_app']="latest"
+    desired_capabilities_cloud['testdroid_app']=@testdroid_app
 
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @appium_driver = Appium::Driver.new  ({:caps => desired_capabilities_cloud, :appium_lib =>{ :server_url => server_url}})
@@ -131,12 +131,6 @@ describe "BitbarIOSSample testing" do
     log ("view1: Sleeping 3 before quitting webdriver")
     sleep(3)
 
-  end
-
-  it "should get window size" do
-    size = @appium_driver.manage.window.size
-    size.width.should eq(768)
-    size.height.should eq(1024)
   end
 
 end
