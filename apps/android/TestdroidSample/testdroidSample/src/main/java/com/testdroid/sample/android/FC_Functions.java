@@ -17,6 +17,7 @@ public class FC_Functions extends Activity implements View.OnClickListener {
     private static Button b_pingTest;
     private static Button b_explode;
     private static Button b_anr;
+    private static Button b_externalStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,12 @@ public class FC_Functions extends Activity implements View.OnClickListener {
         b_pingTest = (Button) findViewById(R.id.fc_b_ping);
         b_explode = (Button) findViewById(R.id.fc_b_explode);
         b_anr = (Button) findViewById(R.id.fc_b_anr);
+        b_externalStorage = (Button) findViewById(R.id.fc_b_externalStorage);
 
         b_pingTest.setOnClickListener(this);
         b_explode.setOnClickListener(this);
         b_anr.setOnClickListener(this);
+        b_externalStorage.setOnClickListener(this);
     }
 
     @Override
@@ -43,6 +46,9 @@ public class FC_Functions extends Activity implements View.OnClickListener {
                 break;
             case R.id.fc_b_anr:
                 anr();
+                break;
+            case R.id.fc_b_externalStorage:
+                goto_ES();
                 break;
         }
     }
@@ -73,4 +79,11 @@ public class FC_Functions extends Activity implements View.OnClickListener {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
+    private void goto_ES() {
+        Intent intent = new Intent(FC_Functions.this, ES_ExternalStorage.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
 }

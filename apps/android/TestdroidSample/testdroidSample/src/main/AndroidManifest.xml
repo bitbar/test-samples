@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -54,6 +55,10 @@
             android:name=".SE_Settings"
             android:screenOrientation="portrait"
             android:label="@string/se_title"></activity>
+        <activity
+            android:name=".ES_ExternalStorage"
+            android:screenOrientation="portrait"
+            android:label="@string/es_title"></activity>
     </application>
 
 </manifest>

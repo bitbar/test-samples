@@ -48,4 +48,12 @@
         android:drawableRight="@drawable/ic_danger"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/fc_b_externalStorage"
+        android:layout_width="match_parent"
+        android:text="@string/fc_externalStorage"
+        android:layout_marginTop="5dp"
+        style="@style/button_Menu"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
