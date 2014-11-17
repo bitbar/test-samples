@@ -59,6 +59,8 @@
     <string name="fc_title">Functions</string>
     <string name="fc_explode">Explode</string>
     <string name="fc_anr">ANR</string>
+    <string name="fc_externalStorage">External Storage</string>
+
 
     <!-- FC_Functions -->
     <string name="di_title">Device Info</string>
@@ -71,6 +73,13 @@
     <string name="se_pingHost">Ping host</string>
     <string name="se_deleteAppCache">Delete application cache</string>
     <string name="se_deleteAppData">Delete application data</string>
+
+    <!-- ES_ExternalStorage -->
+    <string name="es_title">External Storage</string>
+    <string name="es_file">File</string>
+    <string name="es_read">Read</string>
+    <string name="es_write">Write</string>
+    <string name="es_error">Error</string>
 
     <!-- toasts -->
     <string name="toast_invalidUrl">Invalid URL</string>
