@@ -3,6 +3,7 @@ package utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Pair;
@@ -15,6 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.testdroid.sample.android.R;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Saad Chaudhry <saad.chaudry@bitbar.com>
@@ -63,6 +68,31 @@ public class Helpers {
         toast.show();
     }
 
+    public static boolean isGpsOn(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (gpsEnabled) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void toastWarning(Context context, String text, int duration) {
+
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.toast_warning, null);
+
+        TextView textView = (TextView) view.findViewById(R.id.toast_warning_text);
+        textView.setText(text);
+
+        Toast toast = new Toast(context);
+        // toast.setGravity(Gravity.TOP, 0, 250);
+        toast.setDuration(duration);
+        toast.setView(view);
+        toast.show();
+    }
+
     private static int dpToPx(Context context, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
@@ -72,6 +102,17 @@ public class Helpers {
             return !ViewConfiguration.get(context).hasPermanentMenuKey();
         }
         return false;
+    }
+
+    public static double round(double unrounded, int precision) {
+        BigDecimal bd = new BigDecimal(unrounded);
+        BigDecimal rounded = bd.setScale(precision, BigDecimal.ROUND_HALF_DOWN);
+        return rounded.doubleValue();
+    }
+
+    public static String epochToHuman(long epoch) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:MM:ss.SSS");
+        return simpleDateFormat.format(new Date(epoch));
     }
 
     public static String getAppVersion(Context context) {

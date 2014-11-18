@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -43,6 +44,10 @@
             android:name=".PT_PingTest"
             android:screenOrientation="portrait"
             android:label="@string/pt_title"></activity>
+        <activity
+            android:name=".LO_Location"
+            android:screenOrientation="portrait"
+            android:label="@string/lo_title"></activity>
         <activity
             android:name=".FC_Functions"
             android:screenOrientation="portrait"

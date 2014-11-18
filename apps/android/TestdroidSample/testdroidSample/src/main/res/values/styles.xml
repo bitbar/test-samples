@@ -14,6 +14,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="android:textViewStyle">@style/TextView</item>
         <item name="android:buttonStyle">@style/Button</item>
+        <item name="android:imageButtonStyle">@style/ImageButton</item>
         <item name="android:radioButtonStyle">@style/RadioButton</item>
         <item name="android:checkboxStyle">@style/CheckBox</item>
         <item name="android:editTextStyle">@style/EditText</item>
@@ -27,12 +28,24 @@
 
     <style name="TextView" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/bitbar_grey_dark</item>
+        <item name="android:drawablePadding">10dp</item>
     </style>
 
     <style name="Button" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/set_button_default_background</item>
         <item name="android:textColor">@drawable/set_button_default_textcolor</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ImageButton" parent="@android:style/Widget.ImageButton">
+        <item name="android:background">@drawable/set_button_default_background</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 
     <style name="RadioButton" parent="@android:style/Widget.CompoundButton.RadioButton">
@@ -48,6 +61,8 @@
     <style name="EditText" parent="@android:style/Widget.EditText">
         <item name="android:background">@drawable/set_edittext_default_background</item>
         <item name="android:textColor">@drawable/set_edittext_default_textcolor</item>
+        <item name="android:drawablePadding">10dp</item>
+        <!--<item name="android:textCursorDrawable">@drawable/cursor</item>-->
     </style>
 
     <!-- Actionbar drop down background -->
@@ -56,18 +71,64 @@
     </style>
 
     <!-- Manually applied styles-->
-    <style name="textView_Divider" parent="@android:style/Widget.TextView">
-        <item name="android:background">@drawable/divider</item>
+
+    <style name="linearLayout_Default">
+        <item name="android:layout_marginLeft">@dimen/margin_activity_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/margin_activity_horizontal</item>
+    </style>
+
+    <style name="linearLayout_Panel">
+        <item name="android:background">@drawable/bg_panel</item>
+        <item name="android:layout_marginTop">@dimen/margin_panel_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/margin_panel_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/margin_panel_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/margin_panel_horizontal</item>
+        <item name="android:paddingTop">@dimen/padding_panel_vertical</item>
+        <item name="android:paddingBottom">@dimen/padding_panel_vertical</item>
+        <item name="android:paddingLeft">@dimen/padding_panel_horizontal</item>
+        <item name="android:paddingRight">@dimen/padding_panel_horizontal</item>
+    </style>
+
+    <style name="button_Hyperlink" parent="@android:style/Widget.Button">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@drawable/set_button_hyperlink_textcolor</item>
+    </style>
+
+    <style name="textView_Divider_Vertical" parent="@android:style/Widget.TextView">
+        <item name="android:background">@drawable/divider_vertical</item>
         <item name="android:layout_height">3dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:layout_marginBottom">20dp</item>
     </style>
 
+    <style name="textView_Divider_Vertical_Narrow" parent="@android:style/Widget.TextView">
+        <item name="android:background">@drawable/divider_vertical</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="textView_Divider_Horizontal" parent="@android:style/Widget.TextView">
+        <item name="android:background">@drawable/divider_horizontal</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">2dp</item>
+    </style>
+
     <style name="textView_Header" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/bitbar_grey_dark</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 

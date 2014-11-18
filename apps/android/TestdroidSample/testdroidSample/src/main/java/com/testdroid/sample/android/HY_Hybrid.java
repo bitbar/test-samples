@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -31,6 +32,7 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
 
     private static final String TAG = HY_Hybrid.class.getName().toString();
 
+    private InputMethodManager inputMethodManager;
     Menu menu;
 
     private boolean isLocalWeb = false;
@@ -50,6 +52,8 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hy_layout);
+
+        inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 
         fl_urlPanel = (FrameLayout) findViewById(R.id.hy_fl_urlPanel);
         wv_webView = (WebView) findViewById(R.id.hy_wv_webview);
@@ -186,6 +190,8 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
     }
 
     private void loadUrl() {
+        inputMethodManager.hideSoftInputFromWindow(et_url.getWindowToken(), 0);
+
         String url = et_url.getText().toString().replace(" ", "");
 
         if (url.equals("")) {

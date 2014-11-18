@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/margin_activity_vertical"
     tools:context="com.testdroid.sample.android.NA_Native">
 
     <LinearLayout
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/margin_activity_horizontal"
+        android:paddingRight="@dimen/margin_activity_horizontal"
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
@@ -145,8 +145,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/margin_activity_horizontal"
+            android:paddingRight="@dimen/margin_activity_horizontal"
             android:layout_height="wrap_content">
 
             <RadioGroup

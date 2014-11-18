@@ -3,8 +3,12 @@ package com.testdroid.sample.android;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import utils.Helpers;
 
 /**
  * @author Saad Chaudhry <saad.chaudry@bitbar.com>
@@ -15,9 +19,13 @@ public class FC_Functions extends Activity implements View.OnClickListener {
 
     // UI Widgets
     private static Button b_pingTest;
+    private static Button b_location;
     private static Button b_explode;
     private static Button b_anr;
     private static Button b_externalStorage;
+
+    private boolean isExplode = false;
+    private boolean isAnr = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +33,13 @@ public class FC_Functions extends Activity implements View.OnClickListener {
         setContentView(R.layout.fc_layout);
 
         b_pingTest = (Button) findViewById(R.id.fc_b_ping);
+        b_location = (Button) findViewById(R.id.fc_b_location);
         b_explode = (Button) findViewById(R.id.fc_b_explode);
         b_anr = (Button) findViewById(R.id.fc_b_anr);
         b_externalStorage = (Button) findViewById(R.id.fc_b_externalStorage);
 
         b_pingTest.setOnClickListener(this);
+        b_location.setOnClickListener(this);
         b_explode.setOnClickListener(this);
         b_anr.setOnClickListener(this);
         b_externalStorage.setOnClickListener(this);
@@ -40,6 +50,9 @@ public class FC_Functions extends Activity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.fc_b_ping:
                 goto_PT();
+                break;
+            case R.id.fc_b_location:
+                goto_LO();
                 break;
             case R.id.fc_b_explode:
                 explode();
@@ -60,18 +73,43 @@ public class FC_Functions extends Activity implements View.OnClickListener {
     }
 
     private void explode() {
-        String x = null;
-        if (x.equals("")) {
-            // explode
+
+        if (isExplode) {
+            String x = null;
+            if (x.equals("")) {
+                // explode
+            }
+        } else {
+            Helpers.toastWarning(getApplicationContext(), "Click again to Explode", Toast.LENGTH_SHORT);
+            isExplode = true;
         }
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                isExplode = false;
+            }
+        }, 2000);
     }
 
     private void anr() {
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) {
 
+        if (isAnr) {
+            int x = 0;
+            while (true) {
+                x++;
+                x--;
+            }
+        } else {
+            Helpers.toastWarning(getApplicationContext(), "Click again for ANR", Toast.LENGTH_SHORT);
+            isAnr = true;
         }
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                isAnr = false;
+            }
+        }, 2000);
+
     }
 
     private void goto_PT() {
@@ -86,4 +124,9 @@ public class FC_Functions extends Activity implements View.OnClickListener {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
+    private void goto_LO() {
+        Intent intent = new Intent(FC_Functions.this, LO_Location.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
 }
