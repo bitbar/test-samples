@@ -5,6 +5,7 @@
 
     <color name="bitbar_tone1">#FF4AB4CD</color>
     <color name="bitbar_tone2">#FFA9CF3A</color>
+    <color name="bitbar_tone3">#FFFF9600</color>
     <color name="bitbar_grey_dark">#FF2E3339</color>
     <color name="bitbar_grey_light">#FFDEDEDE</color>
     <color name="status_red">#FFFF0000</color>
@@ -27,6 +28,7 @@
     <color name="white_25">#40FFFFFF</color>
     <color name="white_50">#80FFFFFF</color>
     <color name="white_75">#C0FFFFFF</color>
+    <color name="white_90">#E6FFFFFF</color>
     <!--  -->
     <color name="grey">#FF808080</color>
     <color name="grey_10">#1A808080</color>

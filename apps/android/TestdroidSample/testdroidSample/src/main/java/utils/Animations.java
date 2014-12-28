@@ -170,17 +170,17 @@ public class Animations {
         return animationSet;
     }
 
-    public static AnimationSet zoomIn() {
+    public static AnimationSet zoomIn(int speed) {
         AnimationSet animationSet = new AnimationSet(true);
         Animation animation;
 
         animation = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setDuration(500);
+        animation.setDuration(speed);
         animation.setStartOffset(0);
         animationSet.addAnimation(animation);
 
         animation = new AlphaAnimation(0, 1);
-        animation.setDuration(500);
+        animation.setDuration(speed);
         animation.setStartOffset(0);
         animationSet.addAnimation(animation);
 

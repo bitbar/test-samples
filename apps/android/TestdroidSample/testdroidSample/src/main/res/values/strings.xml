@@ -43,7 +43,7 @@
     <string name="ga_title">Game</string>
 
     <!-- PT_PingTest -->
-    <string name="pt_title">Ping Test</string>
+    <string name="pt_title">Ping</string>
     <string name="pt_ping">Ping</string>
     <string name="pt_defaultHost">google.com</string>
     <string name="pt_host">Host</string>
@@ -54,6 +54,20 @@
 
     <!-- RE_Rest -->
     <string name="re_title">REST</string>
+
+    <!-- LO_Locations -->
+    <string name="lo_title">Location</string>
+    <string name="lo_refresh">Refresh</string>
+    <string name="lo_network">Network</string>
+    <string name="lo_gps">GPS</string>
+    <string name="lo_heading_mock">Mock location</string>
+    <string name="lo_mock">Mock</string>
+    <string name="lo_enableMock"><u>Allow mock locations</u></string>
+    <string name="lo_lat">Latitude</string>
+    <string name="lo_lng">Longitude</string>
+    <string name="lo_alt">Altitude</string>
+    <string name="lo_acc">Accuracy</string>
+    <string name="lo_lastFix">Last fix @ %s</string>
 
     <!-- FC_Functions -->
     <string name="fc_title">Functions</string>

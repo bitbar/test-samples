@@ -1,6 +1,10 @@
 <resources>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="margin_activity_horizontal">18dp</dimen>
+    <dimen name="margin_activity_vertical">16dp</dimen>
+    <dimen name="margin_panel_horizontal">6dp</dimen>
+    <dimen name="margin_panel_vertical">6dp</dimen>
+    <dimen name="padding_panel_horizontal">12dp</dimen>
+    <dimen name="padding_panel_vertical">12dp</dimen>
     <dimen name="margin_activity_dialog_narrow">15dp</dimen>
     <dimen name="margin_activity_dialog_wide">20dp</dimen>
     <dimen name="height_actionbar">45dp</dimen>

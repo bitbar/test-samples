@@ -3,6 +3,7 @@ package com.testdroid.sample.android;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -327,7 +328,7 @@ public class NA_Native extends Activity implements View.OnClickListener {
     }
 
     private void configureTileLayout() {
-        int margin = Helpers.getDimenDp(getApplicationContext(), R.dimen.activity_horizontal_margin);
+        int margin = Helpers.getDimenDp(getApplicationContext(), R.dimen.margin_activity_horizontal);
         Pair<Integer, Integer> windowDimensions = Helpers.getWindowDimensionsWithoutMargin(getApplicationContext(), getWindowManager(), margin + 6, margin + 6);
 
         int tileWidth = (int) windowDimensions.first / 3;
@@ -341,16 +342,28 @@ public class NA_Native extends Activity implements View.OnClickListener {
 
     }
 
-    private void goto_AN(boolean isAnswerCorrect, String name) {
+    private void goto_AN(final boolean isAnswerCorrect, String name) {
 
-        Intent intent = new Intent(NA_Native.this, AN_Answer.class);
+        final Intent intent = new Intent(NA_Native.this, AN_Answer.class);
         intent.putExtra(Constants.KV_IS_ANSWER_CORRECT, isAnswerCorrect);
         intent.putExtra(Constants.KV_NAME, name);
         intent.putExtra(Constants.KV_SCORE, score);
-        startActivity(intent);
 
-        if (isAnswerCorrect) {
-            finish();
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                startActivity(intent);
+
+                if (isAnswerCorrect) {
+                    finish();
+                }
+
+            }
+        }, 500);
+
+        for (int i = 0; i <= 2; i++) {
+            for (int j = 0; j <= 2; j++) {
+                tiles[i][j].startAnimation(Animations.rotate());
+            }
         }
 
     }

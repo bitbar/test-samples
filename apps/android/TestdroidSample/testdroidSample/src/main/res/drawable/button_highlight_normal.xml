@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="2dip" />
+            <solid android:color="@color/bitbar_tone1" />
+            <padding
+                android:top="5dp"
+                android:bottom="5dp" />
+        </shape>
+    </item>
+</layer-list>
