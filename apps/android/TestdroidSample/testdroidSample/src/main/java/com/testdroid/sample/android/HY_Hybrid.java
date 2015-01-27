@@ -1,5 +1,6 @@
 package com.testdroid.sample.android;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
     private static ImageButton ib_navigateBackward;
     private static ImageButton ib_navigateForward;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

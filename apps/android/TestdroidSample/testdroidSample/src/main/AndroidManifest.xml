@@ -45,10 +45,6 @@
             android:screenOrientation="portrait"
             android:label="@string/pt_title"></activity>
         <activity
-            android:name=".LO_Location"
-            android:screenOrientation="portrait"
-            android:label="@string/lo_title"></activity>
-        <activity
             android:name=".FC_Functions"
             android:screenOrientation="portrait"
             android:label="@string/fc_title"></activity>
