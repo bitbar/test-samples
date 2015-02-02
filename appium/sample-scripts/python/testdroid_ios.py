@@ -45,12 +45,14 @@ log ("WebDriver response received")
 
 # view1
 log ("view1: Finding buttons")
-buttons = driver.find_elements_by_tag_name('button')
+buttons = driver.find_elements_by_class_name('UIAButton')
 log ("view1: Clicking button [0] - RadioButton 1")
 buttons[0].click()
 
 log ("view1: Typing in textfield[0]: Testdroid user")
-driver.find_elements_by_tag_name('textField')[0].send_keys("Testdroid user")
+elem = driver.find_element_by_class_name('UIATextField')
+elem.clear()
+elem.send_keys('Testdroid user')
 
 y = 0.95
 log ("view1: Tapping at position (384, 0.95) - Estimated position of SpaceBar")
@@ -61,7 +63,8 @@ driver.save_screenshot(screenshotDir + "/screenshot1.png")
 #driver.execute_script('UIATarget.localTarget().captureScreenWithName("screenshot1");') # takes screenshot at server-side
 
 log ("view1: Hiding Keyboard")
-driver.execute_script('UIATarget.localTarget().frontMostApp().keyboard().buttons()["Hide keyboard"].tap();')
+driver.find_element_by_name("Return").click()
+#driver.execute_script('UIATarget.localTarget().frontMostApp().keyboard().buttons()["Hide keyboard"].tap();')
 
 log ("view1: Taking screenshot screenshot2.png")
 driver.save_screenshot(screenshotDir + "/screenshot2.png")
@@ -74,13 +77,13 @@ driver.save_screenshot(screenshotDir + "/screenshot3.png")
 
 # view2
 log ("view2: Finding buttons")
-buttons = driver.find_elements_by_tag_name('button')
+buttons = driver.find_elements_by_class_name('UIAButton')
 log ("view2: Clicking button[0] - Back/OK button")
 buttons[0].click()
 
 # view 1
 log ("view1: Finding buttons")
-buttons = driver.find_elements_by_tag_name('button')
+buttons = driver.find_elements_by_class_name('UIAButton')
 log ("view1: Clicking button[2] - RadioButton 2")
 buttons[2].click()
 
