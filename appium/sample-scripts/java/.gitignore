@@ -1,0 +1,14 @@
+#Eclipse files
+.project
+.classpath
+.settings
+
+#Intllij file
+*.iml
+.idea/
+
+#Java and Maven
+*.class
+*.jar
+target
+lib
