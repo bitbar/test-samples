@@ -13,7 +13,7 @@ myfile = '../../../apps/builds/Testdroid.apk'
 def build_headers():
   return { 'Authorization' : 'Basic %s' % base64.b64encode(username+":"+password) }
 
-files = {'file': open(myfile, 'rb')}
+files = {'file': ('Testdroid.apk', open(myfile, 'rb'), 'application/octet-stream')}
 r = requests.post(upload_url, files=files, headers=build_headers())
 print r.text
 
