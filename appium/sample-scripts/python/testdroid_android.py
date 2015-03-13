@@ -8,6 +8,7 @@ import sys
 import time
 from time import sleep
 from selenium import webdriver
+from device_finder import DeviceFinder
 
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
@@ -18,10 +19,19 @@ appium_Url = 'http://appium.testdroid.com/wd/hub';
 ## IMPORTANT: Set the following parameters.
 ##
 screenshotDir= "/absolute/path/to/desired/directory"
-testdroid_username = "user@example.com"
+testdroid_username = "username@example.com"
 testdroid_password = "p4s$w0rd"
 
-testdroid_device = "LG Google Nexus 5 D821 4.4" # Example device. Change if you desire.
+# Device can be manually defined, by device name found from Testdroid Cloud
+# testdroid_device = "LG Google Nexus 5 D821 4.4"
+#
+# DeviceFinder can be used to find available free device for testing
+deviceFinder = DeviceFinder(testdroid_username, testdroid_password)
+testdroid_device = ""
+while testdroid_device == "":
+    testdroid_device = deviceFinder.available_free_android_device()
+
+print "Starting Appium test using device '%s'" % testdroid_device
 
 desired_capabilities_cloud = {}
 desired_capabilities_cloud['testdroid_username'] = testdroid_username
@@ -31,7 +41,7 @@ desired_capabilities_cloud['testdroid_project'] = 'Appium 1.2.0 Android Demo'
 desired_capabilities_cloud['testdroid_testrun'] = 'TestRun 1'
 desired_capabilities_cloud['testdroid_device'] = testdroid_device
 desired_capabilities_cloud['testdroid_app'] = 'sample/BitbarSampleApp.apk'
-desired_capabilities_cloud['app'] = '/Users/saad/Documents/Quick/BitbarSampleApp.apk'
+#desired_capabilities_cloud['app'] = '/absolut/path/to/your/application.apk'
 desired_capabilities_cloud['platformName'] = 'Android'
 desired_capabilities_cloud['deviceName'] = 'Android Phone'
 desired_capabilities_cloud['appPackage'] = 'com.bitbar.testdroid'
