@@ -42,6 +42,10 @@
     <!-- GA_Game -->
     <string name="ga_title">Game</string>
 
+    <!-- WE_Wear -->
+    <string name="we_title">Wear</string>
+    <string name="we_notify">Generate Notification</string>
+
     <!-- PT_PingTest -->
     <string name="pt_title">Ping</string>
     <string name="pt_ping">Ping</string>

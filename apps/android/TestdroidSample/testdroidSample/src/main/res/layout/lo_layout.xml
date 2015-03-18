@@ -1,0 +1,260 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.testdroid.sample.android.LO_Location">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_activity_vertical"
+        style="@style/linearLayout_Default"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/set_button_highlight_background"
+            android:text="@string/lo_network" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/lo_gps" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lo_ll_location_readings"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        style="@style/linearLayout_Default"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="88.88"
+                android:id="@+id/lo_tv_latitude"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_height="match_parent" />
+
+            <TextView style="@style/textView_Divider_Horizontal" />
+
+            <TextView
+                android:text="88.88"
+                android:id="@+id/lo_tv_longitude"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <TextView style="@style/textView_Divider_Vertical_Narrow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lo_tv_altitude"
+                android:text="88.88"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_height="match_parent" />
+
+            <TextView style="@style/textView_Divider_Horizontal" />
+
+            <TextView
+                android:id="@+id/lo_tv_accuracy"
+                android:text="88.88"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_height="match_parent" />
+
+            <TextView style="@style/textView_Divider_Horizontal" />
+
+            <TextView
+                android:id="@+id/lo_tv_bearing"
+                android:text="88.88"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lo_tv_lastFixGps"
+            android:text="@string/lo_lastFix"
+            android:layout_width="wrap_content"
+            android:drawableLeft="@drawable/icon_gps"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/lo_tv_lastFixNetwork"
+            android:text="@string/lo_lastFix"
+            android:layout_width="wrap_content"
+            android:drawableLeft="@drawable/icon_network"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/ll_mockLocationPanel"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                style="@style/linearLayout_Panel"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/textView_Header"
+                        android:layout_margin="0dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:hint="@string/lo_heading_mock"
+                        android:layout_height="wrap_content" />
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/lo_et_latitude"
+                    android:drawableLeft="@drawable/icon_small_lat"
+                    android:layout_width="match_parent"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/lo_lat"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/lo_et_longitude"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/icon_small_lng"
+                    android:layout_marginTop="2dp"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/lo_lng"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/lo_et_altitude"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/icon_small_alt"
+                    android:layout_marginTop="2dp"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/lo_alt"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/lo_et_accuracy"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/icon_small_accuracy"
+                    android:layout_marginTop="2dp"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/lo_acc"
+                    android:layout_height="wrap_content" />
+
+                <Switch
+                    android:visibility="gone"
+                    android:id="@+id/lo_sw_provider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:checked="true"
+                    android:textOn="GPS"
+                    android:textOff="Network" />
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/padding_panel_horizontal"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="1dp"
+                        android:src="@drawable/icon_network"
+                        android:layout_height="40dp" />
+
+                    <ImageButton
+                        android:layout_marginLeft="1dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/icon_gps"
+                        android:layout_height="40dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_enableMockLocationPanel"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                style="@style/linearLayout_Panel"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_marginRight="@dimen/margin_activity_horizontal"
+                    android:id="@+id/lo_b_mock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    style="@style/button_Hyperlink"
+                    android:text="@string/lo_enableMock" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

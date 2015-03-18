@@ -25,6 +25,8 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
     private static ImageView iv_title;
     private static Button b_native;
     private static Button b_hybrid;
+    private static Button b_game;
+    private static Button b_wear;
     private static Button b_functions;
     private static Button b_deviceInfo;
     private static Button b_settings;
@@ -40,6 +42,8 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
         iv_title = (ImageView) findViewById(R.id.mm_iv_title);
         b_native = (Button) findViewById(R.id.mm_b_native);
         b_hybrid = (Button) findViewById(R.id.mm_b_hybrid);
+        b_game = (Button) findViewById(R.id.mm_b_game);
+        b_wear = (Button) findViewById(R.id.mm_b_wear);
         b_functions = (Button) findViewById(R.id.mm_b_functions);
         b_deviceInfo = (Button) findViewById(R.id.mm_b_deviceInfo);
         b_settings = (Button) findViewById(R.id.mm_b_settings);
@@ -48,6 +52,8 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
         iv_title.setOnClickListener(this);
         b_native.setOnClickListener(this);
         b_hybrid.setOnClickListener(this);
+        b_game.setOnClickListener(this);
+        b_wear.setOnClickListener(this);
         b_functions.setOnClickListener(this);
         b_deviceInfo.setOnClickListener(this);
         b_settings.setOnClickListener(this);
@@ -89,6 +95,12 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
             case R.id.mm_b_hybrid:
                 goto_HY();
                 break;
+            case R.id.mm_b_game:
+                goto_GA();
+                break;
+            case R.id.mm_b_wear:
+                goto_WE();
+                break;
             case R.id.mm_b_functions:
                 goto_FC();
                 break;
@@ -115,6 +127,18 @@ public class MM_MainMenu extends ActionBarActivity implements View.OnClickListen
 
     private void goto_HY() {
         Intent intent = new Intent(MM_MainMenu.this, HY_Hybrid.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    private void goto_GA() {
+        Intent intent = new Intent(MM_MainMenu.this, GA_Game.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    private void goto_WE() {
+        Intent intent = new Intent(MM_MainMenu.this, WE_Wear.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

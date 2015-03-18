@@ -54,9 +54,16 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
                 style="@style/button_Menu"
-                android:enabled="false"
-                android:alpha="0.5"
                 android:drawableLeft="@drawable/icon_game"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/mm_b_wear"
+                android:text="@string/we_title"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                style="@style/button_Menu"
+                android:drawableLeft="@drawable/icon_wear"
                 android:layout_height="wrap_content" />
 
             <Button
