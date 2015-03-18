@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.util.TypedValue;
@@ -20,6 +21,7 @@ import com.testdroid.sample.android.R;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @author Saad Chaudhry <saad.chaudry@bitbar.com>
@@ -115,6 +117,12 @@ public class Helpers {
         return simpleDateFormat.format(new Date(epoch));
     }
 
+    public static int randomInt(int min, int max) {
+        Random random = new Random();
+        int randomInt = random.nextInt((max - min) + 1) + min;
+        return randomInt;
+    }
+
     public static String getAppVersion(Context context) {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -123,6 +131,11 @@ public class Helpers {
         } catch (PackageManager.NameNotFoundException e) {
             return null;
         }
+    }
+
+    public static void vibrate(Context context, long[] pattern) {
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(pattern, -1);
     }
 
 }
