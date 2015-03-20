@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="question">What is the best way to test your application against over one hundred devices?</string>
+    <string name="imageDescription">Bitbar logo</string>
+    <string name="answer1">Buy 101 devices</string>
+    <string name="answer2">Use Testdroid Cloud</string>
+    <string name="answer3">Ask mom for help</string>
+    <string name="btn1">Answer</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="correctMsg">You are right!</string>
+    <string name="back">Back</string>
+    <string name="wrongAnswer">Wrong Answer!</string>
+    <string name="wrongMsg">"Haven't you heard about Testdroid Cloud?"</string>
+    <string name="hint">Please type your name to proceed</string>
+
+</resources>
