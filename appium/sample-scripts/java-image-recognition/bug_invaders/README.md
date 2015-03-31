@@ -63,7 +63,7 @@ To build OpenCV locally (if MacPorts install doesn't work):
 7. make install
 
 
-How to build and run Hobbit Kabam Sample
+How to build and run Testdroid Image Recognition Sample
 =======================================================
 
 **Run from command line with Maven**
