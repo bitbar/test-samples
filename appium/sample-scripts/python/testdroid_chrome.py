@@ -8,6 +8,7 @@ import sys
 import time
 from time import sleep
 from selenium import webdriver
+from device_finder import DeviceFinder
 
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
@@ -22,7 +23,16 @@ screenshotDir= "/absolute/path/to/desired/directory"
 testdroid_username = "user@example.com"
 testdroid_password = "p4s$w0rd"
 
-testdroid_device = "LG Google Nexus 5 D821 4.4" # Example device. Change if you desire.
+# Device can be manually defined, by device name found from Testdroid Cloud
+# testdroid_device = "LG Google Nexus 5 D821 4.4"
+#
+# DeviceFinder can be used to find available free device for testing
+deviceFinder = DeviceFinder(testdroid_username, testdroid_password)
+testdroid_device = ""
+while testdroid_device == "":
+    testdroid_device = deviceFinder.available_free_android_device()
+
+print "Starting Appium test using device '%s'" % testdroid_device
 
 desired_capabilities_cloud = {}
 desired_capabilities_cloud['testdroid_username'] = testdroid_username
