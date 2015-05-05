@@ -28,7 +28,7 @@ class TestdroidSafari(unittest.TestCase):
         ##
         ## IMPORTANT: Set the following parameters.
         ##
-        screenshotDir= "/absolute/path/to/desired/directory"
+        self.screenshotDir= "/absolute/path/to/desired/directory"
         testdroid_username = "username@example.com"
         testdroid_password = "p4s$w0rd"
 
@@ -38,7 +38,7 @@ class TestdroidSafari(unittest.TestCase):
         ## DeviceFinder can be used to find available freemium device for testing
         deviceFinder = DeviceFinder(testdroid_username, testdroid_password)
         testdroid_device = ""
-        # Safari testing iPad 3 freemium device not yet supported as it is iOS 8.2 device
+        ## Safari testing iPad 3 freemium device not yet supported as it is iOS 8.2 device
         while testdroid_device == "" or testdroid_device == "iPad 3 A1416 8.2":
             testdroid_device = deviceFinder.available_free_ios_device()
             
@@ -56,7 +56,7 @@ class TestdroidSafari(unittest.TestCase):
         desired_capabilities_cloud['browserName'] = 'Safari'
         desired_caps = desired_capabilities_cloud;
         
-        log ("Will save screenshots at: " + screenshotDir)
+        log ("Will save screenshots at: " + self.screenshotDir)
         
         # Set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
@@ -77,9 +77,8 @@ class TestdroidSafari(unittest.TestCase):
             self.driver.get("http://testdroid.com")
             
             sleep(3)
-            # log("Taking a screenshot")
-            # self.driver.save_screenshot('testdroidcom.png')
-            self.driver.assertTrue('foo'.isupper())
+            #log("Taking a screenshot")
+            #self.driver.save_screenshot(self.screenshotDir + '/testdroidcom.png')
             
             # Finding element xpath, id or name is simple with Appium GUI application's inspector.
             log ("Finding menu button")
