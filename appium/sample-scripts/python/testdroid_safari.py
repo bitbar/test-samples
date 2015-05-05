@@ -81,6 +81,7 @@ class TestdroidSafari(unittest.TestCase):
             #self.driver.save_screenshot(self.screenshotDir + '/testdroidcom.png')
             
             # Finding element xpath, id or name is simple with Appium GUI application's inspector.
+            # Safari Web Inspector can also be used on iOS devices.
             log ("Finding menu button")
             elem = self.driver.find_element_by_xpath('//body[1]/header[1]/div[1]/div[1]/button[1]')
             log ("elem: " + elem.text)
