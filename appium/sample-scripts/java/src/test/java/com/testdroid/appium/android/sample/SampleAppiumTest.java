@@ -17,6 +17,7 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,43 +30,47 @@ import static junit.framework.TestCase.assertTrue;
 public class SampleAppiumTest {
     static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     static final JsonFactory JSON_FACTORY = new JacksonFactory();
-    private static final String TESTDROID_USERNAME = "admin@localhost";
-    private static final String TESTDROID_PASSWORD = "admin";
+    private static final String TESTDROID_USERNAME = "accountof@testdroidcloud.com";
+    private static final String TESTDROID_PASSWORD = "password";
 
-    private static final String TARGET_APP_PATH = "/your/application/path";
+    private static final String TARGET_APP_PATH = "../../../apps/builds/BitbarSampleApp.apk";
     private static final String TESTDROID_SERVER = "http://appium.testdroid.com";
+    private static int counter;
 
     private static AppiumDriver wd;
 
     @BeforeClass
     public static void setUp() throws Exception {
+        counter = 0;
 
         String fileUUID = uploadFile(TARGET_APP_PATH);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("platformVersion", "4.4.2");
-
-
-        capabilities.setCapability("app-package", "com.bitbar.testdroid");
-        capabilities.setCapability("app-activity", ".BitbarSampleApplicationActivity");
-
-        capabilities.setCapability("device", "android");
-        capabilities.setCapability("deviceName", "Android Phone");
-
-
-        capabilities.setCapability("testdroid_username", TESTDROID_USERNAME);
-
-        capabilities.setCapability("testdroid_password", TESTDROID_PASSWORD);
-        capabilities.setCapability("testdroid_project", "LocalAppium");
-        capabilities.setCapability("testdroid_description", "Appium project description");
-        capabilities.setCapability("testdroid_testrun", "Android Run 1");
-        //capabilities.setCapability("testdroid_device", "Dell Venue 7 3730");
-        capabilities.setCapability("testdroid_device", "Asus Memo Pad 8 K011");
-        capabilities.setCapability("testdroid_app", fileUUID); //to use existing app using "latest" as fileUUID
         capabilities.setCapability("testdroid_target", "Android");
-        capabilities.setCapability("app", "com.bitbar.testdroid");
+        capabilities.setCapability("deviceName", "Android Device");
+        
+        capabilities.setCapability("testdroid_username", TESTDROID_USERNAME);
+        capabilities.setCapability("testdroid_password", "******");
+        
+        capabilities.setCapability("testdroid_project", "LocalAppium");
+        capabilities.setCapability("testdroid_testrun", "Android Run 1");
+        
+        // See available devices at: https://cloud.testdroid.com/#public/devices
+        //capabilities.setCapability("testdroid_device", "Dell Venue 7 3730"); // Freemium device
+        capabilities.setCapability("testdroid_device", "Asus Memo Pad 8 K011"); // Freemium device
+        capabilities.setCapability("testdroid_app", fileUUID); //to use existing app using "latest" as fileUUID
+
+        // Optional
+        //capabilities.setCapability("testdroid_description", "Appium project description");
+        //capabilities.setCapability("platformVersion", "4.4.2");
+        //capabilities.setCapability("app-activity", ".BitbarSampleApplicationActivity");
+        //capabilities.setCapability("app", "com.bitbar.testdroid");
+        
         System.out.println("Capabilities:" + capabilities.toString());
+        capabilities.setCapability("testdroid_password", TESTDROID_PASSWORD);
+        
+        System.out.println("Creating Appium session, this may take couple minutes..");
         wd = new AppiumDriver(new URL(TESTDROID_SERVER+"/wd/hub"), capabilities);
     }
     @AfterClass
@@ -133,11 +138,45 @@ public class SampleAppiumTest {
     public void mainPageTest() throws IOException, InterruptedException {
 
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        wd.findElement(By.xpath("//android.widget.ScrollView[1]/android.widget.RadioButton[1]")).click();
-        wd.findElement(By.xpath("//android.widget.ScrollView[1]/android.widget.EditText[1]")).sendKeys("sakari");
+        takeScreenshot("First screen");
+        wd.findElement(By.xpath("//android.widget.RadioButton[@text='Use Testdroid Cloud']")).click();
+        wd.findElement(By.xpath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).sendKeys("John Doe");
+        takeScreenshot("Text placed");
         wd.navigate().back();
-        wd.findElement(By.xpath("//android.widget.ScrollView[1]/android.widget.Button[1]")).click();
+        wd.findElement(By.xpath("//android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.Button[1]")).click();
+        takeScreenshot("Answer given");
+    }
+    
+    public void takeScreenshot(String screenshotName) {
+        counter = counter + 1;
+        String fullFileName = System.getProperty("user.dir") + "/Screenshots/" + getScreenshotsCounter() + "_" + screenshotName + ".png";
 
+        screenshot(fullFileName);
+    }
+    
+    public File screenshot(String name) {
+        System.out.println("Taking screenshot...");
+        File scrFile = ((TakesScreenshot) wd).getScreenshotAs(OutputType.FILE);
+
+        try {
+
+            File testScreenshot = new File(name);
+            FileUtils.copyFile(scrFile, testScreenshot);
+            System.out.println("Screenshot stored to " + testScreenshot.getAbsolutePath());
+
+            return testScreenshot;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getScreenshotsCounter() {
+        if (counter < 10) {
+            return "0" + counter;
+        } else {
+            return String.valueOf(counter);
+        }
     }
 
 }
