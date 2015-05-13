@@ -27,7 +27,11 @@ capabilities.setCapability("testdroid_device", "Asus Memo Pad 8 K011");
 
 You can run test from your IDE or directly from command line using using maven:
 ``` 
->mvn clean test -Dtest=com.testdroid.appium.android.sample.SampleAppiumTest 
+>mvn clean test -Dtest=SampleAppiumTest
+```
+or to be more precise: 
+```
+>mvn clean test -Dtest=com.testdroid.appium.android.sample.SampleAppiumTest
 ```
 or run all the tests:
 ``` 
