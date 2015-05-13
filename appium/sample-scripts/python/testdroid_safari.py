@@ -33,14 +33,14 @@ class TestdroidSafari(unittest.TestCase):
         testdroid_password = "p4s$w0rd"
 
         ## Device can be manually defined, by device name found from Testdroid Cloud
-        #testdroid_device = "iPhone 5 A1429 6.1.4"
+        testdroid_device = "iPhone 5 A1429 6.1.4"
 
-        ## DeviceFinder can be used to find available freemium device for testing
-        deviceFinder = DeviceFinder(testdroid_username, testdroid_password)
-        testdroid_device = ""
-        ## Safari testing iPad 3 freemium device not yet supported as it is iOS 8.2 device
-        while testdroid_device == "" or testdroid_device == "iPad 3 A1416 8.2":
-            testdroid_device = deviceFinder.available_free_ios_device()
+        # ## DeviceFinder can be used to find available freemium device for testing
+        # deviceFinder = DeviceFinder(testdroid_username, testdroid_password)
+        # testdroid_device = ""
+        # ## Safari testing iPad 3 freemium device not yet supported as it is iOS 8.2 device
+        # while testdroid_device == "" or testdroid_device == "iPad 3 A1416 8.2":
+        #     testdroid_device = deviceFinder.available_free_ios_device()
             
         print "Starting Appium test using device '%s'" % testdroid_device
 

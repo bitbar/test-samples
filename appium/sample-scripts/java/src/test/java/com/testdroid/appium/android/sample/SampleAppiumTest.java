@@ -44,7 +44,7 @@ public class SampleAppiumTest {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("platformVersion", "4.4");
+        capabilities.setCapability("platformVersion", "4.4.2");
 
 
         capabilities.setCapability("app-package", "com.bitbar.testdroid");
@@ -60,8 +60,8 @@ public class SampleAppiumTest {
         capabilities.setCapability("testdroid_project", "LocalAppium");
         capabilities.setCapability("testdroid_description", "Appium project description");
         capabilities.setCapability("testdroid_testrun", "Android Run 1");
-        //capabilities.setCapability("testdroid_device", "samsung Nexus 10");
-        capabilities.setCapability("testdroid_device", "LG Google Nexus 5 D821 4.4");
+        //capabilities.setCapability("testdroid_device", "Dell Venue 7 3730");
+        capabilities.setCapability("testdroid_device", "Asus Memo Pad 8 K011");
         capabilities.setCapability("testdroid_app", fileUUID); //to use existing app using "latest" as fileUUID
         capabilities.setCapability("testdroid_target", "Android");
         capabilities.setCapability("app", "com.bitbar.testdroid");

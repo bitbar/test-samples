@@ -19,7 +19,7 @@ TARGET_APP_PATH=/files/myapp.ipa
 - Target device - see full list of real device in [Testdroid Cloud](https://cloud.testdroid.com/web/devices#):
 ```
 ...
-capabilities.setCapability("testdroid_device", "Samsung Galaxy S5");
+capabilities.setCapability("testdroid_device", "Asus Memo Pad 8 K011");
 ...
 ```
 
