@@ -23,7 +23,7 @@ testdroid_username = "username@example.com"
 testdroid_password = "p4s$w0rd"
 
 # Device can be manually defined, by device name found from Testdroid Cloud
-# testdroid_device = "iPad 3 A1416 7.0.4"
+# testdroid_device = "iPad 3 A1416 8.2"
 #
 # DeviceFinder can be used to find available free device for testing
 deviceFinder = DeviceFinder(testdroid_username, testdroid_password)

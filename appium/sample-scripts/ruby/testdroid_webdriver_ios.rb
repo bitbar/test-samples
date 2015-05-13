@@ -19,7 +19,7 @@ require 'fileutils'
 screen_shot_dir= "screenshot-folder"
 testdroid_username = ENV["TESTDROID_USERNAME"]
 testdroid_password = ENV["TESTDROID_PASSWORD"]
-testdroid_device = "iPad 2 A1395 5.1" # Example device. Change if you desire.
+testdroid_device = "iPad 2 A1395 7.0.4" # Example device. Change if you desire.
 testdroid_app_file = "BitbarIOSSample.ipa" 
 
 
