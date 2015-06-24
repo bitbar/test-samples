@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Drawing.Imaging;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Remote;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace TestdroidAndroidSample
 	{
 
 		AppiumDriver<AndroidElement> driver;
+		// Make sure that the SCREENSHOT_FOLDER exists already.
+		String SCREENSHOT_FOLDER = "/Path/To/Screenshot_Folder/";
 
 		[TestFixtureSetUp]
 		public void BeforeAll()
@@ -35,10 +38,12 @@ namespace TestdroidAndroidSample
 			capabilities.SetCapability("testdroid_testrun", "Android Run 1");
 
 			// See available devices at: https://cloud.testdroid.com/#public/devices
-			capabilities.SetCapability("testdroid_device", "LG Google Nexus 4 E960 4.3"); // Freemium device
+			capabilities.SetCapability("testdroid_device", "Dell Venue 7 3730"); // Freemium device
 			capabilities.SetCapability("testdroid_app", "sample/BitbarSampleApp.apk"); //to use existing app using "latest" as fileUUID
-			driver = new AndroidDriver<AndroidElement>(new Uri("http://appium.testdroid.com/wd/hub"), capabilities, TimeSpan.FromSeconds(180));
 
+			Console.WriteLine ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins");
+			driver = new AndroidDriver<AndroidElement>(new Uri("http://appium.testdroid.com/wd/hub"), capabilities, TimeSpan.FromSeconds(180));
+			Console.WriteLine ("WebDriver response received.");
 
 
 		}
@@ -54,12 +59,22 @@ namespace TestdroidAndroidSample
 		public void TestSampleApp()
 		{
 			driver.Manage ().Timeouts ().ImplicitlyWait (TimeSpan.FromSeconds(60));
-
+			TakeScreenshot ("First");
 			driver.FindElement(By.XPath("//android.widget.RadioButton[@text='Use Testdroid Cloud']")).Click();
 			driver.FindElement(By.XPath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).SendKeys("C Sharp");
+			TakeScreenshot ("Second");
 			driver.Navigate().Back ();
+			TakeScreenshot ("Third");
 			driver.FindElement(By.XPath("//android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.Button[1]")).Click();
+			TakeScreenshot ("Fourth");
+		}
 
+		public void TakeScreenshot(String filename)
+		{
+			Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+			String path = SCREENSHOT_FOLDER + filename + ".png";
+			Console.WriteLine ("Taking screenshot: " + path);
+			ss.SaveAsFile(path, ImageFormat.Png);
 		}
 	}
 }
