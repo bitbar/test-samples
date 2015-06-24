@@ -13,20 +13,22 @@ from device_finder import DeviceFinder
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
 
-appium_Url = 'http://appium.testdroid.com/wd/hub';
-
 ##
 ## IMPORTANT: Set the following parameters.
+## You can set the parameters outside the script with environment variables.
+## If env var is not set the string after or is used.
 ##
-screenshotDir= "/absolute/path/to/desired/directory"
-testdroid_username = "username@example.com"
-testdroid_password = "p4s$w0rd"
+screenshotDir= os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
+testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
+testdroid_username = os.environ.get('TESTDROID_USERNAME') or "user@email.com"
+testdroid_password = os.environ.get('TESTDROID_PASSWORD') or "password"
+appium_Url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
 
 # Device can be manually defined, by device name found from Testdroid Cloud
 # testdroid_device = "Asus Memo Pad 8 K011"
 
 #DeviceFinder can be used to find available free device for testing
-deviceFinder = DeviceFinder(testdroid_username, testdroid_password)
+deviceFinder = DeviceFinder(username=testdroid_username, password=testdroid_password, url=testdroid_url)
 testdroid_device = ""
 while testdroid_device == "":
     testdroid_device = deviceFinder.available_free_android_device()
@@ -37,8 +39,8 @@ desired_capabilities_cloud = {}
 desired_capabilities_cloud['testdroid_username'] = testdroid_username
 desired_capabilities_cloud['testdroid_password'] = testdroid_password
 desired_capabilities_cloud['testdroid_target'] = 'Android'
-desired_capabilities_cloud['testdroid_project'] = 'Appium 1.2.0 Android Demo'
-desired_capabilities_cloud['testdroid_testrun'] = 'TestRun 1'
+desired_capabilities_cloud['testdroid_project'] = os.environ.get('TESTDROID_PROJECT') or 'Appium Android demo'
+desired_capabilities_cloud['testdroid_testrun'] = os.environ.get('TESTDROID_TESTRUN') or 'My testrun'
 desired_capabilities_cloud['testdroid_device'] = testdroid_device
 desired_capabilities_cloud['testdroid_app'] = 'sample/BitbarSampleApp.apk'
 #desired_capabilities_cloud['app'] = '/absolut/path/to/your/application.apk'
