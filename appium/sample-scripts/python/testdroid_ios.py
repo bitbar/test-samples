@@ -13,20 +13,21 @@ from device_finder import DeviceFinder
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
 
-appium_Url = 'http://appium.testdroid.com/wd/hub';
 
 ##
 ## IMPORTANT: Set the following parameters.
 ##
-screenshotDir= "/absolute/path/to/desired/directory"
-testdroid_username = "username@example.com"
-testdroid_password = "p4s$w0rd"
+testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
+appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+testdroid_username = os.environ.get('TESTDROID_USERNAME') or "user@email.com"
+testdroid_password = os.environ.get('TESTDROID_PASSWORD') or "password"
+screenshot_dir= os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
 
 # Device can be manually defined, by device name found from Testdroid Cloud
 # testdroid_device = "iPad 3 A1416 8.2"
 #
 # DeviceFinder can be used to find available free device for testing
-deviceFinder = DeviceFinder(testdroid_username, testdroid_password)
+deviceFinder = DeviceFinder(username=testdroid_username, password=testdroid_password, url=testdroid_url)
 testdroid_device = ""
 while testdroid_device == "":
     testdroid_device = deviceFinder.available_free_ios_device()
@@ -45,12 +46,12 @@ desired_capabilities_cloud={
         'platformName': 'iOS',
         'deviceName': 'iPhone device',
         'bundleId': 'com.bitbar.testdroid.BitbarIOSSample',
-    }
+}
     
 # set up webdriver
 log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
 
-driver = webdriver.Remote(command_executor=appium_Url,desired_capabilities=desired_capabilities_cloud)
+driver = webdriver.Remote(command_executor=appium_url,desired_capabilities=desired_capabilities_cloud)
 log ("WebDriver response received")
 
 # view1
@@ -69,7 +70,7 @@ log ("view1: Tapping at position (384, 0.95) - Estimated position of SpaceBar")
 driver.execute_script("mobile: tap",{"touchCount":"1","x":"0.5","y":y})
 
 log ("view1: Taking screenshot screenshot1.png")
-driver.save_screenshot(screenshotDir + "/screenshot1.png")
+driver.save_screenshot(screenshot_dir + "/screenshot1.png")
 #driver.execute_script('UIATarget.localTarget().captureScreenWithName("screenshot1");') # takes screenshot at server-side
 
 log ("view1: Hiding Keyboard")
@@ -77,13 +78,13 @@ driver.find_element_by_name("Return").click()
 #driver.execute_script('UIATarget.localTarget().frontMostApp().keyboard().buttons()["Hide keyboard"].tap();')
 
 log ("view1: Taking screenshot screenshot2.png")
-driver.save_screenshot(screenshotDir + "/screenshot2.png")
+driver.save_screenshot(screenshot_dir + "/screenshot2.png")
 
 log ("view1: Clicking button[6] - OK  Button")
 buttons[6].click()
 
 log ("view2: Taking screenshot screenshot3.png")
-driver.save_screenshot(screenshotDir + "/screenshot3.png")
+driver.save_screenshot(screenshot_dir + "/screenshot3.png")
 
 # view2
 log ("view2: Finding buttons")
@@ -101,7 +102,7 @@ log ("view1: Clicking button[6] - OK Button")
 buttons[6].click()
 
 log ("view1: Taking screenshot screenshot4.png")
-driver.save_screenshot(screenshotDir + "/screenshot4.png")
+driver.save_screenshot(screenshot_dir + "/screenshot4.png")
 
 log ("view1: Sleeping 3 before quitting webdriver")
 sleep(3)
