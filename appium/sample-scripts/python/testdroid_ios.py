@@ -21,26 +21,33 @@ testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
 appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
 testdroid_username = os.environ.get('TESTDROID_USERNAME') or "user@email.com"
 testdroid_password = os.environ.get('TESTDROID_PASSWORD') or "password"
-screenshot_dir= os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
+screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
+testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Appium iOS demo"
+testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
 
-# Device can be manually defined, by device name found from Testdroid Cloud
-# testdroid_device = "iPad 3 A1416 8.2"
-#
-# DeviceFinder can be used to find available free device for testing
-deviceFinder = DeviceFinder(username=testdroid_username, password=testdroid_password, url=testdroid_url)
-testdroid_device = ""
-while testdroid_device == "":
-    testdroid_device = deviceFinder.available_free_ios_device()
+# Options to select device
+# 1) Set environment variable TESTDROID_DEVICE
+# 2) Set device name to this python script
+# 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
+
+deviceFinder = None
+testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
+
+if testdroid_device == "":
+    deviceFinder = DeviceFinder(username=testdroid_username, password=testdroid_password, url=testdroid_url)
+    # Loop will not exit until free device is found
+    while testdroid_device == "":
+        testdroid_device = deviceFinder.available_free_ios_device()
 
 print "Starting Appium test using device '%s'" % testdroid_device
 
 desired_capabilities_cloud={
         'testdroid_username': testdroid_username,
         'testdroid_password': testdroid_password,
-        'testdroid_project': 'Appium iOS Project1',
+        'testdroid_project': testdroid_project_name,
         'testdroid_target': 'ios',
         'testdroid_description': 'Appium project description',
-        'testdroid_testrun': 'Test Run 1',
+        'testdroid_testrun': testdroid_testrun_name,
         'testdroid_device': testdroid_device,
         'testdroid_app': 'sample/BitbarIOSSample.ipa',
         'platformName': 'iOS',
