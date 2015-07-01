@@ -24,14 +24,19 @@ testdroid_username = os.environ.get('TESTDROID_USERNAME') or "user@email.com"
 testdroid_password = os.environ.get('TESTDROID_PASSWORD') or "password"
 appium_Url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
 
-# Device can be manually defined, by device name found from Testdroid Cloud
-# testdroid_device = "Asus Memo Pad 8 K011"
+# Options to select device
+# 1) Set environment variable TESTDROID_DEVICE
+# 2) Set device name to this python script
+# 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
 
-#DeviceFinder can be used to find available free device for testing
-deviceFinder = DeviceFinder(username=testdroid_username, password=testdroid_password, url=testdroid_url)
-testdroid_device = ""
-while testdroid_device == "":
-    testdroid_device = deviceFinder.available_free_android_device()
+deviceFinder = None
+testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
+
+if testdroid_device == "":
+    deviceFinder = DeviceFinder(username=testdroid_username, password=testdroid_password, url=testdroid_url)
+    # Loop will not exit until free device is found
+    while testdroid_device == "":
+        testdroid_device = deviceFinder.available_free_android_device()
 
 print "Starting Appium test using device '%s'" % testdroid_device
 
