@@ -7,7 +7,7 @@ import os
 import sys
 import time
 from time import sleep
-from selenium import webdriver
+from appium import webdriver
 from device_finder import DeviceFinder
 
 def log(msg):
@@ -75,13 +75,13 @@ log ("  Typing in name")
 elems=driver.find_elements_by_class_name('android.widget.EditText')
 log ("  info: EditText:" + `len(elems)`)
 log ("  Filling in name")
-elems[0].click()
 elems[0].send_keys("Testdroid User")
 sleep(2)
 log ("  Taking screenshot: 2_nameTyped.png")
 driver.save_screenshot(screenshotDir + "/2_nameTyped.png")
+
 log ("  Hiding keyboard")
-driver.back()
+driver.hide_keyboard()
 sleep(2)
 log ("  Taking screenshot: 3_nameTypedKeyboardHidden.png")
 driver.save_screenshot(screenshotDir + "/3_nameTypedKeyboardHidden.png")
