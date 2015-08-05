@@ -7,12 +7,12 @@ for your application.
 ####Configuring testdroid specific settings
 
 *File  [SampleAppium(iOS)Test.java](https://github.com/bitbar/testdroid-samples/blob/master/appium/sample-scripts/java/src/test/java/com/testdroid/appium/android/sample/SampleAppiumTest.java)* 
-- Add your user credentials:
-```
-  private static final String TESTDROID_USERNAME = "admin@localhost";
-  private static final String TESTDROID_PASSWORD = "admin";
-```
-- File path to your application binary (apk or ipa):
+- Add your testdroid user credentials:
+Set environment variable TESTDROID_USERNAME and TESTDROID_PASSWORD,
+or edit testdroid_username and testdroid_password in source file
+
+
+- If want to run test against your application make sure to change file path to your application binary (apk or ipa):
 ```
 TARGET_APP_PATH=/files/myapp.ipa
 ```
@@ -22,6 +22,10 @@ TARGET_APP_PATH=/files/myapp.ipa
 capabilities.setCapability("testdroid_device", "Asus Memo Pad 8 K011");
 ...
 ```
+
+For more information about Testdroid specific capabilites =>
+http://help.testdroid.com/customer/portal/articles/1507074-testdroid_-desired-capabilities
+
 
 ####Running tests in Testdroid Cloud
 
