@@ -81,6 +81,7 @@ log ("  Taking screenshot: 2_nameTyped.png")
 driver.save_screenshot(screenshotDir + "/2_nameTyped.png")
 
 log ("  Hiding keyboard")
+elems[0].click() # Make sure the keyboard is visible before trying to hide
 driver.hide_keyboard()
 sleep(2)
 log ("  Taking screenshot: 3_nameTypedKeyboardHidden.png")
