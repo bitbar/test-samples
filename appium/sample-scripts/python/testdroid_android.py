@@ -15,7 +15,7 @@ from selenium.common.exceptions import WebDriverException
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
 
-class TestdroidSafari(unittest.TestCase):
+class TestdroidAndroid(unittest.TestCase):
     def setUp(self):
 
         ##
@@ -139,5 +139,5 @@ class TestdroidSafari(unittest.TestCase):
             print '-'*60
 
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidSafari)
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
     unittest.TextTestRunner(verbosity=2).run(suite)
