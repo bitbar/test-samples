@@ -65,12 +65,6 @@ devices you need to edit the testdroid_ios.py script.
 
 In addition to the above mentioned Appium capabilities for iOS testing you need set
 
-* testdroid_target - set to 'ios'
-
-* platformName - set to 'iOS'
-
-* deviceName - 'iPhone device'
-
 * bundleId - this is your application's unique name
 
 ## Native Android Specific Settings
