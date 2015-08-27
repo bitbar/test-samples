@@ -20,10 +20,10 @@ need to configure your username (email) and password that you registered
 with to Testdroid cloud. Also you need to set the full path to your
 mobile app. This can be an Android or iOS application.
 
-'''sh
-$ python update.py
-{"status":0,"sessionId":"f4660af0-10f3-46e9-932b-0622f497b0d2","value":{"message":"uploads successful","uploadCount":1,"rejectCount":0,"expiresIn":1800,"uploads":{"file":"f4660af0-10f3-46e9-932b-0622f497b0d2/Testdroid.apk"},"rejects":{}}}
-'''
+```sh
+$ python update.py 
+{"status":0,"sessionId":"f4660af0-10f3-46e9-932b-0622f497b0d2","value":{"message":"uploads successful","uploadCount":1,"rejectCount":0,"expiresIn":1800,"uploads":{"file":"f4660af0-10f3-46e9-932b0622f497b0d2/Testdroid.apk"},"rejects":{}}}
+```
 
 From the response message you need to store the application's file
 name in the cloud. In this example upload it is
@@ -43,15 +43,17 @@ Here are all the values that you need to edit:
 
 * testdroid_password - your Testdroid Cloud password
 
-* testdroid_project - you can set this value as a environment variable
+* testdroid_project - you can set this value as an environment variable
   or set in the script. This is the name you want to give to your
-  project in Testdroid Cloud
+  project in Testdroid Cloud. Each project must have a unique name, 
+  which can also be modified later
 
 * testdroid_testrun - name of this test run. Is set here or read from
-  environment variable
+  environment variable. Test run names can also be modified, even for
+  every test run
 
 * testdroid_app - should be the name of the app you uploaded to
-  cloud. Eg. if you uploaded your app using the uploade.py script this
+  cloud. Eg. if you uploaded your app using the upload.py script this
   would look like
   'f4660af0-10f3-46e9-932b-0622f497b0d2/Testdroid.apk'
 
@@ -63,7 +65,8 @@ Example script: testdroid_ios.py
 To run your Appium tests against your native iOS application with real
 devices you need to edit the testdroid_ios.py script.
 
-In addition to the above mentioned Appium capabilities for iOS testing you need set
+In addition to the above mentioned Appium capabilities for iOS testing
+you need set
 
 * bundleId - this is your application's unique name
 
@@ -74,14 +77,15 @@ Example script: testdroid_android.py
 To configure this script for testing your own app, in addition to the
 common settings done above, you need to change the following values.
 
-* appPackage - your application's package
+* appPackage - Java package of the Android app you want to run
 
-* appActivity - the main activity of your app
+* appActivity - activity name for the Android activity you want to
+  launch from your package. Typically this is the main activity.
 
 ## Tips
 
 * To run tests against your previous app you can simply set your
-  testdroid_app desired capability value to 'latest'.
+  testdroid_app desired capability value to 'latest'
 
 
 ## License
