@@ -109,7 +109,7 @@ class DeviceFinder:
             if device['creditsPrice'] == 0 and device['locked'] == False and device['osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
                 print "Found device '%s'" % device['displayName']
                 print ""
-                return device['displayName']
+                return str(device['displayName'])
 
         print "No available device found"
         print ""
@@ -124,7 +124,7 @@ class DeviceFinder:
             if device['creditsPrice'] == 0 and device['locked'] == False and device['osType'] == "IOS":
                 print "Found device '%s'" % device['displayName']
                 print ""
-                return device['displayName']
+                return str(device['displayName'])
 
         print "No available device found"
         print ""
