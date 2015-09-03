@@ -62,11 +62,13 @@ class TestdroidAndroid(unittest.TestCase):
         desired_caps = desired_capabilities_cloud;
 
         log ("Will save screenshots at: " + self.screenshotDir)
-
-        # set up webdriver
-        log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
-        self.driver = webdriver.Remote(appium_Url, desired_caps)
-        log ("WebDriver response received")
+        try:
+            # set up webdriver
+            log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
+            self.driver = webdriver.Remote(appium_Url, desired_caps)
+            log ("WebDriver response received")
+        except:
+            raise
 
     def tearDown(self):
         log ("Quitting")
@@ -132,11 +134,8 @@ class TestdroidAndroid(unittest.TestCase):
             sleep(2)
             log ("  Taking screenshot: 8_answer.png")
             self.driver.save_screenshot(self.screenshotDir + "/8_answer.png")
-        except WebDriverException, e:
-            print "Unexpected error:", sys.exc_info()[0]
-            print '-'*60
-            traceback.print_exc(file=sys.stdout)
-            print '-'*60
+        except:
+            raise
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
