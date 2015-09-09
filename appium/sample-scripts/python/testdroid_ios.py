@@ -58,6 +58,8 @@ desired_capabilities_cloud={
 # set up webdriver
 log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
 
+driver = None
+
 try:
     driver = webdriver.Remote(command_executor=appium_url,desired_capabilities=desired_capabilities_cloud)
     log ("WebDriver response received")
