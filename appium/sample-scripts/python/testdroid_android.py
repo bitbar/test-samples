@@ -68,7 +68,6 @@ class TestdroidAndroid(unittest.TestCase):
         log ("Will save screenshots at: " + self.screenshotDir)
         # set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
-        print desired_caps
         self.driver = webdriver.Remote(appium_url, desired_caps)
         log ("WebDriver response received")
 
