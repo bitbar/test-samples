@@ -76,79 +76,76 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver.quit()
 
     def testSample(self):
+        log ("Test: testSample")
+        log ("  Getting device screen size")
+        print self.driver.get_window_size()
+        sleep(2) # always sleep before taking screenshot to let transition animations finish
+        log ("  Taking screenshot: 1_appLaunch.png")
+        self.driver.save_screenshot(self.screenshotDir + "/1_appLaunch.png")
+
+        log ("  Typing in name")
+        elems=self.driver.find_elements_by_class_name('android.widget.EditText')
+        log ("  info: EditText:" + `len(elems)`)
+        log ("  Filling in name")
+        elems[0].send_keys("Testdroid User")
+        sleep(2)
+        log ("  Taking screenshot: 2_nameTyped.png")
+        self.driver.save_screenshot(self.screenshotDir + "/2_nameTyped.png")
+
         try:
-            log ("Test: testSample")
-            log ("  Getting device screen size")
-            print self.driver.get_window_size()
-            sleep(2) # always sleep before taking screenshot to let transition animations finish
-            log ("  Taking screenshot: 1_appLaunch.png")
-            self.driver.save_screenshot(self.screenshotDir + "/1_appLaunch.png")
-
-            log ("  Typing in name")
-            elems=self.driver.find_elements_by_class_name('android.widget.EditText')
-            log ("  info: EditText:" + `len(elems)`)
-            log ("  Filling in name")
-            elems[0].send_keys("Testdroid User")
-            sleep(2)
-            log ("  Taking screenshot: 2_nameTyped.png")
-            self.driver.save_screenshot(self.screenshotDir + "/2_nameTyped.png")
-
-            try:
-                log ("  Hiding keyboard")
-                self.driver.hide_keyboard()
-            except:
-                pass # pass exception, if keyboard isn't visible already
-            sleep(2)
-            log ("  Taking screenshot: 3_nameTypedKeyboardHidden.png")
-            self.driver.save_screenshot(self.screenshotDir + "/3_nameTypedKeyboardHidden.png")
-
-            log ("  Clicking element 'Buy 101 devices'")
-
-            if self.driver.capabilities['automationName'] == "android":
-                elem = self.driver.find_element_by_name('Buy 101 devices')
-            else:
-                elem = self.driver.find_element_by_link_text('Buy 101 devices')
-            elem.click()
-
-            log ("  Taking screenshot: 4_clickedButton1.png")
-            self.driver.save_screenshot(self.screenshotDir + "/4_clickedButton1.png")
-
-            log ("  Clicking Answer")
-            if self.driver.capabilities['automationName'] == "android":
-                elem = self.driver.find_element_by_name('Answer')
-            else:
-                elem = self.driver.find_element_by_link_text('Answer')
-            elem.click()
-
-            log ("  Taking screenshot: 5_answer.png")
-            self.driver.save_screenshot(self.screenshotDir + "/5_answer.png")
-
-            log ("Navigating back to Activity-1")
-            self.driver.back()
-            log ("  Taking screenshot: 6_mainActivity.png")
-            self.driver.save_screenshot(self.screenshotDir + "/6_mainActivity.png")
-
-            log ("  Clicking element 'Use Testdroid Cloud'")
-            if self.driver.capabilities['automationName'] == "android":
-                elem = self.driver.find_element_by_name('Use Testdroid Cloud')
-            else:
-                elem = self.driver.find_element_by_link_text('Use Testdroid Cloud')
-            elem.click()
-
-            log ("  Taking screenshot: 7_clickedButton2.png")
-            self.driver.save_screenshot(self.screenshotDir + "/7_clickedButton2.png")
-
-            log ("  Clicking Answer")
-            if self.driver.capabilities['automationName'] == "android":
-                elem = self.driver.find_element_by_name('Answer')
-            else:
-                elem = self.driver.find_element_by_link_text('Answer')
-            elem.click()
-
-            log ("  Taking screenshot: 8_answer.png")
-            self.driver.save_screenshot(self.screenshotDir + "/8_answer.png")
+            log ("  Hiding keyboard")
+            self.driver.hide_keyboard()
         except:
-            raise
+            pass # pass exception, if keyboard isn't visible already
+        sleep(2)
+        log ("  Taking screenshot: 3_nameTypedKeyboardHidden.png")
+        self.driver.save_screenshot(self.screenshotDir + "/3_nameTypedKeyboardHidden.png")
+
+        log ("  Clicking element 'Buy 101 devices'")
+
+        if self.driver.capabilities['automationName'] == "android":
+            elem = self.driver.find_element_by_name('Buy 101 devices')
+        else:
+            elem = self.driver.find_element_by_link_text('Buy 101 devices')
+        elem.click()
+
+        log ("  Taking screenshot: 4_clickedButton1.png")
+        self.driver.save_screenshot(self.screenshotDir + "/4_clickedButton1.png")
+
+        log ("  Clicking Answer")
+        if self.driver.capabilities['automationName'] == "android":
+            elem = self.driver.find_element_by_name('Answer')
+        else:
+            elem = self.driver.find_element_by_link_text('Answer')
+        elem.click()
+
+        log ("  Taking screenshot: 5_answer.png")
+        self.driver.save_screenshot(self.screenshotDir + "/5_answer.png")
+
+        log ("Navigating back to Activity-1")
+        self.driver.back()
+        log ("  Taking screenshot: 6_mainActivity.png")
+        self.driver.save_screenshot(self.screenshotDir + "/6_mainActivity.png")
+
+        log ("  Clicking element 'Use Testdroid Cloud'")
+        if self.driver.capabilities['automationName'] == "android":
+            elem = self.driver.find_element_by_name('Use Testdroid Cloud')
+        else:
+            elem = self.driver.find_element_by_link_text('Use Testdroid Cloud')
+        elem.click()
+
+        log ("  Taking screenshot: 7_clickedButton2.png")
+        self.driver.save_screenshot(self.screenshotDir + "/7_clickedButton2.png")
+
+        log ("  Clicking Answer")
+        if self.driver.capabilities['automationName'] == "android":
+            elem = self.driver.find_element_by_name('Answer')
+        else:
+            elem = self.driver.find_element_by_link_text('Answer')
+        elem.click()
+
+        log ("  Taking screenshot: 8_answer.png")
+        self.driver.save_screenshot(self.screenshotDir + "/8_answer.png")
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
