@@ -79,7 +79,11 @@ class TestdroidAndroid(unittest.TestCase):
         log ("Test: testSample")
         log ("  Getting device screen size")
         print self.driver.get_window_size()
-        sleep(2) # always sleep before taking screenshot to let transition animations finish
+        isSelendroid = None
+        if 'automationName' in self.driver.capabilities:
+            if self.driver.capabilities['automationName'] == 'selendroid':
+                isSelendroid = True
+
         log ("  Taking screenshot: 1_appLaunch.png")
         self.driver.save_screenshot(self.screenshotDir + "/1_appLaunch.png")
 
@@ -97,26 +101,24 @@ class TestdroidAndroid(unittest.TestCase):
             self.driver.hide_keyboard()
         except:
             pass # pass exception, if keyboard isn't visible already
-        sleep(2)
         log ("  Taking screenshot: 3_nameTypedKeyboardHidden.png")
         self.driver.save_screenshot(self.screenshotDir + "/3_nameTypedKeyboardHidden.png")
 
         log ("  Clicking element 'Buy 101 devices'")
-
-        if self.driver.capabilities['automationName'] == "android":
-            elem = self.driver.find_element_by_name('Buy 101 devices')
-        else:
+        if isSelendroid:
             elem = self.driver.find_element_by_link_text('Buy 101 devices')
+        else:
+            elem = self.driver.find_element_by_name('Buy 101 devices')
         elem.click()
 
         log ("  Taking screenshot: 4_clickedButton1.png")
         self.driver.save_screenshot(self.screenshotDir + "/4_clickedButton1.png")
 
         log ("  Clicking Answer")
-        if self.driver.capabilities['automationName'] == "android":
-            elem = self.driver.find_element_by_name('Answer')
-        else:
+        if isSelendroid:
             elem = self.driver.find_element_by_link_text('Answer')
+        else:
+            elem = self.driver.find_element_by_name('Answer')
         elem.click()
 
         log ("  Taking screenshot: 5_answer.png")
@@ -128,20 +130,20 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver.save_screenshot(self.screenshotDir + "/6_mainActivity.png")
 
         log ("  Clicking element 'Use Testdroid Cloud'")
-        if self.driver.capabilities['automationName'] == "android":
-            elem = self.driver.find_element_by_name('Use Testdroid Cloud')
-        else:
+        if isSelendroid:
             elem = self.driver.find_element_by_link_text('Use Testdroid Cloud')
+        else:
+            elem = self.driver.find_element_by_name('Use Testdroid Cloud')
         elem.click()
 
         log ("  Taking screenshot: 7_clickedButton2.png")
         self.driver.save_screenshot(self.screenshotDir + "/7_clickedButton2.png")
 
         log ("  Clicking Answer")
-        if self.driver.capabilities['automationName'] == "android":
-            elem = self.driver.find_element_by_name('Answer')
-        else:
+        if isSelendroid:
             elem = self.driver.find_element_by_link_text('Answer')
+        else:
+            elem = self.driver.find_element_by_name('Answer')
         elem.click()
 
         log ("  Taking screenshot: 8_answer.png")
