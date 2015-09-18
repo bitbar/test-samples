@@ -129,3 +129,16 @@ class DeviceFinder:
         print "No available device found"
         print ""
         return ""
+    """ Find out the API level of a Device
+    """
+    def device_API_level(self, deviceName):
+        print "Searching for API level of device %s" % deviceName
+
+        try:
+            device = self.get("devices", {'search' : deviceName})
+            apiLevel = device['data'][0]['softwareVersion']['apiLevel']
+            print "Found API level: %s" % apiLevel
+            return apiLevel
+        except Exception, e:
+            print "Error: %s" % e
+            return
