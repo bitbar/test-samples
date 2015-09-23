@@ -17,7 +17,7 @@ include Selenium
 screen_shot_dir= "screenshot-folder"
 testdroid_username = ENV["TESTDROID_USERNAME"]
 testdroid_password = ENV["TESTDROID_PASSWORD"]
-testdroid_device = "Samsung Galaxy Epic 4G SPH-D700" # Example device. Change if you desire.
+testdroid_device = "Asus Memo Pad 8 K011" # Example device. Change if you desire.
 testdroid_app_file = "BitbarAndroidSample.apk" 
 
 

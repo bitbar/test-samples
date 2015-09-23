@@ -3,6 +3,7 @@
     package="com.testdroid.sample.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -40,6 +41,14 @@
             android:name=".HY_Hybrid"
             android:screenOrientation="portrait"
             android:label="@string/hy_title"></activity>
+        <activity
+            android:name=".GA_Game"
+            android:screenOrientation="portrait"
+            android:label="@string/ga_title"></activity>
+        <activity
+            android:name=".WE_Wear"
+            android:screenOrientation="portrait"
+            android:label="@string/we_title"></activity>
         <activity
             android:name=".PT_PingTest"
             android:screenOrientation="portrait"

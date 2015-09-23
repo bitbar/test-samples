@@ -1,0 +1,6 @@
+# config/cucumber.yml
+##YAML Template
+---
+default: >
+  --tags @smoke
+

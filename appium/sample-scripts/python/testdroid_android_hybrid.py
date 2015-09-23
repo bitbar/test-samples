@@ -18,7 +18,7 @@ appium_Url = 'http://appium.testdroid.com/wd/hub';
 screenshotDir= "/absolute/path/to/desired/directory"
 testdroid_username = "username@example.com"
 testdroid_password = "p4s$w0rd"
-testdroid_device = "BQ Curie 2 Quad Core" # Example device. Change if you desire.
+testdroid_device = "Dell Venue 7 3730" # Example device. Change if you desire.
 
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
