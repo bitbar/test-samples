@@ -30,6 +30,7 @@ desired_capabilities_cloud={
         'testdroid_app'=> nil,
         'testdroid_username'=> testdroid_username,
         'testdroid_password'=> testdroid_password,
+        'testdroid_target'=> 'Android',
         'testdroid_project'=> 'Appium Android demo',
         'testdroid_description'=> 'Appium project description',
         'testdroid_testrun'=> 'Test Run 1',
