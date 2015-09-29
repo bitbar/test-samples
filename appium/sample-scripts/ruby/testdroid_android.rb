@@ -17,7 +17,7 @@ include Selenium
 screen_shot_dir= "screenshot-folder"
 testdroid_username = ENV["TESTDROID_USERNAME"]
 testdroid_password = ENV["TESTDROID_PASSWORD"]
-testdroid_device = "Asus Memo Pad 8 K011" # Example device. Change if you desire.
+testdroid_device = "Samsung Galaxy Nexus GT-I9250 4.2.2" # Example device. Change if you desire.
 testdroid_app_file = "BitbarAndroidSample.apk" 
 
 
@@ -27,6 +27,8 @@ end
 @testdroid_app=nil
 desired_capabilities_cloud={
         'device'=> 'Android',
+        'platformName' => 'Android',
+        'deviceName' => 'Android',
         'testdroid_app'=> nil,
         'testdroid_username'=> testdroid_username,
         'testdroid_password'=> testdroid_password,
@@ -83,7 +85,7 @@ describe "BitbarAndroidSample testing" do
     @driver.find_elements(:name, 'Buy 101 devices')[0].click()
     
     log ("view1: Typing in textfield[0]: Testdroid user")
-    @driver.find_elements(:tag_name,  :EditText)[0].send_keys("Testdroid user")
+    @driver.find_elements(:class_name, 'android.widget.EditText')[0].send_keys("Testdroid user")
     @driver.navigate.back()
     log ("view1: Taking screenshot screenshot1.png")
     @driver.save_screenshot(screen_shot_dir + "/screenshot1.png")
@@ -117,12 +119,6 @@ describe "BitbarAndroidSample testing" do
     log ("view1: Sleeping 3 before quitting webdriver")
     sleep(3)
 
-  end
-
-  it "should get window size" do
-    size = @driver.manage.window.size
-    size.width.should eq(1080)
-    size.height.should eq(1920)
   end
 
 end
