@@ -109,7 +109,7 @@ class DeviceFinder:
             if device['creditsPrice'] == 0 and device['locked'] == False and device['osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
                 print "Found device '%s'" % device['displayName']
                 print ""
-                return device['displayName']
+                return str(device['displayName'])
 
         print "No available device found"
         print ""
@@ -124,8 +124,21 @@ class DeviceFinder:
             if device['creditsPrice'] == 0 and device['locked'] == False and device['osType'] == "IOS":
                 print "Found device '%s'" % device['displayName']
                 print ""
-                return device['displayName']
+                return str(device['displayName'])
 
         print "No available device found"
         print ""
         return ""
+    """ Find out the API level of a Device
+    """
+    def device_API_level(self, deviceName):
+        print "Searching for API level of device %s" % deviceName
+
+        try:
+            device = self.get("devices", {'search' : deviceName})
+            apiLevel = device['data'][0]['softwareVersion']['apiLevel']
+            print "Found API level: %s" % apiLevel
+            return apiLevel
+        except Exception, e:
+            print "Error: %s" % e
+            return
