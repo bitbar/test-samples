@@ -95,6 +95,8 @@ look at Appium
   your *testdroid_app* desired capability value to 'latest'
 
 
+* To find available free devices in Testdroid cloud, you can use this Ruby [tool](https://github.com/bootstraponline/testdroid_device_finder)
+
 ## License
 
 See the
