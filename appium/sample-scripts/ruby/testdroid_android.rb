@@ -18,7 +18,7 @@ screen_shot_dir= "screenshot-folder"
 testdroid_username = ENV["TESTDROID_USERNAME"]
 testdroid_password = ENV["TESTDROID_PASSWORD"]
 testdroid_device = "Samsung Galaxy Nexus GT-I9250 4.2.2" # Example device. Change if you desire.
-testdroid_app_file = "BitbarAndroidSample.apk" 
+testdroid_app_file = "../../../apps/builds/BitbarSampleApp.apk"
 
 
 def log(msg)
@@ -33,7 +33,7 @@ desired_capabilities_cloud={
         'testdroid_username'=> testdroid_username,
         'testdroid_password'=> testdroid_password,
         'testdroid_target'=> 'Android',
-        'testdroid_project'=> 'Appium Android demo',
+        'testdroid_project'=> 'Appium Ruby Demo',
         'testdroid_description'=> 'Appium project description',
         'testdroid_testrun'=> 'Test Run 1',
         'testdroid_device'=> testdroid_device,
@@ -52,13 +52,13 @@ def upload_application(file_path, username, password)
   c.password = password
   c.multipart_form_post = true
   c.verbose = true
-  c.http_post(Curl::PostField.file('BitbarAndroidSample.apk', file_path))
+  c.http_post(Curl::PostField.file('BitbarSampleApp.apk', file_path, 'BitbarSampleApp.apk'))
   resp = JSON.parse(c.body_str)
 
-  @testdroid_app = resp["value"]["uploads"]["BitbarAndroidSample.apk"]
+  @testdroid_app = resp["value"]["uploads"]["BitbarSampleApp.apk"]
 end
 
-describe "BitbarAndroidSample testing" do
+describe "BitbarSampleApp testing" do
   before :all do
  
     log ("Upload application #{testdroid_app_file}")
