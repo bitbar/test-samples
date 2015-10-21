@@ -7,10 +7,15 @@ for your application.
 ####Configuring testdroid specific settings
 
 *File  [SampleAppium(iOS)Test.java](https://github.com/bitbar/testdroid-samples/blob/master/appium/sample-scripts/java/src/test/java/com/testdroid/appium/android/sample/SampleAppiumTest.java)* 
-- Add your testdroid user credentials:
-Set environment variable TESTDROID_USERNAME and TESTDROID_PASSWORD,
-or edit testdroid_username and testdroid_password in source file
 
+- Add your testdroid user credentials: Set environment variable
+TESTDROID_USERNAME and TESTDROID_PASSWORD, or edit
+*testdroid_username* and *testdroid_password* in source file.
+**NOTE** A prefered approach is to use the *testdroid_apiKey*
+capability instead of username and password. Simply replace
+*testdroid_username* and *testdroid_password* with *testdroid_apiKey*. Your
+api key is available under 'My account' in [Testdroid
+Cloud](https://cloud.testdroid.com/).
 
 - If want to run test against your application make sure to change file path to your application binary (apk or ipa):
 ```
