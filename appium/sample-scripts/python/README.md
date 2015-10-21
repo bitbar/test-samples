@@ -37,22 +37,29 @@ file needs to be updated with the following values.
 
 Here are all the values that you need to edit:
 
-* screenshotDir - where should screenshots be stored on your local drive
+* *screenshotDir* - where should screenshots be stored on your local drive
 
-* testdroid_username - your email that you registered with to Testdroid Cloud
+* *testdroid_username* - your email that you registered with to
+   Testdroid Cloud.  **Rather use testdroid_apiKey.**
 
-* testdroid_password - your Testdroid Cloud password
+* *testdroid_password* - your Testdroid Cloud password. **Rather use
+   testdroid_apiKey.**
 
-* testdroid_project - you can set this value as an environment variable
+* *testdroid_apiKey* - a personal unique key that allows you to
+   connect to Testdroid Cloud without the need to use your username
+   and passwords in your tests. You can find your api key under "My
+   account" in [Testdroid Cloud](https://cloud.testdroid.com/) UI.
+
+* *testdroid_project* - you can set this value as an environment variable
   or set in the script. This is the name you want to give to your
   project in Testdroid Cloud. Each project must have a unique name, 
   which can also be modified later
 
-* testdroid_testrun - name of this test run. Is set here or read from
+* *testdroid_testrun* - name of this test run. Is set here or read from
   environment variable. Test run names can also be modified, even for
   every test run
 
-* testdroid_app - should be the name of the app you uploaded to
+* *testdroid_app* - should be the name of the app you uploaded to
   cloud. Eg. if you uploaded your app using the upload.py script this
   would look like
   'f4660af0-10f3-46e9-932b-0622f497b0d2/Testdroid.apk'
@@ -81,6 +88,14 @@ common settings done above, you need to change the following values.
 
 * appActivity - activity name for the Android activity you want to
   launch from your package. Typically this is the main activity.
+
+## Hybrid Android Specific Settings
+
+Example: testdroid_android_hybrid.py
+
+For a more complete explanation on testing hybrid application take a look at Appium [documentation](https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/hybrid.md).
+
+
 
 ## Tips
 

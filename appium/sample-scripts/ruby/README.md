@@ -38,9 +38,16 @@ Here are all the values that you need to edit:
 
 * *screen_shot_dir* - where should screenshots be stored on your local drive
 
-* *testdroid_username* - your email that you registered with to Testdroid Cloud
+* *testdroid_username* - your email that you registered with to
+   Testdroid Cloud.  **Rather use testdroid_apiKey.**
 
-* *testdroid_password* - your Testdroid Cloud password
+* *testdroid_password* - your Testdroid Cloud password.  **Rather use
+   testdroid_apiKey.**
+
+* *testdroid_apiKey* - a personal unique key that allows you to
+   connect to Testdroid Cloud without the need to use your username
+   and passwords in your tests. You can find your api key under "My
+   account" in [Testdroid Cloud](https://cloud.testdroid.com/) UI.
 
 * *testdroid_project* - has a default value, but you might want to add
   your own name to this. Project name is visible in your project view
