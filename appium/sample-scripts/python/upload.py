@@ -8,9 +8,10 @@ import os
 import json
 
 # update your apiKey value here or export it to your environment
+# and you app path if you want to upload your own app instead of demo app
 api_key = os.environ.get('TESTDROID_APIKEY') or "<api key value here>"
 upload_url = 'http://appium.testdroid.com/upload'
-myfile = '../../../apps/builds/Testdroid.apk'
+myfile = os.environ.get('TESTDROID_APP_PATH') or '../../../apps/builds/Testdroid.apk'
 
 def build_headers():
     hdrs = {'Authorization' : 'Basic %s' % base64.b64encode(api_key+":"),
