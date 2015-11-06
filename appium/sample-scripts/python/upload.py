@@ -4,16 +4,23 @@
 
 import requests
 import base64
+import os
+import json
 
-username = 'USERNAME'
-password = 'PASSWORD'
+# update your apiKey value here or export it to your environment
+api_key = os.environ.get('TESTDROID_APIKEY') or "<api key value here>"
 upload_url = 'http://appium.testdroid.com/upload'
 myfile = '../../../apps/builds/Testdroid.apk'
 
 def build_headers():
-  return { 'Authorization' : 'Basic %s' % base64.b64encode(username+":"+password) }
+    hdrs = {'Authorization' : 'Basic %s' % base64.b64encode(api_key+":"),
+            'Accept' : 'application/json' }
+    return hdrs
 
 files = {'file': ('Testdroid.apk', open(myfile, 'rb'), 'application/octet-stream')}
 r = requests.post(upload_url, files=files, headers=build_headers())
-print r.text
 
+if  "successful" in r.json()['value']['message']:
+    print "Filename to use in testdroid capabilities in your test: {}".format(r.json()['value']['uploads']['file'])
+else:
+    print "Upload response: \n{}".format(r.json())
