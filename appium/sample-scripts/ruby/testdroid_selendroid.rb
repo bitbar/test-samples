@@ -17,7 +17,7 @@ include Selenium
 screen_shot_dir= "screenshot-folder"
 testdroid_username = ENV["TESTDROID_USERNAME"]
 testdroid_password = ENV["TESTDROID_PASSWORD"]
-testdroid_device = "Asus Memo Pad 8 K011" # Example device. Change if you desire.
+testdroid_device = "Samsung Galaxy Nexus GT-I9250 4.2.2" # Example device. Change if you desire.
 testdroid_app_file = "BitbarAndroidSample.apk" 
 
 
@@ -27,9 +27,12 @@ end
 @testdroid_app=nil
 desired_capabilities_cloud={
         'device'=> 'Selendroid',
+        'platformName' => 'Android',
+        'deviceName' => 'Android',
         'testdroid_app'=> nil,
         'testdroid_username'=> testdroid_username,
         'testdroid_password'=> testdroid_password,
+        'testdroid_target' => 'selendroid',
         'testdroid_project'=> 'Appium Android(Selendroid) demo',
         'testdroid_description'=> 'Appium project description',
         'testdroid_testrun'=> 'Selendroid Run 1',

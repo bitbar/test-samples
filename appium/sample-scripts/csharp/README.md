@@ -1,7 +1,17 @@
 #Appium Testdroid Sample
 
-The capabilities has been set to run tests for Bitbar Sample Android app. Before running tests modify Tests.cs and
-replace TESTDROID_USERNAME and TESTDROID_PASSWORD with your user credentials. Set the SCREENSHOT_FOLDER to an existing directory on your system.
+
+The capabilities has been set to run tests for Bitbar Sample Android
+app. Before running tests modify Tests.cs and replace
+TESTDROID_USERNAME and TESTDROID_PASSWORD with your user
+credentials. Set the SCREENSHOT_FOLDER to an existing directory on
+your system.
+
+**Note:** Instead of using *testdroid_username* and
+  *testdroid_password* desired capabilities to identify to Testdroid
+  Cloud you should rather use *testdroid_apiKey*. Your personal apiKey is
+  found in cloud.testdroid.com under 'My account'.
+
 
 #### Windows
 
