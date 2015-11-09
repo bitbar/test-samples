@@ -28,25 +28,27 @@ class TestdroidSafari(unittest.TestCase):
         ##
         ## IMPORTANT: Set the following parameters.
         ##
-        self.screenshotDir= "/absolute/path/to/desired/directory"
-        testdroid_username = "username@example.com"
-        testdroid_password = "p4s$w0rd"
+        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
+        testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
 
-        ## Device can be manually defined, by device name found from Testdroid Cloud
-        testdroid_device = "iPhone 5 A1429 6.1.4"
+        # Options to select device
+        # 1) Set environment variable TESTDROID_DEVICE
+        # 2) Set device name to this python script
+        # 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
 
-        # ## DeviceFinder can be used to find available freemium device for testing
-        # deviceFinder = DeviceFinder(testdroid_username, testdroid_password)
-        # testdroid_device = ""
-        # ## Safari testing iPad 3 freemium device not yet supported as it is iOS 8.2 device
-        # while testdroid_device == "" or testdroid_device == "iPad 3 A1416 8.2":
-        #     testdroid_device = deviceFinder.available_free_ios_device()
-            
+        deviceFinder = None
+        testdroid_device = os.environ.get('TESTDROID_DEVICE') or "iPhone 5 A1429 6.1.4"
+
+        if testdroid_device == "":
+            deviceFinder = DeviceFinder(url=testdroid_url)
+            # Loop will not exit until free device is found
+            while testdroid_device == "":
+                testdroid_device = deviceFinder.available_free_ios_device()
+
         print "Starting Appium test using device '%s'" % testdroid_device
 
         desired_capabilities_cloud = {}
-        desired_capabilities_cloud['testdroid_username'] = testdroid_username
-        desired_capabilities_cloud['testdroid_password'] = testdroid_password
+        desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
         desired_capabilities_cloud['testdroid_target'] = 'safari'
         desired_capabilities_cloud['testdroid_project'] = 'Appium Safari Demo'
         desired_capabilities_cloud['testdroid_testrun'] = 'TestRun A'
@@ -56,7 +58,7 @@ class TestdroidSafari(unittest.TestCase):
         desired_capabilities_cloud['browserName'] = 'Safari'
         desired_caps = desired_capabilities_cloud;
         
-        log ("Will save screenshots at: " + self.screenshotDir)
+        log ("Will save screenshots at: " + self.screenshot_dir)
         
         # Set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
@@ -78,7 +80,7 @@ class TestdroidSafari(unittest.TestCase):
             
             sleep(3)
             #log("Taking a screenshot")
-            #self.driver.save_screenshot(self.screenshotDir + '/testdroidcom.png')
+            #self.driver.save_screenshot(self.screenshot_dir + '/testdroidcom.png')
             
             # Finding element xpath, id or name is simple with Appium GUI application's inspector.
             # Safari Web Inspector can also be used on iOS devices.
