@@ -18,7 +18,7 @@ def build_headers():
             'Accept' : 'application/json' }
     return hdrs
 
-files = {'file': ('Testdroid.apk', open(myfile, 'rb'), 'application/octet-stream')}
+files = {'file': (os.path.basename(myfile), open(myfile, 'rb'), 'application/octet-stream')}
 r = requests.post(upload_url, files=files, headers=build_headers())
 
 if  "successful" in r.json()['value']['message']:
