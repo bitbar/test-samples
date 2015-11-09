@@ -46,21 +46,21 @@ class TestdroidIOS(unittest.TestCase):
 
         desired_capabilities_cloud={
                 'testdroid_apiKey': testdroid_apiKey,
-                'testdroid_project': testdroid_project_name,
                 'testdroid_target': 'ios',
-                'testdroid_description': 'Appium project description',
+                'testdroid_project': testdroid_project_name,
                 'testdroid_testrun': testdroid_testrun_name,
                 'testdroid_device': testdroid_device,
                 'testdroid_app': testdroid_app,
+                'testdroid_description': 'Appium project description',
                 'platformName': 'iOS',
                 'deviceName': 'iPhone device',
                 'bundleId': 'com.bitbar.testdroid.BitbarIOSSample',
         }
-        
+
         # set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
 
-        self.driver = webdriver.Remote(command_executor=appium_url,desired_capabilities=desired_capabilities_cloud)
+        self.driver = webdriver.Remote(command_executor=appium_url, desired_capabilities=desired_capabilities_cloud)
         log ("WebDriver response received")
 
 

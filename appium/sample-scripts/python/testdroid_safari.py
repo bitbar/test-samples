@@ -30,6 +30,7 @@ class TestdroidSafari(unittest.TestCase):
         ##
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
+        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
@@ -37,8 +38,9 @@ class TestdroidSafari(unittest.TestCase):
         # 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
 
         deviceFinder = None
-        testdroid_device = os.environ.get('TESTDROID_DEVICE') or "iPhone 5 A1429 6.1.4"
+        testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
+        deviceFinder = DeviceFinder(url=testdroid_url)
         if testdroid_device == "":
             deviceFinder = DeviceFinder(url=testdroid_url)
             # Loop will not exit until free device is found
