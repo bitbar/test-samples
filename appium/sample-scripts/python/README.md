@@ -16,18 +16,18 @@ online](http://appium.io/slate/en/master/?python#about-appium).
 
 Before testing can start you need to upload you mobile application to
 the cloud. To do so open and configure the upload.py script. You will
-need to configure your username (email) and password that you registered
-with to Testdroid cloud. Also you need to set the full path to your
+need to add your apiKey value that you can get from under "My Account"
+from Testdroid cloud. Also you'll need to set the full path to your
 mobile app. This can be an Android or iOS application.
 
 ```sh
-$ python update.py 
-{"status":0,"sessionId":"f4660af0-10f3-46e9-932b-0622f497b0d2","value":{"message":"uploads successful","uploadCount":1,"rejectCount":0,"expiresIn":1800,"uploads":{"file":"f4660af0-10f3-46e9-932b0622f497b0d2/Testdroid.apk"},"rejects":{}}}
+$ python upload.py 
+Filename to use in testdroid capabilities in your test: 719f52c4-2c34-4c25-b90b-08884f049d3a/Testdroid.apk
 ```
 
 From the response message you need to store the application's file
 name in the cloud. In this example upload it is
-'f4660af0-10f3-46e9-932b-0622f497b0d2/Testdroid.apk'.
+'719f52c4-2c34-4c25-b90b-08884f049d3a/Testdroid.apk'.
 
 ## Common Settings
 
@@ -61,8 +61,9 @@ Here are all the values that you need to edit:
 
 * *testdroid_app* - should be the name of the app you uploaded to
   cloud. Eg. if you uploaded your app using the upload.py script this
-  would look like
-  'f4660af0-10f3-46e9-932b-0622f497b0d2/Testdroid.apk'
+  would look like 'f4660af0-10f3-46e9-932b-0622f497b0d2/Testdroid.apk'
+  You can also use the value *latest* if you want to rerun a test
+  against your last uploaded app.
 
 
 ## Native iOS Specific Settings

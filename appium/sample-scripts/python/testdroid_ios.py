@@ -22,8 +22,8 @@ class TestdroidIOS(unittest.TestCase):
         ##
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
-        testdroid_username = os.environ.get('TESTDROID_USERNAME') or "user@email.com"
-        testdroid_password = os.environ.get('TESTDROID_PASSWORD') or "password"
+        testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
+        testdroid_app = os.environ.get('TESTDROID_APP') or ""
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
         testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Appium iOS demo"
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
@@ -37,7 +37,7 @@ class TestdroidIOS(unittest.TestCase):
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
         if testdroid_device == "":
-            deviceFinder = DeviceFinder(username=testdroid_username, password=testdroid_password, url=testdroid_url)
+            deviceFinder = DeviceFinder(url=testdroid_url)
             # Loop will not exit until free device is found
             while testdroid_device == "":
                 testdroid_device = deviceFinder.available_free_ios_device()
@@ -45,23 +45,22 @@ class TestdroidIOS(unittest.TestCase):
         print "Starting Appium test using device '%s'" % testdroid_device
 
         desired_capabilities_cloud={
-                'testdroid_username': testdroid_username,
-                'testdroid_password': testdroid_password,
-                'testdroid_project': testdroid_project_name,
+                'testdroid_apiKey': testdroid_apiKey,
                 'testdroid_target': 'ios',
-                'testdroid_description': 'Appium project description',
+                'testdroid_project': testdroid_project_name,
                 'testdroid_testrun': testdroid_testrun_name,
                 'testdroid_device': testdroid_device,
-                'testdroid_app': 'sample/BitbarIOSSample.ipa',
+                'testdroid_app': testdroid_app,
+                'testdroid_description': 'Appium project description',
                 'platformName': 'iOS',
                 'deviceName': 'iPhone device',
                 'bundleId': 'com.bitbar.testdroid.BitbarIOSSample',
         }
-        
+
         # set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
 
-        self.driver = webdriver.Remote(command_executor=appium_url,desired_capabilities=desired_capabilities_cloud)
+        self.driver = webdriver.Remote(command_executor=appium_url, desired_capabilities=desired_capabilities_cloud)
         log ("WebDriver response received")
 
 
