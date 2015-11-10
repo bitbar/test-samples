@@ -26,28 +26,27 @@ public class SampleAppiumTest  extends com.testdroid.appium.BaseTest {
     public static void setUp() throws Exception {
         counter = 0;
         Map<String, String> env = System.getenv();
-        String testdroid_username = env.get("TESTDROID_USERNAME");
-        String testdroid_password = env.get("TESTDROID_PASSWORD");
+        String testdroid_apikey = env.get("TESTDROID_APIKEY");
 
-        if(StringUtils.isEmpty(testdroid_password) || StringUtils.isEmpty(testdroid_username)) {
-            throw new IllegalArgumentException("Missing TESTDROID_USERNAME or/and TESTDROID_PASSWORD environment variables");
+
+        if(StringUtils.isEmpty(testdroid_apikey)) {
+            throw new IllegalArgumentException("Missing TESTDROID_APIKEY environment variable");
         }
 
-        String fileUUID = uploadFile(TARGET_APP_PATH, TESTDROID_SERVER, testdroid_username, testdroid_password);
+        String fileUUID = uploadFile(TARGET_APP_PATH, TESTDROID_SERVER, testdroid_apikey);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("testdroid_target", "Android");
         capabilities.setCapability("deviceName", "Android Device");
         
-        capabilities.setCapability("testdroid_username", testdroid_username);
-        capabilities.setCapability("testdroid_password", testdroid_password);
+        capabilities.setCapability("testdroid_apiKey", testdroid_apikey);
         
         capabilities.setCapability("testdroid_project", "LocalAppium");
         capabilities.setCapability("testdroid_testrun", "Android Run 1");
         
         // See available devices at: https://cloud.testdroid.com/#public/devices
-        capabilities.setCapability("testdroid_device", "Samsung Galaxy Nexus GT-I9250 4.2.2"); // Freemium device
+        capabilities.setCapability("testdroid_device", "Samsung Galaxy Nexus SPH-L700 4.3"); // Freemium device
         capabilities.setCapability("testdroid_app", fileUUID); //to use existing app using "latest" as fileUUID
 
         // Optional
