@@ -24,27 +24,22 @@ public class SampleAppiumiOSTest extends com.testdroid.appium.BaseTest {
     public static void setUp() throws Exception {
 
         Map<String, String> env = System.getenv();
-        String testdroid_username = env.get("TESTDROID_USERNAME");
-        String testdroid_password = env.get("TESTDROID_PASSWORD");
+        String testdroid_apikey = env.get("TESTDROID_APIKEY");
 
-        if(StringUtils.isEmpty(testdroid_password) || StringUtils.isEmpty(testdroid_username)) {
-            throw new IllegalArgumentException("Missing TESTDROID_USERNAME or/and TESTDROID_PASSWORD environment variables");
+        if(StringUtils.isEmpty(testdroid_apikey)) {
+            throw new IllegalArgumentException("Missing TESTDROID_APIKEY environment variable");
         }
 
-        String fileUUID = uploadFile(TARGET_APP_PATH,TESTDROID_SERVER, testdroid_username, testdroid_password);
+        String fileUUID = uploadFile(TARGET_APP_PATH,TESTDROID_SERVER, testdroid_apikey);
 
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "iOS");
 
-
         capabilities.setCapability("device", "iphone");
         capabilities.setCapability("deviceName", "iOS Phone");
 
-
-        capabilities.setCapability("testdroid_username", testdroid_username);
-
-        capabilities.setCapability("testdroid_password", testdroid_password);
+        capabilities.setCapability("testdroid_apiKey", testdroid_apikey);
         capabilities.setCapability("testdroid_project", "LocaliOSAppium");
         capabilities.setCapability("testdroid_description", "Appium project description");
         capabilities.setCapability("testdroid_testrun", "iOS Run");

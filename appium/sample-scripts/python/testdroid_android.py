@@ -47,7 +47,7 @@ class TestdroidAndroid(unittest.TestCase):
 
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
-        if apiLevel > 17:
+        if apiLevel > 16:
             desired_capabilities_cloud['testdroid_target'] = 'Android'
         else:
             desired_capabilities_cloud['testdroid_target'] = 'Selendroid'
