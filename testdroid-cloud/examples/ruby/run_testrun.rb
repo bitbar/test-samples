@@ -69,8 +69,8 @@ app_file = options[:app_file_path]
 test_file = options[:zip_file_path]
 device_group_name = options[:device_group]
 
-raise "The file #{app_file} doesn't exists" unless File.exist?(app_file)
-raise "The file #{test_file} doesn't exists" unless File.exist?(test_file)
+raise "The file #{app_file} doesn't exist" unless File.exist?(app_file)
+raise "The file #{test_file} doesn't exist" unless File.exist?(test_file)
 
 logger = Logger.new('logfile.log')
 
