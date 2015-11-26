@@ -76,7 +76,7 @@ Some of the functions:
    The OpenCV java libs can be found under *./opencv/* folder
    inside the project. To install them in maven, run:
 
-       mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar 
+           mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar 
 
 2. Akaze
 
@@ -91,7 +91,7 @@ Some of the functions:
    Can be pulled from
    [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install it, run:
 
-       mvn install -DskipTests
+           mvn install -DskipTests
 
 Everything else is fetched by Maven
 
@@ -104,7 +104,6 @@ To install OpenCV on a mac, use MacPorts:
     sudo port install opencv @2.4.9
 
 Or use Homebrew:
-
 
     brew install homebrew/science/opencv --with-java  
     mvn install:install-file -Dfile=/usr/local/Cellar/opencv/2.4.9/share/OpenCV/java/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
