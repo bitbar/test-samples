@@ -1,14 +1,19 @@
 # Java Image Recognition Sample
 
-Sample Java Project to show use of OpenCV and Akaze algorithm to run
-image recognition tests using Appium
+This out of the box sample Java Project shows the use of OpenCV and
+Akaze algorithm to run image recognition tests using Appium in
+[Testdroid cloud](http://testdroid.com/). This is particularly suited
+for running image recognition tests.
 
 The project will use the BitbarSampleApp.apk, will install it on the
-device, then check that the Bitbar logo is displayed on the screen
-using image recognition.
-The reference Bitbar logo image is located at: *queryimages/bitbar_logo.png*
+device, then check the Bitbar logo is displayed on the screen using
+image recognition.  The reference Bitbar logo image is located at:
+*queryimages/bitbar_logo.png*
 
 The project uses:
+
+- [Testdroid](http://testdroid.com) - web service for running tests on
+  real mobile devices. You'll need to have an active account for running this test.
 
 - testdroid-appium-driver from
   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git)
