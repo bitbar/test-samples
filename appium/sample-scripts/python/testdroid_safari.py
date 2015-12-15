@@ -61,7 +61,7 @@ class TestdroidSafari(unittest.TestCase):
         # Set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
         self.driver = webdriver.Remote(appium_url, desired_caps)
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(60)
 
     def tearDown(self):
         self.driver.quit()
@@ -84,7 +84,7 @@ class TestdroidSafari(unittest.TestCase):
             # Safari Web Inspector can also be used on iOS devices.
             log ("Looking for Welcome screen")
             try:
-                self.driver.implicitly_wait(10)
+                self.driver.implicitly_wait(20)
                 # This element doesn't always exist
                 elem = self.driver.find_element_by_xpath("//div[contains(@class, 'sumome-welcomemat-action-close')]")
                 log ("clicking close Welcome screen")
@@ -93,7 +93,7 @@ class TestdroidSafari(unittest.TestCase):
             except:
                 log ("Welcome screen not visible, skipping close button")
 
-            self.driver.implicitly_wait(30)
+            self.driver.implicitly_wait(60)
             log ("Finding menu button")
             elem = self.driver.find_element_by_xpath("//button[contains(@class, 'navbar-toggle collapsed')]")
 
