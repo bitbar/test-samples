@@ -18,8 +18,7 @@ The project uses:
 - testdroid-appium-driver from
   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git)
 
-- [https://github.com/bitbar/testdroid-image-recognition](https://github.com/bitbar/testdroid-image-recognition) - this project
-  contains the C++ implementation for Akaze algorithm
+- C++ implementation for Akaze algorithm with Bitbar changes (we're cleaning the code and will publish link to it soon)
 
 - [OpenCV](http://opencv.org/)
 
