@@ -15,24 +15,20 @@ The project uses:
 - [Testdroid](http://testdroid.com) - web service for running tests on
   real mobile devices. You'll need to have an active account for running this test.
 
-- testdroid-appium-driver from
+- testdroid-appium-driver - can be downloaded from 
   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git)
 
-- [Testdroid Akaze fork](http://xxxxxxx) C++ implementation for Akaze
-  algorithm with Bitbar changes. We have added some json support to
-  the Akaze library.
+- [Testdroid Akaze](https://github.com/aknackiron/akaze) - fork of official Akaze repo with added json support.
 
 - [OpenCV](http://opencv.org/)
 
-- [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git) If
-  using a latest versions of Akaze and OpenCV then one needs to comile
-  new version of jsoncpp also.
+- [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git) - used to add json support to the Akaze library. This is neded if compiling latest versions of Akaze and OpenCV.
 
 # Info on OpenCV and Akaze
 
 We use [Akaze algorithm](https://github.com/pablofdezalc/akaze) to find
 the matching keypoints from two images and save them to a json file.
-We use the [opencv](http://opencv.org/) java bindings to process the
+We use the [OpenCV](http://opencv.org/) java bindings to process the
 json file with keypoints and find the homography of the wanted image
 in a scene (screenshot).
 
@@ -115,15 +111,14 @@ Create a testdroid.properties file in the project root folder, containing this i
     testdroid.project=Sample Project
     appium.appFile=src/test/resources/BitbarSampleApp.apk
 
-Note, you shouldn't use quotes around username and password. Also if
-you are using a different (newer) version of OpenCV, you should update
-the version number.
+Note, quotes are not used around *username* and *password*. If
+a different (newer) version of OpenCV is used, OpenCV version number needs to be updated.
 
 Run the tests from maven using:
 
     mvn test
 
-On Mac it was necessary to give the 'java.library.path' for OpenCV as a parameter on the command line:
+If OpenCV is not installed through 'brew' the 'java.library.path' might need to be provided on the command line:
 
     mvn -Djava.library.path=/usr/local/share/OpenCV/java/ test
 
@@ -156,7 +151,7 @@ linking errors while linking Akaze.
 
 1. [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 
-   You'll need to have Python 2.6 installed to get an amalgamated source and header files:
+   Python 2.6 is needed to extract amalgamated source and header files:
    
    ```
    git clone https://github.com/open-source-parsers/jsoncpp.git
@@ -164,7 +159,7 @@ linking errors while linking Akaze.
    python amalgamate.py  
    ```
    
-   By default, the following files are generated and they'll be needed while compiling the Akaze binaries later on.
+   By default, the following files are generated and are needed to compile new Akaze binaries.
 
    * `dist/jsoncpp.cpp`: source file that needs to be added to your project.
    * `dist/json/json.h`: corresponding header file for use in your project. It is equivalent to including json/json.h in non-amalgamated source. This header only depends on standard headers.
@@ -184,11 +179,11 @@ linking errors while linking Akaze.
    make install  
    ```
 
-   This will create you Java jars used for image recognition sample. In the image-rocognition repo root you can install the newly created jars by running the command:
+   Creates Java jars for image recognition sample. Latest jars are installed by running:
 
          mvn install:install-file -Dfile=path/to/opencv/build/bin/opencv-2412.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.12 -Dpackaging=jar  
 
-   You'll also need to update pom.xml file with opencv version (2.4.12 in this example).
+   *pom.xml* file needs to be updated with installed OpenCV version (2.4.12 in this example).
 
 1. [Akaze](https://github.com/aknackiron/akaze)
 
@@ -205,5 +200,8 @@ linking errors while linking Akaze.
    cp bin/akaze_* path/to/image-recognition/akaze/bin/  
    ```
 
-You should be now sest to run the sample test using the latest binaries. 
+Up to date versions of used libraries are now installed and the sample test can be run using them from the image-recognition sample directory:
+
+    mvn -Djava.library.path=/usr/local/share/OpenCV/java/ test
+
 
