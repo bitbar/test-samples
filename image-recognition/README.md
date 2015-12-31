@@ -91,10 +91,10 @@ Some of the functions:
 
    **Note** these are Mac specific binaries and work only on Mac.
 
-3. testdroid-appium-driver 1.1.3
+3. testdroid-appium-driver v1.1.3
 
    Can be pulled from
-   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install the version 1.1.3, which this sample uses, first clone and checkout correct version:
+   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install the version v1.1.3, which this sample uses, first clone and checkout correct version:
        git clone https://github.com/bitbar/testdroid-appium-driver.git
        git checkout v1.1.3
 
@@ -169,7 +169,7 @@ linking errors while linking Akaze.
    * `dist/json/json.h`: corresponding header file for use in your project. It is equivalent to including json/json.h in non-amalgamated source. This header only depends on standard headers.
    * `dist/json/json-forwards.h`: header that provides forward declaration of all JsonCpp types.
 
-   You will also need the libjsoncpp.a library placed in your local lib directory:
+   You will also need to build and copy the libjsoncpp.a library to your local lib directory:
    ```
    mkdir build
    cd build
