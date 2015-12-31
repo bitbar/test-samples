@@ -15,14 +15,14 @@ The project uses:
 - [Testdroid](http://testdroid.com) - web service for running tests on
   real mobile devices. You'll need to have an active account for running this test.
 
-- testdroid-appium-driver - can be downloaded from 
+- testdroid-appium-driver - can be downloaded from
   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git)
 
 - [Testdroid Akaze](https://github.com/aknackiron/akaze) - fork of official Akaze repo with added json support.
 
 - [OpenCV](http://opencv.org/)
 
-- [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git) - used to add json support to the Akaze library. This is neded if compiling latest versions of Akaze and OpenCV.
+- [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git) - used to add json support to the Akaze library. This is needed if compiling latest versions of Akaze and OpenCV.
 
 # Info on OpenCV and Akaze
 
@@ -55,7 +55,7 @@ Some of the functions:
 
 - `public Point[] findImage(String image, String scene)`: returns the
   corners of the image if found, or `null` if no image was found
-  
+
 - `public Point[] findImageOnScreen(String image)`: takes a
   screenshots, then tries to find the image on it and return the
   corners
@@ -80,7 +80,7 @@ Some of the functions:
    The OpenCV java libs can be found under *./opencv/* folder
    inside the project. To install them in maven, run:
 
-           mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar 
+       mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
 
 2. Akaze
 
@@ -91,14 +91,18 @@ Some of the functions:
 
    **Note** these are Mac specific binaries and work only on Mac.
 
-3. testdroid-appium-driver
+3. testdroid-appium-driver 1.1.3
 
    Can be pulled from
-   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install it, run:
+   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install the version 1.1.3, which this sample uses, first clone and checkout correct version:
+       git clone https://github.com/bitbar/testdroid-appium-driver.git
+       git checkout v1.1.3
 
-           mvn install -DskipTests
+   To install the plugin, run:
 
-Everything else is fetched by Maven
+       mvn install -DskipTests
+
+   Everything else is fetched by Maven
 
 
 ## Run Test from Command Line with Maven
@@ -152,18 +156,27 @@ linking errors while linking Akaze.
 1. [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 
    Python 2.6 is needed to extract amalgamated source and header files:
-   
+
    ```
    git clone https://github.com/open-source-parsers/jsoncpp.git
    cd jsoncpp
    python amalgamate.py  
    ```
-   
+
    By default, the following files are generated and are needed to compile new Akaze binaries.
 
    * `dist/jsoncpp.cpp`: source file that needs to be added to your project.
    * `dist/json/json.h`: corresponding header file for use in your project. It is equivalent to including json/json.h in non-amalgamated source. This header only depends on standard headers.
    * `dist/json/json-forwards.h`: header that provides forward declaration of all JsonCpp types.
+
+   You will also need the libjsoncpp.a library placed in your local lib directory:
+   ```
+   mkdir build
+   cd build
+   cmake ..
+   make
+   cp src/lib_json/libjsoncpp.a /usr/local/lib/
+   ```
 
 
 1. [OpenCV](https://github.com/Itseez/opencv)
@@ -203,5 +216,3 @@ linking errors while linking Akaze.
 Up to date versions of used libraries are now installed and the sample test can be run using them from the image-recognition sample directory:
 
     mvn -Djava.library.path=/usr/local/share/OpenCV/java/ test
-
-
