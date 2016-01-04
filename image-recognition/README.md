@@ -80,9 +80,9 @@ Some of the functions:
    The OpenCV java libs can be found under *./opencv/* folder
    inside the project. To install them in maven, run:
 
-       mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
+         mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
 
-2. Akaze
+1. Akaze
 
    The Akaze C++ implementation can be found and built from:
    [Testdroid Akaze fork](https://github.com/bitbar/akaze) The current
@@ -91,16 +91,17 @@ Some of the functions:
 
    **Note** these are Mac specific binaries and work only on Mac.
 
-3. testdroid-appium-driver v1.1.3
+1. testdroid-appium-driver v1.1.3
 
    Can be pulled from
    [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install the version v1.1.3, which this sample uses, first clone and checkout correct version:
-       git clone https://github.com/bitbar/testdroid-appium-driver.git
-       git checkout v1.1.3
+   
+         git clone https://github.com/bitbar/testdroid-appium-driver.git
+         git checkout v1.1.3
 
    To install the plugin, run:
 
-       mvn install -DskipTests
+         mvn install -DskipTests
 
    Everything else is fetched by Maven
 
