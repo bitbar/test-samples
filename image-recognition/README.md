@@ -15,19 +15,20 @@ The project uses:
 - [Testdroid](http://testdroid.com) - web service for running tests on
   real mobile devices. You'll need to have an active account for running this test.
 
-- testdroid-appium-driver from
+- testdroid-appium-driver - can be downloaded from
   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git)
 
-- C++ implementation for Akaze algorithm with Bitbar changes (we're cleaning the code and will publish link to it soon)
+- [Testdroid Akaze](https://github.com/aknackiron/akaze) - fork of official Akaze repo with added json support.
 
 - [OpenCV](http://opencv.org/)
 
+- [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git) - used to add json support to the Akaze library. This is needed if compiling latest versions of Akaze and OpenCV.
 
 # Info on OpenCV and Akaze
 
 We use [Akaze algorithm](https://github.com/pablofdezalc/akaze) to find
 the matching keypoints from two images and save them to a json file.
-We use the [opencv](http://opencv.org/) java bindings to process the
+We use the [OpenCV](http://opencv.org/) java bindings to process the
 json file with keypoints and find the homography of the wanted image
 in a scene (screenshot).
 
@@ -54,7 +55,7 @@ Some of the functions:
 
 - `public Point[] findImage(String image, String scene)`: returns the
   corners of the image if found, or `null` if no image was found
-  
+
 - `public Point[] findImageOnScreen(String image)`: takes a
   screenshots, then tries to find the image on it and return the
   corners
@@ -72,85 +73,40 @@ Some of the functions:
   of the screen
 
 
-# Installing dependencies
-
+## Installing dependencies
 
 1. OpenCV
 
    The OpenCV java libs can be found under *./opencv/* folder
    inside the project. To install them in maven, run:
 
-           mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar 
+         mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
 
-2. Akaze
+1. Akaze
 
    The Akaze C++ implementation can be found and built from:
-   [https://github.com/bitbar/testdroid-image-recognition](https://github.com/bitbar/testdroid-image-recognition)
-   The current project also contains the *./akaze/* folder with built
-   binaries found under *./akaze/bin/akaze_match*. Note these are Mac
-   binaries and work only on Mac.
+   [Testdroid Akaze fork](https://github.com/bitbar/akaze) The current
+   project also contains the *./akaze/* folder with built binaries
+   found under *./akaze/bin/akaze_match*.
 
-3. testdroid-appium-driver
+   **Note** these are Mac specific binaries and work only on Mac.
+
+1. testdroid-appium-driver v1.1.3
 
    Can be pulled from
-   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install it, run:
+   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install the version v1.1.3, which this sample uses, first clone and checkout correct version:
+   
+         git clone https://github.com/bitbar/testdroid-appium-driver.git
+         git checkout v1.1.3
 
-           mvn install -DskipTests
+   To install the plugin, run:
 
-Everything else is fetched by Maven
+         mvn install -DskipTests
 
-
-## Building and installing OpenCV 
-
-
-To install OpenCV on a mac, use MacPorts:
-
-    sudo port install opencv @2.4.9
-
-Or use Homebrew:
-
-    brew install homebrew/science/opencv --with-java  
-    mvn install:install-file -Dfile=/usr/local/Cellar/opencv/2.4.9/share/OpenCV/java/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
+   Everything else is fetched by Maven
 
 
-If you have the latest brew version you probably need to pull 2.4.9
-version manually. Go to dir where formulas are installed:
-
-    cd /usr/local/Library/Taps/homebrew/homebrew-science
-
-
-Checkout version 2.4.9
-
-    git checkout 05ab591 opencv.rb
-
-unlink older version:
-
-    brew unlink opencv
-
-and finally install 2.4.9
-
-    brew install opencv
-
-To build OpenCV locally (if MacPorts install or Homebrew doesn't work):
-
-1. Download OpenCV 2.4.9 http://opencv.org/downloads.html
-1. cd opencv-2.4.9
-1. mkdir build
-1. cd build/
-1. cmake -G "Unix Makefiles" ..
-1. make -j8
-
-
-Once you have the opencv jar file (you can use the one in this repo
-under opencv directory), install it to maven using:
-
-    mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar 
-
-
-## Build and run the Java Image Recognition Sample
-
-
-**Run from command line with Maven**
+## Run Test from Command Line with Maven
 
 Create a testdroid.properties file in the project root folder, containing this info:
 
@@ -160,21 +116,27 @@ Create a testdroid.properties file in the project root folder, containing this i
     testdroid.project=Sample Project
     appium.appFile=src/test/resources/BitbarSampleApp.apk
 
-Note, you shouldn't use quotes around username and password.
+Note, quotes are not used around *username* and *password*. If
+a different (newer) version of OpenCV is used, OpenCV version number needs to be updated.
 
 Run the tests from maven using:
 
     mvn test
 
-**Cloud device**
+If OpenCV is not installed through 'brew' the 'java.library.path' might need to be provided on the command line:
+
+    mvn -Djava.library.path=/usr/local/share/OpenCV/java/ test
+
+
+**Cloud Device**
 
 Set the parameters in the testdroid.properties file, then run:
 
     mvn  -Dtestdroid.device="testdroid device name"  -Djava.library.path=<java-lib-path> test  
 
-where java-lib-path is the directory where opencv 2.4.9 library can be
-found (for example: */usr/local/Cellar/opencv/2.4.9/share/OpenCV/java*
-if you used brew to install).
+where java-lib-path is the directory where opencv library can be found
+(for example: */usr/local/Cellar/opencv/2.4.9/share/OpenCV/java* if
+you used brew to install).
 
 
 **Reports**
@@ -182,8 +144,76 @@ if you used brew to install).
 The reports, screenshots and everything else will be found under:
 *./target/reports/deviceName/*
 
-## Additional info
 
-Note that the binaries under *./akaze/bin/* are Mac binaries and
-cannot be used under other operating systems.
+## Building Latest Versions of Libraries
 
+This guide has been tested to work on Mac Yosemite. Same steps should
+also work as such also on major Linux distros.
+
+First we'll need to compile up to date version of jsoncpp (needed by
+Akaze later on). At least on Mac, jsoncpp installed through brew gave
+linking errors while linking Akaze.
+
+1. [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
+
+   Python 2.6 is needed to extract amalgamated source and header files:
+
+   ```
+   git clone https://github.com/open-source-parsers/jsoncpp.git
+   cd jsoncpp
+   python amalgamate.py  
+   ```
+
+   By default, the following files are generated and are needed to compile new Akaze binaries.
+
+   * `dist/jsoncpp.cpp`: source file that needs to be added to your project.
+   * `dist/json/json.h`: corresponding header file for use in your project. It is equivalent to including json/json.h in non-amalgamated source. This header only depends on standard headers.
+   * `dist/json/json-forwards.h`: header that provides forward declaration of all JsonCpp types.
+
+   You will also need to build and copy the libjsoncpp.a library to your local lib directory:
+   ```
+   mkdir build
+   cd build
+   cmake ..
+   make
+   cp src/lib_json/libjsoncpp.a /usr/local/lib/
+   ```
+
+
+1. [OpenCV](https://github.com/Itseez/opencv)
+
+   ```
+   git clone https://github.com/Itseez/opencv.git  
+   cd opencv
+   git checkout 2.4  
+   mkdir build  
+   cd build/  
+   cmake -G "Unix Makefiles" ..  
+   make -j8
+   make install  
+   ```
+
+   Creates Java jars for image recognition sample. Latest jars are installed by running:
+
+         mvn install:install-file -Dfile=path/to/opencv/build/bin/opencv-2412.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.12 -Dpackaging=jar  
+
+   *pom.xml* file needs to be updated with installed OpenCV version (2.4.12 in this example).
+
+1. [Akaze](https://github.com/aknackiron/akaze)
+
+   ```
+   git clone https://github.com/aknackiron/akaze.git
+   cd akaze
+   # copy previously built versions of jsoncpp to 'src/lib/jsoncpp/', 'src/lib/json/' and src/lib/jsoncpp.cpp
+   cp -r path/to/jsoncpp/dist/json ./src/lib/
+   cp -r path/to/jsoncpp/dist/jsoncpp.cpp ./src/lib/
+   mkdir build
+   cd build
+   cmake ..  
+   make
+   cp bin/akaze_* path/to/image-recognition/akaze/bin/  
+   ```
+
+Up to date versions of used libraries are now installed and the sample test can be run using them from the image-recognition sample directory:
+
+    mvn -Djava.library.path=/usr/local/share/OpenCV/java/ test
