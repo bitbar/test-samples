@@ -81,6 +81,10 @@ Some of the functions:
    inside the project. To install them in maven, run:
 
          mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
+         
+   To install OpenCV using *brew*:
+   
+         brew install opencv --with-java
 
 1. Akaze
 
