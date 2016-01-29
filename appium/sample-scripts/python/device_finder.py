@@ -11,8 +11,8 @@ class DeviceFinder:
     def __init__(self, url="https://cloud.testdroid.com", download_buffer_size=65536):
         self.cloud_url = url
         self.download_buffer_size = download_buffer_size
-       
-    """ Append dictionary items to header 
+
+    """ Append dictionary items to header
     """
     def _build_headers(self, headers=None):
         hdrs = {}
@@ -20,12 +20,12 @@ class DeviceFinder:
         if headers != None:
             hdrs.update(headers)
         return hdrs
-    
+
     """ Returns list of devices
     """
     def get_devices(self, limit=0):
         return self.get("devices?limit=%s" % (limit))
-        
+
     """ GET from API resource
     """
     def get(self, path=None, get_headers=None):
@@ -73,9 +73,13 @@ class DeviceFinder:
         print "Searching for API level of device '%s'" % deviceName
 
         try:
-            device = self.get(path="devices", get_headers={'search':deviceName})
+            device = self.get(path="devices?search=%s" % deviceName)
             apiLevel = device['data'][0]['softwareVersion']['apiLevel']
             print "Found API level: %s" % apiLevel
+            name = device['data'][0]['displayName']
+            print "Device name: %s" % name
+            deviceId = device['data'][0]['id']
+            print "Device id: %s" % deviceId
             return apiLevel
         except Exception, e:
             print "Error: %s" % e
