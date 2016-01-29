@@ -76,10 +76,6 @@ class DeviceFinder:
             device = self.get(path="devices?search=%s" % deviceName)
             apiLevel = device['data'][0]['softwareVersion']['apiLevel']
             print "Found API level: %s" % apiLevel
-            name = device['data'][0]['displayName']
-            print "Device name: %s" % name
-            deviceId = device['data'][0]['id']
-            print "Device id: %s" % deviceId
             return apiLevel
         except Exception, e:
             print "Error: %s" % e
