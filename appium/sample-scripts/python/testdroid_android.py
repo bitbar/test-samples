@@ -4,7 +4,6 @@
 ##
 
 import os
-import sys
 import time
 import unittest
 from time import sleep
@@ -25,8 +24,8 @@ class TestdroidAndroid(unittest.TestCase):
         ##
         self.screenshotDir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
-        testdroid_username = os.environ.get('TESTDROID_USERNAME') or "user@email.com"
-        testdroid_password = os.environ.get('TESTDROID_PASSWORD') or "password"
+        testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
+        testdroid_app = os.environ.get('TESTDROID_APP') or ""
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
 
         # Options to select device
@@ -37,7 +36,7 @@ class TestdroidAndroid(unittest.TestCase):
         deviceFinder = None
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
-        deviceFinder = DeviceFinder(username=testdroid_username, password=testdroid_password, url=testdroid_url)
+        deviceFinder = DeviceFinder(url=testdroid_url)
         if testdroid_device == "":
             # Loop will not exit until free device is found
             while testdroid_device == "":
@@ -47,16 +46,15 @@ class TestdroidAndroid(unittest.TestCase):
         print "Starting Appium test using device '%s'" % testdroid_device
 
         desired_capabilities_cloud = {}
-        desired_capabilities_cloud['testdroid_username'] = testdroid_username
-        desired_capabilities_cloud['testdroid_password'] = testdroid_password
-        if apiLevel > 17:
+        desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
+        if apiLevel > 16:
             desired_capabilities_cloud['testdroid_target'] = 'Android'
         else:
             desired_capabilities_cloud['testdroid_target'] = 'Selendroid'
-        desired_capabilities_cloud['testdroid_project'] = os.environ.get('TESTDROID_PROJECT') or 'Appium Android demo'
+        desired_capabilities_cloud['testdroid_project'] = os.environ.get('TESTDROID_PROJECT') or 'Android demo'
         desired_capabilities_cloud['testdroid_testrun'] = os.environ.get('TESTDROID_TESTRUN') or 'My testrun'
         desired_capabilities_cloud['testdroid_device'] = testdroid_device
-        desired_capabilities_cloud['testdroid_app'] = 'sample/BitbarSampleApp.apk'
+        desired_capabilities_cloud['testdroid_app'] = testdroid_app
         #desired_capabilities_cloud['app'] = '/absolute/path/to/your/application.apk'
         desired_capabilities_cloud['platformName'] = 'Android'
         desired_capabilities_cloud['deviceName'] = 'Android Phone'

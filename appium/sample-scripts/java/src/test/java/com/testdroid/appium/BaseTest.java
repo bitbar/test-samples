@@ -22,8 +22,8 @@ public class BaseTest {
     protected static AppiumDriver wd;
     private static int counter;
 
-    protected static String uploadFile(String targetAppPath, String serverURL, String testdroid_username, String testdroid_password) throws IOException {
-        final HttpHeaders headers = new HttpHeaders().setBasicAuthentication(testdroid_username, testdroid_password);
+    protected static String uploadFile(String targetAppPath, String serverURL, String testdroid_apikey) throws IOException {
+        final HttpHeaders headers = new HttpHeaders().setBasicAuthentication(testdroid_apikey, "");
 
         HttpRequestFactory requestFactory =
                 HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer() {
