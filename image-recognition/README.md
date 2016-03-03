@@ -3,9 +3,12 @@
 This out of the box sample Java Project shows the use of OpenCV and
 Akaze algorithm to run image recognition tests using Appium in
 [Testdroid cloud](http://testdroid.com/). This is particularly suited
-for running image recognition tests.
+for running image recognition tests. This project can be used for local, Client
+side and also Server side Appium testing. The main difference to each
+is to modify testdroid.properties to fit the test type and launching the
+project with correct mvn command.
 
-The project will use the BitbarSampleApp.apk, will install it on the
+The project will use the Bitbar Sample App, will install it on the
 device, then check the Bitbar logo is displayed on the screen using
 image recognition.  The reference Bitbar logo image is located at:
 *queryimages/bitbar_logo.png*
@@ -18,11 +21,15 @@ The project uses:
 - testdroid-appium-driver - can be downloaded from
   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git)
 
-- [Testdroid Akaze](https://github.com/aknackiron/akaze) - fork of official Akaze repo with added json support.
+- [Testdroid Akaze](https://github.com/aknackiron/akaze) - fork of official
+Akaze repo with added json support.
 
 - [OpenCV](http://opencv.org/)
 
-- [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git) - used to add json support to the Akaze library. This is needed if compiling latest versions of Akaze and OpenCV.
+- [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git) -
+used to add json support to the Akaze library. This is needed if compiling latest versions of Akaze and OpenCV.
+
+- [Maven](https://maven.apache.org/) - Compiles and launches the test code.
 
 # Info on OpenCV and Akaze
 
@@ -77,72 +84,102 @@ Some of the functions:
 
 1. OpenCV
 
-   The OpenCV java libs can be found under *./opencv/* folder
+   The OpenCV java libs can be found under *./lib/opencv/* folder
    inside the project. To install them in maven, run:
 
-       mvn install:install-file -Dfile=opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
+       mvn install:install-file -Dfile=lib/opencv/opencv-249.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.9 -Dpackaging=jar
+
+   If a different (newer) version of OpenCV is used, OpenCV version number
+   needs to also be updated in pom.xml. Note that Testdroid Cloud has currently
+   version 2.4.9 pre-installed for Server side execution.
 
 2. Akaze
 
    The Akaze C++ implementation can be found and built from:
    [Testdroid Akaze fork](https://github.com/bitbar/akaze) The current
-   project also contains the *./akaze/* folder with built binaries
-   found under *./akaze/bin/akaze_match*.
+   project also contains the *./akaze/* folder with pre-built binaries for
+   Linux, Mac and Windows. The sample uses only the akaze_match binary currently.
 
-   **Note** these are Mac specific binaries and work only on Mac.
+3. testdroid-appium-driver 1.2.0
 
-3. testdroid-appium-driver v1.1.3
+   Pre-built jar can be found at ./lib/testdroid-appium-driver-1.2.0.jar and it
+   is set to be used in the pom.xml
 
-   Can be pulled from
-   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git). To install the version v1.1.3, which this sample uses, first clone and checkout correct version:
+   The library can also be pulled from
+   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git).
        git clone https://github.com/bitbar/testdroid-appium-driver.git
-       git checkout v1.1.3
 
-   To install the plugin, run:
+   To install the library after cloning, run:
 
        mvn install -DskipTests
 
-   Everything else is fetched by Maven
+   Everything else is fetched by Maven.
 
 
 ## Run Test from Command Line with Maven
 
-Create a testdroid.properties file in the project root folder, containing this info:
+Copy the testdroid.properties.sample.properties file into a testdroid.properties file in
+the project root directory, uncommenting the lines depending on the type of
+test you'll be running (Local or Client side).
+Run the tests with maven using:
 
-    testdroid.username=<ADD USERNAME HERE>
-    testdroid.password=<ADD PASSWORD HERE>
-    appium.automationName=Appium
-    testdroid.project=Sample Project
-    appium.appFile=src/test/resources/BitbarSampleApp.apk
-
-Note, quotes are not used around *username* and *password*. If
-a different (newer) version of OpenCV is used, OpenCV version number needs to be updated.
-
-Run the tests from maven using:
-
-    mvn test
+    mvn -Dtest=<TestClass> test
 
 If OpenCV is not installed through 'brew' the 'java.library.path' might need to be provided on the command line:
 
-    mvn -Djava.library.path=/usr/local/share/OpenCV/java/ test
-
-
-**Cloud Device**
-
-Set the parameters in the testdroid.properties file, then run:
-
-    mvn  -Dtestdroid.device="testdroid device name"  -Djava.library.path=<java-lib-path> test  
+    mvn -Djava.library.path=<java-lib-path> -Dtest=<TestClass> test
 
 where java-lib-path is the directory where opencv library can be found
 (for example: */usr/local/Cellar/opencv/2.4.9/share/OpenCV/java* if
 you used brew to install).
 
+For Client side execution, you'll need to edit in your Testdroid service info:
+
+    testdroid.username=<ADD USERNAME HERE>
+    testdroid.password=<ADD PASSWORD HERE>
+    testdroid.project=<ADD PROJECT NAME HERE>
+
+All the possible testdroid.properties variables can be found from the testdroid-appium-driver's [TestdroidAppiumClient.java](https://github.com/bitbar/testdroid-appium-driver/blob/master/src/main/java/com/testdroid/appium/TestdroidAppiumClient.java)
+
+Note, quotes are not used around the testdroid.properties values.
+
+
+**Choosing Cloud Device**
+
+Set the testdroid.device parameter either in the testdroid.properties file or in the mvn command:
+
+    mvn  -Dtestdroid.device="testdroid device name" -Dtest=<TestClass> test
+
+Testdroid device names can be found from the cloud portal's [Device Groups page](https://cloud.testdroid.com/#service/devicegroups).
 
 **Reports**
 
 The reports, screenshots and everything else will be found under:
 *./target/reports/deviceName/*
 
+## Run Test as Server Side Appium Test
+
+*NOTE!* Server side Appium test runs on Testdroid Cloud are available only
+with BUSINESS plan. Please contact sales@bitbar.com for more information.
+
+You will need a Testdroid project of type CALABASH ANDROID or CALABASH IOS,
+which we have pre-configured for you to act as a Server side Appium project.
+
+Once you have your Testdroid project available, use the provided scripts
+to create the test zip from your project:
+
+    ./createAndroidSample.sh
+or
+
+    ./createiOSSample.sh
+
+Now that you have
+your test zip and application file (this sample uses the Bitbar Sample Apps
+available in this repository at [apps/builds](https://github.com/bitbar/testdroid-samples/tree/master/apps/builds)),
+you're ready to begin creating a testrun in your project at
+https://cloud.testdroid.com. Upload the app and test zip in the appropriate
+pages, choose the device group and finally make sure you have set high enough
+timeout for your test in the Advanced options (default is 10 minutes).
 
 ## Building Latest Versions of Libraries
 
@@ -215,4 +252,4 @@ linking errors while linking Akaze.
 
 Up to date versions of used libraries are now installed and the sample test can be run using them from the image-recognition sample directory:
 
-    mvn -Djava.library.path=/usr/local/share/OpenCV/java/ test
+    mvn -Djava.library.path=/usr/local/share/OpenCV/java/ -Dtest=<TestClass> test
