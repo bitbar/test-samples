@@ -184,6 +184,14 @@ https://cloud.testdroid.com. Upload the app and test zip in the appropriate
 pages, choose the device group and finally make sure you have set high enough
 timeout for your test in the Advanced options (default is 10 minutes).
 
+If you change the name of your Android or iOS test class, you will need to update
+it to the run-tests_android.sh and run-tests_ios.sh TEST and JUNIT variables as appropriate:
+
+    # Name of the desired test suite and optionally specific test case, eg: AndroidSample#mainPageTest
+    TEST=${TEST:="AndroidSample#mainPageTest"}
+    # JUnit file wont have the #caseName ending
+    JUNIT="AndroidSample"
+
 ## Building Latest Versions of Libraries
 
 This guide has been tested to work on Mac Yosemite. Same steps should
