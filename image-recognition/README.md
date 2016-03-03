@@ -21,8 +21,7 @@ The project uses:
 - testdroid-appium-driver - can be downloaded from
   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git)
 
-- [Testdroid Akaze](https://github.com/aknackiron/akaze) - fork of official
-Akaze repo with added json support.
+- [Testdroid Akaze](https://github.com/bitbar/akaze) - fork of official Akaze repo with added json support.
 
 - [OpenCV](http://opencv.org/)
 
@@ -93,7 +92,11 @@ Some of the functions:
    needs to also be updated in pom.xml. Note that Testdroid Cloud has currently
    version 2.4.9 pre-installed for Server side execution.
 
-2. Akaze
+   To install OpenCV using *brew*:
+
+         brew install opencv --with-java
+
+1. Akaze
 
    The Akaze C++ implementation can be found and built from:
    [Testdroid Akaze fork](https://github.com/bitbar/akaze) The current
@@ -111,7 +114,7 @@ Some of the functions:
 
    To install the library after cloning, run:
 
-       mvn install -DskipTests
+         mvn install -DskipTests
 
    Everything else is fetched by Maven.
 
@@ -235,13 +238,14 @@ linking errors while linking Akaze.
 
    *pom.xml* file needs to be updated with installed OpenCV version (2.4.12 in this example).
 
-1. [Akaze](https://github.com/aknackiron/akaze)
+1. [Akaze](https://github.com/bitbar/akaze.git)
 
    ```
-   git clone https://github.com/aknackiron/akaze.git
+   git clone https://github.com/bitbar/akaze.git
    cd akaze
    # copy previously built versions of jsoncpp to 'src/lib/jsoncpp/', 'src/lib/json/' and src/lib/jsoncpp.cpp
-   cp -r path/to/jsoncpp/dist/json ./src/lib/
+   mkdir ./src/lib/jsoncpp/
+   cp -r path/to/jsoncpp/dist/json ./src/lib/jsoncpp/
    cp -r path/to/jsoncpp/dist/jsoncpp.cpp ./src/lib/
    mkdir build
    cd build
