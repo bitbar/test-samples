@@ -1,1 +1,4 @@
-/target/
+target/
+testdroid.properties
+run-tests.sh
+*.zip
