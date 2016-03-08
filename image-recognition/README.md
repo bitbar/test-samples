@@ -16,7 +16,7 @@ image recognition.  The reference Bitbar logo image is located at:
 The project uses:
 
 - [Testdroid](http://testdroid.com) - web service for running tests on
-  real mobile devices. You'll need to have an active account for running this test.
+  real mobile devices. You'll need to have an active account for running these tests in cloud.
 
 - testdroid-appium-driver - can be downloaded from
   [https://github.com/bitbar/testdroid-appium-driver.git](https://github.com/bitbar/testdroid-appium-driver.git)
@@ -163,7 +163,7 @@ The reports, screenshots and everything else will be found under:
 ## Run Test as Server Side Appium Test
 
 *NOTE!* Server side Appium test runs on Testdroid Cloud are available only
-with BUSINESS plan. Please contact sales@bitbar.com for more information.
+with [BUSINESS](http://testdroid.com/pricing) plan. Please contact sales@bitbar.com for more information.
 
 You will need a Testdroid project of type CALABASH ANDROID or CALABASH IOS,
 which we have pre-configured for you to act as a Server side Appium project.
@@ -171,10 +171,10 @@ which we have pre-configured for you to act as a Server side Appium project.
 Once you have your Testdroid project available, use the provided scripts
 to create the test zip from your project:
 
-    ./createAndroidSample.sh
+    ./createAndroidZip.sh
 or
 
-    ./createiOSSample.sh
+    ./createiOSZip.sh
 
 Now that you have
 your test zip and application file (this sample uses the Bitbar Sample Apps
