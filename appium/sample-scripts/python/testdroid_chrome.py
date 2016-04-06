@@ -108,12 +108,8 @@ class TestdroidAndroid(unittest.TestCase):
                 log ("Element has text: '{}'".format(elem.text))
                 break
             sleep(2)
-            i = i + 1
 
         log ("End of test")
-
-def initialize():
-    return TestdroidAndroid
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
