@@ -112,16 +112,15 @@ class TestdroidSafari(unittest.TestCase):
         self.screenshot("home_screen")
 
         log ("Finding 'search button'")
-        elem = self.driver.find_element_by_xpath('//input[@id="search"]')
+        elem = self.wait_until_xpath_matches('//input[@id="search"]')
 
-        log ("Clicking search field")
+        log ("Typing to search field")
         elem.send_keys("appium")
         self.screenshot("search_text")
 
         log ("Click search")
         elem = self.driver.find_element_by_xpath('//input[@class="search-button"]')
         elem.click()
-        sleep(3)
 
         log ("  Switching to landscape")
         self.driver.orientation = "LANDSCAPE"
