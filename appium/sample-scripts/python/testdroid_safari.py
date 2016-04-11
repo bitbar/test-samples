@@ -4,28 +4,67 @@
 ##
 
 import os
-import sys, traceback
 import time
 import unittest
 from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import NoSuchElementException
 
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
 
 class TestdroidSafari(unittest.TestCase):
-    def setUp(self):
 
+    """
+    Take screenshot and store files to defined location, with numbering prefix
+
+    :Args:
+    - name - files are stored as #_name
+    """
+    def screenshot(self, name):
+        screenshotName = str(self.screenShotCount) + "_" + name + ".png" 
+        log ("Taking screenshot: " + screenshotName)
+        self.driver.save_screenshot(self.screenshotDir + "/" + screenshotName)
+        self.screenShotCount += 1
+
+    """
+    Search for specified xpath for defined period
+
+    :Args:
+    
+    - xpath - the xpath to search for 
+
+    - timeout - duration in seconds to search for given xpath
+
+    - step - how often to search run the search
+
+    :Usage:
+    self.wait_until_xpath_matches("//div[@id='example']", 15, 2)"
+    """
+    def wait_until_xpath_matches(self, xpath, timeout=10, step=1):
+        end_time = time.time() + timeout 
+        found = False
+        while (time.time() < end_time and not found):
+            log("  Looking for xpath {}".format(xpath))
+            try:
+                elem = self.driver.find_element_by_xpath(xpath)
+                found = True
+            except NoSuchElementException:
+                found = False
+            time.sleep(step)
+        self.assertTrue(found, "Xpath '{}' not found in {}s".format(xpath, timeout))
+        return elem
+
+    def setUp(self):
         ##
         ## IMPORTANT: Set the following parameters.
         ##
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
-        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
-        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Appium iOS demo"
+        self.screenshotDir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
+        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Appium Safari demo"
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
 
 
@@ -54,76 +93,54 @@ class TestdroidSafari(unittest.TestCase):
         desired_capabilities_cloud['platformName'] = 'iOS'
         desired_capabilities_cloud['deviceName'] = 'iOS Device'
         desired_capabilities_cloud['browserName'] = 'Safari'
-        desired_caps = desired_capabilities_cloud;
 
-        log ("Will save screenshots at: " + self.screenshot_dir)
+        log ("Will save screenshots at: " + self.screenshotDir)
 
         # Set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
-        self.driver = webdriver.Remote(appium_url, desired_caps)
-        self.driver.implicitly_wait(60)
+        self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
+
+        log ("Loading page http://docs.testdroid.com")
+        self.driver.get("http://docs.testdroid.com")
+
+        self.screenShotCount = 1
 
     def tearDown(self):
         self.driver.quit()
 
-    def test_get(self):
-        try:
-            # Need to change context?
-            log ("Contexts: " + str(self.driver.contexts))
-            #webview = self.driver.contexts[-1] # -1 = Use the last index
-            #self.driver.switch_to.context(webview)
+    def testSample(self):
+        self.screenshot("home_screen")
 
-            log ("Loading page http://testdroid.com")
-            self.driver.get("http://testdroid.com")
+        log ("Finding 'search button'")
+        elem = self.wait_until_xpath_matches('//input[@id="search"]')
 
-            sleep(3)
-            #log("Taking a screenshot")
-            self.driver.save_screenshot(self.screenshot_dir + '/testdroidcom.png')
+        log ("Typing to search field")
+        elem.send_keys("appium")
+        self.screenshot("search_text")
 
-            # Finding element xpath, id or name is simple with Appium GUI application's inspector.
-            # Safari Web Inspector can also be used on iOS devices.
-            log ("Looking for Welcome screen")
-            try:
-                self.driver.implicitly_wait(20)
-                # This element doesn't always exist
-                elem = self.driver.find_element_by_xpath("//div[contains(@class, 'sumome-welcomemat-action-close')]")
-                log ("clicking close Welcome screen")
-                elem.click()
-                sleep(2) # Sleep 2 seconds so that the page has time to load
-            except:
-                log ("Welcome screen not visible, skipping close button")
+        log ("Click search")
+        elem = self.driver.find_element_by_xpath('//input[@class="search-button"]')
+        elem.click()
 
-            self.driver.implicitly_wait(60)
-            log ("Finding menu button")
-            elem = self.driver.find_element_by_xpath("//button[contains(@class, 'navbar-toggle collapsed')]")
+        log ("  Switching to landscape")
+        self.driver.orientation = "LANDSCAPE"
+        self.screenshot("results_landscape")
+        log ("  Switching to portrait")
+        self.driver.orientation = "PORTRAIT"
+        self.screenshot("results_portrait")
 
-            # This element isn't displayed on bigger screens
-            if elem.is_displayed():
-                log ("Clicking menu button")
-                elem.click()
-                sleep(2) # Sleep 2 seconds so that the page has time to load
-            else:
-                log ("Menu button not visible, skipping menu button.")
+        log ("Look for result text heading")
+        # wait up to 10s to get search results
+        elem = self.wait_until_xpath_matches('//h1[text()]', 10)
+        self.screenshot("search_title_present")
+        log ("Verify correct heading text")
+        self.assertTrue("Search results for \"appium\"" in str(elem.text))
 
-            log ("Finding 'Why Testdroid' button")
-            elem = self.driver.find_element_by_xpath("//li[contains(@class, 'menu-why-testdroid')]")
-            log ("Clicking 'Why Testdroid' button")
-            elem.click()
-            sleep(2) # Sleep 2 seconds so that the page has time to load
-            self.driver.save_screenshot(self.screenshot_dir + '/whytestdroid.png')
+        log ("The End")
 
-            log ("Finding 'Testdroid' banner")
-            elem = self.driver.find_element_by_xpath("//a[contains(@class, 'navbar-brand')]")
-            log ("Clicking 'Testdroid' banner")
-            elem.click()
-            sleep(2) # Sleep 2 seconds so that the page has time to load
-            self.driver.save_screenshot(self.screenshot_dir + '/testdroidcom2.png')
-        except WebDriverException, e:
-            self.driver.save_screenshot(self.screenshot_dir + '/FailureScreen.png')
-            print "Unexpected error:", sys.exc_info()[0]
-            print '-'*60
-            traceback.print_exc(file=sys.stdout)
-            print '-'*60
+def initialize():
+    return TestdroidSafari
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidSafari)
