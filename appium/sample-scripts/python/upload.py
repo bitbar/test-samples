@@ -13,12 +13,12 @@ class UploadApp():
     def __init__(self):
         self.myfile = os.environ.get('TESTDROID_APP_PATH') or '../../../apps/builds/Testdroid.apk'
         self.upload_url = os.environ.get('TESTDROID_UPLOAD_URL') or 'http://appium.testdroid.com/upload'
-        self.api_key = os.environ.get('TESTDROID_APIKEY')
+        self.api_key = ""
 
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Set needed environment variables')
-        parser.add_argument('-k', '--apikey', type=str, required=False, help="User's apiKey to identify to cloud, or set environment variable TESTDROID_APIKEY")
+        parser.add_argument('-k', '--apikey', type=str, required=True, help="User's apiKey to identify to cloud, or set environment variable TESTDROID_APIKEY")
         parser.add_argument('-a', '--app_path', type=str, required=False, help="Path to app to upload or set environment variable TESTDROID_APP_PATH. Current value is: '{}'".format(self.myfile))
         parser.add_argument('-u', '--url', type=str, required=False, help="Testdroid Cloud url to upload app or set environment variable TESTDROID_UPLOAD_URL. Current value is: '{}'".format(self.upload_url))
 
