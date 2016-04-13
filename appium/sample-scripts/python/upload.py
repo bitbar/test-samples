@@ -11,7 +11,7 @@ import argparse
 
 class UploadApp():
     def __init__(self):
-        self.myfile = os.environ.get('TESTDROID_APP_PATH') or '../../../apps/builds/Testdroid.apk'
+        self.myfile = os.environ.get('TESTDROID_APP_PATH') or '../../../apps/builds/BitbarSampleApp.apk'
         self.upload_url = os.environ.get('TESTDROID_UPLOAD_URL') or 'http://appium.testdroid.com/upload'
         self.api_key = ""
 
