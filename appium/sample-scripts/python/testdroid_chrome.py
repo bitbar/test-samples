@@ -1,6 +1,6 @@
 ##
 ## For help on setting up your machine and configuring this TestScript go to
-## http://help.testdroid.com/customer/portal/topics/631129-appium/articles
+## http://docs.testdroid.com/appium/
 ##
 
 import os
@@ -59,7 +59,8 @@ class TestdroidAndroid(unittest.TestCase):
             except NoSuchElementException:
                 found = False
             time.sleep(step)
-        self.assertTrue(found, "Xpath '{}' not found in {}s".format(xpath, timeout))
+        if not found:
+            raise NoSuchElementException("Element wiht xpath: '{}' not found in {}s".format(xpath, timeout))
         return elem
 
     
@@ -76,6 +77,8 @@ class TestdroidAndroid(unittest.TestCase):
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
         testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or 'Appium Chrome Demo'
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
+        new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
+        testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
@@ -100,6 +103,8 @@ class TestdroidAndroid(unittest.TestCase):
         desired_capabilities_cloud['platformName'] = 'Android'
         desired_capabilities_cloud['deviceName'] = 'AndroidDevice'
         desired_capabilities_cloud['browserName'] = 'chrome'
+        desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
+        desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
 
         log ("Will save screenshots at: " + self.screenshot_dir)
 
@@ -119,7 +124,7 @@ class TestdroidAndroid(unittest.TestCase):
         self.screenshot("home_screen")
 
         log ("Finding 'search button'")
-        elem = self.driver.find_element_by_xpath('//input[@id="search"]')
+        elem = self.wait_until_xpath_matches('//input[@id="search"]')
 
         log ("Clicking search field")
         elem.send_keys("appium")
@@ -128,7 +133,6 @@ class TestdroidAndroid(unittest.TestCase):
         log ("Click search")
         elem = self.driver.find_element_by_xpath('//input[@class="search-button"]')
         elem.click()
-        sleep(3)
 
         log ("  Switching to landscape")
         self.driver.orientation = "LANDSCAPE"
@@ -139,12 +143,16 @@ class TestdroidAndroid(unittest.TestCase):
 
         log ("Look for result text heading")
         # wait up to 10s to get search results
-        elem = self.wait_until_xpath_matches('//h1[text()]', 10)
-        self.screenshot("search_title_present")
+        elem = self.wait_until_xpath_matches('//h1[contains(., "for")]', 15)
+        self.screenshot("search_result_present")
         log ("Verify correct heading text")
         self.assertTrue("Search results for \"appium\"" in str(elem.text))
 
         log ("The End")
+
+
+def initialize():
+    return TestdroidAndroid
 
 
 if __name__ == "__main__":

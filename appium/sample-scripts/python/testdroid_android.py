@@ -1,6 +1,6 @@
 ##
 ## For help on setting up your machine and configuring this TestScript go to
-## http://help.testdroid.com/customer/portal/topics/631129-appium/articles
+## http://docs.testdroid.com/appium/
 ##
 
 import os
@@ -22,11 +22,17 @@ class TestdroidAndroid(unittest.TestCase):
         ## You can set the parameters outside the script with environment variables.
         ## If env var is not set the string after or is used.
         ##
-        self.screenshotDir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
+        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_app = os.environ.get('TESTDROID_APP') or ""
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "An Android demo"
+        testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
+        app_package = os.environ.get('TESTDROID_APP_PACKAGE') or 'com.bitbar.testdroid'
+        app_activity = os.environ.get('TESTDROID_ACTIVITY') or '.BitbarSampleApplicationActivity'
+        new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
+        testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
@@ -51,22 +57,22 @@ class TestdroidAndroid(unittest.TestCase):
             desired_capabilities_cloud['testdroid_target'] = 'Android'
         else:
             desired_capabilities_cloud['testdroid_target'] = 'Selendroid'
-        desired_capabilities_cloud['testdroid_project'] = os.environ.get('TESTDROID_PROJECT') or 'Android demo'
-        desired_capabilities_cloud['testdroid_testrun'] = os.environ.get('TESTDROID_TESTRUN') or 'My testrun'
+
+        desired_capabilities_cloud['testdroid_project'] = testdroid_project_name
+        desired_capabilities_cloud['testdroid_testrun'] = testdroid_testrun_name
         desired_capabilities_cloud['testdroid_device'] = testdroid_device
         desired_capabilities_cloud['testdroid_app'] = testdroid_app
-        #desired_capabilities_cloud['app'] = '/absolute/path/to/your/application.apk'
         desired_capabilities_cloud['platformName'] = 'Android'
         desired_capabilities_cloud['deviceName'] = 'Android Phone'
-        desired_capabilities_cloud['appPackage'] = 'com.bitbar.testdroid'
-        desired_capabilities_cloud['appActivity'] = '.BitbarSampleApplicationActivity'
+        desired_capabilities_cloud['appPackage'] = app_package
+        desired_capabilities_cloud['appActivity'] = app_activity
+        desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
+        desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
 
-        desired_caps = desired_capabilities_cloud;
-
-        log ("Will save screenshots at: " + self.screenshotDir)
+        log ("Will save screenshots at: " + self.screenshot_dir)
         # set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
-        self.driver = webdriver.Remote(appium_url, desired_caps)
+        self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         log ("WebDriver response received")
 
     def tearDown(self):
@@ -83,7 +89,7 @@ class TestdroidAndroid(unittest.TestCase):
                 isSelendroid = True
 
         log ("  Taking screenshot: 1_appLaunch.png")
-        self.driver.save_screenshot(self.screenshotDir + "/1_appLaunch.png")
+        self.driver.save_screenshot(self.screenshot_dir + "/1_appLaunch.png")
 
         log ("  Typing in name")
         elems=self.driver.find_elements_by_class_name('android.widget.EditText')
@@ -92,7 +98,15 @@ class TestdroidAndroid(unittest.TestCase):
         elems[0].send_keys("Testdroid User")
         sleep(2)
         log ("  Taking screenshot: 2_nameTyped.png")
-        self.driver.save_screenshot(self.screenshotDir + "/2_nameTyped.png")
+        self.driver.save_screenshot(self.screenshot_dir + "/2_nameTyped.png")
+
+        log ("  Switching to landscape: 2_landscape.png")
+        self.driver.orientation = "LANDSCAPE"
+        self.driver.save_screenshot(self.screenshot_dir + "/2_landscape.png")
+        log ("  Switching to portrait: 2_portrait.png")
+        self.driver.orientation = "PORTRAIT"
+        self.driver.save_screenshot(self.screenshot_dir + "/2_portrait.png")
+
 
         try:
             log ("  Hiding keyboard")
@@ -100,7 +114,7 @@ class TestdroidAndroid(unittest.TestCase):
         except:
             pass # pass exception, if keyboard isn't visible already
         log ("  Taking screenshot: 3_nameTypedKeyboardHidden.png")
-        self.driver.save_screenshot(self.screenshotDir + "/3_nameTypedKeyboardHidden.png")
+        self.driver.save_screenshot(self.screenshot_dir + "/3_nameTypedKeyboardHidden.png")
 
         log ("  Clicking element 'Buy 101 devices'")
         if isSelendroid:
@@ -110,7 +124,7 @@ class TestdroidAndroid(unittest.TestCase):
         elem.click()
 
         log ("  Taking screenshot: 4_clickedButton1.png")
-        self.driver.save_screenshot(self.screenshotDir + "/4_clickedButton1.png")
+        self.driver.save_screenshot(self.screenshot_dir + "/4_clickedButton1.png")
 
         log ("  Clicking Answer")
         if isSelendroid:
@@ -120,12 +134,12 @@ class TestdroidAndroid(unittest.TestCase):
         elem.click()
 
         log ("  Taking screenshot: 5_answer.png")
-        self.driver.save_screenshot(self.screenshotDir + "/5_answer.png")
+        self.driver.save_screenshot(self.screenshot_dir + "/5_answer.png")
 
         log ("Navigating back to Activity-1")
         self.driver.back()
         log ("  Taking screenshot: 6_mainActivity.png")
-        self.driver.save_screenshot(self.screenshotDir + "/6_mainActivity.png")
+        self.driver.save_screenshot(self.screenshot_dir + "/6_mainActivity.png")
 
         log ("  Clicking element 'Use Testdroid Cloud'")
         if isSelendroid:
@@ -135,7 +149,7 @@ class TestdroidAndroid(unittest.TestCase):
         elem.click()
 
         log ("  Taking screenshot: 7_clickedButton2.png")
-        self.driver.save_screenshot(self.screenshotDir + "/7_clickedButton2.png")
+        self.driver.save_screenshot(self.screenshot_dir + "/7_clickedButton2.png")
 
         log ("  Clicking Answer")
         if isSelendroid:
@@ -145,7 +159,10 @@ class TestdroidAndroid(unittest.TestCase):
         elem.click()
 
         log ("  Taking screenshot: 8_answer.png")
-        self.driver.save_screenshot(self.screenshotDir + "/8_answer.png")
+        self.driver.save_screenshot(self.screenshot_dir + "/8_answer.png")
+
+def initialize():
+    return TestdroidAndroid
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)

@@ -1,6 +1,6 @@
 ##
 ## For help on setting up your machine and configuring this TestScript go to
-## http://help.testdroid.com/customer/portal/topics/631129-appium/articles
+## http://docs.testdroid.com/appium/
 ##
 
 import os
@@ -27,6 +27,9 @@ class TestdroidIOS(unittest.TestCase):
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
         testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Appium iOS demo"
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
+        testdroid_bundle_id = os.environ.get('TESTDROID_BUNDLE_ID') or "com.bitbar.testdroid.BitbarIOSSample"
+        new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
+        testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
@@ -44,18 +47,19 @@ class TestdroidIOS(unittest.TestCase):
 
         print "Starting Appium test using device '%s'" % testdroid_device
 
-        desired_capabilities_cloud={
-                'testdroid_apiKey': testdroid_apiKey,
-                'testdroid_target': 'ios',
-                'testdroid_project': testdroid_project_name,
-                'testdroid_testrun': testdroid_testrun_name,
-                'testdroid_device': testdroid_device,
-                'testdroid_app': testdroid_app,
-                'testdroid_description': 'Appium project description',
-                'platformName': 'iOS',
-                'deviceName': 'iPhone device',
-                'bundleId': 'com.bitbar.testdroid.BitbarIOSSample',
-        }
+        desired_capabilities_cloud = {}
+        desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
+        desired_capabilities_cloud['testdroid_target'] = 'ios'
+        desired_capabilities_cloud['testdroid_project'] = testdroid_project_name
+        desired_capabilities_cloud['testdroid_testrun'] = testdroid_testrun_name
+        desired_capabilities_cloud['testdroid_device'] = testdroid_device
+        desired_capabilities_cloud['testdroid_app'] = testdroid_app
+        desired_capabilities_cloud['testdroid_description'] = 'Appium iOS project description'
+        desired_capabilities_cloud['platformName'] = 'iOS'
+        desired_capabilities_cloud['deviceName'] = 'iPhone device'
+        desired_capabilities_cloud['bundleId'] = testdroid_bundle_id
+        desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
+        desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
 
         # set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
@@ -119,6 +123,11 @@ class TestdroidIOS(unittest.TestCase):
 
         log ("view1: Sleeping 3 before quitting webdriver.")
         sleep(3)
+
+
+def initialize():
+    return TestdroidIOS
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidIOS)

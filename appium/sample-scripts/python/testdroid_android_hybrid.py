@@ -1,6 +1,6 @@
 ##
 ## For help on setting up your machine and configuring this TestScript go to
-## http://help.testdroid.com/customer/portal/topics/631129-appium/articles
+## http://docs.testdroid.com/appium/
 ##
 
 import os
@@ -16,12 +16,11 @@ def log(msg):
 class TestdroidAndroid(unittest.TestCase):
 
     def screenshot(self, name):
-        self.screenShotCount = 1
-        screenshotName = str(self.screenShotCount) + "_" + name + ".png" 
+        screenshotName = str(self.screenshot_count) + "_" + name + ".png" 
         log ("Taking screenshot: " + screenshotName)
         sleep(1) # wait for animations to complete before taking screenshot
-        driver.save_screenshot(self.screenshotDir + "/" + screenshotName)
-        self.screenShotCount += 1
+        self.driver.save_screenshot(self.screenshot_dir + "/" + screenshotName)
+        self.screenshot_count += 1
 
     
     def setUp(self):
@@ -31,17 +30,26 @@ class TestdroidAndroid(unittest.TestCase):
         ## You can set the parameters outside the script with environment variables.
         ## If env var is not set the string after or is used.
         ##
-        self.screenshotDir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
+        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_app = os.environ.get('TESTDROID_APP') or ""
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+        app_package = os.environ.get('TESTDROID_APP_PACKAGE') or 'com.testdroid.sample.android'
+        app_activity = os.environ.get('TESTDROID_ACTIVITY') or '.MA_MainActivity'
+        testdroid_project = os.environ.get('TESTDROID_PROJECT') or 'Android Hybrid Demo'
+        testdroid_testrun = os.environ.get('TESTDROID_TESTRUN') or 'My testrun'
+        new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
+        testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
+
+        log ("Will save screenshots at: " + self.screenshot_dir)
+        self.screenshot_count = 1
+
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
         # 2) Set device name to this python script
         # 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
-
         deviceFinder = None
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
@@ -51,29 +59,25 @@ class TestdroidAndroid(unittest.TestCase):
             while testdroid_device == "":
                 testdroid_device = deviceFinder.available_free_android_device()
 
-        
+
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
-        desired_capabilities_cloud['testdroid_target'] = 'chrome'
-        desired_capabilities_cloud['testdroid_project'] = 'Appium Android Hybrid Demo'
-        desired_capabilities_cloud['testdroid_testrun'] = 'TestRun 1'
+        desired_capabilities_cloud['testdroid_target'] = 'selendroid'
+        desired_capabilities_cloud['testdroid_project'] = testdroid_project
+        desired_capabilities_cloud['testdroid_testrun'] = testdroid_testrun
         desired_capabilities_cloud['testdroid_device'] = testdroid_device
         desired_capabilities_cloud['testdroid_app'] = testdroid_app
         desired_capabilities_cloud['platformName'] = 'Android'
         desired_capabilities_cloud['deviceName'] = 'Android Phone'
         desired_capabilities_cloud['automationName'] = 'selendroid'
-        desired_capabilities_cloud['appPackage'] = 'com.testdroid.sample.android'
-        desired_capabilities_cloud['appActivity'] = '.MA_MainActivity'
-
-        desired_caps = desired_capabilities_cloud;
-
-        log ("Will save screenshots at: " + self.screenshotDir)
+        desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
+        desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
 
         # set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
-        self.driver = webdriver.Remote(appium_url, desired_caps)
+        self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         log ("WebDriver response received")
-        
+
     def tearDown(self):
         log ("Quitting")
         self.driver.quit()
@@ -146,6 +150,8 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver.back()
         self.screenshot('launchScreen')
 
+def initialize():
+    return TestdroidAndroid
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
