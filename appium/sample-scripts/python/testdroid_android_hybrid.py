@@ -37,7 +37,7 @@ class TestdroidAndroid(unittest.TestCase):
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
         app_package = os.environ.get('TESTDROID_APP_PACKAGE') or 'com.testdroid.sample.android'
         app_activity = os.environ.get('TESTDROID_ACTIVITY') or '.MA_MainActivity'
-        testdroid_project = os.environ.get('TESTDROID_PROJECT') or 'Android Hybrid Demo'
+        testdroid_project = os.environ.get('TESTDROID_PROJECT') or 'Android hybrid sample project'
         testdroid_testrun = os.environ.get('TESTDROID_TESTRUN') or 'My testrun'
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
@@ -95,6 +95,7 @@ class TestdroidAndroid(unittest.TestCase):
         print self.driver.get_window_size()
 
         self.screenshot("appLaunch")
+        sleep(3)
 
         log('clicking button "hybrid app"')
         element=self.driver.find_element_by_id('com.testdroid.sample.android:id/mm_b_hybrid')

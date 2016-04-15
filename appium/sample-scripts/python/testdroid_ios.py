@@ -25,7 +25,7 @@ class TestdroidIOS(unittest.TestCase):
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_app = os.environ.get('TESTDROID_APP') or ""
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
-        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Appium iOS demo"
+        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "iOS sample project"
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
         testdroid_bundle_id = os.environ.get('TESTDROID_BUNDLE_ID') or "com.bitbar.testdroid.BitbarIOSSample"
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
