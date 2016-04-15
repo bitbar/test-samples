@@ -54,7 +54,6 @@ class TestdroidIOS(unittest.TestCase):
         desired_capabilities_cloud['testdroid_testrun'] = testdroid_testrun_name
         desired_capabilities_cloud['testdroid_device'] = testdroid_device
         desired_capabilities_cloud['testdroid_app'] = testdroid_app
-        desired_capabilities_cloud['testdroid_description'] = 'Appium iOS project description'
         desired_capabilities_cloud['platformName'] = 'iOS'
         desired_capabilities_cloud['deviceName'] = 'iPhone device'
         desired_capabilities_cloud['bundleId'] = testdroid_bundle_id

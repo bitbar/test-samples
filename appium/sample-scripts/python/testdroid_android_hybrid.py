@@ -59,10 +59,17 @@ class TestdroidAndroid(unittest.TestCase):
             while testdroid_device == "":
                 testdroid_device = deviceFinder.available_free_android_device()
 
+        apiLevel = deviceFinder.device_API_level(testdroid_device)
+        print "Starting Appium test using device '%s'" % testdroid_device
 
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
-        desired_capabilities_cloud['testdroid_target'] = 'selendroid'
+        if apiLevel > 16:
+            desired_capabilities_cloud['testdroid_target'] = 'android'
+        else:
+            desired_capabilities_cloud['testdroid_target'] = 'selendroid'
+
+        desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
         desired_capabilities_cloud['testdroid_project'] = testdroid_project
         desired_capabilities_cloud['testdroid_testrun'] = testdroid_testrun
         desired_capabilities_cloud['testdroid_device'] = testdroid_device

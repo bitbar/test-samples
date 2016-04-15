@@ -50,16 +50,19 @@ $ python upload.py -k xg8x...YXto -u ../../../apps/builds/Testdroid.apk
 Filename to use in testdroid capabilities in your test: 719f52c4-43c2-4c25-b91b-08884f049d3a/Testdroid.apk
 ```
 
-The response message provides the application's cloud file
-name that is needed to start testing against the app. From the above example the path to store is:
+The response message provides the application's cloud file name that
+is the path to use with `testdroid_app` capability. From the above
+example the path to store is:
 '719f52c4-43c2-4c25-b90b-08884f049d3a/Testdroid.apk'.
 
 
 # Common Settings in Example Tests
 
-There are some common settings needed to run any of the example tests, 
-regardless of the app type being tested. Each `testdroid_*.py`
-file needs to have the following values set as environment variables. Values can also be given as command line parameters to `run-test.py` script.
+There are some common settings needed to run any of the example tests,
+regardless of the app type being tested. Each `testdroid_*.py` file
+needs to have the following values set as environment variables or set
+in the files. Values can also be given as command line parameters to
+`run-test.py` script.
 
 Common values used in tests:
 
@@ -77,10 +80,13 @@ Common values used in tests:
    Cloud](https://cloud.testdroid.com/) UI.
 
 * *testdroid_project* - the project name in Testdroid Cloud. Each
-  project must have a unique name, which can be modified (in Cloud)
+  project's name is unique. A project's name can be modified later on if needed.
 
 * *testdroid_testrun* - name of this test run inside of
-  `testdroid_project`. Each test run can have it's own name (eg. date + time)
+  `testdroid_project`. Each test run can have the same name, but it is
+  recommended to set it dynamically (e.g. with timestamp or device
+  name). If no test run name is given, the system automatically names
+  it in "Test Run x".
 
 * *testdroid_app* - name of the app uploaded using `upload.py`
   script. Example filename could be
@@ -90,7 +96,7 @@ Common values used in tests:
 ## Example Run
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -d /tmp/screens/ -p "iOS" -t testdroid_ios -m "" -a "latest"
+$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -t testdroid_ios -m "" -a "latest"
 testSample (testdroid_ios.TestdroidIOS) ... Searching Available Free iOS Device...
 Found device 'Apple iPad Mini A1432 9.2.1'
 
@@ -127,7 +133,7 @@ To run iOS native app tests additional parameter is required to be provided:
 * **bundleId** - this is your application's unique name
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -d /tmp/screens/ -p "iOS" -r `date +%R` -a "latest" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t testdroid_ios -m "" 
+$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a "latest" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t testdroid_ios -m "" 
 ```
 
 This parameter is not needed if running against the sample BitbarIOSSample.ipa application, as it's set inside of the sample script.
@@ -147,7 +153,7 @@ To run an Appium test against a native Android application Appium needs to the f
 For running the sample applications and tests these do not need to be set as they are set inside of the sample scripts if no parameter is given.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -d /tmp/screens -a 830571c8-51f1-4cd1-ad91-82e76c00a1b0/BitbarSampleApp.apk -p "Android Native" -r  `date +%R` -m "" -t testdroid_android
+python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a 830571c8-51f1-4cd1-ad91-82e76c00a1b0/BitbarSampleApp.apk -p "Android Native" -r  `date +%R` -m "" -t testdroid_android
 ```
 
 ## Hybrid Android Specific Settings
@@ -164,7 +170,7 @@ Additional parameters needed to run a hybrid app:
 The above parameters are already set into the test scripts, so they are not mandatory for the sample tests. For other apps they are.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -d /tmp/screens/ -t testdroid_android_hybrid -p "Android Hybrid"  -r `date +%R` --app b9608704-b55d-4b71-83d4-d8027c67b49a/Testdroid.apk --device ""
+python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -t testdroid_android_hybrid -p "Android Hybrid"  -r `date +%R` --app b9608704-b55d-4b71-83d4-d8027c67b49a/Testdroid.apk 
 ```
 
 ## Safari Browser Testing
@@ -174,7 +180,7 @@ Does not need any specific settings.
 Example: `testdroid_safari.py`
 
 ```bash
-python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -d /tmp/screens/ -t testdroid_safari -p "Safari browser"  -r `date +%R`
+python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t testdroid_safari -p "Safari browser"  -r `date +%R`
 ```
 
 ##  Chrome Browser Testing
@@ -184,7 +190,7 @@ Does not need any special settings.
 Example: `testdroid_chrome.py`
 
 ```bash
-python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -d /tmp/screens/ -t testdroid_chrome -p "Chrome browser"  -r `date +%R`
+python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t testdroid_chrome -p "Chrome browser"  -r `date +%R`
 ```
 
 # License

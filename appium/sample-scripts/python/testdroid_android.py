@@ -27,7 +27,7 @@ class TestdroidAndroid(unittest.TestCase):
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_app = os.environ.get('TESTDROID_APP') or ""
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
-        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "An Android demo"
+        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Android sample project"
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
         app_package = os.environ.get('TESTDROID_APP_PACKAGE') or 'com.bitbar.testdroid'
         app_activity = os.environ.get('TESTDROID_ACTIVITY') or '.BitbarSampleApplicationActivity'
