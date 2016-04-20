@@ -1,6 +1,6 @@
 ##
 ## For help on setting up your machine and configuring this TestScript go to
-## http://help.testdroid.com/customer/portal/topics/631129-appium/articles
+## http://docs.testdroid.com/appium/
 ##
 
 import os
@@ -23,17 +23,17 @@ class TestdroidSafari(unittest.TestCase):
     - name - files are stored as #_name
     """
     def screenshot(self, name):
-        screenshotName = str(self.screenShotCount) + "_" + name + ".png" 
-        log ("Taking screenshot: " + screenshotName)
-        self.driver.save_screenshot(self.screenshotDir + "/" + screenshotName)
-        self.screenShotCount += 1
+        screenshot_name = str(self.screenshot_count) + "_" + name + ".png"
+        log ("Taking screenshot: " + screenshot_name)
+        self.driver.save_screenshot(self.screenshot_dir + "/" + screenshot_name)
+        self.screenshot_count += 1
 
     """
     Search for specified xpath for defined period
 
     :Args:
-    
-    - xpath - the xpath to search for 
+
+    - xpath - the xpath to search for
 
     - timeout - duration in seconds to search for given xpath
 
@@ -43,7 +43,7 @@ class TestdroidSafari(unittest.TestCase):
     self.wait_until_xpath_matches("//div[@id='example']", 15, 2)"
     """
     def wait_until_xpath_matches(self, xpath, timeout=10, step=1):
-        end_time = time.time() + timeout 
+        end_time = time.time() + timeout
         found = False
         while (time.time() < end_time and not found):
             log("  Looking for xpath {}".format(xpath))
@@ -63,21 +63,23 @@ class TestdroidSafari(unittest.TestCase):
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
-        self.screenshotDir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
-        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Appium Safari demo"
+        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Safari sample project"
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
+        new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
+        testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
 
+        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
+        log ("Will save screenshots at: " + self.screenshot_dir)
+        self.screenshot_count = 1
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
         # 2) Set device name to this python script
         # 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
-
-        deviceFinder = None
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
+        deviceFinder = DeviceFinder(url=testdroid_url)
         if testdroid_device == "":
-            deviceFinder = DeviceFinder(url=testdroid_url)
             # Loop will not exit until free device is found
             while testdroid_device == "":
                 testdroid_device = deviceFinder.available_free_ios_device()
@@ -93,8 +95,8 @@ class TestdroidSafari(unittest.TestCase):
         desired_capabilities_cloud['platformName'] = 'iOS'
         desired_capabilities_cloud['deviceName'] = 'iOS Device'
         desired_capabilities_cloud['browserName'] = 'Safari'
-
-        log ("Will save screenshots at: " + self.screenshotDir)
+        desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
+        desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
 
         # Set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
@@ -103,13 +105,19 @@ class TestdroidSafari(unittest.TestCase):
         log ("Loading page http://docs.testdroid.com")
         self.driver.get("http://docs.testdroid.com")
 
-        self.screenShotCount = 1
-
     def tearDown(self):
+        log ("Quitting")
         self.driver.quit()
 
     def testSample(self):
         self.screenshot("home_screen")
+
+        log ("  Switching to landscape")
+        self.driver.orientation = "LANDSCAPE"
+        self.screenshot("results_landscape")
+        log ("  Switching to portrait")
+        self.driver.orientation = "PORTRAIT"
+        self.screenshot("results_portrait")
 
         log ("Finding 'search button'")
         elem = self.wait_until_xpath_matches('//input[@id="search"]')
@@ -122,21 +130,19 @@ class TestdroidSafari(unittest.TestCase):
         elem = self.driver.find_element_by_xpath('//input[@class="search-button"]')
         elem.click()
 
-        log ("  Switching to landscape")
-        self.driver.orientation = "LANDSCAPE"
-        self.screenshot("results_landscape")
-        log ("  Switching to portrait")
-        self.driver.orientation = "PORTRAIT"
-        self.screenshot("results_portrait")
-
         log ("Look for result text heading")
-        # wait up to 10s to get search results
-        elem = self.wait_until_xpath_matches('//h1[text()]', 10)
+        # workaround, since h1 doesn't include all the text in one text() element
+        end_time = time.time() + 30
+        while time.time() < end_time:
+            # wait up to 10s to get search results
+            elem = self.wait_until_xpath_matches('//h1[contains(text(), "Search results")]', 10)
+            if "appium" in elem.text:
+                end_time = time.time()
+        
         self.screenshot("search_title_present")
         log ("Verify correct heading text")
+        log ("h1 text: " + str(elem.text))
         self.assertTrue("Search results for \"appium\"" in str(elem.text))
-
-        log ("The End")
 
 def initialize():
     return TestdroidSafari

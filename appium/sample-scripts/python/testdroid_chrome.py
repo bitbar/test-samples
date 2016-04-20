@@ -24,7 +24,7 @@ class TestdroidAndroid(unittest.TestCase):
     - name - files are stored as #_name
     """
     def screenshot(self, name):
-        screenshotName = str(self.screenShotCount) + "_" + name + ".png" 
+        screenshotName = str(self.screenShotCount) + "_" + name + ".png"
         log ("Taking screenshot: " + screenshotName)
         # on Android, switching context to NATIVE_APP for screenshot
         # taking to get screenshots also stored to Testdroid Cloud
@@ -63,7 +63,7 @@ class TestdroidAndroid(unittest.TestCase):
             raise NoSuchElementException("Element wiht xpath: '{}' not found in {}s".format(xpath, timeout))
         return elem
 
-    
+
     def setUp(self):
 
         ##
@@ -71,14 +71,17 @@ class TestdroidAndroid(unittest.TestCase):
         ## You can set the parameters outside the script with environment variables.
         ## If env var is not set the string after 'or' is used.
         ##
-        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or "/absolute/path/to/desired/directory"
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
-        testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+        testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or 'Appium Chrome Demo'
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
+
+        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
+        log ("Will save screenshots at: " + self.screenshot_dir)
+        self.screenshot_count = 1
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
@@ -114,7 +117,6 @@ class TestdroidAndroid(unittest.TestCase):
 
         log ("Loading page http://docs.testdroid.com")
         self.driver.get("http://docs.testdroid.com")
-        self.screenShotCount = 1
 
     def tearDown(self):
         log ("Quitting, closing connection")
@@ -142,13 +144,18 @@ class TestdroidAndroid(unittest.TestCase):
         self.screenshot("results_portrait")
 
         log ("Look for result text heading")
-        # wait up to 10s to get search results
-        elem = self.wait_until_xpath_matches('//h1[contains(., "for")]', 15)
-        self.screenshot("search_result_present")
+        # workaround, since h1 doesn't include all the text in one text() element
+        end_time = time.time() + 30
+        while time.time() < end_time:
+            # wait up to 10s to get search results
+            elem = self.wait_until_xpath_matches('//h1[contains(text(), "Search results")]', 10)
+            if "appium" in elem.text:
+                end_time = time.time()
+        
+        self.screenshot("search_title_present")
         log ("Verify correct heading text")
+        log ("h1 text: " + str(elem.text))
         self.assertTrue("Search results for \"appium\"" in str(elem.text))
-
-        log ("The End")
 
 
 def initialize():
@@ -158,4 +165,3 @@ def initialize():
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
     unittest.TextTestRunner(verbosity=2).run(suite)
-
