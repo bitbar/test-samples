@@ -101,9 +101,9 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver.quit()
 
     def testSample(self):
-        log ("Test: testSample")
         log ("  Getting device screen size")
         log ("  " + str(self.driver.get_window_size()))
+
         isSelendroid = None
         if self.api_level < 17:
             isSelendroid = True
