@@ -118,17 +118,17 @@ class TestdroidAndroid(unittest.TestCase):
         sleep(2)
         self.screenshot("name_typed")
 
+        self.driver.orientation = "LANDSCAPE"
+        self.screenshot("landscape")
+        self.driver.orientation = "PORTRAIT"
+        self.screenshot("portrait")
+
         try:
             log ("  Hiding keyboard")
             self.driver.hide_keyboard()
         except WebDriverException:
             pass # pass exception, if keyboard isn't visible already
         self.screenshot("name_typed_keyboard_hidden")
-
-        self.driver.orientation = "LANDSCAPE"
-        self.screenshot("landscape")
-        self.driver.orientation = "PORTRAIT"
-        self.screenshot("portrait")
 
         log ("  Clicking element 'Buy 101 devices'")
         if isSelendroid:
