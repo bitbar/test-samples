@@ -63,14 +63,14 @@ class TestdroidAndroid(unittest.TestCase):
         while (time.time() < end_time and not found):
             log("  Looking for xpath {}".format(xpath))
             try:
-                elem = self.driver.find_element_by_xpath(xpath)
+                element = self.driver.find_element_by_xpath(xpath)
                 found = True
             except NoSuchElementException:
                 found = False
             time.sleep(step)
         if not found:
             raise NoSuchElementException("Element wiht xpath: '{}' not found in {}s".format(xpath, timeout))
-        return elem
+        return element
 
 
     def setUp(self):
@@ -109,16 +109,16 @@ class TestdroidAndroid(unittest.TestCase):
                 testdroid_device = deviceFinder.available_free_android_device()
 
         if "localhost" in appium_url:
-            api_level = subprocess.check_output(["adb", "shell", "getprop ro.build.version.sdk"])
+            self.api_level = subprocess.check_output(["adb", "shell", "getprop ro.build.version.sdk"])
         else:
-            api_level = deviceFinder.device_API_level(testdroid_device)
+            self.api_level = deviceFinder.device_API_level(testdroid_device)
 
-        log("Device API level is %s" % api_level)
+        log("Device API level is %s" % self.api_level)
         log("Starting Appium test using device '%s'" % testdroid_device)
 
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
-        if api_level > 16:
+        if self.api_level > 16:
             desired_capabilities_cloud['testdroid_target'] = 'android'
             desired_capabilities_cloud['automationName'] = 'android'
         else:
@@ -148,81 +148,88 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver.quit()
 
     def testSample(self):
-        log ("Activity-1")
         log ("  Getting device screen size")
-        log ("Device screen size: " + str(self.driver.get_window_size()))
+        log ("  " + str(self.driver.get_window_size()))
 
-        self.screenshot("appLaunch")
-        sleep(3)
+        isSelendroid = None
+        if self.api_level < 17:
+            isSelendroid = True
 
-        log('clicking button "hybrid app"')
-        element=self.driver.find_element_by_id('com.testdroid.sample.android:id/mm_b_hybrid')
+        self.screenshot("app_launch")
+
+        log ("Checking API level. This test works only on API 19 and above.")
+        log ("API level: " + str(self.api_level))
+        if self.api_level < 19:
+            raise Exception("The chosen device has API level under 19. The Hybrid view will crash.")
+
+        log ('Clicking button "hybrid app"')
+        element = self.driver.find_element_by_id('com.testdroid.sample.android:id/mm_b_hybrid')
         element.click()
-        self.screenshot('hybridActivity')
+        self.screenshot('hybrid_activity')
 
         log('Typing in the url http://docs.testdroid.com')
         element=self.driver.find_element_by_id('com.testdroid.sample.android:id/hy_et_url')
         element.send_keys("http://docs.testdroid.com")
-        self.screenshot('urlTyped')
+        self.screenshot('url_typed')
 
         try:
             log ("Hiding keyboard")
             self.driver.hide_keyboard()
         except WebDriverException:
             pass # pass exception, if keyboard isn't visible already
-        self.screenshot('keyboardHidden')
+        self.screenshot('keyboard_hidden')
 
-        log('clicking Load url button')
-        element=self.driver.find_element_by_id('com.testdroid.sample.android:id/hy_ib_loadUrl')
+        log('Clicking Load url button')
+        element = self.driver.find_element_by_id('com.testdroid.sample.android:id/hy_ib_loadUrl')
         element.click()
-        self.screenshot('webPageLoaded')
+        self.screenshot('webpage_loaded')
 
         contexts = "undefined"
         end_time = time.time() + 30
-        while "undefined" in str(contexts) and time.time() < end_time::
+        while "undefined" in str(contexts) and time.time() < end_time:
             contexts = self.driver.contexts
             log(str(contexts))
             sleep(5)
 
         context = str(contexts[-1])
-        log ("context will be " + context)
+        log ("Context will be " + context)
         self.driver.switch_to.context(context)
-        log ("context is " + self.driver.current_context)
+        log ("Context is " + self.driver.current_context)
 
         log("Finding 'search button'")
         end_time = time.time() + 30
-        elem = None
-        while not elem and time.time() < end_time:
+        element = None
+        while not element and time.time() < end_time:
             # wait up to 10s to get search results
-            elem = self.wait_until_xpath_matches('//input[@id="search"]', 10)
+            element = self.wait_until_xpath_matches('//input[@id="search"]', 10)
 
         log("Clicking search field")
-        elem.send_keys("appium")
+        element.send_keys("appium")
         self.screenshot("search_text")
 
         log("Click search")
-        elem = self.driver.find_element_by_xpath('//input[@class="search-button"]')
-        elem.click()
+        element = self.driver.find_element_by_xpath('//input[@class="search-button"]')
+        element.click()
 
         log ("Look for result text heading")
         # workaround, since h1 doesn't include all the text in one text() element
         end_time = time.time() + 30
         while time.time() < end_time:
             # wait up to 10s to get search results
-            elem = self.wait_until_xpath_matches('//h1[contains(text(), "Search results")]', 10)
-            if "appium" in elem.text:
+            element = self.wait_until_xpath_matches('//h1[contains(text(), "Search results")]', 10)
+            if "appium" in element.text:
                 end_time = time.time()
-        
+
         self.screenshot("search_title_present")
         log ("Verify correct heading text")
-        log ("h1 text: " + str(elem.text))
-        self.assertTrue("Search results for \"appium\"" in str(elem.text))
+        log ("h1 text: " + str(element.text))
+        self.assertTrue("Search results for \"appium\"" in str(element.text))
 
         self.driver.switch_to.context("NATIVE_APP")
 
         log('Going back')
         self.driver.back()
-        self.screenshot('launchScreen')
+        self.screenshot('launch_screen')
 
 def initialize():
     return TestdroidAndroid
