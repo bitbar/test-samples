@@ -64,16 +64,16 @@ class TestdroidAndroid(unittest.TestCase):
                 testdroid_device = deviceFinder.available_free_android_device()
 
         if "localhost" in appium_url:
-            api_level = subprocess.check_output(["adb", "shell", "getprop ro.build.version.sdk"])
+            self.api_level = subprocess.check_output(["adb", "shell", "getprop ro.build.version.sdk"])
         else:
-            api_level = deviceFinder.device_API_level(testdroid_device)
+            self.api_level = deviceFinder.device_API_level(testdroid_device)
 
-        log("Device API level is %s" % api_level)
+        log("Device API level is %s" % self.api_level)
         log ("Starting Appium test using device '%s'" % testdroid_device)
 
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
-        if api_level > 16:
+        if self.api_level > 16:
             desired_capabilities_cloud['testdroid_target'] = 'android'
             desired_capabilities_cloud['automationName'] = 'android'
         else:
@@ -101,15 +101,14 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver.quit()
 
     def testSample(self):
-        log ("Test: testSample")
         log ("  Getting device screen size")
-        log (str(self.driver.get_window_size()))
-        isSelendroid = None
-        if 'automationName' in self.driver.capabilities:
-            if self.driver.capabilities['automationName'] == 'selendroid':
-                isSelendroid = True
+        log ("  " + str(self.driver.get_window_size()))
 
-        self.screenshot("1_appLaunch")
+        isSelendroid = None
+        if self.api_level < 17:
+            isSelendroid = True
+
+        self.screenshot("app_launch")
 
         log ("  Typing in name")
         elems=self.driver.find_elements_by_class_name('android.widget.EditText')
@@ -117,19 +116,19 @@ class TestdroidAndroid(unittest.TestCase):
         log ("  Filling in name")
         elems[0].send_keys("Testdroid User")
         sleep(2)
-        self.screenshot("2_nameTyped")
+        self.screenshot("name_typed")
+
+        self.driver.orientation = "LANDSCAPE"
+        self.screenshot("landscape")
+        self.driver.orientation = "PORTRAIT"
+        self.screenshot("portrait")
 
         try:
             log ("  Hiding keyboard")
             self.driver.hide_keyboard()
         except WebDriverException:
             pass # pass exception, if keyboard isn't visible already
-        self.screenshot("3_nameTypedKeyboardHidden")
-
-        self.driver.orientation = "LANDSCAPE"
-        self.screenshot("3_landscape")
-        self.driver.orientation = "PORTRAIT"
-        self.screenshot("3_portrait")
+        self.screenshot("name_typed_keyboard_hidden")
 
         log ("  Clicking element 'Buy 101 devices'")
         if isSelendroid:
@@ -138,7 +137,7 @@ class TestdroidAndroid(unittest.TestCase):
             elem = self.driver.find_element_by_name('Buy 101 devices')
         elem.click()
 
-        self.screenshot("4_clickedButton1")
+        self.screenshot("clicked_button1")
 
         log ("  Clicking Answer")
         if isSelendroid:
@@ -147,11 +146,11 @@ class TestdroidAndroid(unittest.TestCase):
             elem = self.driver.find_element_by_name('Answer')
         elem.click()
 
-        self.screenshot("5_answer")
+        self.screenshot("answer")
 
-        log ("Navigating back to Activity-1")
+        log ("  Navigating back to Activity-1")
         self.driver.back()
-        self.screenshot("6_mainActivity")
+        self.screenshot("main_activity")
 
         log ("  Clicking element 'Use Testdroid Cloud'")
         if isSelendroid:
@@ -160,7 +159,7 @@ class TestdroidAndroid(unittest.TestCase):
             elem = self.driver.find_element_by_name('Use Testdroid Cloud')
         elem.click()
 
-        self.screenshot("7_clickedButton2")
+        self.screenshot("clicked_button2")
 
         log ("  Clicking Answer")
         if isSelendroid:
@@ -169,7 +168,7 @@ class TestdroidAndroid(unittest.TestCase):
             elem = self.driver.find_element_by_name('Answer')
         elem.click()
 
-        self.screenshot("8_answer")
+        self.screenshot("answer")
 
 def initialize():
     return TestdroidAndroid
