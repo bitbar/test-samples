@@ -2,6 +2,7 @@
 
 import os
 import requests, sys
+from random import choice
 
 
 class DeviceFinder:
@@ -29,11 +30,15 @@ class DeviceFinder:
 
     """ Returns list of devices
     """
-    def get_devices(self, limit=0):
+    def get_devices(self, limit=0, query_param=""):
+        # https://cloud.testdroid.com/api/v2/devices?filter=b_online_eq_true;b_locked_eq_false;b_enabled_eq_true;n_creditsPrice_eq_0;s_osType_eq_ios
         query_str = "devices?limit=%s" % (limit)
         if self.device_group:
             query_str += "&device_group_id[]=%s" % (self.device_group)
-#        print "Device query: {}".format(query_str)
+        # add extra query params, defaults to all
+        query_str += "&filter=b_online_eq_true;b_locked_eq_false;b_enabled_eq_true"
+        # device os specific part
+        query_str += query_param
         return self.get(query_str)
 
     """ GET from API resource
@@ -41,55 +46,49 @@ class DeviceFinder:
     def get(self, path=None, get_headers=None):
         self.url_query = "%s/api/v2/%s" % (self.cloud_url, path)
         headers=self._build_headers(get_headers)
+        print "  Device query url: {}".format(self.url_query)
         res =  requests.get(self.url_query, headers=self._build_headers(get_headers))
         if res.ok:
             return res.json()
         else:
-            print "Could not retrieve free devices."
+            print "Could not retrieve devices."
             sys.exit(-1)
 
     """ Find available free Android device
     """
     def available_free_android_device(self, limit=0):
-        print "Searching Available Free Android Device..."
+        print "Searching available Android device..."
 
-        for device in self.get_devices(limit)['data']:
-            if self.device_group:
-                if device['online'] == True and device['locked'] == False and device['osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
-                    print "Found device '%s'" % device['displayName']
-                    print ""
-                    return str(device['displayName'])
-            else:
-                if device['online'] == True and device['creditsPrice'] == 0 and device['locked'] == False and device['osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
-                    print "Found device '%s'" % device['displayName']
-                    print ""
-                    return str(device['displayName'])
+        free = ";n_creditsPrice_eq_0"
+        if self.device_group: 
+            free = ""
 
-        print "No available device found"
-        print ""
-        return ""
+        json_resp = self.get_devices(limit, ";s_osType_eq_android" + free)
+        all_devices = json_resp['data']
+        devices = []
+        # get only Android devices with apiLevel above 16
+        for device in all_devices:
+            if device['softwareVersion']['apiLevel'] > 16:
+                devices.append(device)
+        device_name = str(choice(devices)['displayName'])
+        print "Found device: '{}'".format(device_name)
+        return device_name
 
     """ Find available free iOS device
     """
     def available_free_ios_device(self, limit=0):
-        print "Searching Available Free iOS Device..."
+        print "Searching available iOS device..."
+        
+        free = ";n_creditsPrice_eq_0"
+        if self.device_group: 
+            free = ""
 
-        for device in self.get_devices(limit)['data']:
-            if self.device_group:
-                print "Search free device from device group: {}".format(self.device_group)
-                if device['online'] == True and device['locked'] == False and device['osType'] == "IOS":
-                    print "Found device '%s'" % device['displayName']
-                    print ""
-                    return str(device['displayName'])
-            else:
-                if device['online'] == True and device['creditsPrice'] == 0 and device['locked'] == False and device['osType'] == "IOS":
-                    print "Found device '%s'" % device['displayName']
-                    print ""
-                    return str(device['displayName'])
+        devices = self.get_devices(limit, ";s_osType_eq_ios" + free)['data']
+        device_name = str(choice(devices)['displayName'])
+        print "Found device: '{}'".format(device_name)
+        return device_name
 
-        print "No available device found"
-        print ""
-        return ""
+
 
     """ Find out the API level of a Device
     """
@@ -106,7 +105,7 @@ class DeviceFinder:
             return
 
 """ DeviceFinder should rather be used from an other script rather
-than directly from command lin
+than directly from command line
 """
 if __name__ == '__main__':
     df = DeviceFinder()
