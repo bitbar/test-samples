@@ -24,7 +24,7 @@ class TestdroidAndroid(unittest.TestCase):
     - name - files are stored as #_name
     """
     def screenshot(self, name):
-        screenshotName = str(self.screenShotCount) + "_" + name + ".png"
+        screenshotName = str(self.screenshot_count) + "_" + name + ".png"
         log ("Taking screenshot: " + screenshotName)
         # on Android, switching context to NATIVE_APP for screenshot
         # taking to get screenshots also stored to Testdroid Cloud
@@ -32,7 +32,7 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver.switch_to.context("NATIVE_APP")
         self.driver.save_screenshot(self.screenshot_dir + "/" + screenshotName)
         self.driver.switch_to.context("WEBVIEW")
-        self.screenShotCount += 1
+        self.screenshot_count += 1
 
     """
     Search for specified xpath for defined period
