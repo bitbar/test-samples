@@ -4,6 +4,9 @@
 ## Run locally
 
 Run `run_local_tests.sh` to run the test on local device.
+NOTE 1: When running first time, run apk resigning (see run_local_tests.sh)
+NOTE 2: You can run tests using different tags or configure profiles in cucumber.yml 
+
 
 ## Create test zip
 
