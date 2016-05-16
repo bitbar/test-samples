@@ -97,10 +97,6 @@ class TestdroidIOS(unittest.TestCase):
         elem.clear()
         elem.send_keys('Testdroid user')
 
-        y = 0.95
-        log ("view1: Tapping at position (384, 0.95) - Estimated position of SpaceBar")
-        self.driver.execute_script("mobile: tap",{"touchCount":"1","x":"0.5","y":y})
-
         log ("view1: Taking screenshot screenshot1.png")
         self.screenshot("screenshot1")
 
