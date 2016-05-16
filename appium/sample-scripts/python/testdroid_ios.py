@@ -101,7 +101,7 @@ class TestdroidIOS(unittest.TestCase):
         self.screenshot("screenshot1")
 
         log ("view1: Hiding Keyboard")
-        self.driver.find_element_by_name("Return").click()
+        self.driver.find_element_by_xpath("//*[contains(@name, 'Return')]").click()
 
         log ("view1: Taking screenshot screenshot2.png")
         self.screenshot("screenshot2")
