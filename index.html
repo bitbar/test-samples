@@ -1,0 +1,28 @@
+---
+layout: default
+title: Test Page for Samples
+---
+
+<p id="text_element">How to test web, hybrid or real apps on real mobile devices?</p>
+
+<button id="test_button" onclick="setColor(this)">Click for answer</button>
+
+<script type="text/javascript">
+    var count = 1;
+    function setColor(btn, color) {
+        var property = document.getElementById(btn);
+        if (count == 0) {
+            btn.style.backgroundColor = "#FFFFFF"
+            document.getElementById("result_element").innerHTML = "";
+            count = 1;        
+        }
+        else {
+            btn.style.backgroundColor = "#7FFF00"
+            count = 0;
+            document.getElementById("result_element").innerHTML = "Testdroid real device cloud, with real iOS and Android devices!";
+        }
+    }
+</script>
+
+<p id="result_element"></p>
+
