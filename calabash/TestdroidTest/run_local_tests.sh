@@ -24,6 +24,11 @@ fi
 mkdir ${RESULTS}
 
 # Run the test
+
+# When running first time run apk resigning:
+#calabash-android resign ${APPLICATION_PATH}
+# You can add different profiles (configured in cucumber.yml) or tags here:
+
 SCREENSHOT_PATH=${SCREENSHOTS} calabash-android run ${APPLICATION_PATH} -f junit -o ${RESULTS} -f pretty -v
 
 # Use this command if multiple devices connected
