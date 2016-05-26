@@ -1,0 +1,5 @@
+# config/cucumber.yml
+##YAML Template
+---
+default: PLATFORM=ios -r features/support -r features/ios/support -r features/ios/helpers -r features/step_definitions -r features/ios/pages --tags @mytag
+
