@@ -106,7 +106,7 @@ class DeviceFinder:
             return
 
 """ DeviceFinder should rather be used from an other script rather
-than directly from command lin
+than directly from command line
 """
 if __name__ == '__main__':
     df = DeviceFinder()
