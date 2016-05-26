@@ -60,8 +60,9 @@ class TestdroidSafari(unittest.TestCase):
         self.utils.log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.update_driver(self.driver)
-        self.utils.log ("Loading page http://docs.testdroid.com")
-        self.driver.get("http://docs.testdroid.com")
+        test_url = "http://bitbar.github.io/testdroid-samples/"
+        self.utils.log ("Loading page "+ test_url)
+        self.driver.get(test_url)
 
     def tearDown(self):
         self.utils.log ("Quitting")
@@ -72,35 +73,25 @@ class TestdroidSafari(unittest.TestCase):
 
         self.utils.log ("  Switching to landscape")
         self.driver.orientation = "LANDSCAPE"
-        self.utils.screenshot("results_landscape")
+        self.utils.screenshot("home_landscape")
         self.utils.log ("  Switching to portrait")
         self.driver.orientation = "PORTRAIT"
-        self.utils.screenshot("results_portrait")
+        self.utils.screenshot("home_portrait")
 
-        self.utils.log ("Finding 'search button'")
-        elem = self.utils.wait_until_xpath_matches('//input[@id="search"]')
+        self.utils.log ("Finding button with text 'Click for answer'")
+        button = self.utils.wait_until_xpath_matches('//button[contains(., "Click for answer")]')
 
-        self.utils.log ("Typing to search field")
-        elem.send_keys("appium")
-        self.utils.screenshot("search_text")
+        self.utils.log ("Clicking on button")
+        button.click()
+        self.utils.screenshot("answer")
 
-        self.utils.log ("Click search")
-        elem = self.driver.find_element_by_xpath('//input[@class="search-button"]')
-        elem.click()
+        self.utils.log ("Check answer text")
+        elem = self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
 
-        self.utils.log ("Look for result text heading")
-        # workaround, since h1 doesn't include all the text in one text() element
-        end_time = time.time() + 30
-        while time.time() < end_time:
-            # wait up to 10s to get search results
-            elem = self.utils.wait_until_xpath_matches('//h1[contains(text(), "Search results")]', 10)
-            if "appium" in elem.text:
-                end_time = time.time()
-        
-        self.utils.screenshot("search_title_present")
-        self.utils.log ("Verify correct heading text")
-        self.utils.log ("h1 text: " + str(elem.text))
-        self.assertTrue("Search results for \"appium\"" in str(elem.text))
+        self.utils.log ("Verify button changed color")
+        style = str(button.get_attribute('style'))
+        expected_style = "rgb(127, 255, 0"
+        self.assertTrue(expected_style in style)
 
 def initialize():
     return TestdroidSafari
