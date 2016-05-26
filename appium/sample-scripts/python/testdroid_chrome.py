@@ -95,7 +95,7 @@ class TestdroidAndroid(unittest.TestCase):
         if testdroid_device == "":
             # Loop will not exit until free device is found
             while testdroid_device == "":
-                testdroid_device = deviceFinder.available_free_android_device()
+                testdroid_device = deviceFinder.available_android_device()
 
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey

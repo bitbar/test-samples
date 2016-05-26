@@ -45,13 +45,13 @@ class DeviceFinder:
         if res.ok:
             return res.json()
         else:
-            print "Could not retrieve free devices."
+            print "Could not retrieve devices."
             sys.exit(-1)
 
-    """ Find available free Android device
+    """ Find available Android device
     """
-    def available_free_android_device(self, limit=0):
-        print "Searching Available Free Android Device..."
+    def available_android_device(self, limit=0):
+        print "Searching available Android device..."
 
         for device in self.get_devices(limit)['data']:
             if self.device_group:
@@ -69,14 +69,14 @@ class DeviceFinder:
         print ""
         return ""
 
-    """ Find available free iOS device
+    """ Find available iOS device
     """
-    def available_free_ios_device(self, limit=0):
-        print "Searching Available Free iOS Device..."
+    def available_ios_device(self, limit=0):
+        print "Searching available iOS device..."
 
         for device in self.get_devices(limit)['data']:
             if self.device_group:
-                print "Search free device from device group: {}".format(self.device_group)
+                print "Search device from device group: {}".format(self.device_group)
                 if device['online'] == True and device['locked'] == False and device['osType'] == "IOS":
                     print "Found device '%s'" % device['displayName']
                     print ""
@@ -110,4 +110,4 @@ than directly from command line
 """
 if __name__ == '__main__':
     df = DeviceFinder()
-    print "DeviceFinder: {}".format(df.available_free_android_device())
+    print "DeviceFinder: {}".format(df.available_android_device())
