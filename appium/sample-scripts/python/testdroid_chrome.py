@@ -13,9 +13,6 @@ from selenium.common.exceptions import NoSuchElementException
 from testdroid_utils import TDUtils
 
 
-def log(msg):
-    print (time.strftime("%H:%M:%S") + ": " + msg)
-
 class TestdroidAndroid(unittest.TestCase):
 
     def setUp(self):
@@ -33,7 +30,6 @@ class TestdroidAndroid(unittest.TestCase):
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
 
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
-        log ("Will save screenshots at: " + self.screenshot_dir)
         self.screenshot_count = 1
 
         # Options to select device

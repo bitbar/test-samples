@@ -21,9 +21,12 @@ class TDUtils():
         # taking to get screenshots also stored to Testdroid Cloud
         # device run view. After screenshot switching back to
         # WEBVIEW. Works ok for Safari too.
+        orig_context = self.driver.current_context
         self.driver.switch_to.context("NATIVE_APP")
         self.driver.save_screenshot(self.screenshot_dir + "/" + screenshot_name)
-        self.driver.switch_to.context("WEBVIEW")
+        # only change context if originally context was WEBVIEW
+        if orig_context not in self.driver.current_context:
+            self.driver.switch_to.context("WEBVIEW")
         self.screenshot_count += 1
         
     """
