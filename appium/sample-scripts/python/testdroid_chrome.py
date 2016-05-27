@@ -10,6 +10,7 @@ from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
 from selenium.common.exceptions import NoSuchElementException
+from testdroid_utils import TDUtils
 
 
 def log(msg):
@@ -17,55 +18,7 @@ def log(msg):
 
 class TestdroidAndroid(unittest.TestCase):
 
-    """
-    Take screenshot and store files to defined location, with numbering prefix
-
-    :Args:
-    - name - files are stored as #_name
-    """
-    def screenshot(self, name):
-        screenshotName = str(self.screenshot_count) + "_" + name + ".png"
-        log ("Taking screenshot: " + screenshotName)
-        # on Android, switching context to NATIVE_APP for screenshot
-        # taking to get screenshots also stored to Testdroid Cloud
-        # device run view. After screenshot switching back to WEBVIEW.
-        self.driver.switch_to.context("NATIVE_APP")
-        self.driver.save_screenshot(self.screenshot_dir + "/" + screenshotName)
-        self.driver.switch_to.context("WEBVIEW")
-        self.screenshot_count += 1
-
-    """
-    Search for specified xpath for defined period
-
-    :Args:
-
-    - xpath - the xpath to search for
-
-    - timeout - duration in seconds to search for given xpath
-
-    - step - how often to search run the search
-
-    :Usage:
-    self.wait_until_xpath_matches("//div[@id='example']", 15, 2)"
-    """
-    def wait_until_xpath_matches(self, xpath, timeout=10, step=1):
-        end_time = time.time() + timeout
-        found = False
-        while (time.time() < end_time and not found):
-            log("  Looking for xpath {}".format(xpath))
-            try:
-                elem = self.driver.find_element_by_xpath(xpath)
-                found = True
-            except NoSuchElementException:
-                found = False
-            time.sleep(step)
-        if not found:
-            raise NoSuchElementException("Element wiht xpath: '{}' not found in {}s".format(xpath, timeout))
-        return elem
-
-
     def setUp(self):
-
         ##
         ## IMPORTANT: Set the following parameters.
         ## You can set the parameters outside the script with environment variables.
@@ -97,6 +50,11 @@ class TestdroidAndroid(unittest.TestCase):
             while testdroid_device == "":
                 testdroid_device = deviceFinder.available_android_device()
 
+        print "Starting Appium test using device '%s'" % testdroid_device
+
+        self.utils = TDUtils(self.screenshot_dir)
+        self.utils.log("Will save screenshots at: " + self.screenshot_dir)
+
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
         desired_capabilities_cloud['testdroid_target'] = 'chrome'
@@ -109,53 +67,43 @@ class TestdroidAndroid(unittest.TestCase):
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
 
-        log ("Will save screenshots at: " + self.screenshot_dir)
-
         # set up webdriver
-        log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
+        self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
 
-        log ("Loading page http://docs.testdroid.com")
-        self.driver.get("http://docs.testdroid.com")
+        self.utils.update_driver(self.driver)
+        test_url = "http://bitbar.github.io/testdroid-samples/"
+        self.utils.log("Loading page "+ test_url)
+        self.driver.get(test_url)
 
     def tearDown(self):
-        log ("Quitting, closing connection")
+        self.utils.log("Quitting, closing connection")
         self.driver.quit()
 
     def testSample(self):
-        self.screenshot("home_screen")
+        self.utils.screenshot("home_screen")
 
-        log ("Finding 'search button'")
-        elem = self.wait_until_xpath_matches('//input[@id="search"]')
-
-        log ("Clicking search field")
-        elem.send_keys("appium")
-        self.screenshot("search_text")
-
-        log ("Click search")
-        elem = self.driver.find_element_by_xpath('//input[@class="search-button"]')
-        elem.click()
-
-        log ("  Switching to landscape")
+        self.utils.log("  Switching to landscape")
         self.driver.orientation = "LANDSCAPE"
-        self.screenshot("results_landscape")
-        log ("  Switching to portrait")
+        self.utils.screenshot("home_landscape")
+        self.utils.log("  Switching to portrait")
         self.driver.orientation = "PORTRAIT"
-        self.screenshot("results_portrait")
+        self.utils.screenshot("home_portrait")
 
-        log ("Look for result text heading")
-        # workaround, since h1 doesn't include all the text in one text() element
-        end_time = time.time() + 30
-        while time.time() < end_time:
-            # wait up to 10s to get search results
-            elem = self.wait_until_xpath_matches('//h1[contains(text(), "Search results")]', 10)
-            if "appium" in elem.text:
-                end_time = time.time()
-        
-        self.screenshot("search_title_present")
-        log ("Verify correct heading text")
-        log ("h1 text: " + str(elem.text))
-        self.assertTrue("Search results for \"appium\"" in str(elem.text))
+        self.utils.log("Finding button with text 'Click for answer'")
+        button = self.utils.wait_until_xpath_matches('//button[contains(., "Click for answer")]')
+
+        self.utils.log("Clicking on button")
+        button.click()
+        self.utils.screenshot("answer")
+
+        self.utils.log("Check answer text")
+        elem = self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
+
+        self.utils.log("Verify button changed color")
+        style = str(button.get_attribute('style'))
+        expected_style = "rgb(127, 255, 0"
+        self.assertTrue(expected_style in style)
 
 
 def initialize():
