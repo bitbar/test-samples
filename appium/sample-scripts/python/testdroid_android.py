@@ -61,7 +61,7 @@ class TestdroidAndroid(unittest.TestCase):
         if testdroid_device == "":
             # Loop will not exit until free device is found
             while testdroid_device == "":
-                testdroid_device = deviceFinder.available_free_android_device()
+                testdroid_device = deviceFinder.available_android_device()
 
         if "localhost" in appium_url:
             self.api_level = subprocess.check_output(["adb", "shell", "getprop ro.build.version.sdk"])
