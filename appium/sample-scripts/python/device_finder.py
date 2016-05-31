@@ -2,7 +2,7 @@
 
 import os
 import requests, sys
-from random import choice
+from random import shuffle
 
 
 
@@ -29,33 +29,35 @@ class DeviceFinder:
             hdrs.update(headers)
         return hdrs
 
-    """ Returns list of devices
-    """
-    def get_devices(self, limit=0):
-        query_str = "devices?limit=%s" % (limit)
-        if self.device_group:
-            query_str += "&device_group_id[]=%s" % (self.device_group)
-#        print "Device query: {}".format(query_str)
-        return self.get(query_str)
-
     """ GET from API resource
     """
     def get(self, path=None, get_headers=None):
         self.url_query = "%s/api/v2/%s" % (self.cloud_url, path)
-        headers=self._build_headers(get_headers)
-        res =  requests.get(self.url_query, headers=self._build_headers(get_headers))
+        query_headers=self._build_headers(get_headers)
+        # print "Device query: {}\nwith hearders: {}".format(self.url_query, query_headers)
+        res =  requests.get(self.url_query, headers=query_headers)
         if res.ok:
             return res.json()
         else:
             print "Could not retrieve devices."
             sys.exit(-1)
 
+    """ Returns list of devices
+    """
+    def get_devices(self, limit=0):
+        query_str = "devices?limit=%s" % (limit)
+        if self.device_group:
+            query_str += "&device_group_id[]=%s" % (self.device_group)
+        devices = self.get(query_str)['data']
+        shuffle(devices)
+        return devices
+
     """ Find available Android device
     """
     def available_android_device(self, limit=0):
         print "Searching available Android device..."
 
-        for device in self.get_devices(limit)['data']:
+        for device in self.get_devices(limit):
             if self.device_group:
                 if device['online'] == True and device['locked'] == False and device['osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
                     print "Found device '%s'" % device['displayName']
@@ -67,23 +69,16 @@ class DeviceFinder:
                     print ""
                     return str(device['displayName'])
 
-        json_resp = self.get_devices(limit, ";s_osType_eq_android" + free)
-        all_devices = json_resp['data']
-        devices = []
-        # get only Android devices with apiLevel above 16
-        for device in all_devices:
-            if device['softwareVersion']['apiLevel'] > 16:
-                devices.append(device)
-        device_name = str(choice(devices)['displayName'])
-        print "Found device: '{}'".format(device_name)
-        return device_name
+        print "No available device found"
+        print ""
+        return ""
 
     """ Find available iOS device
     """
     def available_ios_device(self, limit=0):
         print "Searching available iOS device..."
 
-        for device in self.get_devices(limit)['data']:
+        for device in shuffle(self.get_devices(limit)):
             if self.device_group:
                 print "Search device from device group: {}".format(self.device_group)
                 if device['online'] == True and device['locked'] == False and device['osType'] == "IOS":
