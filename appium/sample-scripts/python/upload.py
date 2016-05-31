@@ -14,6 +14,7 @@ class UploadApp():
     def __init__(self):
         self.myfile = os.environ.get('TESTDROID_APP_PATH') or '../apps/builds/BitbarSampleApp.apk'
         self.upload_url = os.environ.get('TESTDROID_UPLOAD_URL') or 'http://appium.testdroid.com/upload'
+        # Provide mandatory API key with this env var or with -k/--apikey flag
         self.api_key = os.environ.get("TESTDROID_APIKEY") or ""
 
 
@@ -33,7 +34,7 @@ class UploadApp():
 
         # Sanity checks
         if len(self.api_key) == 0:
-            print "ERROR: API key is missing"
+            print "ERROR: API key is missing. Provide TESTDROID_APIKEY env var or -k/--apikey <APIKEY> flag."
             sys.exit(1)
 
 
