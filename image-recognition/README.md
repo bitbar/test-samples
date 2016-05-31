@@ -94,7 +94,12 @@ Some of the functions:
 
    To install OpenCV using *brew*:
 
+         brew tap homebrew/science
          brew install opencv --with-java
+
+   Or directly:
+
+         brew install homebrew/science/opencv --with-java
 
 1. Akaze
 
