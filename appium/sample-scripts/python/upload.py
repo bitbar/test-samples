@@ -2,23 +2,25 @@
 # Example how to upload application to Testdroid Cloud before Appium test
 #
 
-import requests
-import base64
-import os
-import json
 import argparse
+import base64
+import json
+import os
+import requests
+import sys
 
 
 class UploadApp():
     def __init__(self):
-        self.myfile = os.environ.get('TESTDROID_APP_PATH') or '../../../apps/builds/BitbarSampleApp.apk'
+        self.myfile = os.environ.get('TESTDROID_APP_PATH') or '../apps/builds/BitbarSampleApp.apk'
         self.upload_url = os.environ.get('TESTDROID_UPLOAD_URL') or 'http://appium.testdroid.com/upload'
-        self.api_key = ""
+        # Provide mandatory API key with this env var or with -k/--apikey flag
+        self.api_key = os.environ.get("TESTDROID_APIKEY") or ""
 
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Upload a mobile app to Testdroid Cloud and get a handle to it')
-        parser.add_argument('-k', '--apikey', type=str, required=True, help="User's apiKey to identify to cloud, or set environment variable TESTDROID_APIKEY")
+        parser.add_argument('-k', '--apikey', type=str, required=False, help="User's apiKey to identify to cloud, or set environment variable TESTDROID_APIKEY")
         parser.add_argument('-a', '--app_path', type=str, required=False, help="Path to app to upload or set environment variable TESTDROID_APP_PATH. Current value is: '{}'".format(self.myfile))
         parser.add_argument('-u', '--url', type=str, required=False, help="Testdroid Cloud url to upload app or set environment variable TESTDROID_UPLOAD_URL. Current value is: '{}'".format(self.upload_url))
 
@@ -29,6 +31,11 @@ class UploadApp():
             self.upload_url = args.url
         if args.apikey:
             self.api_key = args.apikey
+
+        # Sanity checks
+        if len(self.api_key) == 0:
+            print "ERROR: API key is missing. Provide TESTDROID_APIKEY env var or -k/--apikey <APIKEY> flag."
+            sys.exit(1)
 
 
     def build_headers(self):
