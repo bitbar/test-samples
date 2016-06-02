@@ -38,7 +38,7 @@ class DeviceFinder:
         if res.ok:
             return res.json()
         else:
-            print "Failed device query: {}\nusing hearders: {}".format(self.url_query, query_headers)
+            print "Failed query: {}\nusing headers: {}".format(self.url_query, query_headers)
             sys.exit(-1)
 
     """ Returns list of devices
