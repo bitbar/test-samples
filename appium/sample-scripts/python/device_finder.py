@@ -11,7 +11,7 @@ class DeviceFinder:
     """ Constructor
     """
     def __init__(self, url="https://cloud.testdroid.com", download_buffer_size=65536):
-        self.cloud_url = url
+        self.cloud_url = os.environ.get('TESTDROID_URL') or url
         self.download_buffer_size = download_buffer_size
         self.url_query = None
         # to use devices from particular device group set the device
@@ -34,12 +34,11 @@ class DeviceFinder:
     def get(self, path=None, get_headers=None):
         self.url_query = "%s/api/v2/%s" % (self.cloud_url, path)
         query_headers=self._build_headers(get_headers)
-        # print "Device query: {}\nwith hearders: {}".format(self.url_query, query_headers)
         res =  requests.get(self.url_query, headers=query_headers)
         if res.ok:
             return res.json()
         else:
-            print "Could not retrieve devices."
+            print "Failed device query: {}\nusing hearders: {}".format(self.url_query, query_headers)
             sys.exit(-1)
 
     """ Returns list of devices
@@ -80,7 +79,6 @@ class DeviceFinder:
 
         for device in shuffle(self.get_devices(limit)):
             if self.device_group:
-                print "Search device from device group: {}".format(self.device_group)
                 if device['online'] == True and device['locked'] == False and device['osType'] == "IOS":
                     print "Found device '%s'" % device['displayName']
                     print ""
