@@ -77,7 +77,7 @@ class DeviceFinder:
     def available_ios_device(self, limit=0):
         print "Searching available iOS device..."
 
-        for device in shuffle(self.get_devices(limit)):
+        for device in self.get_devices(limit):
             if self.device_group:
                 if device['online'] == True and device['locked'] == False and device['osType'] == "IOS":
                     print "Found device '%s'" % device['displayName']
