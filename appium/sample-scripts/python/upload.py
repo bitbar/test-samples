@@ -12,7 +12,7 @@ import sys
 
 class UploadApp():
     def __init__(self):
-        self.myfile = os.environ.get('TESTDROID_APP_PATH') or '../apps/builds/BitbarSampleApp.apk'
+        self.myfile = os.environ.get('TESTDROID_APP_PATH') or '../../../apps/builds/BitbarSampleApp.apk'
         self.upload_url = os.environ.get('TESTDROID_UPLOAD_URL') or 'http://appium.testdroid.com/upload'
         # Provide mandatory API key with this env var or with -k/--apikey flag
         self.api_key = os.environ.get("TESTDROID_APIKEY") or ""
