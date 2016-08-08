@@ -14,6 +14,8 @@ with if you don't have your own.
 * *ios/ios-test-skeleton/* - contains js test framework Jasmine example
 for testing (older) iOS versions.
 
+* *robot-framework/* - directory contains example for Robot Framework test framework.
+
 
 ## License
 
