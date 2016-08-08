@@ -3,7 +3,7 @@ Resource         ${PROJECTROOT}${/}resources${/}common.robot
 Test Teardown    Close Application
 
 *** Variables ***
-${NAME}                Sakari
+${NAME}                John
 ${INPUT_NAME_FIELD}    id=com.bitbar.testdroid:id/editText1
 ${SUBMIT_BUTTON}       id=com.bitbar.testdroid:id/button1
 
