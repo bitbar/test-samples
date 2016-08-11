@@ -9,13 +9,13 @@ ${AUTOMATION_NAME}              appium
 
 ${PLATFORM_NAME_ANDROID}        Android
 ${PLATFORM_VERSION_ANDROID}     6.0.1   # Uncomment this from the 'Open Application' keyword if you want to be spesific
-${DEVICE_NAME_ANDROID}          Android Emulator    # IP address?
+${DEVICE_NAME_ANDROID}          Android Emulator
 ${APP_ANDROID}                  ${CURDIR}${/}app${/}BitbarSampleApp.apk
 #${APP_ANDROID}                  ${PROJECTROOT}${/}application.apk    # Uncomment for cloud execution
 
 ${PLATFORM_NAME_IOS}            iOS
 ${PLATFORM_VERSION_IOS}         8.1.2   # Uncomment this from the 'Open Application' keyword if you want to be spesific
-${DEVICE_NAME_IOS}              iOS Device    # IP address?
+${DEVICE_NAME_IOS}              iOS Emulator
 ${APP_IOS}                      ${CURDIR}${/}app${/}BitbarIOSSample.ipa
 #${APP_IOS}                     ${PROJECTROOT}${/}application.ipa    # Uncomment for cloud execution
 ${AUTO_ACCEPT_ALERTS}           true
