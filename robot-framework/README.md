@@ -9,15 +9,18 @@
 - pip install -r ./resources/requirements.txt
 
 # Running tests locally:
-- ``python run.py``                  Runs the whole suite.
-- ``python run.py -i <tag name>``    Runs tests that contains ``[Tags]    <tag name>``
-- ``python run.py --test <name>``    Runs tests that contains name ``<name>`` in them.
-- ``python run.py --suite <name>``   Runs the suite containing ``<name>``.
-- ``python run.py --dryrun``         Runs everything as a dryrun
-- ``-x <xunit_output_file>`` command line option can be used to generate report in xUnit compatible XML format. So for example ``python run.py -x xunit`` will run all the test and create ``xunit.xml`` file relatively to the output directory of other test results.
+There are two runner scripts for running the tests locally, ``run_android.py`` and ``run_ios.py``
 
-# Running tests on cloud:
-- ``createAndroidTestZip.sh`` creates .zip file containing all necessary files for cloud execution on Android devices. Script outputs ``android-phone-test.zip`` file that can be uploaded to Testdroid Cloud for test execution.
+- ``python run_<OS>.py`` Runs the whole suite. For example ``python run_android.py`` runs all the Android tests.
+- ``python run_<OS>.py -i <tag name>`` Runs tests that contains ``[Tags]    <tag name>``
+- ``python run_<OS>.py --test <name>`` Runs tests that contains name ``<name>`` in them.
+- ``python run_<OS>.py --suite <name>`` Runs the suite containing ``<name>``.
+- ``python run_<OS>.py --dryrun`` Runs everything as a dryrun
+- ``-x <xunit_output_file>`` command line option can be used to generate report in xUnit compatible XML format. So for example ``python run_<OS>.py -x xunit`` will run all the test and create ``xunit.xml`` file relatively to the output directory of other test results.
+
+# Running tests on the Cloud:
+- From ``common.robot`` choose the correct ``${APP_ANDROID}`` or ``${APP_IOS}`` path by uncommenting the one with ``application.apk`` or ``application.ipa`` and commenting out other paths.
+- ``createAndroidTestZip.sh`` and ``createIosTestZip.sh`` will create .zip files containing all necessary files for cloud execution. Scripts output ``android-phone-test.zip`` and ``ios-phone-test.zip`` files that can be uploaded to Testdroid Cloud for test execution.
 - By default the tests will be run as server-side Appium and the driver is configured to use ``localhost`` address as: ``${REMOTE_URL}    http://localhost:4723/wd/hub``
 - Framework can be configured also to run the tests as client-side Appium. To do this, the ``localhost`` address has to be replaced with ``appium.testdroid.com``. Also following additional capabilities has to be added:
 	- ``testdroid_username``
@@ -27,6 +30,7 @@
 	- ``testdroid_testrun``
 	- ``testdroid_device``
 	- ``testdroid_app``
+	- ``BundleID``
 
 	More information about desired capabilities for client-side Appium can be found from Testdroid [Appium Documentation](http://help.testdroid.com/customer/portal/articles/1507074-testdroid_-desired-capabilities)
 
