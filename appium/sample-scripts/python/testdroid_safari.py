@@ -34,10 +34,8 @@ class TestdroidSafari(unittest.TestCase):
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
         deviceFinder = DeviceFinder(url=testdroid_url)
-        if testdroid_device == "":
-            # Loop will not exit until free device is found
-            while testdroid_device == "":
-                testdroid_device = deviceFinder.available_ios_device()
+        while testdroid_device == "":
+            testdroid_device = deviceFinder.available_ios_device()
 
         print "Starting Appium test using device '%s'" % testdroid_device
 
