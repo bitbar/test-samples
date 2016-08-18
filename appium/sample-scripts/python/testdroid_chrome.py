@@ -9,7 +9,6 @@ import unittest
 from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
-from selenium.common.exceptions import NoSuchElementException
 from testdroid_utils import TDUtils
 
 
