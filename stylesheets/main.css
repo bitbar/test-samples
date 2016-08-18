@@ -1,0 +1,57 @@
+html {
+    font-size: 16px;
+}
+
+body {
+    background: #e0e0e0 url('../img/bg-pattern.png');
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    color: #444;
+}
+
+header {
+    background-color: #1C2228;
+    width: 100vw;
+    height: 5rem;
+    overflow: hidden;
+}
+
+header > img#testdroid-logo {
+    height: 3.5rem;
+    margin: .75rem auto;
+    display: block;
+}
+
+section {
+    width: calc(100% - 10rem);
+    height: 14rem;
+    margin: 1.25rem auto;
+    background: #FFF;
+    padding: 1.25rem;
+    box-shadow: 0 0px 1px 0px #444;
+    text-align: center;
+}
+
+section > p {
+    font-size: 1.25rem;
+}
+
+section > button {
+    width: 10rem;
+    height: 2.25rem;
+    font-size: 1.15rem;
+    line-height: 1.25rem;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    border: .0625rem solid;
+    cursor: pointer;
+}
