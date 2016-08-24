@@ -46,6 +46,7 @@ class TestdroidAndroid(unittest.TestCase):
         app_activity = os.environ.get('TESTDROID_ACTIVITY') or '.BitbarSampleApplicationActivity'
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
+        testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
 
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
         log ("Will save screenshots at: " + self.screenshot_dir)
@@ -90,6 +91,7 @@ class TestdroidAndroid(unittest.TestCase):
         desired_capabilities_cloud['appActivity'] = app_activity
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
+        desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
 
         # set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
