@@ -9,7 +9,6 @@ import unittest
 from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
-from selenium.common.exceptions import NoSuchElementException
 
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
@@ -42,6 +41,7 @@ class TestdroidIOS(unittest.TestCase):
         testdroid_bundle_id = os.environ.get('TESTDROID_BUNDLE_ID') or "com.bitbar.testdroid.BitbarIOSSample"
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
+        testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
 
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
         log ("Will save screenshots at: " + self.screenshot_dir)
@@ -73,6 +73,7 @@ class TestdroidIOS(unittest.TestCase):
         desired_capabilities_cloud['bundleId'] = testdroid_bundle_id
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
+        desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
 
         # set up webdriver
         log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
