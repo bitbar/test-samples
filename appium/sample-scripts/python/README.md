@@ -96,7 +96,7 @@ Common values used in tests:
 ## Example Run
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -t testdroid_ios -m "" -a "latest"
+$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -t testdroid_ios -a "latest"
 testSample (testdroid_ios.TestdroidIOS) ... Searching Available Free iOS Device...
 Found device 'Apple iPad Mini A1432 9.2.1'
 
@@ -133,7 +133,7 @@ To run iOS native app tests additional parameter is required to be provided:
 * **bundleId** - this is your application's unique name
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a "latest" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t testdroid_ios -m "" 
+$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a "latest" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t testdroid_ios  
 ```
 
 This parameter is not needed if running against the sample BitbarIOSSample.ipa application, as it's set inside of the sample script.
@@ -153,7 +153,7 @@ To run an Appium test against a native Android application Appium needs to the f
 For running the sample applications and tests these do not need to be set as they are set inside of the sample scripts if no parameter is given.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a 830571c8-51f1-4cd1-ad91-82e76c00a1b0/BitbarSampleApp.apk -p "Android Native" -r  `date +%R` -m "" -t testdroid_android
+python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a 830571c8-51f1-4cd1-ad91-82e76c00a1b0/BitbarSampleApp.apk -p "Android Native" -r  `date +%R` -t testdroid_android
 ```
 
 ## Hybrid Android Specific Settings

@@ -48,4 +48,5 @@ mvn -Dtest=${TEST} --quiet test
 # JUnit results need to be at root as "TEST-all.xml"
 mv target/reports/junit/TEST-${JUNIT}.xml TEST-all.xml
 # Screenshots need to be at screenshots directory in root.
-mv target/reports/screenshots/android screenshots
+mkdir -p screenshots
+cp -R target/reports/screenshots/android/ screenshots

@@ -57,7 +57,7 @@ class TestdroidIOS(unittest.TestCase):
         if testdroid_device == "":
             # Loop will not exit until free device is found
             while testdroid_device == "":
-                testdroid_device = deviceFinder.available_free_ios_device()
+                testdroid_device = deviceFinder.available_ios_device()
 
         print "Starting Appium test using device '%s'" % testdroid_device
 

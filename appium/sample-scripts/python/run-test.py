@@ -12,17 +12,18 @@ class TestdroidTestRunner():
                                "TESTDROID_DEVICE":""}
         self.available_tests = ['testdroid_chrome', 'testdroid_android',
                                     'testdroid_safari', 'testdroid_ios',
-                                    'testdroid_android_hybrid', 
-                                    'testdroid_native_browser']
+                                    'testdroid_android_hybrid']
 
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Set needed environment variables for sample Testdroid tests')
         parser.add_argument('-k', '--apikey', type=str, required=True, help="User's apiKey to identify to cloud")
-        parser.add_argument('-d', '--screenshot_dir', type=str, required=True, help="Path to screenshot directory")
+        parser.add_argument('-s', '--screenshot_dir', type=str, required=True, help="Path to screenshot directory")
         parser.add_argument('-t', '--test', type=str, required=True, choices=self.available_tests, help="The test file to be run")
         parser.add_argument('-a', '--app', type=str, required=False, help="Name of app uploaded to cloud using upload.py script. Or ""latest"" to reuse last used app. Mandatory for app testing")
-        parser.add_argument('-m', '--device', type=str, required=False, help="Full name of device to use")
+        group_device = parser.add_mutually_exclusive_group()
+        group_device.add_argument('--device', type=str, required=False, help="Full name of device to use")
+        group_device.add_argument('--device_group_id', type=str, required=False, help="The id of the Testdroid Cloud device group from where available devices are to be searched from")
         parser.add_argument('-p', '--project', type=str, required=False, help="The name of the cloud project")
         parser.add_argument('-r', '--run_name', type=str, required=False, help="The name of the test run")
         parser.add_argument('-u', '--url', type=str, required=False, help="Testdroid Cloud url where test project and devices are found")
@@ -34,6 +35,7 @@ class TestdroidTestRunner():
         parser.add_argument('--test_timeout', type=str, required=False, help="Maximum test duration, defaults to 600s")
 
 
+
         args = parser.parse_args()
         # mandatory params
         self.variables['TESTDROID_APIKEY'] = str(args.apikey)
@@ -43,9 +45,12 @@ class TestdroidTestRunner():
         # optional parameters
         if args.app:
             self.variables['TESTDROID_APP'] = str(args.app)
+
         if args.device:
-            self.variables['TESTDROID_DEVICE'] = str(args.device)            
-            
+            self.variables['TESTDROID_DEVICE'] = str(args.device)
+
+        if args.device_group_id:
+            self.variables['TESTDROID_DEVICE_GROUP'] = str(args.device_group_id)
         if args.project:
             self.variables["TESTDROID_PROJECT"] = args.project
             
