@@ -135,8 +135,9 @@ class TestdroidAndroid(unittest.TestCase):
         context = "undefined"
         end_time = time.time() + 30
         while "undefined" in context and time.time() < end_time:
-            context = str(self.driver.contexts[-1])
-            self.utils.log("Available contexts: {}, picking: {}".format(self.driver.contexts, context))
+            contexts = self.driver.contexts
+            context = str(contexts[-1])
+            self.utils.log("Available contexts: {}, picking: {}".format(contexts, context))
 
         self.utils.log("Context will be " + context)
         self.driver.switch_to.context(context)
