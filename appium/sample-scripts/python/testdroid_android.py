@@ -51,8 +51,7 @@ class TestdroidAndroid(unittest.TestCase):
         if "localhost" in appium_url:
             self.api_level = subprocess.check_output(["adb", "shell", "getprop ro.build.version.sdk"])
         else:
-            device = deviceFinder.device_API_level(testdroid_device)
-            self.api_level = device['softwareVersion']['apiLevel']
+            self.api_level = deviceFinder.device_API_level(testdroid_device)
 
         self.utils = TDUtils(self.screenshot_dir)
         self.utils.log("Will save screenshots at: " + self.screenshot_dir)

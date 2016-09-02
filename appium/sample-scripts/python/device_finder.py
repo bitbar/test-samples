@@ -104,7 +104,7 @@ class DeviceFinder:
             shuffle(devices)
             picked_device = devices[0]
             print "Selected device '{}' has API level '{}'".format(picked_device['displayName'], picked_device['softwareVersion']['apiLevel'])
-            return picked_device
+            return picked_device['softwareVersion']['apiLevel']
         except Exception, e:
             print "Error: %s" % e
             return

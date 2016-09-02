@@ -114,9 +114,10 @@ class TestdroidAndroid(unittest.TestCase):
         element.click()
         self.utils.screenshot('hybrid_activity')
 
-        self.utils.log('Typing in the url http://docs.testdroid.com')
+        url = "http://bitbar.github.io/testdroid-samples/"
+        self.utils.log('Typing in the url '+ url)
         element = self.driver.find_element_by_id('com.testdroid.sample.android:id/hy_et_url')
-        element.send_keys("http://bitbar.github.io/testdroid-samples/")
+        element.send_keys(url)
         self.utils.screenshot('url_typed')
 
         try:
@@ -131,14 +132,12 @@ class TestdroidAndroid(unittest.TestCase):
         element.click()
         self.utils.screenshot('webpage_loaded')
 
-        contexts = "undefined"
+        context = "undefined"
         end_time = time.time() + 30
-        while "undefined" in str(contexts) and time.time() < end_time:
-            contexts = self.driver.contexts
-            self.utils.log(str(contexts))
-            sleep(5)
+        while "undefined" in context and time.time() < end_time:
+            context = str(self.driver.contexts[-1])
+            self.utils.log("Available contexts: {}, picking: {}".format(self.driver.contexts, context))
 
-        context = str(contexts[-1])
         self.utils.log("Context will be " + context)
         self.driver.switch_to.context(context)
         self.utils.log("Context is " + self.driver.current_context)
