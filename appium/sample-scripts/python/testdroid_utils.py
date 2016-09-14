@@ -63,4 +63,8 @@ class TDUtils():
 
     def log(self, msg):
         print (time.strftime("%H:%M:%S") + ": " + msg)
+        return
 
+    def sleep(self, duration):
+        time.sleep(duration)
+        return
