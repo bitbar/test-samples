@@ -100,11 +100,10 @@ class DeviceFinder:
         print "Searching for API level of device '%s'" % deviceName
 
         try:
-            device = self.get(path="devices?search=%s" % deviceName)
-            apiLevel = device['data'][0]['softwareVersion']['apiLevel']
-            print "Selected device '{}'".format(device['data'][0]['displayName'])
-            print "Found API level: %s" % apiLevel
-            return apiLevel
+            devices = self.get(path="devices?search=%s" % deviceName)['data']
+            picked_device = devices[0]
+            print "Selected device '{}' has API level '{}'".format(picked_device['displayName'], picked_device['softwareVersion']['apiLevel'])
+            return picked_device['softwareVersion']['apiLevel']
         except Exception, e:
             print "Error: %s" % e
             return
@@ -115,4 +114,3 @@ than directly from command line
 if __name__ == '__main__':
     df = DeviceFinder()
     print "DeviceFinder: {}".format(df.available_android_device())
-
