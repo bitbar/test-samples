@@ -101,7 +101,6 @@ class DeviceFinder:
 
         try:
             devices = self.get(path="devices?search=%s" % deviceName)['data']
-            shuffle(devices)
             picked_device = devices[0]
             print "Selected device '{}' has API level '{}'".format(picked_device['displayName'], picked_device['softwareVersion']['apiLevel'])
             return picked_device['softwareVersion']['apiLevel']
@@ -115,4 +114,3 @@ than directly from command line
 if __name__ == '__main__':
     df = DeviceFinder()
     print "DeviceFinder: {}".format(df.available_android_device())
-
