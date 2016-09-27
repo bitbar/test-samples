@@ -10,43 +10,40 @@ TEST=${TEST:="AndroidSample#mainPageTest"}
 # JUnit file wont have the #caseName ending
 JUNIT="AndroidSample"
 
-export LD_LIBRARY_PATH=/opt/OpenCV/opencv-2.4.9/build/lib
-
-ls opt
+export SCREENSHOT_FOLDER=target/reports/screenshots/android/
+export PLATFORM_NAME=Android
+export UDID=${ANDROID_SERIAL}
+#export LD_LIBRARY_PATH=/opt/OpenCV/opencv-2.4.9/build/lib
 
 echo "Starting Appium ..."
-/opt/appium/appium/bin/appium.js --command-timeout 120 --log-no-colors --log-timestamp >appium.log 2>&1 &
-
-# Wait for appium to fully launch
-sleep 5
+appium-1.4 --command-timeout 120 --log-no-colors --log-timestamp >appium.log 2>&1 &
 
 ps -ef|grep appium
 
 echo "Extracting tests.zip..."
 unzip tests.zip
 
-## Prepare testdroid.properties
-echo "Creating testdroid.properties..."
-touch testdroid.properties
+mvn --quiet install:install-file -Dfile=lib/linux/opencv/java7/opencv-2413.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.13 -Dpackaging=jar
 
 APILEVEL=$(adb shell getprop ro.build.version.sdk)
 APILEVEL="${APILEVEL//[$'\t\r\n']}"
 echo "API level is: ${APILEVEL}"
 if [ "$APILEVEL" -gt "16" ]; then
-	echo "appium.automationName=appium" >> testdroid.properties
+	export AUTOMATION_NAME=appium
 else
-	echo "appium.automationName=selendroid" >> testdroid.properties
+	export AUTOMATION_NAME=selendroid
 fi
-echo "appium.appFile=application.apk" >> testdroid.properties
-echo "testdroid.appiumUrl=http://localhost:4723/wd/hub" >> testdroid.properties
+
+chmod +x lib/*
 
 ## Start test execution
 echo "Running test ${TEST}"
-mvn -Dtest=${TEST} --quiet test
+mvn -Dtest=${TEST} --quiet clean test
 
 ## Post-processing
 # JUnit results need to be at root as "TEST-all.xml"
-mv target/reports/junit/TEST-${JUNIT}.xml TEST-all.xml
+#mv target/reports/junit/TEST-${JUNIT}.xml TEST-all.xml
+ln -s target/reports/junit/TEST-${JUNIT}.xml TEST-all.xml
 # Screenshots need to be at screenshots directory in root.
-mkdir -p screenshots
-cp -R target/reports/screenshots/android/ screenshots
+rm -r screenshots
+ln -s target/reports/screenshots/android screenshots
