@@ -9,4 +9,5 @@ cp run-tests_ios.sh run-tests.sh
 if [ -f "${OUT_ZIP}" ]; then
     rm "${OUT_ZIP}"
 fi
-zip -r "${OUT_ZIP}" pom.xml run-tests.sh src lib/mac queryimages
+zip -rq "${OUT_ZIP}" pom.xml run-tests.sh src lib/mac queryimages
+echo "${OUT_ZIP}"
