@@ -62,6 +62,8 @@ public abstract class AbstractAppiumTest {
         if (platformVersion == null){
         	platformVersion = "";
         }
+        // Use default "appium" automation for iOS
+        automationName = "appium";
 
         screenshotsFolder = "target/reports/screenshots/ios/";
         File dir = new File(screenshotsFolder);
