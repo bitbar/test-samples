@@ -3,29 +3,39 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.testdroid</groupId>
     <artifactId>image-recognition-sample</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <properties>
-        <!-- Set these using mvn -Dtestdroid.username= ... -->
-        <testdroid.username></testdroid.username>
-        <testdroid.password></testdroid.password>
-        <!-- Some default, if missing from command line -->
-        <testdroid.device></testdroid.device>
-    </properties>
+    <version>2.0-SNAPSHOT</version>
     <dependencies>
+        <!--<dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>3.2.1</version>
+        </dependency>-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.testdroid</groupId>
+            <artifactId>testdroid-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.4</version>
+        </dependency>
         <dependency>
             <groupId>opencv</groupId>
             <artifactId>opencv</artifactId>
-            <version>2.4.9</version>
-        </dependency>
-        <dependency>
-            <groupId>com.testdroid.appium</groupId>
-            <artifactId>testdroid-appium-driver</artifactId>
-            <version>1.2.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/testdroid-appium-driver-1.2.0.jar</systemPath>
+            <version>2.4.13</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -38,15 +48,14 @@
             <version>4.12</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -54,20 +63,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.10</version>
                 <configuration>
-                    <systemProperties>
-                        <property>
-                            <name>testdroid.username</name>
-                            <value>${testdroid.username}</value>
-                        </property>
-                        <property>
-                            <name>testdroid.password</name>
-                            <value>${testdroid.password}</value>
-                        </property>
-                        <property>
-                            <name>testdroid.device</name>
-                            <value>${testdroid.device}</value>
-                        </property>
-                    </systemProperties>
                     <reportsDirectory>${project.build.directory}/reports/junit</reportsDirectory>
                 </configuration>
             </plugin>
