@@ -19,7 +19,7 @@ The project uses:
 
 - [OpenCV](http://opencv.org/)
 
-- [Testdroid Akaze](https://github.com/bitbar/akaze) - fork of official Akaze repo with added json support.
+- [Bitbar Akaze](https://github.com/bitbar/akaze) - fork of official Akaze repo with added json support.
 
 - [jsoncpp](https://github.com/open-source-parsers/jsoncpp.git) -
 used to add json support to the Akaze library. This is needed if compiling latest versions of Akaze and OpenCV.
@@ -91,7 +91,7 @@ Some of the functions:
 2. Akaze
 
    The Akaze C++ implementation can optionally be found and built from:
-   [Testdroid Akaze fork](https://github.com/bitbar/akaze). The current
+   [Bitbar Akaze fork](https://github.com/bitbar/akaze). The current
    project does contain the *./lib/\<platform\>/akaze/* folder with pre-built binaries for
    Linux, Mac and Windows. The sample project uses only the akaze_match binary currently.
 
