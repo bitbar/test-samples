@@ -59,7 +59,7 @@ Some of the functions:
   corners of the image if found, or `null` if no image was found
 
 - `public Point[] findImageOnScreen(String image)`: takes a
-  screenshots, then tries to find the image on it and return the
+  screenshot, then tries to find the image on it and return the
   corners
 
 - `public void tapImageOnScreen(String image)`: takes a screenshot,
@@ -84,15 +84,15 @@ Some of the functions:
 
        mvn install:install-file -Dfile=lib/<platform>/opencv/opencv-2413.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.13 -Dpackaging=jar
 
-   Note that each platform have their own version of the libraries, so modify the command accordingly.
+   Note that each platform has its own version of the libraries, so modify the command accordingly.
    If a different (newer) version of OpenCV is used, OpenCV version number
-   needs to also be updated in pom.xml.
+   needs also to be updated in pom.xml.
 
 2. Akaze
 
    The Akaze C++ implementation can optionally be found and built from:
    [Bitbar Akaze fork](https://github.com/bitbar/akaze). The current
-   project does contain the *./lib/\<platform\>/akaze/* folder with pre-built binaries for
+   project contains the *./lib/\<platform\>/akaze/* folder with pre-built binaries for
    Linux, Mac and Windows. The sample project uses only the akaze_match binary currently.
 
    
@@ -128,7 +128,7 @@ The reports, screenshots and everything else will be found under:
 ## Run tests as Server Side Appium in [Bitbar Testing](http://bitbar.com/testing)
 
 *NOTE!* Server side Appium tests on Bitbar Testing are available only
-with a [paid plan](http://testdroid.com/pricing).
+with a [paid plan](http://bitbar.com/testing/pricing/public-cloud/).
 Please contact sales@bitbar.com for more information.
 
 You will need a Testdroid project of type `Appium Android server side` or `Appium iOS server side`
