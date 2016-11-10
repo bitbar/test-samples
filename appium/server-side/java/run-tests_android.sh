@@ -11,7 +11,7 @@ unzip tests.zip
 ##  execute ./createAndroidZip.sh to create the test zip for upload in cloud
 
 # Name of the desired test class and optionally specific test case, eg: AndroidSample#mainPageTest
-TEST=${TEST:="AndroidSample,ChromeSample"}
+TEST=${TEST:="AndroidSample"}
 
 ## Environment variables setup
 export SCREENSHOT_FOLDER=target/reports/screenshots/android/

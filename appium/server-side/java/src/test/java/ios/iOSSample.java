@@ -44,7 +44,7 @@ public class iOSSample extends AbstractAppiumTest {
     @Test
     public void iosSampleTest() throws Exception {
         log("Image Recognition sample script started.");
-
+        takeScreenshot("Beginning");
         try {
           driver.hideKeyboard();
         } catch (Exception e) {
@@ -61,5 +61,6 @@ public class iOSSample extends AbstractAppiumTest {
         driver.findElement(By.xpath("//*[contains(@name, 'Return')]")).click();
         log("Click on 'sendAnswer'");
         driver.findElement(By.xpath("//*[contains(@name, 'sendAnswer')]")).click();
+        takeScreenshot("End");
     }
 }

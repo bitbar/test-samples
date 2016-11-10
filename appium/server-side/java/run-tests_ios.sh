@@ -11,7 +11,7 @@ unzip tests.zip
 ##  execute ./createiOSZip.sh to create the test zip for upload in cloud
 
 # Name of the desired test suite and optionally specific test case, eg: iOSSample#mainPageTest
-TEST=${TEST:="iOSSample,SafariSample"}
+TEST=${TEST:="iOSSample"}
 
 ## Environment variables setup
 export SCREENSHOT_FOLDER=target/reports/screenshots/ios/
