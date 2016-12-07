@@ -16,12 +16,9 @@ public class IosAppiumExampleTest extends BaseIOSTest {
         setUpTest();
     }
     @AfterClass
-    public static void tearDown()
+    public void tearDown()
     {
-        if(wd != null) {
-            wd.quit();
-        }
-
+        quitAppiumSession();
     }
 
     @Test

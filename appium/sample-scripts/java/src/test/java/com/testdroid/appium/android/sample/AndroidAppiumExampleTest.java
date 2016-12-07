@@ -17,11 +17,9 @@ public class AndroidAppiumExampleTest  extends BaseAndroidTest {
         setUpTest();
     }
     @AfterClass
-    public static void tearDown()
+    public void tearDown()
     {
-        if (wd != null) {
-            wd.quit();
-        }
+        quitAppiumSession();
     }
 
 

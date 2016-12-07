@@ -17,15 +17,9 @@ installMaven(){
 
 startAppium(){
 	if [ "$(uname)" == "Darwin" ]; then
-		# Create the screenshots directory, if it doesn't exist'
-		mkdir -p .screenshots
-	    echo "Starting Appium on Mac..." 
-		node /opt/appium/bin/appium.js -U ${UDID} --log-no-colors --log-timestamp --show-ios-log --screenshot-dir "${PWD}/.screenshots" >appium.log 2>&1 &     
+		startAppiumOSX
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-		# Create the screenshots directory, if it doesn't exist'
-		mkdir -p .screenshots
-	    echo "Starting Appium on Linux..."
-		/opt/appium/appium/bin/appium.js --log-no-colors --log-timestamp --screenshot-dir "${PWD}/.screenshots" >appium.log 2>&1 &
+		startAppiumLinux
 	else
 		echo "Operating system not supported, exiting..."
 		exit 1
@@ -35,14 +29,23 @@ startAppium(){
 	ps -ef|grep appium
 }
 
-initializeTestRun(){
-	echo "Extracting tests.zip..."
-	unzip tests.zip
+startAppiumOSX(){
+	# Create the screenshots directory, if it doesn't exist'
+	mkdir -p .screenshots
+    echo "Starting Appium on Mac..." 
+	node /opt/appium/bin/appium.js -U ${UDID} --log-no-colors --log-timestamp --show-ios-log --screenshot-dir "${PWD}/.screenshots" >appium.log 2>&1 & 
+}
+
+startAppiumLinux(){
+	# Create the screenshots directory, if it doesn't exist'
+	mkdir -p .screenshots
+    echo "Starting Appium on Linux..."
+	/opt/appium/appium/bin/appium.js --log-no-colors --log-timestamp --screenshot-dir "${PWD}/.screenshots" >appium.log 2>&1 &
 }
 
 executeTests(){
-	echo "Replace testdroid.properties with testdroid.serverside.properties..."
-	mv src/test/resources/testdroid.serverside.properties src/test/resources/testdroid.properties
+	echo "Extracting tests.zip..."
+	unzip tests.zip
 	if [ "$(uname)" == "Darwin" ]; then
 	   	echo "Running iOs Tests..."
 		mvn clean test -Dtest=IosAppiumExampleTest -DexecutionType=serverside 
@@ -51,11 +54,10 @@ executeTests(){
 		mvn clean test -Dtest=AndroidAppiumExampleTest -DexecutionType=serverside 
 	fi
 	echo "Finished Running Tests!"
-	cp target/TEST-all.xml TEST-all.xml
+	cp target/surefire-reports/junitreports/TEST-*.xml TEST-all.xml
 }
 
 installMaven
 startAppium
-initializeTestRun
 executeTests
 
