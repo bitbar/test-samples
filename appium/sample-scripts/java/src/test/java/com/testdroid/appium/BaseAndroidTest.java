@@ -1,5 +1,6 @@
 package com.testdroid.appium;
 
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 
 import java.io.IOException;
@@ -9,7 +10,8 @@ public class BaseAndroidTest extends BaseTest {
 
 	@Override
 	protected void setAppiumDriver() throws IOException {
-		this.wd = new AndroidDriver(new URL(getAppiumServerAddress() + "/wd/hub"),
+	    logger.debug("Setting up AndroidDriver");
+		this.wd = new AndroidDriver<MobileElement>(new URL(getAppiumServerAddress() + "/wd/hub"),
 				capabilities);
 	}
 

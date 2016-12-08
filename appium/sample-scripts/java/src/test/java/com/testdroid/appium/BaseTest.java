@@ -1,10 +1,14 @@
 package com.testdroid.appium;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,8 +22,9 @@ public abstract class BaseTest {
     private static final String TESTDROID_SERVER = "http://appium.testdroid.com";
     private static final String serverSideTypeDefinition = "serverside";
     private static final String clientSideTypeDefinition = "clientside";
-    protected static AppiumDriver wd;
+    protected AppiumDriver<MobileElement> wd;
     protected DesiredCapabilities capabilities;
+    protected static Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
     public void setUpTest() throws IOException {
         setUpAppiumDriver();
@@ -40,7 +45,8 @@ public abstract class BaseTest {
         } else if (isServerSideTestRun()){
             capabilities.setCapability("app", getServerSideApplicationPath());
         } 
-        System.out.println("Creating Appium session, this may take couple minutes..");
+        logger.debug("Creating Appium session, this may take couple minutes..");
+        
         setAppiumDriver();
     }
     
@@ -63,7 +69,7 @@ public abstract class BaseTest {
         try {
             input = getClass().getClassLoader().getResourceAsStream(filename);
             if (input == null) {
-                System.out.println("Sorry, unable to find " + filename);
+                logger.error("Sorry, unable to find " + filename);
                 throw new FileNotFoundException("Unable to find/open file: "+filename);
             }
             properties.load(input);
@@ -85,11 +91,19 @@ public abstract class BaseTest {
     protected abstract String getDesiredCapabilitiesPropertiesFileName();
 
     public boolean isServerSideTestRun() {
-        return System.getProperty("executionType").equals(serverSideTypeDefinition);
+        return getExecutionType().equals(serverSideTypeDefinition);
+    }
+
+    private String getSystemProperty(String propertyName) {
+        String property = System.getProperty(propertyName);
+        if (property == null || property.isEmpty()){
+            logger.warn(propertyName+" is not defined. To define it, use the following mvn argument: -D"+propertyName+"=<insert_here>");
+        }
+        return property;
     }
 
     public boolean isClientSideTestRun() {
-        return System.getProperty("executionType").equals(clientSideTypeDefinition);
+        return getExecutionType().equals(clientSideTypeDefinition);
     }
 
     protected String getAppiumServerAddress() {
@@ -105,17 +119,19 @@ public abstract class BaseTest {
     }
 
     private String getTargetAppPath() {
-        String property = System.getProperty("applicationPath"); // TODO virheviesti tai try catch
-        return property;
+        return getSystemProperty("applicationPath");
     }
 
     protected abstract String getServerSideApplicationPath();
 
     private String getApiKey() {
-        String property = System.getProperty("apiKey"); // TODO virheviesti
-        return property;
+        return getSystemProperty("apiKey");
     }
-
+    
+    private String getExecutionType() {
+        return getSystemProperty("executionType");
+    }
+    
     protected void quitAppiumSession() {
         if (wd != null) {
             wd.quit();
@@ -124,13 +140,13 @@ public abstract class BaseTest {
 
     protected File takeScreenshot(String screenshotName) {
         String fullFileName = System.getProperty("user.dir") + "/screenshots/"+ screenshotName + ".png";
-        System.out.println("Taking screenshot...");
+        logger.debug("Taking screenshot...");
         File scrFile = ((TakesScreenshot) wd).getScreenshotAs(OutputType.FILE);
 
         try {
             File testScreenshot = new File(fullFileName);
             FileUtils.copyFile(scrFile, testScreenshot);
-            System.out.println("Screenshot stored to " + testScreenshot.getAbsolutePath());
+            logger.debug("Screenshot stored to " + testScreenshot.getAbsolutePath());
 
             return testScreenshot;
         } catch (IOException e) {

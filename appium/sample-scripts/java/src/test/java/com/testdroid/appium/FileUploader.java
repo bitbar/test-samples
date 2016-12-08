@@ -3,6 +3,9 @@ package com.testdroid.appium;
 import java.io.File;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpHeaders;
@@ -21,6 +24,7 @@ import com.testdroid.api.http.MultipartFormDataContent;
 public class FileUploader { 
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static final JsonFactory JSON_FACTORY = new JacksonFactory();
+    protected static Logger logger = LoggerFactory.getLogger(FileUploader.class);
     
     protected static String uploadFile(String targetAppPath, String serverURL, String testdroid_apikey)
             throws IOException {
@@ -42,10 +46,10 @@ public class FileUploader {
         HttpRequest request = requestFactory.buildPostRequest(new GenericUrl(serverURL + "/upload"), multipartContent);
 
         HttpResponse response = request.execute();
-        System.out.println("response:" + response.parseAsString());
+        logger.debug("response:" + response.parseAsString());
 
         AppiumResponse appiumResponse = request.execute().parseAs(AppiumResponse.class);
-        System.out.println("File id:" + appiumResponse.uploadStatus.fileInfo.file);
+        logger.debug("File id:" + appiumResponse.uploadStatus.fileInfo.file);
 
         return appiumResponse.uploadStatus.fileInfo.file;
 
