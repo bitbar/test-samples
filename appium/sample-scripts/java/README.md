@@ -1,7 +1,7 @@
 Testdroid Appium Sample in Java
 ===========================
 
-This folder includes sample Appium tests using Java for Android and iOS, which can be run Testdroid Cloud.
+This folder includes sample Appium tests using Java for Android and iOS, which can be run in [Testdroid Cloud](https://cloud.testdroid.com/).
 
 This example can be run either using client side execution or server side execution. To find more information about this, visit <http://docs.testdroid.com/appium/client-server/>
 
@@ -51,7 +51,7 @@ in which
 
 ## Notes
 ### applicationPath-argument
-The applicationPath-argument is only required if the application has not yet been uploaded to Testdroid Cloud and the project. When the applicationPath-argument is provided, the application will be automatically be uploaded to Testdroid Cloud before the actual test execution starts. If the application has already been uploaded, you can omit the parameter. In this case Testdroid Cloud will use the latest application that has been uploaded.
+The applicationPath-argument is only required if the application has not yet been uploaded to the Testdroid Cloud project. When the applicationPath-argument is provided, the application will be automatically uploaded to Testdroid Cloud before the actual test execution starts. If the application has already been uploaded, you can omit the parameter. In this case Testdroid Cloud will use the latest application that has been uploaded.
 
 
 
@@ -62,7 +62,7 @@ Create a zip file containing the project, which will be uploaded to [Testdroid C
 
 	`./zip_project.sh` This creates a zip package called: <b>server\_side\_test\_package.zip</b>
 
-* You can also manually zip the project's sources. You have to include at least the following files in the zip package
+* You can also manually zip the project's sources. You have to include at least the following files in the zip package. Note that these files have to be at the root of the zip file, i.e. not inside any additional directory.
  	* run-tests.sh 
 	* pom.xml
 	* src/
@@ -71,7 +71,7 @@ Create a zip file containing the project, which will be uploaded to [Testdroid C
 # Project Structure
 
 ## Test Cases
-This is where the (Test)Magic happens. The test logic of the example test cases is located in 
+This is where the (Test)Magic happens. The test logic of the example test cases is located in:
 
 - <b>Android:</b> <i>src/test/java/com/testdroid/appium/android/sample/AndroidAppiumExampleTest.java</i>
 
@@ -81,7 +81,7 @@ This is where the (Test)Magic happens. The test logic of the example test cases 
 
 ## Session initialization
 
-The logic related to setting up the test session is located in 
+The logic related to setting up the test session is located in:
 
 - <i>src/test/java/com/testdroid/appium/BaseTest.java</i>
 
@@ -93,7 +93,7 @@ This functionality is inherited by the test cases as follows:
 <b>Most likely you won't have to edit these files at all.</b>
 
 ## Desired Capabilities
-The desired capabilities are fetched from an according properties-file. The properties-files are located in <i>src/test/resources/</i> and are specific to the test execution type and OS version that is under test:
+The desired capabilities are fetched from a properties-file. The properties-files are located in <i>src/test/resources/</i> and are specific to the test execution type and OS version that is under test:
 
 - <b>Android Server Side</b>: desiredCapabilities.android.serverside.properties
 - <b>Android Client Side</b>: desiredCapabilities.android.clientside.properties
