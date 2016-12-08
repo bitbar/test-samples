@@ -53,6 +53,18 @@ in which
 ### applicationPath-argument
 The applicationPath-argument is only required if the application has not yet been uploaded to the Testdroid Cloud project. When the applicationPath-argument is provided, the application will be automatically uploaded to Testdroid Cloud before the actual test execution starts. If the application has already been uploaded, you can omit the parameter. In this case Testdroid Cloud will use the latest application that has been uploaded.
 
+## Upload Test Results
+When using Client Side test execution, the test results have to be uploaded to Testdroid Cloud in order for it to correctly visualize the test run's success and test cases that have been run.
+
+On OSX and Linux, this process can be automated by running the <i>run_client_side_test_and_export_results.sh</i> script. When this script is used, it replaces the "mvn clean test" part of the test execution command. For example for android you could run it as follows:
+
+```
+./run_client_side_test_and_export_results.sh \
+-Dtest=AndroidAppiumExampleTest \
+-DexecutionType=clientside \
+-DapiKey=<your_testdroid_apiKey> \
+-DapplicationPath=</path/to/BitbarSampleApp.apk>
+```
 
 
 #Server Side Test Execution
