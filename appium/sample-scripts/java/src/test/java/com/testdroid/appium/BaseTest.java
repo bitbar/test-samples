@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.Set;
 
@@ -39,7 +40,11 @@ public abstract class BaseTest {
             if (isUploadApplication()){
                 fileUUID = FileUploader.uploadFile(getTargetAppPath(), getAppiumServerAddress(),
                         getApiKey());
-            } 
+            }
+            if (exportTestResultsToCloud()){
+                logger.debug("Exporting results enabled");
+                capabilities.setCapability("testdroid_junitWaitTime", 300);
+            }
             capabilities.setCapability("testdroid_app", fileUUID);
             capabilities.setCapability("testdroid_apiKey", getApiKey());
         } else if (isServerSideTestRun()){
@@ -133,9 +138,23 @@ public abstract class BaseTest {
     }
     
     protected void quitAppiumSession() {
+        if (exportTestResultsToCloud()){
+            try{
+                PrintWriter writer = new PrintWriter("target/sessionid.txt", "UTF-8");
+                writer.println(wd.getSessionId().toString());
+                writer.close();
+            } catch (IOException e) {
+               logger.error("IOError: could not store sessionId for result exporting");
+            }
+        }
         if (wd != null) {
             wd.quit();
         }
+    }
+
+    private boolean exportTestResultsToCloud() {
+        boolean isExportResults = getSystemProperty("exportResults") !=null && getSystemProperty("exportResults").equals("true");
+        return isClientSideTestRun() && isExportResults;
     }
 
     protected File takeScreenshot(String screenshotName) {
