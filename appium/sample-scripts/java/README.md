@@ -58,11 +58,9 @@ The applicationPath-argument is only required if the application has not yet bee
 #Server Side Test Execution
 Create a zip file containing the project, which will be uploaded to [Testdroid Cloud](https://cloud.testdroid.com/).
 
-* On OSX/Linux machines you can just run the following command at the project's root directory
+* On OSX/Linux machines you can just run the following command at the project's root directory:
 
-	```./zip_project.sh```
-	
-	which will create a zip package called: <b>server\_side\_test\_package.zip</b>
+	`./zip_project.sh` This creates a zip package called: <b>server\_side\_test\_package.zip</b>
 
 * You can also manually zip the project's sources. You have to include at least the following files in the zip package
  	* run-tests.sh 
