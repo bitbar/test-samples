@@ -26,6 +26,7 @@ public class IosAppiumExampleTest extends BaseIOSTest {
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.findElement(By.name("answer1")).click();
         WebElement element = wd.findElement(By.name("userName"));
+        takeScreenshot("example_screenshot");
         element.click();
         element.sendKeys("Testdroid");
         wd.findElement(By.name("Return")).click();

@@ -5,7 +5,7 @@ This folder includes sample Appium tests using Java for Android and iOS, which c
 
 This example can be run either using client side execution or server side execution. To find more information about this, visit <http://docs.testdroid.com/appium/client-server/>
 
-#Clientside Test Execution
+#Client Side Test Execution
 ##Prerequisites
 1. Install Java
 2. Install Maven
@@ -56,7 +56,8 @@ The applicationPath-argument is only required if the application has not yet bee
 ## Upload Test Results
 When using Client Side test execution, the test results have to be uploaded to Testdroid Cloud in order for it to correctly visualize the test run's success and test cases that have been run.
 
-On OSX and Linux, this process can be automated by running the <i>run_client_side_test_and_export_results.sh</i> script. When this script is used, it replaces the "mvn clean test" part of the test execution command. For example for android you could run it as follows:
+### OSX, Linux and Windows with Cygwin
+On OSX, Linux and Windows machines with Cygwin this process can be automated by running the <i>run_client_side_test_and_export_results.sh</i> script. When this script is used, it replaces the "mvn clean test" part of the test execution command. For example for android you could run it as follows:
 
 ```
 ./run_client_side_test_and_export_results.sh \
@@ -66,6 +67,16 @@ On OSX and Linux, this process can be automated by running the <i>run_client_sid
 -DapplicationPath=</path/to/BitbarSampleApp.apk>
 ```
 
+### Windows
+On Windows machines not running Cygwin this process can be automated by running the <i>windows\_client\_side\_test\_and_export\_results.bat</i> script. [Curl](https://curl.haxx.se/download.html) has to be installed and in the Path in order for the .bat script to work.
+
+```
+windows_client_side_test_and_export_results.bat ^
+-Dtest=AndroidAppiumExampleTest ^
+-DexecutionType=clientside ^
+-DapiKey=<your_testdroid_apiKey> ^
+-DapplicationPath=</path/to/BitbarSampleApp.apk>
+```
 
 #Server Side Test Execution
 Create a zip file containing the project, which will be uploaded to [Testdroid Cloud](https://cloud.testdroid.com/).
