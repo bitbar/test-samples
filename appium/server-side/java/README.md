@@ -18,17 +18,17 @@ The project uses:
 This sample project uses the Bitbar Sample apps available in this repository at apps/builds. The project expects to find these applications at the root of the project with names `application.apk` and `application.ipa`. You'll also need to have an Appium server launched. For iOS, the UDID of the device should be pre-set in the server settings.
 
 Run the tests with maven using:
-
-    mvn -Dtest=<TestClass> test
-
+```
+mvn -Dtest=<TestClass> test
+```
 For example, to run only the test `mainPageTest` from class AndroidSample.java you would use:
-
-    mvn -Dtest=AndroidSample#mainPageTest test
-
+```
+mvn -Dtest=AndroidSample#mainPageTest test
+```
 To first clean all the previous test result files, add keyword `clean` to the command:
-
-    mvn -Dtest=AndroidSample#mainPageTest clean test
-    
+```
+mvn -Dtest=AndroidSample#mainPageTest clean test
+``` 
 You can also use an IDE to launch the tests. Make sure the project is correctly imported as a Maven project and that the `pom.xml` file has been correctly discovered for dependency management.
 
 **Reports**
@@ -42,21 +42,20 @@ The reports, screenshots and everything else will be found under: *./target/repo
 You will need a Testdroid project of type `Appium Android server side` or `Appium iOS server side` according to the target platform.
 
 Once you have your Testdroid project created, use the provided scripts to create the test zip from your project:
-
-    ./createAndroidZip.sh
+```
+./createAndroidZip.sh
+```
 or
-
-    ./createiOSZip.sh
-
+```
+./createiOSZip.sh
+```
 Now that you have your test zip and application file (this sample uses the Bitbar Sample Apps available in this repository at [apps/builds](https://github.com/bitbar/testdroid-samples/tree/master/apps/builds)), you're ready to begin creating a testrun in your project at the [test cloud](https://cloud.testdroid.com). Upload the app and test zip in the appropriate pages, choose the device group and finally make sure you have set high enough timeout for your test in the Advanced options (default is 10 minutes).
 
-If you change the name of your Android or iOS test class, you will need to update it to the run-tests_android.sh and run-tests_ios.sh TEST and JUNIT variables as appropriate:
-
-    # Name of the desired test suite and optionally specific test case, eg: AndroidSample#mainPageTest
-    TEST=${TEST:="AndroidSample#mainPageTest"}
-    # JUnit file wont have the #caseName ending
-    JUNIT="AndroidSample"
-
+If you change the name of your Android or iOS test class, you will need to update it to the run-tests_android.sh and run-tests_ios.sh TEST variable as appropriate:
+```
+# Name of the desired test class and optionally specific test case, eg: AndroidSample#mainPageTest
+TEST=${TEST:="AndroidSample"}
+```
 ## Run tests in Bitbar Testing from Command Line with launch-tests.sh 
 
 The launch-tests.sh is a shell script with built-in functions to communicate with the Bitbar Testing Rest API. The available parameters are displayed by launching the script with the `-h` option:
