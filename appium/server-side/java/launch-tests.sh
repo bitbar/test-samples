@@ -11,15 +11,21 @@
 
 function help() {
     echo
-    echo "$0 - create and upload test project to Testdroid Cloud and run it"
+    echo "$0 - create and upload test project to Bitbar Testing and run it"
     echo
-    echo "Usage: $0 -a/i -g <DEVICE_GROUP_NAME> -k <API_KEY>"
+    echo "Usage: $0 -a/i -g DEVICE_GROUP_NAME -k API_KEY [options]"
+    echo
+    echo "Options:"
     echo " -a for Android test"
     echo " -i for iOS test"
-    echo "Optional: -p <PROJECT_NAME> to choose a specific profile. If not given, a new project will be created"
+    echo " -g DEVICE_GROUP_NAME to tell which group of devices to launch against"
+    echo " -k API_KEY for authentication, find your API key at https://cloud.testdroid.com/#service/my-account"
+    echo "Optional: -p PROJECT_NAME to choose a project by its name. If not given, a new project will be created"
     echo "Optional: -t for creating and uploading a new test zip file"
-    echo "Optional: -f <APP_FILE_PATH> for uploading a new app file"
-    echo "Optional: -e <API_ENDPOINT> for private cloud instances"
+    echo "Optional: -f APP_FILE_PATH for uploading a new apk/ipa file"
+    echo "Optional: -e API_ENDPOINT for private cloud instances (e.g. \"https://trial.testdroid.com/cloud\")"
+    echo
+    echo "Documentation can be found at https://docs.testdroid.com"
     exit
 }
 
