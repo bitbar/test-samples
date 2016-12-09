@@ -8,6 +8,19 @@ This example can be run either using client side execution or server side execut
 #Client Side Test Execution
 ##Prerequisites
 1. Install Java
+	- Currently the example project is targeting Java 1.7. To change that, modify the target and source field in pom.xml
+
+	```
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>3.6.0</version>
+		<configuration>
+			<source>1.7</source>
+			<target>1.7</target>
+		</configuration>
+	</plugin>
+	```
 2. Install Maven
 	-	<http://maven.apache.org/>
 

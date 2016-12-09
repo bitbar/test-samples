@@ -36,10 +36,13 @@ public abstract class BaseTest {
         this.capabilities = desiredCapabilities;
 
         if (isClientSideTestRun()) {
-            String fileUUID = "latest";
+            logger.debug("Setting client side specific capabilities...");
+            String fileUUID = getDefaultFileUUID();
             if (isUploadApplication()){
+                logger.debug("Uploading "+getTargetAppPath()+"to Testdroid Cloud");
                 fileUUID = FileUploader.uploadFile(getTargetAppPath(), getAppiumServerAddress(),
                         getApiKey());
+                logger.debug("File uploaded. File UUID is "+fileUUID);
             }
             if (exportTestResultsToCloud()){
                 logger.debug("Exporting results enabled");
@@ -47,15 +50,29 @@ public abstract class BaseTest {
             }
             capabilities.setCapability("testdroid_app", fileUUID);
             capabilities.setCapability("testdroid_apiKey", getApiKey());
+            logger.debug("Setting client side specific capabilities... FINISHED");
         } else if (isServerSideTestRun()){
+            logger.debug("Setting server side specific capabilities...");
             capabilities.setCapability("app", getServerSideApplicationPath());
+            logger.debug("Setting server side specific capabilities... FINISHED");
         } 
-        logger.debug("Creating Appium session, this may take couple minutes..");
-        
+        logger.debug("Creating Appium session, this may take couple minutes.."); 
         setAppiumDriver();
     }
     
+    private String getDefaultFileUUID() {
+        String defaultAppUUID = "latest";
+        String propertiesAppUUID = (String) capabilities.getCapability("testdroid_app");
+        if (propertiesAppUUID == null || propertiesAppUUID.isEmpty()) {
+            logger.debug("testdroid_app not defined in properties, defaulting to \"latest\" if no .apk/.ipa has been defined with -DapplicationPath for upload");
+            return defaultAppUUID;
+        }
+        logger.debug("testdroid_app defined in properties, defaulting to \""+propertiesAppUUID+"\" if no .apk has been defined with -DapplicationPath for upload");
+        return propertiesAppUUID;
+    }
+
     private DesiredCapabilities getDesiredCapabilitiesFromProperties() {
+        logger.debug("Setting desiredCapabilities defined in "+getDesiredCapabilitiesPropertiesFileName());
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         Properties desiredCapabilitiesProperties = fetchProperties(getDesiredCapabilitiesPropertiesFileName());
         Set<String> keys = desiredCapabilitiesProperties.stringPropertyNames();
@@ -99,14 +116,6 @@ public abstract class BaseTest {
         return getExecutionType().equals(serverSideTypeDefinition);
     }
 
-    private String getSystemProperty(String propertyName) {
-        String property = System.getProperty(propertyName);
-        if (property == null || property.isEmpty()){
-            logger.warn(propertyName+" is not defined. To define it, use the following mvn argument: -D"+propertyName+"=<insert_here>");
-        }
-        return property;
-    }
-
     public boolean isClientSideTestRun() {
         return getExecutionType().equals(clientSideTypeDefinition);
     }
@@ -124,17 +133,28 @@ public abstract class BaseTest {
     }
 
     private String getTargetAppPath() {
-        return getSystemProperty("applicationPath");
+        String propertyName = "applicationPath";
+        return System.getProperty(propertyName);
     }
 
     protected abstract String getServerSideApplicationPath();
 
     private String getApiKey() {
-        return getSystemProperty("apiKey");
+        String propertyName = "apiKey";
+        String property = System.getProperty(propertyName);
+        if (property == null || property.isEmpty()){
+            logger.warn(propertyName+" mvn argument is not defined. To define it, use the following mvn argument: -D"+propertyName+"=<insert_here>");
+        }
+        return property;
     }
     
     private String getExecutionType() {
-        return getSystemProperty("executionType");
+        String propertyName = "executionType";
+        String property = System.getProperty(propertyName);
+        if (property == null || property.isEmpty()){
+            logger.warn(propertyName+" mvn argument is not defined. To define it, use the following mvn argument: -D"+propertyName+"=<insert_here>");
+        }
+        return property;
     }
     
     protected void quitAppiumSession() {
@@ -153,7 +173,7 @@ public abstract class BaseTest {
     }
 
     private boolean exportTestResultsToCloud() {
-        boolean isExportResults = getSystemProperty("exportResults") !=null && getSystemProperty("exportResults").equals("true");
+        boolean isExportResults = System.getProperty("exportResults") !=null && System.getProperty("exportResults").equals("true");
         return isClientSideTestRun() && isExportResults;
     }
 
