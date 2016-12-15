@@ -114,7 +114,7 @@ else
             exit 1
         fi
         echo
-        PROJECT_ID="$(curl -s -H "Accept: application/json" -u ${API_KEY}: "${API_ENDPOINT}/api/v2/me/projects?limit=1" --data-urlencode "search=${PROJECT_NAME}" | python -m json.tool | sed -n -e '/"id":/ s/^.* \(.*\),.*/\1/p')"
+        PROJECT_ID="$(curl -G -s -H "Accept: application/json" -u ${API_KEY}: "${API_ENDPOINT}/api/v2/me/projects?limit=1" --data-urlencode "search=${PROJECT_NAME}" | python -m json.tool | sed -n -e '/"id":/ s/^.* \(.*\),.*/\1/p')"
         echo "Project created with ID: ${PROJECT_ID} and name: ${PROJECT_NAME}"
     else
         echo "Project found with ID: ${PROJECT_ID}"
