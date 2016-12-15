@@ -28,7 +28,9 @@ echo "DYLD_FALLBACK_LIBRARY_PATH=${DYLD_FALLBACK_LIBRARY_PATH}"
 export PLATFORM_VERSION=$(xcrun --sdk iphonesimulator --show-sdk-version)
 echo "iOS Version: ${PLATFORM_VERSION}"
 
-export UDID=$IOS_UDID
+if [ -z ${UDID} ] ; then
+  export UDID=${IOS_UDID}
+fi
 echo "UDID is ${UDID}"
 
 ## Appium server launch
