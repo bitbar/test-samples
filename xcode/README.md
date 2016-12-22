@@ -1,4 +1,4 @@
-# XCTEST example project 
+# XCTEST Example Project 
 
 Basic calculator app for iOS done with swift. Calculator can do additon and subtration operations.
 
