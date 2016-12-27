@@ -830,7 +830,6 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
                 while ((line = br.readLine()) != null) {
                     if (!line.contains("OriginalmUnrestrictedScreen")) { //we do this check for devices with android 5.x+ The adb command returns an extra line with the values 0x0 which must be filtered out.
                         if (line.contains("mUnrestrictedScreen")) {
-                            proc.waitFor();
                             String[] tmp = line.split("\\) ");
                             size = tmp[1].split("x");
                         }
