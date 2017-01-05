@@ -127,10 +127,6 @@ The reports, screenshots and everything else will be found under:
 
 ## Run tests as Server Side Appium in [Bitbar Testing](http://bitbar.com/testing)
 
-*NOTE!* Server side Appium tests on Bitbar Testing are available only
-with a [paid plan](http://bitbar.com/testing/pricing/public-cloud/).
-Please contact sales@bitbar.com for more information.
-
 You will need a Testdroid project of type `Appium Android server side` or `Appium iOS server side`
 according to the target platform.
 
