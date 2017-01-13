@@ -32,3 +32,6 @@ pip install -r ./resources/requirements.txt --user
 ## Start test execution
 echo "Running test"
 python run_ios.py -x TEST-all
+
+echo "Gathering results"
+zip -r robot_results.zip report.html log.html screenshots
