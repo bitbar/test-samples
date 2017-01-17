@@ -35,13 +35,13 @@ class calculatorUITests: XCTestCase {
     }
     
     func testButtonCount(){
-        XCTAssertEqual(app.buttons.count,14,"Shuld be 14")
+        XCTAssertEqual(app.buttons.count,14,"Should be 14")
     }
     func testInsertText() {
         app.buttons["9"].tap()
         app.buttons ["8"].tap()
         app.buttons ["7"].tap()
-       XCTAssertEqual(app.staticTexts["numberField"].label, "987", "Should be 11")
+       XCTAssertEqual(app.staticTexts["numberField"].label, "987", "Should be 987")
     }
     func testClearText(){
        
@@ -51,16 +51,15 @@ class calculatorUITests: XCTestCase {
         app.buttons ["C"].tap()
         XCTAssertEqual(app.staticTexts["numberField"].label, "0", "Should be 0")
         
-        
-        
     }
     
+    
+    func testTapOnPoint(){
+        let point = CGPoint( x:32,y:32)
+        // tap inside ui element at point x:32:y32
+        app.buttons["5"].tapAtPosition(position: point)
+        XCTAssertEqual(app.staticTexts["numberField"].label, "5", "Should be 5")
+    }
     
 }
 
-extension XCUIElement{
-    func tapAtPosition(position: CGPoint) {
-        let cooridnate = self.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)).withOffset(CGVector(dx: position.x, dy: position.y))
-        cooridnate.tap()
-    }
-}

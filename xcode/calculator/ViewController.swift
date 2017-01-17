@@ -10,13 +10,13 @@
 import UIKit
 
 enum modes {
-    case NOT_SET
-    case ADDITION
-    case SUBTRACTION
+    case not_SET
+    case addition
+    case subtraction
 }
 
 class ViewController: UIViewController {
-    var currentMode:modes = modes.NOT_SET
+    var currentMode:modes = modes.not_SET
     var labelString:String = "0"
     var SavedNum:Int = 0
     var result:Int = 0
@@ -27,36 +27,36 @@ class ViewController: UIViewController {
     
    
    
-    func tappedNumber(num:Int){
+    func tappedNumber(_ num:Int){
         if lastButtonMode {
             lastButtonMode = false
             labelString = "0"
         }
-        labelString = labelString.stringByAppendingString("\(num)")
+        labelString = labelString + "\(num)"
         updateText()
     }
 
     
     
-    @IBAction func tappedEquals(sender: AnyObject) {
+    @IBAction func tappedEquals(_ sender: AnyObject) {
     
         guard let num:Int = Int(labelString) else{
             return
         }
-        if currentMode == modes.NOT_SET || lastButtonMode{
+        if currentMode == modes.not_SET || lastButtonMode{
             return
         }
-        if currentMode == modes.ADDITION {
+        if currentMode == modes.addition {
            let op = operations()
             result = op.Addition(SavedNum, number2: num)
      
         }
-        else if currentMode == modes.SUBTRACTION {
+        else if currentMode == modes.subtraction {
                 let op = operations()
                 result = op.Subtraction(SavedNum, number2: num)
         }
         
-        currentMode = modes.NOT_SET
+        currentMode = modes.not_SET
         labelString = "\(result)"
         updateText()
         lastButtonMode = true
@@ -64,31 +64,31 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func TappedMinus(sender: AnyObject) {
-        setMode(modes.SUBTRACTION)
+    @IBAction func TappedMinus(_ sender: AnyObject) {
+        setMode(modes.subtraction)
     
     }
     
-    @IBAction func tappedPlus(sender: AnyObject) {
-            setMode(modes.ADDITION)
+    @IBAction func tappedPlus(_ sender: AnyObject) {
+            setMode(modes.addition)
     }
     
     
-    @IBAction func tapped0(sender: AnyObject) {tappedNumber(0)}
-    @IBAction func tapped1(sender: AnyObject) {tappedNumber(1)}
-    @IBAction func tapped2(sender: AnyObject) {tappedNumber(2)}
-    @IBAction func tapped3(sender: AnyObject) {tappedNumber(3)}
-    @IBAction func tapped4(sender: AnyObject) {tappedNumber(4)}
-    @IBAction func tapped5(sender: AnyObject) {tappedNumber(5)}
-    @IBAction func tapped6(sender: AnyObject) {tappedNumber(6)}
-    @IBAction func tapped7(sender: AnyObject) {tappedNumber(7)}
-    @IBAction func tapped8(sender: AnyObject) {tappedNumber(8)}
-    @IBAction func tapped9(sender: AnyObject) {tappedNumber(9)}
+    @IBAction func tapped0(_ sender: AnyObject) {tappedNumber(0)}
+    @IBAction func tapped1(_ sender: AnyObject) {tappedNumber(1)}
+    @IBAction func tapped2(_ sender: AnyObject) {tappedNumber(2)}
+    @IBAction func tapped3(_ sender: AnyObject) {tappedNumber(3)}
+    @IBAction func tapped4(_ sender: AnyObject) {tappedNumber(4)}
+    @IBAction func tapped5(_ sender: AnyObject) {tappedNumber(5)}
+    @IBAction func tapped6(_ sender: AnyObject) {tappedNumber(6)}
+    @IBAction func tapped7(_ sender: AnyObject) {tappedNumber(7)}
+    @IBAction func tapped8(_ sender: AnyObject) {tappedNumber(8)}
+    @IBAction func tapped9(_ sender: AnyObject) {tappedNumber(9)}
     
-    @IBAction func tappedC(sender: AnyObject) {
+    @IBAction func tappedC(_ sender: AnyObject) {
         SavedNum = 0
         labelString = "0"
-        currentMode = modes.NOT_SET
+        currentMode = modes.not_SET
         lastButtonMode = false
         label.text = "0"
     }
@@ -97,7 +97,7 @@ class ViewController: UIViewController {
             label.text = "Number too big"
             return
         }
-        if currentMode == modes.NOT_SET {
+        if currentMode == modes.not_SET {
             SavedNum = labelInt
         }
         label.text = "\(labelInt)"
@@ -105,7 +105,7 @@ class ViewController: UIViewController {
         
     }
     
-    func setMode(newMode:modes){
+    func setMode(_ newMode:modes){
         if SavedNum == 0 {
             return
         }
