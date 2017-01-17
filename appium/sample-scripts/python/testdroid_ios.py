@@ -10,20 +10,22 @@ from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
 
+
 def log(msg):
     print (time.strftime("%H:%M:%S") + ": " + msg)
 
-class TestdroidIOS(unittest.TestCase):
 
+class TestdroidIOS(unittest.TestCase):
     """
     Take screenshot and store files to defined location, with numbering prefix
 
     :Args:
     - name - files are stored as #_name
     """
+
     def screenshot(self, name):
         screenshot_name = str(self.screenshot_count) + "_" + name + ".png"
-        log ("Taking screenshot: " + screenshot_name)
+        log("Taking screenshot: " + screenshot_name)
         self.driver.save_screenshot(self.screenshot_dir + "/" + screenshot_name)
         self.screenshot_count += 1
 
@@ -44,7 +46,7 @@ class TestdroidIOS(unittest.TestCase):
         testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
 
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
-        log ("Will save screenshots at: " + self.screenshot_dir)
+        log("Will save screenshots at: " + self.screenshot_dir)
         self.screenshot_count = 1
 
         # Options to select device
@@ -76,62 +78,61 @@ class TestdroidIOS(unittest.TestCase):
         desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
 
         # set up webdriver
-        log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
+        log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
 
         self.driver = webdriver.Remote(command_executor=appium_url, desired_capabilities=desired_capabilities_cloud)
-        log ("WebDriver response received")
-
+        log("WebDriver response received")
 
     def tearDown(self):
-        log ("Quitting")
+        log("Quitting")
         self.driver.quit()
 
     def testSample(self):
         # view1
-        log ("view1: Finding buttons")
+        log("view1: Finding buttons")
         buttons = self.driver.find_elements_by_class_name('UIAButton')
-        log ("view1: Clicking button [0] - RadioButton 1")
+        log("view1: Clicking button [0] - RadioButton 1")
         buttons[0].click()
 
-        log ("view1: Typing in textfield[0]: Testdroid user")
+        log("view1: Typing in textfield[0]: Testdroid user")
         elem = self.driver.find_element_by_class_name('UIATextField')
         elem.clear()
         elem.send_keys('Testdroid user')
 
-        log ("view1: Taking screenshot screenshot1.png")
+        log("view1: Taking screenshot screenshot1.png")
         self.screenshot("screenshot1")
 
-        log ("view1: Hiding Keyboard")
+        log("view1: Hiding Keyboard")
         self.driver.find_element_by_xpath("//*[contains(@name, 'Return')]").click()
 
-        log ("view1: Taking screenshot screenshot2.png")
+        log("view1: Taking screenshot screenshot2.png")
         self.screenshot("screenshot2")
 
-        log ("view1: Clicking button[6] - OK  Button")
+        log("view1: Clicking button[6] - OK  Button")
         buttons[6].click()
 
-        log ("view2: Taking screenshot screenshot3.png")
+        log("view2: Taking screenshot screenshot3.png")
         self.screenshot("screenshot3")
 
         # view2
-        log ("view2: Finding buttons")
+        log("view2: Finding buttons")
         buttons = self.driver.find_elements_by_class_name('UIAButton')
-        log ("view2: Clicking button[0] - Back/OK button")
+        log("view2: Clicking button[0] - Back/OK button")
         buttons[0].click()
 
-        # view 1
-        log ("view1: Finding buttons")
+        # view1
+        log("view1: Finding buttons")
         buttons = self.driver.find_elements_by_class_name('UIAButton')
-        log ("view1: Clicking button[2] - RadioButton 2")
+        log("view1: Clicking button[2] - RadioButton 2")
         buttons[2].click()
 
-        log ("view1: Clicking button[6] - OK Button")
+        log("view1: Clicking button[6] - OK Button")
         buttons[6].click()
 
-        log ("view1: Taking screenshot screenshot4.png")
+        log("view1: Taking screenshot screenshot4.png")
         self.screenshot("screenshot4")
 
-        log ("view1: Sleeping 3 before quitting webdriver.")
+        log("view1: Sleeping 3 before quitting webdriver.")
         sleep(3)
 
 

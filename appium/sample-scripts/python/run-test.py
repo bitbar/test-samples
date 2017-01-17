@@ -6,14 +6,13 @@ import importlib
 
 class TestdroidTestRunner():
     def __init__(self):
-        self.variables = {"TESTDROID_APIKEY":"", 
-                               "TESTDROID_SCREENSHOTS":"",
-                               "TESTDROID_APP":"",
-                               "TESTDROID_DEVICE":""}
+        self.variables = {"TESTDROID_APIKEY": "",
+                          "TESTDROID_SCREENSHOTS": "",
+                          "TESTDROID_APP": "",
+                          "TESTDROID_DEVICE": ""}
         self.available_tests = ['testdroid_chrome', 'testdroid_android',
-                                    'testdroid_safari', 'testdroid_ios',
-                                    'testdroid_android_hybrid']
-
+                                'testdroid_safari', 'testdroid_ios',
+                                'testdroid_android_hybrid']
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Set needed environment variables for sample Testdroid tests')
@@ -34,8 +33,6 @@ class TestdroidTestRunner():
         parser.add_argument('--cmd_timeout', type=str, required=False, help="New command timeout value, default is 60s")
         parser.add_argument('--test_timeout', type=str, required=False, help="Maximum test duration, defaults to 600s")
 
-
-
         args = parser.parse_args()
         # mandatory params
         self.variables['TESTDROID_APIKEY'] = str(args.apikey)
@@ -53,7 +50,7 @@ class TestdroidTestRunner():
             self.variables['TESTDROID_DEVICE_GROUP'] = str(args.device_group_id)
         if args.project:
             self.variables["TESTDROID_PROJECT"] = args.project
-            
+
         if args.run_name:
             self.variables["TESTDROID_TESTRUN"] = args.run_name
 
@@ -78,18 +75,15 @@ class TestdroidTestRunner():
         if args.test_timeout:
             self.variables["TESTDROID_TEST_TIMEOUT"] = args.test_timeout
 
-
         # export variables + values
         for key in self.variables:
             # print "  {} : {}".format(key, self.variables[key])
             os.environ[key] = str(self.variables[key])
 
-
     def print_values(self):
         print "Stored environment variables:"
         for key in self.variables.keys():
             print "  {} : {}".format(key, os.environ.get(key, 'Not set'))
-
 
     def run_selected_test(self):
         module = importlib.import_module(self.selected_test)
@@ -102,5 +96,5 @@ class TestdroidTestRunner():
 if __name__ == '__main__':
     runner = TestdroidTestRunner()
     runner.parse_args()
-#    runner.print_values()
+    # runner.print_values()
     runner.run_selected_test()

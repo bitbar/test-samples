@@ -14,9 +14,10 @@ class TDUtils():
     :Args:
     - name - files are stored as #_name
     """
+
     def screenshot(self, name):
-        screenshot_name = str(self.screenshot_count) + "_" + name + ".png" 
-        self.log ("Taking screenshot: " + screenshot_name)
+        screenshot_name = str(self.screenshot_count) + "_" + name + ".png"
+        self.log("Taking screenshot: " + screenshot_name)
         # on Android, switching context to NATIVE_APP for screenshot
         # taking to get screenshots also stored to Testdroid Cloud
         # device run view. After screenshot switching back to
@@ -28,7 +29,7 @@ class TDUtils():
         if orig_context not in self.driver.current_context:
             self.driver.switch_to.context("WEBVIEW")
         self.screenshot_count += 1
-        
+
     """
     Search for specified xpath for defined period
 
@@ -43,8 +44,9 @@ class TDUtils():
     :Usage:
     self.wait_until_xpath_matches("//div[@id='example']", 15, 2)"
     """
+
     def wait_until_xpath_matches(self, xpath, timeout=10, step=1):
-        end_time = time.time() + timeout 
+        end_time = time.time() + timeout
         found = False
         while (time.time() < end_time and not found):
             self.log("  Looking for xpath {}".format(xpath))

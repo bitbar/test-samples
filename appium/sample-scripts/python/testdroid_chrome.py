@@ -4,16 +4,13 @@
 ##
 
 import os
-import time
 import unittest
-from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
 from testdroid_utils import TDUtils
 
 
 class TestdroidAndroid(unittest.TestCase):
-
     def setUp(self):
         ##
         ## IMPORTANT: Set the following parameters.
@@ -36,7 +33,6 @@ class TestdroidAndroid(unittest.TestCase):
         # 2) Set device name to this python script
         # 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
 
-        deviceFinder = None
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
         deviceFinder = DeviceFinder(url=testdroid_url)
@@ -68,7 +64,7 @@ class TestdroidAndroid(unittest.TestCase):
 
         self.utils.update_driver(self.driver)
         test_url = "http://bitbar.github.io/testdroid-samples/"
-        self.utils.log("Loading page "+ test_url)
+        self.utils.log("Loading page " + test_url)
         self.driver.get(test_url)
 
     def tearDown(self):
@@ -93,7 +89,7 @@ class TestdroidAndroid(unittest.TestCase):
         self.utils.screenshot("answer")
 
         self.utils.log("Check answer text")
-        elem = self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
+        self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
 
         self.utils.log("Verify button changed color")
         style = str(button.get_attribute('style'))

@@ -7,17 +7,13 @@ import os
 import time
 import unittest
 import subprocess
-from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
 from selenium.common.exceptions import WebDriverException
-from selenium.common.exceptions import NoSuchElementException
-from appium.common.exceptions import NoSuchContextException
 from testdroid_utils import TDUtils
 
 
 class TestdroidAndroid(unittest.TestCase):
-
     def setUp(self):
         ##
         ## IMPORTANT: Set the following parameters.
@@ -115,7 +111,7 @@ class TestdroidAndroid(unittest.TestCase):
         self.utils.screenshot('hybrid_activity')
 
         url = "http://bitbar.github.io/testdroid-samples/"
-        self.utils.log('Typing in the url '+ url)
+        self.utils.log('Typing in the url ' + url)
         element = self.driver.find_element_by_id('com.testdroid.sample.android:id/hy_et_url')
         element.send_keys(url)
         self.utils.screenshot('url_typed')
@@ -124,7 +120,7 @@ class TestdroidAndroid(unittest.TestCase):
             self.utils.log("Hiding keyboard")
             self.driver.hide_keyboard()
         except WebDriverException:
-            pass # pass exception, if keyboard isn't visible already
+            pass  # pass exception, if keyboard isn't visible already
         self.utils.screenshot('keyboard_hidden')
 
         self.utils.log('Clicking Load url button')
@@ -146,13 +142,12 @@ class TestdroidAndroid(unittest.TestCase):
         self.utils.log("Finding button with text 'Click for answer'")
         button = self.utils.wait_until_xpath_matches('//button[contains(., "Click for answer")]')
 
-
         self.utils.log("Clicking on button")
         button.click()
         self.utils.screenshot("answer")
 
         self.utils.log("Check answer text")
-        elem = self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
+        self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
 
         self.utils.log("Verify button changed color")
         style = str(button.get_attribute('style'))
@@ -165,8 +160,10 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver.back()
         self.utils.screenshot('launch_screen')
 
+
 def initialize():
     return TestdroidAndroid
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
