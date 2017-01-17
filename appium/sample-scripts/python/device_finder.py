@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-import requests, sys
+import requests
+import sys
 from random import shuffle
 
 
-
 class DeviceFinder:
-
     """ Constructor
     """
     def __init__(self, url="https://cloud.testdroid.com", download_buffer_size=65536):
@@ -18,7 +17,6 @@ class DeviceFinder:
         # group id as environment variable. Otherwise free devices are
         # looked for
         self.device_group = os.environ.get('TESTDROID_DEVICE_GROUP') or ""
-
 
     """ Append dictionary items to header
     """
@@ -33,8 +31,8 @@ class DeviceFinder:
     """
     def get(self, path=None, get_headers=None):
         self.url_query = "%s/api/v2/%s" % (self.cloud_url, path)
-        query_headers=self._build_headers(get_headers)
-        res =  requests.get(self.url_query, headers=query_headers)
+        query_headers = self._build_headers(get_headers)
+        res = requests.get(self.url_query, headers=query_headers)
         if res.ok:
             return res.json()
         else:
@@ -58,12 +56,14 @@ class DeviceFinder:
 
         for device in self.get_devices(limit):
             if self.device_group:
-                if device['online'] == True and device['locked'] == False and device['osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
+                if device['online'] == True and device['locked'] == False and device['osType'] == "ANDROID" and \
+                                device['softwareVersion']['apiLevel'] > 16:
                     print "Found device '%s'" % device['displayName']
                     print ""
                     return str(device['displayName'])
             else:
-                if device['online'] == True and device['creditsPrice'] == 0 and device['locked'] == False and device['osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
+                if device['online'] == True and device['creditsPrice'] == 0 and device['locked'] == False and device[
+                    'osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
                     print "Found device '%s'" % device['displayName']
                     print ""
                     return str(device['displayName'])
@@ -84,7 +84,8 @@ class DeviceFinder:
                     print ""
                     return str(device['displayName'])
             else:
-                if device['online'] == True and device['creditsPrice'] == 0 and device['locked'] == False and device['osType'] == "IOS":
+                if device['online'] == True and device['creditsPrice'] == 0 and device['locked'] == False and device[
+                    'osType'] == "IOS":
                     print "Found device '%s'" % device['displayName']
                     print ""
                     return str(device['displayName'])
@@ -92,7 +93,6 @@ class DeviceFinder:
         print "No available device found"
         print ""
         return ""
-
 
     """ Find out the API level of a Device
     """
@@ -102,11 +102,13 @@ class DeviceFinder:
         try:
             devices = self.get(path="devices?search=%s" % deviceName)['data']
             picked_device = devices[0]
-            print "Selected device '{}' has API level '{}'".format(picked_device['displayName'], picked_device['softwareVersion']['apiLevel'])
+            print "Selected device '{}' has API level '{}'".format(picked_device['displayName'],
+                                                                   picked_device['softwareVersion']['apiLevel'])
             return picked_device['softwareVersion']['apiLevel']
         except Exception, e:
             print "Error: %s" % e
             return
+
 
 """ DeviceFinder should rather be used from an other script rather
 than directly from command line

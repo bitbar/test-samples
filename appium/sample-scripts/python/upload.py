@@ -4,7 +4,6 @@
 
 import argparse
 import base64
-import json
 import os
 import requests
 import sys
@@ -16,7 +15,6 @@ class UploadApp():
         self.upload_url = os.environ.get('TESTDROID_UPLOAD_URL') or 'http://appium.testdroid.com/upload'
         # Provide mandatory API key with this env var or with -k/--apikey flag
         self.api_key = os.environ.get("TESTDROID_APIKEY") or ""
-
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Upload a mobile app to Testdroid Cloud and get a handle to it')
@@ -37,10 +35,9 @@ class UploadApp():
             print "ERROR: API key is missing. Provide TESTDROID_APIKEY env var or -k/--apikey <APIKEY> flag."
             sys.exit(1)
 
-
     def build_headers(self):
-        hdrs = {'Authorization' : 'Basic %s' % base64.b64encode(self.api_key+":"),
-                'Accept' : 'application/json' }
+        hdrs = {'Authorization': 'Basic %s' % base64.b64encode(self.api_key + ":"),
+                'Accept': 'application/json'}
         return hdrs
 
     def upload_app(self):
