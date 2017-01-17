@@ -8,10 +8,9 @@ import unittest
 from appium import webdriver
 from device_finder import DeviceFinder
 from testdroid_utils import TDUtils
-import time
+
 
 class TestdroidSafari(unittest.TestCase):
-
     def setUp(self):
         ##
         ## IMPORTANT: Set the following parameters.
@@ -40,7 +39,7 @@ class TestdroidSafari(unittest.TestCase):
         print "Starting Appium test using device '%s'" % testdroid_device
 
         self.utils = TDUtils(self.screenshot_dir)
-        self.utils.log ("Will save screenshots at: " + self.screenshot_dir)
+        self.utils.log("Will save screenshots at: " + self.screenshot_dir)
 
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
@@ -55,41 +54,42 @@ class TestdroidSafari(unittest.TestCase):
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
 
         # Set up webdriver
-        self.utils.log ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
+        self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.update_driver(self.driver)
         test_url = "http://bitbar.github.io/testdroid-samples/"
-        self.utils.log ("Loading page "+ test_url)
+        self.utils.log("Loading page " + test_url)
         self.driver.get(test_url)
 
     def tearDown(self):
-        self.utils.log ("Quitting")
+        self.utils.log("Quitting")
         self.driver.quit()
 
     def testSample(self):
         self.utils.screenshot("home_screen")
 
-        self.utils.log ("  Switching to landscape")
+        self.utils.log("  Switching to landscape")
         self.driver.orientation = "LANDSCAPE"
         self.utils.screenshot("home_landscape")
-        self.utils.log ("  Switching to portrait")
+        self.utils.log("  Switching to portrait")
         self.driver.orientation = "PORTRAIT"
         self.utils.screenshot("home_portrait")
 
-        self.utils.log ("Finding button with text 'Click for answer'")
+        self.utils.log("Finding button with text 'Click for answer'")
         button = self.utils.wait_until_xpath_matches('//button[contains(., "Click for answer")]')
 
-        self.utils.log ("Clicking on button")
+        self.utils.log("Clicking on button")
         button.click()
         self.utils.screenshot("answer")
 
-        self.utils.log ("Check answer text")
-        elem = self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
+        self.utils.log("Check answer text")
+        self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
 
-        self.utils.log ("Verify button changed color")
+        self.utils.log("Verify button changed color")
         style = str(button.get_attribute('style'))
         expected_style = "rgb(127, 255, 0"
         self.assertTrue(expected_style in style)
+
 
 def initialize():
     return TestdroidSafari

@@ -4,7 +4,6 @@
 ##
 
 import os
-import time
 import unittest
 import subprocess
 from time import sleep
@@ -15,7 +14,6 @@ from testdroid_utils import TDUtils
 
 
 class TestdroidAndroid(unittest.TestCase):
-
     def setUp(self):
 
         ##
@@ -86,7 +84,6 @@ class TestdroidAndroid(unittest.TestCase):
         self.utils.log("WebDriver response received")
         self.utils.update_driver(self.driver)
 
-
     def tearDown(self):
         self.utils.log("Quitting")
         self.driver.quit()
@@ -102,7 +99,7 @@ class TestdroidAndroid(unittest.TestCase):
         self.utils.screenshot("app_launch")
 
         self.utils.log("  Typing in name")
-        elems=self.driver.find_elements_by_class_name('android.widget.EditText')
+        elems = self.driver.find_elements_by_class_name('android.widget.EditText')
         self.utils.log("  info: EditText:" + `len(elems)`)
         self.utils.log("  Filling in name")
         elems[0].send_keys("Testdroid User")
@@ -118,7 +115,7 @@ class TestdroidAndroid(unittest.TestCase):
             self.utils.log("  Hiding keyboard")
             self.driver.hide_keyboard()
         except WebDriverException:
-            pass # pass exception, if keyboard isn't visible already
+            pass  # pass exception, if keyboard isn't visible already
         self.utils.screenshot("name_typed_keyboard_hidden")
 
         self.utils.log("  Clicking element 'Buy 101 devices'")
@@ -161,8 +158,10 @@ class TestdroidAndroid(unittest.TestCase):
 
         self.utils.screenshot("answer")
 
+
 def initialize():
     return TestdroidAndroid
+
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
