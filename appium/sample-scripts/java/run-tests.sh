@@ -32,26 +32,26 @@ startAppium(){
 startAppiumOSX(){
 	# Create the screenshots directory, if it doesn't exist'
 	mkdir -p .screenshots
-    echo "Starting Appium on Mac..." 
-	node /opt/appium/bin/appium.js -U ${UDID} --log-no-colors --log-timestamp --show-ios-log --screenshot-dir "${PWD}/.screenshots" >appium.log 2>&1 & 
+    echo "Starting Appium on Mac..."
+	appium-1.4 -U ${UDID} --log-no-colors --log-timestamp --show-ios-log
 }
 
 startAppiumLinux(){
 	# Create the screenshots directory, if it doesn't exist'
 	mkdir -p .screenshots
     echo "Starting Appium on Linux..."
-	/opt/appium/appium/bin/appium.js --log-no-colors --log-timestamp --screenshot-dir "${PWD}/.screenshots" >appium.log 2>&1 &
+	appium-1.5 --log-no-colors --log-timestamp
 }
 
 executeTests(){
 	echo "Extracting tests.zip..."
 	unzip tests.zip
 	if [ "$(uname)" == "Darwin" ]; then
-	   	echo "Running iOs Tests..."
-		mvn clean test -Dtest=IosAppiumExampleTest -DexecutionType=serverside 
+	   	echo "Running iOS Tests..."
+		mvn clean test -Dtest=IosAppiumExampleTest -DexecutionType=serverside
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	    echo "Running Android Tests..."
-		mvn clean test -Dtest=AndroidAppiumExampleTest -DexecutionType=serverside 
+		mvn clean test -Dtest=AndroidAppiumExampleTest -DexecutionType=serverside
 	fi
 	echo "Finished Running Tests!"
 	cp target/surefire-reports/junitreports/TEST-*.xml TEST-all.xml
@@ -60,4 +60,3 @@ executeTests(){
 installMaven
 startAppium
 executeTests
-

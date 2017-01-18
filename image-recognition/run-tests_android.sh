@@ -34,10 +34,7 @@ fi
 ## Appium server launch
 # Use appium-1.4 to target 1.4.x and appium-1.5 to target 1.5.x
 echo "Starting Appium ..."
-appium-1.4 --command-timeout 120 --log-no-colors --log-timestamp >appium.log 2>&1 &
-
-# Check that the appium process exists
-ps -ef|grep appium
+appium-1.4 --command-timeout 120 --log-no-colors --log-timestamp
 
 ## Dependency installation
 # Install the OpenCV java bindings
