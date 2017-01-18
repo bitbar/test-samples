@@ -27,7 +27,7 @@ class TDUtils():
         self.driver.save_screenshot(self.screenshot_dir + "/" + screenshot_name)
         # only change context if originally context was WEBVIEW
         if orig_context not in self.driver.current_context:
-            self.driver.switch_to.context("WEBVIEW")
+            self.driver.switch_to.context(orig_context)
         self.screenshot_count += 1
 
     """

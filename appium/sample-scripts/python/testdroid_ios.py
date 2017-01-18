@@ -44,6 +44,7 @@ class TestdroidIOS(unittest.TestCase):
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
         testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
+        automation_name = os.environ.get('TESTDROID_AUTOMATION_NAME') or "XCUITest"
 
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
         log("Will save screenshots at: " + self.screenshot_dir)
@@ -72,10 +73,11 @@ class TestdroidIOS(unittest.TestCase):
         desired_capabilities_cloud['testdroid_app'] = testdroid_app
         desired_capabilities_cloud['platformName'] = 'iOS'
         desired_capabilities_cloud['deviceName'] = 'iPhone device'
-        desired_capabilities_cloud['bundleId'] = testdroid_bundle_id
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
         desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
+        desired_capabilities_cloud['automationName'] = automation_name
+        desired_capabilities_cloud['app'] = testdroid_bundle_id
 
         # set up webdriver
         log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")

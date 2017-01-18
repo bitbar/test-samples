@@ -61,10 +61,10 @@ class TestdroidAndroid(unittest.TestCase):
         desired_capabilities_cloud = {}
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
         desired_capabilities_cloud['testdroid_target'] = 'android'
-        desired_capabilities_cloud['automationName'] = 'android'
+        desired_capabilities_cloud['automationName'] = 'Appium'
         if self.api_level <= 16:
             desired_capabilities_cloud['testdroid_target'] = 'selendroid'
-            desired_capabilities_cloud['automationName'] = 'selendroid'
+            desired_capabilities_cloud['automationName'] = 'Selendroid'
 
         desired_capabilities_cloud['testdroid_project'] = testdroid_project_name
         desired_capabilities_cloud['testdroid_testrun'] = testdroid_testrun_name
@@ -122,7 +122,7 @@ class TestdroidAndroid(unittest.TestCase):
         if isSelendroid:
             elem = self.driver.find_element_by_link_text('Buy 101 devices')
         else:
-            elem = self.driver.find_element_by_name('Buy 101 devices')
+            elem = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Buy 101 devices")')
         elem.click()
 
         self.utils.screenshot("clicked_button1")
@@ -131,7 +131,7 @@ class TestdroidAndroid(unittest.TestCase):
         if isSelendroid:
             elem = self.driver.find_element_by_link_text('Answer')
         else:
-            elem = self.driver.find_element_by_name('Answer')
+            elem = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Answer")')
         elem.click()
 
         self.utils.screenshot("answer")
@@ -144,7 +144,7 @@ class TestdroidAndroid(unittest.TestCase):
         if isSelendroid:
             elem = self.driver.find_element_by_link_text('Use Testdroid Cloud')
         else:
-            elem = self.driver.find_element_by_name('Use Testdroid Cloud')
+            elem = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Use Testdroid Cloud")')
         elem.click()
 
         self.utils.screenshot("clicked_button2")
@@ -153,7 +153,7 @@ class TestdroidAndroid(unittest.TestCase):
         if isSelendroid:
             elem = self.driver.find_element_by_link_text('Answer')
         else:
-            elem = self.driver.find_element_by_name('Answer')
+            elem = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Answer")')
         elem.click()
 
         self.utils.screenshot("answer")
