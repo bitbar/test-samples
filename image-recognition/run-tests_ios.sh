@@ -36,7 +36,7 @@ echo "UDID is ${UDID}"
 ## Appium server launch
 # Use appium-1.4 to target 1.4.x and appium-1.5 to target 1.5.x
 echo "Starting Appium ..."
-appium-1.5 -U ${UDID} --command-timeout 120 --log-no-colors --log-timestamp >appium.log 2>&1 &
+appium-1.5 -U ${UDID} --command-timeout 120 --log-no-colors --log-timestamp
 # Launch ios-webkit-debug-proxy-launcher.js for webview handling in iOS
 /opt/testdroid/appium-1.4.16-testdroid/bin/ios-webkit-debug-proxy-launcher.js -c ${UDID}:27753 -d >ios-webkit-debug-proxy.log 2>&1 &
 
