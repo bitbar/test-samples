@@ -7,13 +7,11 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -31,53 +29,66 @@ public abstract class AbstractAppiumTest {
     private static long startTime;
 
     protected static AppiumDriver<MobileElement> driver;
-    protected static int defaultWaitTime = 120;
+    protected static int defaultWaitTime = 60;
 
     private static int counter = 0;
     private static int retry_counter = 1;
     public static String searchedImage;
+    public static File userDir = new File(System.getProperty("user.dir"));
+
+    public static File[] matches = userDir.listFiles(new FilenameFilter() {
+        public boolean accept(File dir, String name) {
+            return name.startsWith("application");
+        }
+    });
 
     public static String screenshotsFolder = "";
-    public static String appFile = System.getenv("APP_FILE");
+    public static String appFile = System.getenv("APP_FILE") != null ? System.getenv("APP_FILE") : matches[0].toString();
     public static String platformName = System.getenv("PLATFORM_NAME");
     public static String automationName = System.getenv("AUTOMATION_NAME");
-    public static String deviceName = System.getenv("DEVICE_NAME");
+    public static String deviceName = System.getenv("DEVICE_NAME") != null ? System.getenv("DEVICE_NAME") : "device";
     public static String udid = System.getenv("UDID");
-    public static String platformVersion = System.getenv("PLATFORM_VERSION");
+    public static String platformVersion = System.getenv("PLATFORM_VERSION") != null ? System.getenv("PLATFORM_VERSION") : "";
     // Set to false to autoDismiss
     public static boolean autoAccept = true;
     public static boolean idevicescreenshotExists = false;
 
 
     public static AppiumDriver getIOSDriver() throws Exception {
-        if (appFile == null) {
-            appFile = "application.ipa";
-        }
         if (platformName == null) {
             platformName = "iOS";
-        }
-        if (deviceName == null){
-        	deviceName = "device";
         }
         if (platformVersion == null){
         	platformVersion = "";
         }
-        // Use default "appium" automation for iOS
-        automationName = "appium";
+        if (automationName == null) {
+            DefaultArtifactVersion version = new DefaultArtifactVersion(ideviceinfoCheck("ProductVersion"));
+            DefaultArtifactVersion minVersion = new DefaultArtifactVersion("9.3.5");
+            // Use XCUITest if device is above iOS version 9.3.5
+            if (version.compareTo(minVersion) > 0 ) {
+                automationName = "XCUITest";
+            } else {
+                automationName = "Appium";
+            }
+        }
+        if (udid == null) {
+            udid = ideviceinfoCheck("UniqueDeviceID");
+        }
 
         screenshotsFolder = "target/reports/screenshots/ios/";
         File dir = new File(screenshotsFolder);
         dir.mkdirs();
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("automationName", automationName);
         capabilities.setCapability("platformName", platformName);
         capabilities.setCapability("deviceName", deviceName);
         if (udid != null)
             capabilities.setCapability("udid", udid);
         if (platformVersion != null)
             capabilities.setCapability("platformVersion", platformVersion);
-
-        capabilities.setCapability("app", System.getProperty("user.dir") + File.separator + appFile);
+        capabilities.setCapability("app", appFile);
+        //capabilities.setCapability("bundleId", bundleId);
         capabilities.setCapability("newCommandTimeout", 120);
         capabilities.setCapability("nativeInstrumentsLib", true);
         if (autoAccept) {
@@ -97,14 +108,8 @@ public abstract class AbstractAppiumTest {
     }
 
     public static AppiumDriver getAndroidDriver() throws Exception {
-        if (appFile == null) {
-            appFile = "application.apk";
-        }
         if (platformName == null) {
             platformName = "Android";
-        }
-        if (deviceName == null){
-            deviceName = "device";
         }
         if (automationName == null){
         	automationName = "appium";
@@ -122,7 +127,7 @@ public abstract class AbstractAppiumTest {
         if (platformVersion != null)
             capabilities.setCapability("platformVersion", platformVersion);
 
-        capabilities.setCapability("app", System.getProperty("user.dir") + File.separator + appFile);
+        capabilities.setCapability("app", appFile);
         capabilities.setCapability("newCommandTimeout", 120);
 
         log("Creating Appium session, this may take couple minutes..");
@@ -220,6 +225,54 @@ public abstract class AbstractAppiumTest {
             idevicescreenshotExists = false;
         }
         return idevicescreenshotExists;
+    }
+
+    public static String ideviceinfoCheck(String key) throws IOException, InterruptedException {
+        String[] cmd = new String[]{"ideviceinfo", "--key", key};
+        int exitVal = -1;
+        Process p = Runtime.getRuntime().exec(cmd);
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        String output = "";
+        while ((line = in.readLine()) != null) {
+            log(line);
+            output = line;
+        }
+        exitVal = p.waitFor();
+        if (exitVal != 0) {
+            log("ideviceinfo process exited with value: " + exitVal);
+        }
+        return output;
+    }
+
+    public static void ideviceinstall(String appPath) throws IOException, InterruptedException {
+        String[] cmd = new String[]{"ideviceinstaller", "-i", appPath};
+        int exitVal = -1;
+        Process p = Runtime.getRuntime().exec(cmd);
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while ((line = in.readLine()) != null) {
+            log(line);
+        }
+        exitVal = p.waitFor();
+        if (exitVal != 0) {
+            log("ideviceinstaller process exited with value: " + exitVal);
+        }
+    }
+
+    public static void ideviceuninstall(String bundleId) throws IOException, InterruptedException {
+        String[] cmd = new String[]{"ideviceinstaller", "-U", bundleId};
+        int exitVal = -1;
+        Process p = Runtime.getRuntime().exec(cmd);
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while ((line = in.readLine()) != null) {
+            log(line);
+        }
+        exitVal = p.waitFor();
+        if (exitVal != 0) {
+            log("ideviceinstaller process exited with value: " + exitVal);
+        }
     }
 
     //Will count the screenshots taken for separate stages of the test.
@@ -369,11 +422,13 @@ public abstract class AbstractAppiumTest {
 
     protected void hideKeyboard() {
         try {
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             driver.hideKeyboard();
         } catch (Exception e) {
             logger.debug("Hiding soft keyboard failed");
             logger.debug(e.toString());
         }
+        driver.manage().timeouts().implicitlyWait(defaultWaitTime, TimeUnit.SECONDS);
     }
 
 }
