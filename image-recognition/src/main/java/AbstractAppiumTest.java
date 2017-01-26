@@ -36,11 +36,7 @@ public abstract class AbstractAppiumTest {
     public static String searchedImage;
     public static File userDir = new File(System.getProperty("user.dir"));
 
-    public static File[] matches = userDir.listFiles(new FilenameFilter() {
-        public boolean accept(File dir, String name) {
-            return name.startsWith("application");
-        }
-    });
+    public static File[] matches = userDir.listFiles((dir, name) -> name.startsWith("application"));
 
     public static String screenshotsFolder = "";
     public static String appFile = System.getenv("APP_FILE") != null ? System.getenv("APP_FILE") : matches[0].toString();
@@ -65,7 +61,7 @@ public abstract class AbstractAppiumTest {
             DefaultArtifactVersion version = new DefaultArtifactVersion(ideviceinfoCheck("ProductVersion"));
             DefaultArtifactVersion minVersion = new DefaultArtifactVersion("9.3.5");
             // Use XCUITest if device is above iOS version 9.3.5
-            if (version.compareTo(minVersion) > 0 ) {
+            if (version.compareTo(minVersion) >= 0 ) {
                 automationName = "XCUITest";
             } else {
                 automationName = "Appium";
@@ -88,16 +84,7 @@ public abstract class AbstractAppiumTest {
         if (platformVersion != null)
             capabilities.setCapability("platformVersion", platformVersion);
         capabilities.setCapability("app", appFile);
-        //capabilities.setCapability("bundleId", bundleId);
         capabilities.setCapability("newCommandTimeout", 120);
-        capabilities.setCapability("nativeInstrumentsLib", true);
-        if (autoAccept) {
-            capabilities.setCapability("autoAcceptAlerts", true);
-            capabilities.setCapability("autoDismissAlerts", false);
-        } else {
-            capabilities.setCapability("autoAcceptAlerts", false);
-            capabilities.setCapability("autoDismissAlerts", true);
-        }
 
         idevicescreenshotCheck();
 

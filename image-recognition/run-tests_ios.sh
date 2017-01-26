@@ -21,7 +21,6 @@ TEST_CASE="#mainPageTest"
 export SCREENSHOT_FOLDER=target/reports/screenshots/ios/
 export PLATFORM_NAME=iOS
 export JAVA_HOME=$(/usr/libexec/java_home)
-export APP_FILE=application.ipa
 
 export DYLD_FALLBACK_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:$PWD/lib/mac/opencv:/Users/Shared/libimobiledevice-binaries-master
 # Replace all spaces with escape: "\ "
@@ -39,7 +38,7 @@ echo "UDID is ${UDID}"
 ## Appium server launch
 # Use appium-1.4, appium-1.5 or appium-1.6 to choose Appium server version
 echo "Starting Appium ..."
-appium-1.6 -U ${UDID} --command-timeout 120 --log-no-colors --log-timestamp
+appium-1.6 -U ${UDID} --log-no-colors --log-timestamp
 
 ## Dependency installation
 # Install the OpenCV java bindings
