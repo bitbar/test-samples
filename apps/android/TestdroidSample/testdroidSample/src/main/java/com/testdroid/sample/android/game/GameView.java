@@ -13,6 +13,8 @@ import android.view.SurfaceView;
 
 import com.testdroid.sample.android.R;
 
+import org.json.JSONObject;
+
 import utils.Constants;
 import utils.Helpers;
 
@@ -52,6 +54,11 @@ public class GameView extends SurfaceView {
     private int yBullet = 0;
 
     private int firingGun = -1;
+
+    private int logNextGun = -1; // Only for generating logs for test-script to grep from and click gun @ x,y
+    private int logTouchEventCounter;
+    private int logCorrectGunsTappedCounter;
+    private int logGunsTappedCounter;
 
     private long lastTouchEvent = 0;
 
@@ -104,6 +111,8 @@ public class GameView extends SurfaceView {
             return true;
         }
 
+        logTouchEventCounter++;
+
         if (firingGun != -1) {
             return true;
         }
@@ -119,9 +128,23 @@ public class GameView extends SurfaceView {
                 bitmapsGuns[i] = BitmapFactory.decodeResource(getResources(), idsImagesGunsFired[firingGun]);
                 soundPool.play(soundsGuns[firingGun], 1.0f, 1.0f, 0, 0, 1.5f);
                 Helpers.vibrate(getContext(), Constants.GAME_VIBRATE_FIRE);
+
+                logGunsTappedCounter++;
+
+                if (firingGun == logNextGun) {
+                    logCorrectGunsTappedCounter++;
+                    logNextGun++;
+                }
+
+                if (logNextGun >= positionsGuns.length) {
+                    logNextGun = 0;
+                }
+
                 break;
             }
         }
+
+        printGunCoordinates(logNextGun);
 
         return true;
     }
@@ -151,6 +174,7 @@ public class GameView extends SurfaceView {
 
         if (positionsGuns == null) {
             positionsGuns = calculateGunPositions(bitmapsGuns, getWidth(), getHeight());
+            printGunCoordinates(0);
         }
 
         for (int i = 0; i < bitmapsGuns.length; i++) {
@@ -279,5 +303,30 @@ public class GameView extends SurfaceView {
             }
         });
 
+    }
+
+    private void printGunCoordinates(int gunIndex) {
+
+        logNextGun = gunIndex;
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("touchEvents", logTouchEventCounter);
+            jsonObject.put("correctGunTaps", logCorrectGunsTappedCounter);
+            jsonObject.put("totalGunTaps", logGunsTappedCounter);
+
+            JSONObject jsonObjectNextGun = new JSONObject();
+            jsonObjectNextGun.put("gun", logNextGun);
+            jsonObjectNextGun.put("x1", positionsGuns[gunIndex][0]);
+            jsonObjectNextGun.put("x2", positionsGuns[gunIndex][0] + bitmapsGuns[gunIndex].getWidth());
+            jsonObjectNextGun.put("y1", positionsGuns[gunIndex][1]);
+            jsonObjectNextGun.put("y2", positionsGuns[gunIndex][1] + bitmapsGuns[gunIndex].getHeight());
+            jsonObject.put("nextGun", jsonObjectNextGun);
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        Log.d(TAG, String.format("-NEXT-GUN-#%s", jsonObject.toString()));
     }
 }
