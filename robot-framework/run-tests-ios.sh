@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export JAVA_HOME=$(/usr/libexec/java_home)
+export APPIUM_PORT=${APPIUM_PORT:="4723"}
 
 ## Cloud setup
 echo "Getting UDID..."
@@ -9,10 +10,21 @@ echo $UDID
 echo "UDID set to ${UDID}"
 
 echo "Starting Appium ..."
-/opt/appium/bin/appium.js -U ${UDID} --log-no-colors --log-timestamp --command-timeout 120 >appium.log 2>&1 &
+/opt/appium/build/lib/main.js -U ${UDID} --log-no-colors --log-timestamp --command-timeout 120 >appium.log 2>&1 &
 
-# Wait for appium to fully launch
-sleep 10
+TIMEOUT=30
+
+echo "Waiting for Appium to be ready at port ${APPIUM_PORT}..."
+
+while ! nc -z localhost ${APPIUM_PORT}; do
+  sleep 1 # wait for 1 second before check again
+  TIMEOUT=$((TIMEOUT-1))
+  if [ $TIMEOUT -le 0 ]; then
+    echo "Appium failed to start! Aborting."
+    exit 1
+    break
+  fi
+done
 
 ps -ef|grep appium
 
