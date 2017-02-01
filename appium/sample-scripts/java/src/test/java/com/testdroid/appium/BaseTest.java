@@ -30,7 +30,7 @@ public abstract class BaseTest {
     public void setUpTest() throws IOException {
         setUpAppiumDriver();
     }
-    
+
     public void setUpAppiumDriver() throws IOException {
         DesiredCapabilities desiredCapabilities = getDesiredCapabilitiesFromProperties();
         this.capabilities = desiredCapabilities;
@@ -54,12 +54,15 @@ public abstract class BaseTest {
         } else if (isServerSideTestRun()){
             logger.debug("Setting server side specific capabilities...");
             capabilities.setCapability("app", getServerSideApplicationPath());
+            if (System.getenv("AUTOMATION_NAME") != null) {
+                capabilities.setCapability("automationName", System.getenv("AUTOMATION_NAME"));
+            }
             logger.debug("Setting server side specific capabilities... FINISHED");
-        } 
-        logger.debug("Creating Appium session, this may take couple minutes.."); 
+        }
+        logger.debug("Creating Appium session, this may take couple minutes..");
         setAppiumDriver();
     }
-    
+
     private String getDefaultFileUUID() {
         String defaultAppUUID = "latest";
         String propertiesAppUUID = (String) capabilities.getCapability("testdroid_app");
@@ -82,7 +85,7 @@ public abstract class BaseTest {
         }
         return desiredCapabilities;
     }
-    
+
     protected abstract void setAppiumDriver() throws IOException;
 
     private Properties fetchProperties(String filename) {
@@ -147,7 +150,7 @@ public abstract class BaseTest {
         }
         return property;
     }
-    
+
     private String getExecutionType() {
         String propertyName = "executionType";
         String property = System.getProperty(propertyName);
@@ -156,7 +159,7 @@ public abstract class BaseTest {
         }
         return property;
     }
-    
+
     protected void quitAppiumSession() {
         if (exportTestResultsToCloud()){
             try{

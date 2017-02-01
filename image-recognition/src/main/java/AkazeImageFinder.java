@@ -358,9 +358,13 @@ public class AkazeImageFinder {
         if (platformName.toLowerCase().contains("mac")) {
             System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + System.getProperty("user.dir") + "/lib/mac/opencv");
         } else if (platformName.toLowerCase().contains("win")) {
-            System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + System.getProperty("user.dir") + "/lib/win/opencv");
+            if (System.getProperty("os.arch").contains("64")) {
+                System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + System.getProperty("user.dir") + "/lib/win/opencv/x64");
+            } else {
+                System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + System.getProperty("user.dir") + "/lib/win/opencv/x86");
+            }
         } else {
-            System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + System.getProperty("user.dir") + "/lib/linux/opencv/java7");
+            System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + System.getProperty("user.dir") + "/lib/linux/opencv");
         }
 
         Field fieldSysPath = null;

@@ -4,6 +4,8 @@
 echo "Extracting tests.zip..."
 unzip tests.zip
 
+security unlock-keychain -p testdroid login.keychain
+
 ## This is the IOS version of run-tests.sh to be used as template for Server side execution
 ## To use in cloud:
 ##  Replace the TEST and TEST_CASE variables with your desired test class and cases
@@ -25,7 +27,7 @@ export DYLD_FALLBACK_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:$PWD/lib/mac/opencv:/User
 export DYLD_FALLBACK_LIBRARY_PATH=${DYLD_FALLBACK_LIBRARY_PATH// /\\ }
 echo "DYLD_FALLBACK_LIBRARY_PATH=${DYLD_FALLBACK_LIBRARY_PATH}"
 
-export PLATFORM_VERSION=$(xcrun --sdk iphonesimulator --show-sdk-version)
+export PLATFORM_VERSION=$(ideviceinfo --key ProductVersion)
 echo "iOS Version: ${PLATFORM_VERSION}"
 
 if [ -z ${UDID} ] ; then
@@ -34,14 +36,9 @@ fi
 echo "UDID is ${UDID}"
 
 ## Appium server launch
-# Use appium-1.4 to target 1.4.x and appium-1.5 to target 1.5.x
+# Use appium-1.4, appium-1.5 or appium-1.6 to choose Appium server version
 echo "Starting Appium ..."
-appium-1.5 -U ${UDID} --command-timeout 120 --log-no-colors --log-timestamp
-# Launch ios-webkit-debug-proxy-launcher.js for webview handling in iOS
-/opt/testdroid/appium-1.4.16-testdroid/bin/ios-webkit-debug-proxy-launcher.js -c ${UDID}:27753 -d >ios-webkit-debug-proxy.log 2>&1 &
-
-# Check that the appium process exists
-ps -ef|grep appium
+appium-1.6 -U ${UDID} --log-no-colors --log-timestamp
 
 ## Dependency installation
 # Install the OpenCV java bindings

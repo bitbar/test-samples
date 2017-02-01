@@ -32,13 +32,13 @@ else
 fi
 
 ## Appium server launch
-# Use appium-1.4 to target 1.4.x and appium-1.5 to target 1.5.x
+# Use appium-1.4, appium-1.5 or appium-1.6 to choose Appium server version
 echo "Starting Appium ..."
-appium-1.4 --command-timeout 120 --log-no-colors --log-timestamp
+appium-1.6 --log-no-colors --log-timestamp
 
 ## Dependency installation
 # Install the OpenCV java bindings
-mvn --quiet install:install-file -Dfile=lib/linux/opencv/java7/opencv-2413.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.13 -Dpackaging=jar
+mvn --quiet install:install-file -Dfile=lib/linux/opencv/opencv-2413.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.13 -Dpackaging=jar
 
 # Make sure the akaze binaries have execution rights
 chmod +x lib/*
