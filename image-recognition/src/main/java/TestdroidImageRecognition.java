@@ -16,19 +16,19 @@ import static org.junit.Assert.fail;
  */
 public class TestdroidImageRecognition extends AbstractAppiumTest {
 
-    public Logger logger = LoggerFactory.getLogger(TestdroidImageRecognition.class);
+    Logger logger = LoggerFactory.getLogger(TestdroidImageRecognition.class);
     private final int DEFAULT_RETRIES = 5;
     private final int DEFAULT_RETRY_WAIT = 0;
     private final double DEFAULT_TOLERANCE = 0.6;
     private final boolean DEFAULT_WITH_ASSERT = true;
     private final boolean DEFAULT_TAKE_SCREENSHOT = true;
     private final boolean DEFAULT_CROP = false;
-    AkazeImageFinder imageFinder = new AkazeImageFinder();
+    private AkazeImageFinder imageFinder = new AkazeImageFinder();
 
     private String queryimageFolder = "";
     private static long startTime;
-    long timeDifferenceStartTest;
-    public boolean found = false;
+    private long timeDifferenceStartTest;
+    private boolean found = false;
 
 
     //If this method is called inside a test the script will check if the device has a resolution lower than 500x500 and if so will use
@@ -47,7 +47,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
      * ======================================================================================
      */
 
-    public Point[] findImage(String image, String scene) throws Exception {
+    private Point[] findImage(String image, String scene) throws Exception {
         return findImage(image, scene, DEFAULT_TOLERANCE);
     }
 
@@ -55,7 +55,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //The "image" parameter is the image that you are searching for
     //The "scene" parameter is the image in which we are looking for "image"
     // "tolerance" sets the required accuracy for the image recognition algorithm.
-    public Point[] findImage(String image, String scene, double tolerance) throws Exception {
+    private Point[] findImage(String image, String scene, double tolerance) throws Exception {
         Point[] imgRect = new Point[0];
         Point[] imgRectScaled;
 
@@ -137,7 +137,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     // Taps at given coordinates given in pixels
-    public void tapAtCoordinates(int x, int y) throws Exception {
+    private void tapAtCoordinates(int x, int y) throws Exception {
         if (automationName.equalsIgnoreCase("selendroid")) {
             selendroidTapAtCoordinate(x, y, 1);
         } else if (platformName.equalsIgnoreCase("Android")){
@@ -160,7 +160,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     // Selendroid specific taps at given coordinates in pixels
-    public void selendroidTapAtCoordinate(int x, int y, int secs) throws Exception {
+    private void selendroidTapAtCoordinate(int x, int y, int secs) throws Exception {
         TouchActions actions = new TouchActions(driver);
         actions.down(x, y).perform();
         sleep(secs);
@@ -171,7 +171,8 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "x_offset" and "y_offset" set the X and Y coordinates.
     // "taps" sets the number of taps that are performed.
     // "frequency" sets the frequency of the taps.
-    public void tapAtRelativeCoordinates(double x_offset, double y_offset, int taps, double frequency) throws Exception {
+    private void tapAtRelativeCoordinates(double x_offset, double y_offset, int taps,
+        double frequency) throws Exception {
         Dimension size = driver.manage().window().getSize();
         Point middle = new Point(size.getWidth(), size.getHeight());
         Point middleWithOffset = new Point(middle.x * x_offset, middle.y * y_offset);
@@ -191,7 +192,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         tapAtRelativeCoordinates(x_offset, y_offset, taps, 1);
     }
 
-    public void tapAtRelativeCoordinates(double x_offset, double y_offset) throws Exception {
+    private void tapAtRelativeCoordinates(double x_offset, double y_offset) throws Exception {
         tapAtRelativeCoordinates(x_offset, y_offset, 1, 0.9);
     }
 
@@ -206,7 +207,8 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "retries" is the number of times the method will try to find the searched image. If not set, default is 5.
     // "tolerance" sets the required accuracy for the image recognition algorithm.
     // "with_assert" specifies if the method will return a fail or not if the searched image is not found on the screen. Use findImageOnScreenNoAssert() to have this set by default to FALSE
-    public Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance, boolean withAssert, boolean take_screenshot, boolean crop) throws Exception {
+    private Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance,
+        boolean withAssert, boolean take_screenshot, boolean crop) throws Exception {
         Point[] imgRect = null;
         boolean new_step = true;
         long start_time = System.nanoTime();
@@ -253,7 +255,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         return findImageOnScreen(image, retries, retryWait, tolerance, withAssert, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
     }
 
-    public Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance) throws Exception {
+    private Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance) throws Exception {
         return findImageOnScreen(image, retries, retryWait, tolerance, DEFAULT_WITH_ASSERT, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
     }
 
@@ -261,15 +263,16 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         return findImageOnScreen(image, retries, retryWait, DEFAULT_TOLERANCE, DEFAULT_WITH_ASSERT, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
     }
 
-    public Point[] findImageOnScreen(String image, int retries) throws Exception {
+    private Point[] findImageOnScreen(String image, int retries) throws Exception {
         return findImageOnScreen(image, retries, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE, DEFAULT_WITH_ASSERT, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
     }
 
-    public Point[] findImageOnScreen(String image) throws Exception {
+    Point[] findImageOnScreen(String image) throws Exception {
         return findImageOnScreen(image, DEFAULT_RETRIES);
     }
 
-    public Point[] findImageOnScreenNoAssert(String image, int retries, int retryWait, double tolerance) throws Exception {
+    private Point[] findImageOnScreenNoAssert(String image, int retries, int retryWait,
+        double tolerance) throws Exception {
         return findImageOnScreen(image, retries, retryWait, tolerance, false, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
     }
 
@@ -277,15 +280,15 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         return findImageOnScreenNoAssert(image, retries, retryWait, DEFAULT_TOLERANCE);
     }
 
-    public Point[] findImageOnScreenNoAssert(String image, int retries) throws Exception {
+    private Point[] findImageOnScreenNoAssert(String image, int retries) throws Exception {
         return findImageOnScreenNoAssert(image, retries, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
     }
 
-    public Point[] findImageOnScreenNoAssert(String image) throws Exception {
+    private Point[] findImageOnScreenNoAssert(String image) throws Exception {
         return findImageOnScreenNoAssert(image, DEFAULT_RETRIES, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
     }
 
-    public Point[] findImageOnScreen(String image, boolean take_screenshot) throws Exception {
+    private Point[] findImageOnScreen(String image, boolean take_screenshot) throws Exception {
         return findImageOnScreen(image, DEFAULT_RETRIES, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE, DEFAULT_WITH_ASSERT, take_screenshot, DEFAULT_CROP);
     }
 
@@ -340,7 +343,8 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "retries" is the number of times the method will try to find the searched image. If not set, default is 5.
     // "tolerance" sets the required accuracy for the image recognition algorithm.
     // "x_offset" and "y_offset" change the location on the found image where the tap is performed. If not used, the defaults are (0.5, 0.5) which represent the middle of the image.
-    public void tapImageOnScreen(String image, double x_offset, double y_offset, int retries, int retryWait, double tolerance) throws Exception {
+    private void tapImageOnScreen(String image, double x_offset, double y_offset, int retries,
+        int retryWait, double tolerance) throws Exception {
         Point[] imgRect = findImageOnScreen(image, retries, retryWait, tolerance);
         Point top_left = imgRect[0];
         Point top_right = imgRect[1];
@@ -364,7 +368,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         tapImageOnScreen(image, x_offset, y_offset, retries, retryWait, DEFAULT_TOLERANCE);
     }
 
-    public void tapImageOnScreen(String image, double x_offset, double y_offset, int retries) throws Exception {
+    private void tapImageOnScreen(String image, double x_offset, double y_offset, int retries) throws Exception {
         tapImageOnScreen(image, x_offset, y_offset, retries, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
     }
 
@@ -394,7 +398,8 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "x_offset" and "y_offset" change the location on the found image where the tap is performed. If not used, the defaults are (0.5, 0.5) which represent the middle of the image.
     // "taps" sets the number of taps that are performed.
     // "frequency" sets the frequency of the taps.
-    public void multipleTapImageOnScreen(String image, int retries, int taps, double frequency, double x_offset, double y_offset) throws Exception {
+    private void multipleTapImageOnScreen(String image, int retries, int taps, double frequency,
+        double x_offset, double y_offset) throws Exception {
         Point[] imgRect = findImageOnScreen(image, retries);
         Point top_left = imgRect[0];
         Point top_right = imgRect[1];
@@ -442,7 +447,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "image" is the searched image name
     // "retries" is the number of times the method will try to find the searched image. If not set, default is 5.
     // "x_offset" and "y_offset" change the location on the found image where the tap is performed. If not used, the defaults are (0.5, 0.5) which represent the middle of the image.
-    public boolean tryTapImageOnScreen(String image, double x_offset, double y_offset, int retries) throws Exception {
+    private boolean tryTapImageOnScreen(String image, double x_offset, double y_offset, int retries) throws Exception {
         Point[] imgRect = findImageOnScreenNoAssert(image, retries);
 
         if (imgRect == null) {
@@ -480,7 +485,8 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // Finds an image on screen and taps and hold on it for a specified duration.
     // "duration" is given in seconds
     // "with_assert" specifies if the method will return a fail or not if the image is not found.
-    public void tapAndHoldImageOnScreen(String image, double x_offset, double y_offset, int duration, boolean with_assert) throws Exception {
+    private void tapAndHoldImageOnScreen(String image, double x_offset, double y_offset,
+        int duration, boolean with_assert) throws Exception {
 
         Point[] imgRect;
 
@@ -544,7 +550,8 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //Performs a vertical swipe on the screen, starting from a searched image.
     //"distance" is given in pixels. A positive "distance" will perform a swipe down, a negative "distance" will perform a swipe up.
     //if "x_offset" and "y_offset" are used, the swipe will start from a relative coordinate of that image. If not used, the swipe will start from the center of the image.
-    public void swipeVerticallyOnImage(String image, int distance, double x_offset, double y_offset) throws Exception {
+    private void swipeVerticallyOnImage(String image, int distance, double x_offset,
+        double y_offset) throws Exception {
         Point[] imgRect = findImageOnScreen(image);
 
         int startX = (int) (imgRect[0].x + (imgRect[1].x - imgRect[0].x) * x_offset);
@@ -566,7 +573,8 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //Performs a horizontal swipe on the screen, starting from a searched image.
     //"distance" is given in pixels. A positive "distance" will perform a swipe to the right, a negative "distance" will perform a swipe to the left.
     //if "x_offset" and "y_offset" are used, the swipe will start from a relative coordinate of that image. If not used, the swipe will start from the center of the image.
-    public void swipeHorizontallyOnImage(String image, int distance, double x_offset, double y_offset) throws Exception {
+    private void swipeHorizontallyOnImage(String image, int distance, double x_offset,
+        double y_offset) throws Exception {
         Point[] imgRect = findImageOnScreen(image);
 
         int startX = (int) (imgRect[0].x + (imgRect[1].x - imgRect[0].x) * x_offset);
@@ -699,7 +707,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
 
-    public void androidSwipe(int startX, int startY, int endX, int endY) throws Exception {
+    private void androidSwipe(int startX, int startY, int endX, int endY) throws Exception {
         TouchActions actions = new TouchActions(driver);
 
         actions.down(startX, startY).perform();
@@ -708,7 +716,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         actions.up(endX, endY).perform();
     }
 
-    public void iOSSwipe(int startX, int startY, int endX, int endY) throws Exception {
+    private void iOSSwipe(int startX, int startY, int endX, int endY) throws Exception {
         TouchAction action = new TouchAction(driver);
 
         action.press(startX, startY);
@@ -811,7 +819,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
 
     //Uses adb commands to get the screen size. To be used when appium methods fail. Only works on Android devices.
-    public Dimension getScreenSizeADB() throws Exception {
+    private Dimension getScreenSizeADB() throws Exception {
         log("trying to get size from adb...");
         log("------------------------------");
         if (platformName.equalsIgnoreCase("iOS")) {
@@ -933,7 +941,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         }
     }
 
-    public void processBuilder(String[] adbCommand) {
+    private void processBuilder(String[] adbCommand) {
         try {
             found = true;
             ProcessBuilder p = new ProcessBuilder(adbCommand);
@@ -959,7 +967,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
      * ======================================================================================
      */
 
-    public void findAndCropImageFromScreen(String image) throws Exception {
+    private void findAndCropImageFromScreen(String image) throws Exception {
         findImageOnScreen(image, 3, DEFAULT_RETRY_WAIT, 0.60, true, true, true);
     }
 

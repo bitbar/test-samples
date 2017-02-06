@@ -19,12 +19,12 @@ import static org.opencv.imgproc.Imgproc.resize;
 /**
  * Created by testdroid on 22/07/16.
  */
-public class AkazeImageFinder {
+class AkazeImageFinder {
 
     private static final Logger logger = LoggerFactory.getLogger(AkazeImageFinder.class);
-    public double scene_height;
-    public double scene_width;
-    double lastResizeFactor;
+    private double scene_height;
+    private double scene_width;
+    private double lastResizeFactor;
 
     public double getSceneHeight() {
         return scene_height;
@@ -399,14 +399,14 @@ public class AkazeImageFinder {
         }
     }
 
-    public double getComponents(Mat h) {
+    private double getComponents(Mat h) {
 
         double a = h.get(0, 0)[0];
         double b = h.get(0, 1)[0];
         return Math.atan2(b, a);
     }
 
-    public static double round(double value, int places) {
+    private static double round(double value, int places) {
         try {
             if (places < 0) throw new IllegalArgumentException();
             BigDecimal bd = new BigDecimal(value);

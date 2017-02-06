@@ -18,39 +18,34 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by testdroid on 22/07/16.
  */
-public abstract class AbstractAppiumTest {
+abstract class AbstractAppiumTest {
 
-    public static final int SHORT_SLEEP = 1;
-    public static final int MEDIUM_SLEEP = 5;
-    public static final int LONG_SLEEP = 10;
-
-    protected static Logger logger = LoggerFactory.getLogger(AbstractAppiumTest.class);
+    private static Logger logger = LoggerFactory.getLogger(AbstractAppiumTest.class);
     private static long timeDifferenceStartTest;
-    private static long startTime;
 
-    protected static AppiumDriver<MobileElement> driver;
-    protected static int defaultWaitTime = 60;
+    static AppiumDriver<MobileElement> driver;
+    private static int defaultWaitTime = 60;
 
     private static int counter = 0;
     private static int retry_counter = 1;
-    public static String searchedImage;
-    public static File userDir = new File(System.getProperty("user.dir"));
+    static String searchedImage;
+    private static File userDir = new File(System.getProperty("user.dir"));
 
-    public static File[] matches = userDir.listFiles((dir, name) -> name.startsWith("application"));
+    private static File[] matches = userDir.listFiles((dir, name) -> name.startsWith("application"));
 
-    public static String screenshotsFolder = "";
-    public static String appFile = System.getenv("APP_FILE") != null ? System.getenv("APP_FILE") : matches[0].toString();
-    public static String platformName = System.getenv("PLATFORM_NAME");
-    public static String automationName = System.getenv("AUTOMATION_NAME");
-    public static String deviceName = System.getenv("DEVICE_NAME") != null ? System.getenv("DEVICE_NAME") : "device";
-    public static String udid = System.getenv("UDID");
-    public static String platformVersion = System.getenv("PLATFORM_VERSION") != null ? System.getenv("PLATFORM_VERSION") : "";
+    static String screenshotsFolder = "";
+    private static String appFile = System.getenv("APP_FILE") != null ? System.getenv("APP_FILE") : matches[0].toString();
+    static String platformName = System.getenv("PLATFORM_NAME");
+    static String automationName = System.getenv("AUTOMATION_NAME");
+    private static String deviceName = System.getenv("DEVICE_NAME") != null ? System.getenv("DEVICE_NAME") : "device";
+    static String udid = System.getenv("UDID");
+    private static String platformVersion = System.getenv("PLATFORM_VERSION") != null ? System.getenv("PLATFORM_VERSION") : "";
     // Set to false to autoDismiss
     public static boolean autoAccept = true;
-    public static boolean idevicescreenshotExists = false;
+    private static boolean idevicescreenshotExists = false;
 
 
-    public static AppiumDriver getIOSDriver() throws Exception {
+    static AppiumDriver getIOSDriver() throws Exception {
         if (platformName == null) {
             platformName = "iOS";
         }
@@ -94,7 +89,7 @@ public abstract class AbstractAppiumTest {
         return driver;
     }
 
-    public static AppiumDriver getAndroidDriver() throws Exception {
+    static AppiumDriver getAndroidDriver() throws Exception {
         if (platformName == null) {
             platformName = "Android";
         }
@@ -124,15 +119,16 @@ public abstract class AbstractAppiumTest {
         return driver;
     }
 
-    public static void takeScreenshot(String screenshotName) throws Exception {
+    static void takeScreenshot(String screenshotName) throws Exception {
         takeScreenshot(screenshotName, true);
     }
 
-    public static void takeScreenshot(String screenshotName, boolean new_step) throws IOException, InterruptedException {
+    static void takeScreenshot(String screenshotName, boolean new_step) throws IOException, InterruptedException {
       if (idevicescreenshotExists) {
         // Keep Appium session alive between multiple non-driver screenshots
         driver.manage().window().getSize();
       }
+      long startTime = 0L;
       timeDifferenceStartTest = (int) ((System.nanoTime() - startTime) / 1e6 / 1000);
       long start_time = System.nanoTime();
 
@@ -195,7 +191,7 @@ public abstract class AbstractAppiumTest {
         }
     }
 
-    public static boolean idevicescreenshotCheck() throws IOException, InterruptedException {
+    private static boolean idevicescreenshotCheck() throws IOException, InterruptedException {
         String[] cmd = new String[]{"idevicescreenshot", "--help"};
         int exitVal = -1;
         try {
@@ -214,7 +210,7 @@ public abstract class AbstractAppiumTest {
         return idevicescreenshotExists;
     }
 
-    public static String ideviceinfoCheck(String key) throws IOException, InterruptedException {
+    private static String ideviceinfoCheck(String key) throws IOException, InterruptedException {
         String[] cmd = new String[]{"ideviceinfo", "--key", key};
         int exitVal = -1;
         Process p = Runtime.getRuntime().exec(cmd);
@@ -263,7 +259,7 @@ public abstract class AbstractAppiumTest {
     }
 
     //Will count the screenshots taken for separate stages of the test.
-    public static String getScreenshotsCounter() {
+    static String getScreenshotsCounter() {
         if (counter < 100) {
             if (counter < 10) {
                 return "00" + counter;
@@ -285,18 +281,18 @@ public abstract class AbstractAppiumTest {
     }
 
     //Stops the script for the given amount of seconds.
-    public static void sleep(int seconds) throws InterruptedException {
+    static void sleep(int seconds) throws InterruptedException {
         Thread.sleep(seconds * 1000);
     }
 
     //Stops the script for the given amount of seconds.
-    public static void sleep(double seconds) throws Exception {
+    static void sleep(double seconds) throws Exception {
         log("Waiting for " + seconds + " sec");
         seconds = seconds * 1000;
         Thread.sleep((int) seconds);
     }
 
-    public static void log(String message) {
+    static void log(String message) {
         logger.info(message);
     }
 
@@ -304,13 +300,14 @@ public abstract class AbstractAppiumTest {
         swipeUp(0.15f, 0.15f);
     }
 
-    protected void swipeUp(float topPad, float bottomPad) {
+    private void swipeUp(float topPad, float bottomPad) {
         Dimension size = driver.manage().window().getSize();
         logger.debug("Window size is " + size);
         swipeUp(new Point(0, 0), size, 1000, topPad, bottomPad);
     }
 
-    protected void swipeUp(Point rootLocation, Dimension rootSize, int duration, float topPad, float bottomPad) {
+    private void swipeUp(Point rootLocation, Dimension rootSize, int duration, float topPad,
+        float bottomPad) {
         int offset = 1;
         int topOffset = Math.round(rootSize.getHeight() * topPad);
         int bottomOffset = Math.round(rootSize.getHeight() * bottomPad);
@@ -331,13 +328,14 @@ public abstract class AbstractAppiumTest {
         swipeDown(0.15f, 0.15f);
     }
 
-    protected void swipeDown(float topPad, float bottomPad) {
+    private void swipeDown(float topPad, float bottomPad) {
         Dimension size = driver.manage().window().getSize();
         logger.debug("Window size is " + size);
         swipeDown(new Point(0, 0), size, 1000, topPad, bottomPad);
     }
 
-    protected void swipeDown(Point rootLocation, Dimension rootSize, int duration, float topPad, float bottomPad) {
+    private void swipeDown(Point rootLocation, Dimension rootSize, int duration, float topPad,
+        float bottomPad) {
         int offset = 1;
         int topOffset = Math.round(rootSize.getHeight() * topPad);
         int bottomOffset = Math.round(rootSize.getHeight() * bottomPad);
@@ -358,13 +356,14 @@ public abstract class AbstractAppiumTest {
         swipeLeft(0.15f, 0.15f);
     }
 
-    protected void swipeLeft(float leftPad, float rightPad) {
+    private void swipeLeft(float leftPad, float rightPad) {
         Dimension size = driver.manage().window().getSize();
         logger.debug("Window size " + size);
         swipeLeft(new Point(0,0), size, 1000, leftPad, rightPad);
     }
 
-    protected void swipeLeft(Point rootLocation, Dimension rootSize, int duration, float leftPad, float rightPad) {
+    private void swipeLeft(Point rootLocation, Dimension rootSize, int duration, float leftPad,
+        float rightPad) {
         int offset = 1;
         int leftOffset = Math.round(rootSize.getWidth() * leftPad);
         int rightOffset = Math.round(rootSize.getWidth() * rightPad);
@@ -385,12 +384,13 @@ public abstract class AbstractAppiumTest {
         swipeRight(0.15f, 0.15f);
     }
 
-    protected void swipeRight(float leftPad, float rightPad) {
+    private void swipeRight(float leftPad, float rightPad) {
         Dimension size = driver.manage().window().getSize();
         swipeRight(new Point(0,0), size, 1000, leftPad, rightPad);
     }
 
-    protected void swipeRight(Point rootLocation, Dimension rootSize, int duration, float leftPad, float rightPad) {
+    private void swipeRight(Point rootLocation, Dimension rootSize, int duration, float leftPad,
+        float rightPad) {
         int offset = 1;
         int leftOffset = Math.round(rootSize.getWidth() * leftPad);
         int rightOffset = Math.round(rootSize.getWidth() * rightPad);
@@ -407,7 +407,7 @@ public abstract class AbstractAppiumTest {
                 duration);
     }
 
-    protected void hideKeyboard() {
+    void hideKeyboard() {
         try {
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             driver.hideKeyboard();
