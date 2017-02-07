@@ -20,24 +20,23 @@ import java.util.concurrent.TimeUnit;
  */
 abstract class AbstractAppiumTest {
 
-    private static Logger logger = LoggerFactory.getLogger(AbstractAppiumTest.class);
-    private static long timeDifferenceStartTest;
+    private static final Logger logger = LoggerFactory.getLogger(AbstractAppiumTest.class);
 
     static AppiumDriver<MobileElement> driver;
-    private static int defaultWaitTime = 60;
+    private static final int defaultWaitTime = 60;
 
     private static int counter = 0;
     private static int retry_counter = 1;
     static String searchedImage;
-    private static File userDir = new File(System.getProperty("user.dir"));
+    private static final File userDir = new File(System.getProperty("user.dir"));
 
-    private static File[] matches = userDir.listFiles((dir, name) -> name.startsWith("application"));
+    private static final File[] matches = userDir.listFiles((dir, name) -> name.startsWith("application"));
 
     static String screenshotsFolder = "";
-    private static String appFile = System.getenv("APP_FILE") != null ? System.getenv("APP_FILE") : matches[0].toString();
+    private static final String appFile = System.getenv("APP_FILE") != null ? System.getenv("APP_FILE") : matches[0].toString();
     static String platformName = System.getenv("PLATFORM_NAME");
     static String automationName = System.getenv("AUTOMATION_NAME");
-    private static String deviceName = System.getenv("DEVICE_NAME") != null ? System.getenv("DEVICE_NAME") : "device";
+    private static final String deviceName = System.getenv("DEVICE_NAME") != null ? System.getenv("DEVICE_NAME") : "device";
     static String udid = System.getenv("UDID");
     private static String platformVersion = System.getenv("PLATFORM_VERSION") != null ? System.getenv("PLATFORM_VERSION") : "";
     // Set to false to autoDismiss
@@ -45,7 +44,8 @@ abstract class AbstractAppiumTest {
     private static boolean idevicescreenshotExists = false;
 
 
-    static AppiumDriver getIOSDriver() throws Exception {
+    @SuppressWarnings("MagicNumber")
+    static AppiumDriver<MobileElement> getIOSDriver() throws Exception {
         if (platformName == null) {
             platformName = "iOS";
         }
@@ -79,17 +79,19 @@ abstract class AbstractAppiumTest {
         if (platformVersion != null)
             capabilities.setCapability("platformVersion", platformVersion);
         capabilities.setCapability("app", appFile);
+        //noinspection MagicNumber
         capabilities.setCapability("newCommandTimeout", 120);
 
         idevicescreenshotCheck();
 
         log("Creating Appium session, this may take couple minutes..");
-        driver = new IOSDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), capabilities);
+        driver = new IOSDriver<>(new URL("http://localhost:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(defaultWaitTime, TimeUnit.SECONDS);
         return driver;
     }
 
-    static AppiumDriver getAndroidDriver() throws Exception {
+    @SuppressWarnings("MagicNumber")
+    static AppiumDriver<MobileElement> getAndroidDriver() throws Exception {
         if (platformName == null) {
             platformName = "Android";
         }
@@ -110,10 +112,11 @@ abstract class AbstractAppiumTest {
             capabilities.setCapability("platformVersion", platformVersion);
 
         capabilities.setCapability("app", appFile);
+        //noinspection MagicNumber
         capabilities.setCapability("newCommandTimeout", 120);
 
         log("Creating Appium session, this may take couple minutes..");
-        driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), capabilities);
+        driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(defaultWaitTime, TimeUnit.SECONDS);
         driver.resetApp();
         return driver;
@@ -123,13 +126,14 @@ abstract class AbstractAppiumTest {
         takeScreenshot(screenshotName, true);
     }
 
+    @SuppressWarnings("MagicNumber")
     static void takeScreenshot(String screenshotName, boolean new_step) throws IOException, InterruptedException {
       if (idevicescreenshotExists) {
         // Keep Appium session alive between multiple non-driver screenshots
         driver.manage().window().getSize();
       }
       long startTime = 0L;
-      timeDifferenceStartTest = (int) ((System.nanoTime() - startTime) / 1e6 / 1000);
+      @SuppressWarnings("MagicNumber") long timeDifferenceStartTest = (int) ((System.nanoTime() - startTime) / 1e6 / 1000);
       long start_time = System.nanoTime();
 
       if (new_step) {
@@ -174,7 +178,7 @@ abstract class AbstractAppiumTest {
     	}
 
       long end_time = System.nanoTime();
-      int difference = (int) ((end_time - start_time) / 1e6 / 1000);
+      @SuppressWarnings("MagicNumber") int difference = (int) ((end_time - start_time) / 1e6 / 1000);
       logger.info("==> Taking a screenshot took " + difference + " secs.");
     }
 
@@ -191,7 +195,8 @@ abstract class AbstractAppiumTest {
         }
     }
 
-    private static boolean idevicescreenshotCheck() throws IOException, InterruptedException {
+    // Set return type to void, since its return type is not used when being called. e.g. Line 83
+    private static void idevicescreenshotCheck() throws IOException, InterruptedException {
         String[] cmd = new String[]{"idevicescreenshot", "--help"};
         int exitVal = -1;
         try {
@@ -207,7 +212,6 @@ abstract class AbstractAppiumTest {
             log("idevicescreenshot process exited with value: " + exitVal + ". Won't be using it for screenshots.");
             idevicescreenshotExists = false;
         }
-        return idevicescreenshotExists;
     }
 
     private static String ideviceinfoCheck(String key) throws IOException, InterruptedException {
@@ -296,7 +300,9 @@ abstract class AbstractAppiumTest {
         logger.info(message);
     }
 
+    @SuppressWarnings("MagicNumber")
     protected void swipeUp() {
+        //noinspection MagicNumber,MagicNumber
         swipeUp(0.15f, 0.15f);
     }
 
@@ -324,7 +330,9 @@ abstract class AbstractAppiumTest {
                 duration);
     }
 
+    @SuppressWarnings("MagicNumber")
     protected void swipeDown() {
+        //noinspection MagicNumber,MagicNumber
         swipeDown(0.15f, 0.15f);
     }
 
@@ -352,7 +360,9 @@ abstract class AbstractAppiumTest {
                 duration);
     }
 
+    @SuppressWarnings("MagicNumber")
     protected void swipeLeft() {
+        //noinspection MagicNumber,MagicNumber
         swipeLeft(0.15f, 0.15f);
     }
 
@@ -380,7 +390,9 @@ abstract class AbstractAppiumTest {
                 duration);
     }
 
+    @SuppressWarnings("MagicNumber")
     protected void swipeRight() {
+        //noinspection MagicNumber,MagicNumber
         swipeRight(0.15f, 0.15f);
     }
 

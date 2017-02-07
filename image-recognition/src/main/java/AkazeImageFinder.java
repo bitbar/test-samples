@@ -51,8 +51,10 @@ class AkazeImageFinder {
 
         double resizeFactor = 1;
         if (scene_width < scene_height)
+            //noinspection MagicNumber
             resizeFactor = scene_width / 750;
         else
+            //noinspection MagicNumber
             resizeFactor = scene_height / 750;
 
         if (resizeFactor > 1) {
@@ -68,10 +70,7 @@ class AkazeImageFinder {
         String jsonResults = null;
         try {
             jsonResults = runAkazeMatch(object_filename, scene_filename);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -85,8 +84,8 @@ class AkazeImageFinder {
         Highgui.imwrite(scene_filename, img_scene);
 
         //finding homography
-        LinkedList<Point> objList = new LinkedList<Point>();
-        LinkedList<Point> sceneList = new LinkedList<Point>();
+        LinkedList<Point> objList = new LinkedList<>();
+        LinkedList<Point> sceneList = new LinkedList<>();
         JSONObject jsonObject = getJsonObject(jsonResults);
         if (jsonObject == null) {
             logger.error("ERROR: Json file couldn't be processed. ");
@@ -139,7 +138,7 @@ class AkazeImageFinder {
         Point bottom_right = new Point(scene_corners.get(2, 0));
 
 
-        double rotationAngle = round(getComponents(H) * 57.3 / 90, 0);
+        @SuppressWarnings("MagicNumber") double rotationAngle = round(getComponents(H) * 57.3 / 90, 0);
 
         Point[] objectOnScene = new Point[5];
 
@@ -154,7 +153,8 @@ class AkazeImageFinder {
             objectOnScene[2] = top_right;
             objectOnScene[3] = bottom_right;
 
-        } else if (rotationAngle == 2.0) {
+        } else //noinspection MagicNumber
+            if (rotationAngle == 2.0) {
             objectOnScene[0] = bottom_right;
             objectOnScene[1] = bottom_left;
             objectOnScene[2] = top_left;
@@ -183,7 +183,7 @@ class AkazeImageFinder {
         double found_ratio2 = (bottom_right.y - top_right.y) / (bottom_right.x - bottom_left.x);
 
         long end_time = System.nanoTime();
-        int difference = (int) ((end_time - start_time) / 1e6 / 1000);
+        @SuppressWarnings("MagicNumber") int difference = (int) ((end_time - start_time) / 1e6 / 1000);
         logger.info("==> Image finder took: " + difference + " secs.");
 
         if (checkFoundImageDimensions(top_left, top_right, bottom_left, bottom_right, tolerance))
@@ -204,7 +204,8 @@ class AkazeImageFinder {
             points[1] = new Point(bottom_right.y, scene_width / resizeFactor - bottom_right.x);
             points[2] = new Point(bottom_left.y, scene_width / resizeFactor - bottom_left.x);
             points[3] = new Point(top_left.y, scene_width / resizeFactor - top_left.x);
-        } else if (rotationAngle == 2.0) {
+        } else //noinspection MagicNumber
+            if (rotationAngle == 2.0) {
             points[0] = new Point(scene_width / resizeFactor - bottom_right.x, scene_height / resizeFactor - bottom_right.y);
             points[1] = new Point(scene_width / resizeFactor - bottom_left.x, scene_height / resizeFactor - bottom_left.y);
             points[2] = new Point(scene_width / resizeFactor - top_left.x, scene_height / resizeFactor - top_left.y);
@@ -254,9 +255,13 @@ class AkazeImageFinder {
 
         Mat img = Highgui.imread(filename, Highgui.CV_LOAD_IMAGE_COLOR);
 
+        //noinspection MagicNumber
         Core.line(img, new Point(scene_corners.get(0, 0)), new Point(scene_corners.get(1, 0)), new Scalar(0, 255, 0), 4);
+        //noinspection MagicNumber
         Core.line(img, new Point(scene_corners.get(1, 0)), new Point(scene_corners.get(2, 0)), new Scalar(0, 255, 0), 4);
+        //noinspection MagicNumber
         Core.line(img, new Point(scene_corners.get(2, 0)), new Point(scene_corners.get(3, 0)), new Scalar(0, 255, 0), 4);
+        //noinspection MagicNumber
         Core.line(img, new Point(scene_corners.get(3, 0)), new Point(scene_corners.get(0, 0)), new Scalar(0, 255, 0), 4);
 
         filename = scene_filename_nopng + ".png";
@@ -352,7 +357,7 @@ class AkazeImageFinder {
         }
     }
 
-    public static void setupOpenCVEnv() {
+    public static void setupOpenCVEnv() throws IllegalAccessException {
         String platformName = System.getProperty("os.name");
         logger.info(platformName);
         if (platformName.toLowerCase().contains("mac")) {
@@ -374,15 +379,12 @@ class AkazeImageFinder {
             e.printStackTrace();
         }
         fieldSysPath.setAccessible(true);
-        try {
-            fieldSysPath.set(null, null);
-        } catch (IllegalAccessException e) {
-        }
+        fieldSysPath.set(null, null);
         logger.info("java.library.path: " + System.getProperty("java.library.path"));
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
-    private JSONObject getJsonObject(String filename) {
+    protected JSONObject getJsonObject(String filename) {
         File jsonFile = new File(filename);
         InputStream is = null;
         try {
@@ -390,10 +392,7 @@ class AkazeImageFinder {
             String jsonTxt = IOUtils.toString(is);
             return new JSONObject(jsonTxt);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
             return null;
         }

@@ -3,7 +3,6 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +16,6 @@ import java.io.IOException;
  *
  * Usage:
  *
- * @TODO
- *
  * @author support@bitbar.com
  */
 
@@ -27,8 +24,7 @@ import java.io.IOException;
 public class iOSSample extends TestdroidImageRecognition {
 
     public iOSSample() throws Exception {
-        super();
-        logger = LoggerFactory.getLogger(iOSSample.class);
+        super(LoggerFactory.getLogger(iOSSample.class));
     }
 
     @BeforeClass

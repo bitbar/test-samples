@@ -16,19 +16,26 @@ import static org.junit.Assert.fail;
  */
 public class TestdroidImageRecognition extends AbstractAppiumTest {
 
-    Logger logger = LoggerFactory.getLogger(TestdroidImageRecognition.class);
+    Logger logger;
     private final int DEFAULT_RETRIES = 5;
     private final int DEFAULT_RETRY_WAIT = 0;
     private final double DEFAULT_TOLERANCE = 0.6;
     private final boolean DEFAULT_WITH_ASSERT = true;
     private final boolean DEFAULT_TAKE_SCREENSHOT = true;
     private final boolean DEFAULT_CROP = false;
-    private AkazeImageFinder imageFinder = new AkazeImageFinder();
+    private final AkazeImageFinder imageFinder = new AkazeImageFinder();
 
     private String queryimageFolder = "";
-    private static long startTime;
-    private long timeDifferenceStartTest;
-    private boolean found = false;
+    // private static long startTime;
+    private final long timeDifferenceStartTest = 0L;
+
+    public TestdroidImageRecognition() {
+        logger = LoggerFactory.getLogger(TestdroidImageRecognition.class);
+    }
+
+    public TestdroidImageRecognition(Logger childLogger) {
+        logger = childLogger;
+    }
 
 
     //If this method is called inside a test the script will check if the device has a resolution lower than 500x500 and if so will use
@@ -36,6 +43,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     public void setQueryImageFolder() {
         Dimension size = driver.manage().window().getSize();
         log("Screen size: " + size.toString());
+        //noinspection MagicNumber,MagicNumber
         if ((size.getHeight() <= 500) || (size.getWidth() <= 500)) {
             queryimageFolder = "low_res/";
         }
@@ -55,6 +63,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //The "image" parameter is the image that you are searching for
     //The "scene" parameter is the image in which we are looking for "image"
     // "tolerance" sets the required accuracy for the image recognition algorithm.
+    @SuppressWarnings("FeatureEnvy")
     private Point[] findImage(String image, String scene, double tolerance) throws Exception {
         Point[] imgRect = new Point[0];
         Point[] imgRectScaled;
@@ -193,6 +202,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     private void tapAtRelativeCoordinates(double x_offset, double y_offset) throws Exception {
+        //noinspection MagicNumber
         tapAtRelativeCoordinates(x_offset, y_offset, 1, 0.9);
     }
 
@@ -230,7 +240,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         }
 
         long end_time = System.nanoTime();
-        int difference = (int) ((end_time - start_time) / 1e6 / 1000);
+        @SuppressWarnings("MagicNumber") int difference = (int) ((end_time - start_time) / 1e6 / 1000);
         log("==> Find image took: " + difference + " secs.");
 
         if (withAssert) {
@@ -302,6 +312,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
         log("==> Trying to find image: " + image);
 
+        //noinspection MagicNumber,MagicNumber
         while ((check) && ((present - start) / 1e6 / 1000 < 300)) {
 
             if (first_time) {
@@ -325,6 +336,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
             present = System.nanoTime();
 
+            //noinspection MagicNumber,MagicNumber
             if ((present - start) / 1e6 / 1000 >= 300) {
                 fail("Application takes too long to load: Stopping tests.....");
                 check = false;
@@ -351,6 +363,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         Point bottom_left = imgRect[2];
         Point center = imgRect[4];
 
+        //noinspection MagicNumber,MagicNumber
         if ((x_offset == 0.5) && (y_offset == 0.5)) {
             log("Coordinates are: " + center.x + "," + center.y);
             tapAtCoordinates((int) center.x, (int) center.y);
@@ -377,18 +390,22 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     public void tapImageOnScreen(String image, int retries, int retryWait, double tolerance) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         tapImageOnScreen(image, 0.5, 0.5, retries, retryWait, tolerance);
     }
 
     public void tapImageOnScreen(String image, int retries, int retryWait) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         tapImageOnScreen(image, 0.5, 0.5, retries, retryWait, DEFAULT_TOLERANCE);
     }
 
     public void tapImageOnScreen(String image, int retries) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         tapImageOnScreen(image, 0.5, 0.5, retries, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
     }
 
     public void tapImageOnScreen(String image) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         tapImageOnScreen(image, 0.5, 0.5, DEFAULT_RETRIES, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
     }
 
@@ -407,6 +424,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         Point center = imgRect[4];
         //imgRect[4] will have the center of the rectangle containing the image
 
+        //noinspection MagicNumber,MagicNumber
         if ((x_offset == 0.5) && (y_offset == 0.5)) {
 
             log("Coordinates are: " + center.x + "," + center.y);
@@ -432,14 +450,17 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     public void multipleTapImageOnScreen(String image, int retries, int taps, double frequency) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         multipleTapImageOnScreen(image, retries, taps, frequency, 0.5, 0.5);
     }
 
     public void multipleTapImageOnScreen(String image, int taps, double frequency) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         multipleTapImageOnScreen(image, DEFAULT_RETRIES, taps, frequency, 0.5, 0.5);
     }
 
     public void multipleTapImageOnScreen(String image, int taps) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         multipleTapImageOnScreen(image, DEFAULT_RETRIES, taps, 1, 0.5, 0.5);
     }
 
@@ -458,6 +479,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
             Point bottom_left = imgRect[2];
             Point center = imgRect[4];
 
+            //noinspection MagicNumber,MagicNumber
             if ((x_offset == 0.5) && (y_offset == 0.5)) {
                 log("Coordinates are: " + center.x + "," + center.y);
                 tapAtCoordinates((int) center.x, (int) center.y);
@@ -475,10 +497,12 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     public boolean tryTapImageOnScreen(String image, int retries) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         return tryTapImageOnScreen(image, 0.5, 0.5, retries);
     }
 
     public boolean tryTapImageOnScreen(String image) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         return tryTapImageOnScreen(image, 0.5, 0.5, DEFAULT_RETRIES);
     }
 
@@ -517,10 +541,12 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     public void tapAndHoldImageOnScreen(String image, int duration, boolean with_assert) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         tapAndHoldImageOnScreen(image, 0.5, 0.5, duration, with_assert);
     }
 
     public void tapAndHoldImageOnScreen(String image, int duration) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         tapAndHoldImageOnScreen(image, 0.5, 0.5, duration, DEFAULT_WITH_ASSERT);
     }
 
@@ -567,6 +593,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     public void swipeVerticallyOnImage(String image, int distance) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         swipeVerticallyOnImage(image, distance, 0.5, 0.5);
     }
 
@@ -590,6 +617,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     public void swipeHorizontallyOnImage(String image, int distance) throws Exception {
+        //noinspection MagicNumber,MagicNumber
         swipeHorizontallyOnImage(image, distance, 0.5, 0.5);
     }
 
@@ -711,6 +739,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         TouchActions actions = new TouchActions(driver);
 
         actions.down(startX, startY).perform();
+        //noinspection MagicNumber
         sleep(0.5);
         actions.move(endX, endY).perform();
         actions.up(endX, endY).perform();
@@ -772,7 +801,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     public void dragImageToMiddle(String object) throws Exception {
 
         Dimension size = driver.manage().window().getSize();
-        Point middle = new Point(size.getWidth() / 2 - 20, size.getHeight() / 2 + 20);
+        @SuppressWarnings("MagicNumber") Point middle = new Point(size.getWidth() / 2 - 20, size.getHeight() / 2 + 20);
 
         Point[] object_coord = findImageOnScreen(object, 10);
 
@@ -943,20 +972,18 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     private void processBuilder(String[] adbCommand) {
         try {
-            found = true;
             ProcessBuilder p = new ProcessBuilder(adbCommand);
             Process proc = p.start();
             InputStream stdin = proc.getInputStream();
             InputStreamReader isr = new InputStreamReader(stdin);
             BufferedReader br = new BufferedReader(isr);
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null)
                 System.out.print(line);
 
             proc.waitFor();
 
         } catch (Throwable t) {
-            found = false;
             t.printStackTrace();
         }
     }
@@ -968,6 +995,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
      */
 
     private void findAndCropImageFromScreen(String image) throws Exception {
+        //noinspection MagicNumber
         findImageOnScreen(image, 3, DEFAULT_RETRY_WAIT, 0.60, true, true, true);
     }
 
@@ -1039,6 +1067,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         }
         if (automationName.equalsIgnoreCase("selendroid")) {
             while (findImageOnScreenNoAssert("native_sign_in_button") != null) {
+                //noinspection MagicNumber,MagicNumber
                 tapImageOnScreen("native_sign_in_button", 0.75, 0.5, 1);
             }
         } else {
@@ -1072,8 +1101,11 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     public void dismissFullScreenMessage() throws Exception {
         log("Trying to dismiss Full Screen notification message if it shows up...");
+        //noinspection MagicNumber,MagicNumber
         tryTapImageOnScreen("full_screen_1", 0.75, 0.75, 2);
+        //noinspection MagicNumber,MagicNumber
         tryTapImageOnScreen("full_screen_2", 0.75, 0.75, 1);
+        //noinspection MagicNumber,MagicNumber
         tryTapImageOnScreen("full_screen_3", 0.75, 0.8, 1);
     }
 
