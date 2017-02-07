@@ -103,13 +103,12 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
                     screenWidth = temp;
                 }
 
-                if ((screenHeight<sceneHeight) && (screenWidth<sceneWidth)) {
-                    if ((screenHeight<sceneHeight/2)&&(screenWidth<sceneWidth/2)) {
+                if ((screenHeight < sceneHeight) && (screenWidth < sceneWidth)) {
+                    if ((screenHeight < sceneHeight / 2) && (screenWidth < sceneWidth / 2)) {
                         imgRectScaled = new Point[]{new Point(imgRect[0].x / 3, imgRect[0].y / 3), new Point(imgRect[1].x / 3, imgRect[1].y / 3), new Point(imgRect[2].x / 3, imgRect[2].y / 3), new Point(imgRect[3].x / 3, imgRect[3].y / 3), new Point(imgRect[4].x / 3, imgRect[4].y / 3)};
                         log("Device with Retina display rendered at x3 => coordinates have been recalculated");
                         imgRect = imgRectScaled;
-                    }
-                    else {
+                    } else {
                         imgRectScaled = new Point[]{new Point(imgRect[0].x / 2, imgRect[0].y / 2), new Point(imgRect[1].x / 2, imgRect[1].y / 2), new Point(imgRect[2].x / 2, imgRect[2].y / 2), new Point(imgRect[3].x / 2, imgRect[3].y / 2), new Point(imgRect[4].x / 2, imgRect[4].y / 2)};
                         log("Device with Retina display rendered at x2 => coordinates have been recalculated");
                         imgRect = imgRectScaled;
@@ -123,12 +122,11 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
             if ((center.x >= size.width) || (center.x < 0) || (center.y >= size.height) || (center.y < 0)) {
                 log("Screen size is (width, height): " + size.getWidth() + ", " + size.getHeight());
                 log("WARNING: Coordinates found do not match the screen --> image not found.");
-                imgRect = null;
             } else {
-              return imgRect;
+                return imgRect;
             }
         }
-	      return null;
+        return null;
     }
 
     /**
@@ -149,22 +147,22 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     private void tapAtCoordinates(int x, int y) throws Exception {
         if (automationName.equalsIgnoreCase("selendroid")) {
             selendroidTapAtCoordinate(x, y, 1);
-        } else if (platformName.equalsIgnoreCase("Android")){
+        } else if (platformName.equalsIgnoreCase("Android")) {
             Dimension size = driver.manage().window().getSize();
-        	if(y > size.getHeight() || x > size.getWidth()){
-    			log("using adb tap at " + x + ", " + y);
-    			try{
+            if (y > size.getHeight() || x > size.getWidth()) {
+                log("using adb tap at " + x + ", " + y);
+                try {
                     //run eclipse from commandline to get path variable correct and find adb
-            		Process p = Runtime.getRuntime().exec("adb -s " + udid + " shell input tap " + x + " " + y);
-            		p.waitFor();
-    			} catch (Exception e) {
-    				log(e.toString());
-    			}
-        	} else {
-        		driver.tap(1, x, y, 1);
-        	}
+                    Process p = Runtime.getRuntime().exec("adb -s " + udid + " shell input tap " + x + " " + y);
+                    p.waitFor();
+                } catch (Exception e) {
+                    log(e.toString());
+                }
+            } else {
+                driver.tap(1, x, y, 1);
+            }
         } else {
-        	driver.tap(1, x, y, 1);
+            driver.tap(1, x, y, 1);
         }
     }
 
@@ -181,7 +179,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "taps" sets the number of taps that are performed.
     // "frequency" sets the frequency of the taps.
     private void tapAtRelativeCoordinates(double x_offset, double y_offset, int taps,
-        double frequency) throws Exception {
+                                          double frequency) throws Exception {
         Dimension size = driver.manage().window().getSize();
         Point middle = new Point(size.getWidth(), size.getHeight());
         Point middleWithOffset = new Point(middle.x * x_offset, middle.y * y_offset);
@@ -218,13 +216,14 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "tolerance" sets the required accuracy for the image recognition algorithm.
     // "with_assert" specifies if the method will return a fail or not if the searched image is not found on the screen. Use findImageOnScreenNoAssert() to have this set by default to FALSE
     private Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance,
-        boolean withAssert, boolean take_screenshot, boolean crop) throws Exception {
+                                      boolean withAssert, boolean take_screenshot, boolean crop) throws Exception {
+        int retries1 = retries;
         Point[] imgRect = null;
         boolean new_step = true;
         long start_time = System.nanoTime();
-        int originalRetries = retries;
-        while ((retries > 0) && (imgRect == null)) {
-            if (retries < originalRetries) {
+        int originalRetries = retries1;
+        while ((retries1 > 0) && (imgRect == null)) {
+            if (retries1 < originalRetries) {
                 if (retryWait > 0) {
                     log("retryWait given, sleeping " + retryWait + " seconds.");
                     sleep(retryWait);
@@ -232,11 +231,11 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
                 new_step = false;
             }
 
-            log("Find image started, retries left: " + retries);
+            log("Find image started, retries left: " + retries1);
             if (take_screenshot)
                 takeScreenshot(image + "_screenshot", new_step);
             imgRect = findImage(image, image + "_screenshot" + getRetryCounter() + "_" + timeDifferenceStartTest, tolerance);
-            retries = retries - 1;
+            retries1 -= 1;
         }
 
         long end_time = System.nanoTime();
@@ -282,7 +281,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     private Point[] findImageOnScreenNoAssert(String image, int retries, int retryWait,
-        double tolerance) throws Exception {
+                                              double tolerance) throws Exception {
         return findImageOnScreen(image, retries, retryWait, tolerance, false, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
     }
 
@@ -356,7 +355,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "tolerance" sets the required accuracy for the image recognition algorithm.
     // "x_offset" and "y_offset" change the location on the found image where the tap is performed. If not used, the defaults are (0.5, 0.5) which represent the middle of the image.
     private void tapImageOnScreen(String image, double x_offset, double y_offset, int retries,
-        int retryWait, double tolerance) throws Exception {
+                                  int retryWait, double tolerance) throws Exception {
         Point[] imgRect = findImageOnScreen(image, retries, retryWait, tolerance);
         Point top_left = imgRect[0];
         Point top_right = imgRect[1];
@@ -416,7 +415,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "taps" sets the number of taps that are performed.
     // "frequency" sets the frequency of the taps.
     private void multipleTapImageOnScreen(String image, int retries, int taps, double frequency,
-        double x_offset, double y_offset) throws Exception {
+                                          double x_offset, double y_offset) throws Exception {
         Point[] imgRect = findImageOnScreen(image, retries);
         Point top_left = imgRect[0];
         Point top_right = imgRect[1];
@@ -510,7 +509,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "duration" is given in seconds
     // "with_assert" specifies if the method will return a fail or not if the image is not found.
     private void tapAndHoldImageOnScreen(String image, double x_offset, double y_offset,
-        int duration, boolean with_assert) throws Exception {
+                                         int duration, boolean with_assert) throws Exception {
 
         Point[] imgRect;
 
@@ -552,8 +551,9 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     //Taps and holds on relative coordinates on the screen.
     public void tapAndHoldOnScreen(double x_offset, double y_offset, int duration) throws Exception {
+        int duration1 = duration;
 
-        duration = duration * 1000;
+        duration1 *= 1000;
         Dimension size = driver.manage().window().getSize();
         Point middle = new Point(size.getWidth(), size.getHeight());
         Point middleWithOffset = new Point(middle.x * x_offset, middle.y * y_offset);
@@ -561,9 +561,9 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         log("Coordinates with offset are: " + middleWithOffset.x + ", " + middleWithOffset.y);
 
         if (automationName.equalsIgnoreCase("selendroid")) {
-            selendroidTapAtCoordinate((int) middleWithOffset.x, (int) middleWithOffset.y, duration);
+            selendroidTapAtCoordinate((int) middleWithOffset.x, (int) middleWithOffset.y, duration1);
         } else {
-            driver.tap(1, (int) middleWithOffset.x, (int) middleWithOffset.y, duration);
+            driver.tap(1, (int) middleWithOffset.x, (int) middleWithOffset.y, duration1);
         }
     }
 
@@ -577,7 +577,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //"distance" is given in pixels. A positive "distance" will perform a swipe down, a negative "distance" will perform a swipe up.
     //if "x_offset" and "y_offset" are used, the swipe will start from a relative coordinate of that image. If not used, the swipe will start from the center of the image.
     private void swipeVerticallyOnImage(String image, int distance, double x_offset,
-        double y_offset) throws Exception {
+                                        double y_offset) throws Exception {
         Point[] imgRect = findImageOnScreen(image);
 
         int startX = (int) (imgRect[0].x + (imgRect[1].x - imgRect[0].x) * x_offset);
@@ -601,7 +601,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //"distance" is given in pixels. A positive "distance" will perform a swipe to the right, a negative "distance" will perform a swipe to the left.
     //if "x_offset" and "y_offset" are used, the swipe will start from a relative coordinate of that image. If not used, the swipe will start from the center of the image.
     private void swipeHorizontallyOnImage(String image, int distance, double x_offset,
-        double y_offset) throws Exception {
+                                          double y_offset) throws Exception {
         Point[] imgRect = findImageOnScreen(image);
 
         int startX = (int) (imgRect[0].x + (imgRect[1].x - imgRect[0].x) * x_offset);
@@ -862,15 +862,16 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
                 InputStream stdin = proc.getInputStream();
                 InputStreamReader isr = new InputStreamReader(stdin);
                 BufferedReader br = new BufferedReader(isr);
-                String line = null;
+                String line = br.readLine();
                 String[] size = null;
-                while ((line = br.readLine()) != null) {
+                while (line != null) {
                     if (!line.contains("OriginalmUnrestrictedScreen")) { //we do this check for devices with android 5.x+ The adb command returns an extra line with the values 0x0 which must be filtered out.
                         if (line.contains("mUnrestrictedScreen")) {
                             String[] tmp = line.split("\\) ");
                             size = tmp[1].split("x");
                         }
                     }
+                    line = br.readLine();
                 }
                 int width = Integer.parseInt(size[0]);
                 int height = Integer.parseInt(size[1]);
@@ -898,13 +899,13 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
                 InputStream stdin = proc.getInputStream();
                 InputStreamReader isr = new InputStreamReader(stdin);
                 BufferedReader br = new BufferedReader(isr);
-                String line = null;
+                String line = br.readLine();
                 String[] size = null;
-                while ((line = br.readLine()) != null) {
+                while (line != null) {
                     if (line.contains("tablet")) {
                         return true;
                     }
-
+                    line = br.readLine();
                 }
             } catch (Throwable t) {
                 t.printStackTrace();
@@ -932,11 +933,11 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
                 InputStream stdin = proc.getInputStream();
                 InputStreamReader isr = new InputStreamReader(stdin);
                 BufferedReader br = new BufferedReader(isr);
-                String line = null;
-                while ((line = br.readLine()) != null)
+                String line = br.readLine();
+                while (line != null) {
                     System.out.print(line);
-
-
+                    line = br.readLine();
+                }
                 proc.waitFor();
 
             } catch (Throwable t) {
@@ -977,9 +978,11 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
             InputStream stdin = proc.getInputStream();
             InputStreamReader isr = new InputStreamReader(stdin);
             BufferedReader br = new BufferedReader(isr);
-            String line;
-            while ((line = br.readLine()) != null)
+            String line = br.readLine();
+            while (line != null) {
                 System.out.print(line);
+                line = br.readLine();
+            }
 
             proc.waitFor();
 
@@ -1016,11 +1019,12 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
             InputStream stdin = proc.getInputStream();
             InputStreamReader isr = new InputStreamReader(stdin);
             BufferedReader br = new BufferedReader(isr);
-            String line;
+            String line = br.readLine();
             String[] size = null;
             String[] splitLines;
-            while ((line = br.readLine()) != null) {
+            while (line != null) {
                 value += line;
+                line = br.readLine();
             }
 
         } catch (Throwable t) {

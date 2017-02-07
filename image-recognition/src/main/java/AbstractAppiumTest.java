@@ -49,14 +49,14 @@ abstract class AbstractAppiumTest {
         if (platformName == null) {
             platformName = "iOS";
         }
-        if (platformVersion == null){
-        	platformVersion = "";
+        if (platformVersion == null) {
+            platformVersion = "";
         }
         if (automationName == null) {
             DefaultArtifactVersion version = new DefaultArtifactVersion(ideviceinfoCheck("ProductVersion"));
             DefaultArtifactVersion minVersion = new DefaultArtifactVersion("9.3.5");
             // Use XCUITest if device is above iOS version 9.3.5
-            if (version.compareTo(minVersion) >= 0 ) {
+            if (version.compareTo(minVersion) >= 0) {
                 automationName = "XCUITest";
             } else {
                 automationName = "Appium";
@@ -95,8 +95,8 @@ abstract class AbstractAppiumTest {
         if (platformName == null) {
             platformName = "Android";
         }
-        if (automationName == null){
-        	automationName = "appium";
+        if (automationName == null) {
+            automationName = "appium";
         }
         screenshotsFolder = "target/reports/screenshots/android/";
         File dir = new File(screenshotsFolder);
@@ -128,58 +128,60 @@ abstract class AbstractAppiumTest {
 
     @SuppressWarnings("MagicNumber")
     static void takeScreenshot(String screenshotName, boolean new_step) throws IOException, InterruptedException {
-      if (idevicescreenshotExists) {
-        // Keep Appium session alive between multiple non-driver screenshots
-        driver.manage().window().getSize();
-      }
-      long startTime = 0L;
-      @SuppressWarnings("MagicNumber") long timeDifferenceStartTest = (int) ((System.nanoTime() - startTime) / 1e6 / 1000);
-      long start_time = System.nanoTime();
+        if (idevicescreenshotExists) {
+            // Keep Appium session alive between multiple non-driver screenshots
+            driver.manage().window().getSize();
+        }
+        long startTime = 0L;
+        @SuppressWarnings("MagicNumber") long timeDifferenceStartTest = (int) ((System.nanoTime() - startTime) / 1e6 / 1000);
+        long start_time = System.nanoTime();
 
-      if (new_step) {
-          counter = counter + 1;
-          retry_counter = 1;
-      } else {
-          retry_counter = retry_counter + 1;
-      }
+        if (new_step) {
+            counter += 1;
+            retry_counter = 1;
+        } else {
+            retry_counter += 1;
+        }
 
-      searchedImage = screenshotsFolder + getScreenshotsCounter() + "_" + screenshotName + getRetryCounter() + "_" + timeDifferenceStartTest + "sec";
-      String fullFileName = System.getProperty("user.dir") + "/" + searchedImage + ".png";
+        searchedImage = screenshotsFolder + getScreenshotsCounter() + "_" + screenshotName + getRetryCounter() + "_" + timeDifferenceStartTest + "sec";
+        String fullFileName = System.getProperty("user.dir") + "/" + searchedImage + ".png";
 
-    	if (platformName.equalsIgnoreCase("iOS") && idevicescreenshotExists) {
-          String[] cmd = new String[]{"idevicescreenshot", "-u", udid, fullFileName};
-      		Process p = Runtime.getRuntime().exec(cmd);
-      		BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-          String line;
-      		while ((line = in.readLine()) != null)
-      			log(line);
+        if (platformName.equalsIgnoreCase("iOS") && idevicescreenshotExists) {
+            String[] cmd = new String[]{"idevicescreenshot", "-u", udid, fullFileName};
+            Process p = Runtime.getRuntime().exec(cmd);
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = in.readLine();
+            while (line != null) {
+                log(line);
+                line = in.readLine();
+            }
 
-      		int exitVal = p.waitFor();
-          if (exitVal != 0) {
-              log("idevicescreenshot process exited with value: " + exitVal);
-          }
-          cmd = new String[]{"sips", "-s", "format", "png", fullFileName, "--out", fullFileName};
-          p = Runtime.getRuntime().exec(cmd);
-          exitVal = p.waitFor();
-          if (exitVal != 0) {
-              log("sips process exited with value: " + exitVal);
-          }
-    	} else {
+            int exitVal = p.waitFor();
+            if (exitVal != 0) {
+                log("idevicescreenshot process exited with value: " + exitVal);
+            }
+            cmd = new String[]{"sips", "-s", "format", "png", fullFileName, "--out", fullFileName};
+            p = Runtime.getRuntime().exec(cmd);
+            exitVal = p.waitFor();
+            if (exitVal != 0) {
+                log("sips process exited with value: " + exitVal);
+            }
+        } else {
             // idevicescreenshot not available, using driver.getScreenshotAs()
-        	File scrFile = driver.getScreenshotAs(OutputType.FILE);
-          try {
-              File testScreenshot = new File(fullFileName);
-              FileUtils.copyFile(scrFile, testScreenshot);
-              logger.info("Screenshot stored to {}", testScreenshot.getAbsolutePath());
-              return;
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-    	}
+            File scrFile = driver.getScreenshotAs(OutputType.FILE);
+            try {
+                File testScreenshot = new File(fullFileName);
+                FileUtils.copyFile(scrFile, testScreenshot);
+                logger.info("Screenshot stored to {}", testScreenshot.getAbsolutePath());
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-      long end_time = System.nanoTime();
-      @SuppressWarnings("MagicNumber") int difference = (int) ((end_time - start_time) / 1e6 / 1000);
-      logger.info("==> Taking a screenshot took " + difference + " secs.");
+        long end_time = System.nanoTime();
+        @SuppressWarnings("MagicNumber") int difference = (int) ((end_time - start_time) / 1e6 / 1000);
+        logger.info("==> Taking a screenshot took " + difference + " secs.");
     }
 
     //On a test run on the local machine this method will save the Reports folder in different folders on every test run.
@@ -219,11 +221,12 @@ abstract class AbstractAppiumTest {
         int exitVal = -1;
         Process p = Runtime.getRuntime().exec(cmd);
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line;
+        String line = in.readLine();
         String output = "";
-        while ((line = in.readLine()) != null) {
+        while (line != null) {
             log(line);
             output = line;
+            line = in.readLine();
         }
         exitVal = p.waitFor();
         if (exitVal != 0) {
@@ -237,9 +240,10 @@ abstract class AbstractAppiumTest {
         int exitVal = -1;
         Process p = Runtime.getRuntime().exec(cmd);
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line;
-        while ((line = in.readLine()) != null) {
+        String line = in.readLine();
+        while (line != null) {
             log(line);
+            line = in.readLine();
         }
         exitVal = p.waitFor();
         if (exitVal != 0) {
@@ -252,9 +256,10 @@ abstract class AbstractAppiumTest {
         int exitVal = -1;
         Process p = Runtime.getRuntime().exec(cmd);
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line;
-        while ((line = in.readLine()) != null) {
+        String line = in.readLine();
+        while (line != null) {
             log(line);
+            line = in.readLine();
         }
         exitVal = p.waitFor();
         if (exitVal != 0) {
@@ -291,9 +296,10 @@ abstract class AbstractAppiumTest {
 
     //Stops the script for the given amount of seconds.
     static void sleep(double seconds) throws Exception {
-        log("Waiting for " + seconds + " sec");
-        seconds = seconds * 1000;
-        Thread.sleep((int) seconds);
+        double seconds1 = seconds;
+        log("Waiting for " + seconds1 + " sec");
+        seconds1 *= 1000;
+        Thread.sleep((int) seconds1);
     }
 
     static void log(String message) {
@@ -313,7 +319,7 @@ abstract class AbstractAppiumTest {
     }
 
     private void swipeUp(Point rootLocation, Dimension rootSize, int duration, float topPad,
-        float bottomPad) {
+                         float bottomPad) {
         int offset = 1;
         int topOffset = Math.round(rootSize.getHeight() * topPad);
         int bottomOffset = Math.round(rootSize.getHeight() * bottomPad);
@@ -343,7 +349,7 @@ abstract class AbstractAppiumTest {
     }
 
     private void swipeDown(Point rootLocation, Dimension rootSize, int duration, float topPad,
-        float bottomPad) {
+                           float bottomPad) {
         int offset = 1;
         int topOffset = Math.round(rootSize.getHeight() * topPad);
         int bottomOffset = Math.round(rootSize.getHeight() * bottomPad);
@@ -369,11 +375,11 @@ abstract class AbstractAppiumTest {
     private void swipeLeft(float leftPad, float rightPad) {
         Dimension size = driver.manage().window().getSize();
         logger.debug("Window size " + size);
-        swipeLeft(new Point(0,0), size, 1000, leftPad, rightPad);
+        swipeLeft(new Point(0, 0), size, 1000, leftPad, rightPad);
     }
 
     private void swipeLeft(Point rootLocation, Dimension rootSize, int duration, float leftPad,
-        float rightPad) {
+                           float rightPad) {
         int offset = 1;
         int leftOffset = Math.round(rootSize.getWidth() * leftPad);
         int rightOffset = Math.round(rootSize.getWidth() * rightPad);
@@ -398,11 +404,11 @@ abstract class AbstractAppiumTest {
 
     private void swipeRight(float leftPad, float rightPad) {
         Dimension size = driver.manage().window().getSize();
-        swipeRight(new Point(0,0), size, 1000, leftPad, rightPad);
+        swipeRight(new Point(0, 0), size, 1000, leftPad, rightPad);
     }
 
     private void swipeRight(Point rootLocation, Dimension rootSize, int duration, float leftPad,
-        float rightPad) {
+                            float rightPad) {
         int offset = 1;
         int leftOffset = Math.round(rootSize.getWidth() * leftPad);
         int rightOffset = Math.round(rootSize.getWidth() * rightPad);

@@ -243,6 +243,7 @@ class AkazeImageFinder {
     }
 
     private Mat drawFoundHomography(String scene_filename_nopng, Mat img_object, String filename, Mat h) {
+        String filename1 = filename;
         Mat obj_corners = new Mat(4, 1, CvType.CV_32FC2);
         Mat scene_corners = new Mat(4, 1, CvType.CV_32FC2);
 
@@ -253,7 +254,7 @@ class AkazeImageFinder {
 
         Core.perspectiveTransform(obj_corners, scene_corners, h);
 
-        Mat img = Highgui.imread(filename, Highgui.CV_LOAD_IMAGE_COLOR);
+        Mat img = Highgui.imread(filename1, Highgui.CV_LOAD_IMAGE_COLOR);
 
         //noinspection MagicNumber
         Core.line(img, new Point(scene_corners.get(0, 0)), new Point(scene_corners.get(1, 0)), new Scalar(0, 255, 0), 4);
@@ -264,8 +265,8 @@ class AkazeImageFinder {
         //noinspection MagicNumber
         Core.line(img, new Point(scene_corners.get(3, 0)), new Point(scene_corners.get(0, 0)), new Scalar(0, 255, 0), 4);
 
-        filename = scene_filename_nopng + ".png";
-        Highgui.imwrite(filename, img);
+        filename1 = scene_filename_nopng + ".png";
+        Highgui.imwrite(filename1, img);
 
         return scene_corners;
     }
@@ -339,9 +340,11 @@ class AkazeImageFinder {
             InputStream stdin = proc.getInputStream();
             InputStreamReader isr = new InputStreamReader(stdin);
             BufferedReader br = new BufferedReader(isr);
-            String line = null;
-            while ((line = br.readLine()) != null)
+            String line = br.readLine();
+            while (line != null) {
                 System.out.print("");
+                line = br.readLine();
+            }
             int exitVal = proc.waitFor();
             if (exitVal != 0)
                 logger.info("Akaze matching process exited with value: " + exitVal);
