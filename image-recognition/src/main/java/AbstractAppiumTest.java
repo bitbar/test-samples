@@ -1,5 +1,6 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.io.FileUtils;
@@ -45,12 +46,9 @@ abstract class AbstractAppiumTest {
     private static boolean autoAccept = true;
     private static boolean idevicescreenshotExists = false;
 
-    protected AbstractAppiumTest() {
-    }
-
 
     @SuppressWarnings("MagicNumber")
-    static AppiumDriver<MobileElement> getIOSDriver() throws IOException, InterruptedException, MalformedURLException {
+    static AppiumDriver<MobileElement> getIOSDriver() throws IOException, InterruptedException {
         if (platformName == null) {
             platformName = "iOS";
         }
@@ -134,7 +132,8 @@ abstract class AbstractAppiumTest {
             driver.manage().window().getSize();
         }
         long startTime = 0L;
-        @SuppressWarnings("MagicNumber") long timeDifferenceStartTest = (int) ((System.nanoTime() - startTime) / 1e6 / 1000);
+        @SuppressWarnings("MagicNumber")
+        long timeDifferenceStartTest = (int) ((System.nanoTime() - startTime) / 1e6 / 1000);
         long start_time = System.nanoTime();
 
         if (new_step) {
@@ -181,7 +180,8 @@ abstract class AbstractAppiumTest {
         }
 
         long end_time = System.nanoTime();
-        @SuppressWarnings("MagicNumber") int difference = (int) ((end_time - start_time) / 1e6 / 1000);
+        @SuppressWarnings("MagicNumber")
+        int difference = (int) ((end_time - start_time) / 1e6 / 1000);
         logger.info("==> Taking a screenshot took " + difference + " secs.");
     }
 
@@ -324,7 +324,7 @@ abstract class AbstractAppiumTest {
                 " y1:" + (rootLocation.getY() + rootSize.getHeight() - bottomOffset + offset) +
                 " x2:" + center.getX() +
                 " y2:" + (rootLocation.getY() + topOffset));
-        driver.swipe(center.getX(),
+        swipe(center.getX(),
                 rootLocation.getY() + rootSize.getHeight() - bottomOffset + offset,
                 center.getX(),
                 rootLocation.getY() + topOffset,
@@ -354,7 +354,7 @@ abstract class AbstractAppiumTest {
                 " y1:" + (rootLocation.getY() + topOffset) +
                 " x2:" + center.getX() +
                 " y2:" + (rootLocation.getY() + rootSize.getHeight() - bottomOffset + offset));
-        driver.swipe(center.getX(),
+        swipe(center.getX(),
                 (rootLocation.getY() + topOffset),
                 center.getX(),
                 (rootLocation.getY() + rootSize.getHeight() - bottomOffset + offset),
@@ -384,7 +384,7 @@ abstract class AbstractAppiumTest {
                 " y1:" + center.getY() +
                 " x2:" + (rootLocation.getX() + leftOffset) +
                 " y2:" + center.getY());
-        driver.swipe((rootLocation.getX() + rootSize.getWidth() - rightOffset + offset),
+        swipe((rootLocation.getX() + rootSize.getWidth() - rightOffset + offset),
                 center.getY(),
                 (rootLocation.getX() + leftOffset),
                 center.getY(),
@@ -413,7 +413,7 @@ abstract class AbstractAppiumTest {
                 " y1:" + center.getY() +
                 " x2:" + (rootLocation.getX() + rootSize.getWidth() - rightOffset + offset) +
                 " y2:" + center.getY());
-        driver.swipe((rootLocation.getX() + leftOffset),
+        swipe((rootLocation.getX() + leftOffset),
                 center.getY(),
                 (rootLocation.getX() + rootSize.getWidth() - rightOffset + offset),
                 center.getY(),
@@ -429,6 +429,11 @@ abstract class AbstractAppiumTest {
             logger.debug(e.toString());
         }
         driver.manage().timeouts().implicitlyWait(defaultWaitTime, TimeUnit.SECONDS);
+    }
+
+    // Since AppiumDriver.swipe() is deprecated, create a new one using TouchAction.
+    public static void swipe(int startx, int starty, int endx, int endy, int duration) {
+       new TouchAction(driver).press(startx, starty).waitAction(duration).moveTo(endx, endy).release().perform();
     }
 
 }

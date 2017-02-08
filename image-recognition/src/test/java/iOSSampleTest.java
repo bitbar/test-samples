@@ -22,14 +22,14 @@ import java.io.IOException;
 @SuppressWarnings({"UnqualifiedFieldAccess", "UnqualifiedMethodAccess"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-public class iOSSample extends TestdroidImageRecognition {
+public class iOSSampleTest extends TestdroidImageRecognition {
 
-    public iOSSample() throws Exception {
-        super(LoggerFactory.getLogger(iOSSample.class));
+    public iOSSampleTest() throws Exception {
+        super(LoggerFactory.getLogger(iOSSampleTest.class));
     }
 
     @BeforeClass
-    public static void setUp() throws IllegalAccessException, IOException, InterruptedException, java.net.MalformedURLException {
+    public static void setUp() throws Exception {
         AkazeImageFinder.setupOpenCVEnv();
         driver = getIOSDriver();
     }
@@ -63,7 +63,7 @@ public class iOSSample extends TestdroidImageRecognition {
     };
 
     @Test
-    public void mainPageTest() throws Exception, IOException, InterruptedException {
+    public void mainPageTest() throws Exception {
         log("Image Recognition sample script started.");
         takeScreenshot("Before hideKeyboard");
         hideKeyboard();

@@ -165,10 +165,10 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
                     log(e.toString());
                 }
             } else {
-                driver.tap(1, x, y, 1);
+                tap(x, y);
             }
         } else {
-            driver.tap(1, x, y, 1);
+            tap(x, y);
         }
     }
 
@@ -195,7 +195,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
             if ("selendroid".equalsIgnoreCase(automationName)) {
                 selendroidTapAtCoordinate((int) middleWithOffset.x, (int) middleWithOffset.y, 1);
             } else {
-                driver.tap(1, (int) middleWithOffset.x, (int) middleWithOffset.y, 1);
+                tap((int) middleWithOffset.x, (int) middleWithOffset.y);
             }
             sleep(frequency);
         }
@@ -530,7 +530,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         if ("selendroid".equalsIgnoreCase(automationName)) {
             selendroidTapAtCoordinate((int) newX, (int) newY, duration);
         } else {
-            driver.tap(1, (int) newX, (int) newY, duration);
+            tap((int) newX, (int) newY);
         }
     }
 
@@ -562,7 +562,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         if ("selendroid".equalsIgnoreCase(automationName)) {
             selendroidTapAtCoordinate((int) middleWithOffset.x, (int) middleWithOffset.y, duration1);
         } else {
-            driver.tap(1, (int) middleWithOffset.x, (int) middleWithOffset.y, duration1);
+            tap((int) middleWithOffset.x, (int) middleWithOffset.y);
         }
     }
 
@@ -1119,6 +1119,11 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         tryTapImageOnScreen("full_screen_2", 0.75, 0.75, 1);
         //noinspection MagicNumber,MagicNumber
         tryTapImageOnScreen("full_screen_3", 0.75, 0.8, 1);
+    }
+
+    // Since driver.tap() is deprecated, create a new one using
+    public void tap(int x, int y) {
+        new TouchAction(driver).tap(x, y).perform();
     }
 
 }

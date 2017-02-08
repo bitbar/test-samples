@@ -27,9 +27,6 @@ class AkazeImageFinder {
     private double scene_width;
     private double lastResizeFactor;
 
-    AkazeImageFinder() {
-    }
-
     public double getSceneHeight() {
         return scene_height;
     }
