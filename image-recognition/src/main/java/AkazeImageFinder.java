@@ -19,12 +19,16 @@ import static org.opencv.imgproc.Imgproc.resize;
 /**
  * Created by testdroid on 22/07/16.
  */
+@SuppressWarnings({"UnqualifiedFieldAccess", "UnqualifiedMethodAccess", "UnclearExpression"})
 class AkazeImageFinder {
 
     private static final Logger logger = LoggerFactory.getLogger(AkazeImageFinder.class);
     private double scene_height;
     private double scene_width;
     private double lastResizeFactor;
+
+    AkazeImageFinder() {
+    }
 
     public double getSceneHeight() {
         return scene_height;
@@ -49,13 +53,7 @@ class AkazeImageFinder {
         scene_width = img_scene.cols();
         //logger.info("Scene height and width: " + scene_height + ", " + scene_width);
 
-        double resizeFactor = 1;
-        if (scene_width < scene_height)
-            //noinspection MagicNumber
-            resizeFactor = scene_width / 750;
-        else
-            //noinspection MagicNumber
-            resizeFactor = scene_height / 750;
+        double resizeFactor = (scene_width < scene_height ? scene_width : scene_height) / 750;
 
         if (resizeFactor > 1) {
             Size size = new Size(scene_width / resizeFactor, scene_height / resizeFactor);
@@ -84,8 +82,6 @@ class AkazeImageFinder {
         Highgui.imwrite(scene_filename, img_scene);
 
         //finding homography
-        LinkedList<Point> objList = new LinkedList<>();
-        LinkedList<Point> sceneList = new LinkedList<>();
         JSONObject jsonObject = getJsonObject(jsonResults);
         if (jsonObject == null) {
             logger.error("ERROR: Json file couldn't be processed. ");
@@ -112,6 +108,8 @@ class AkazeImageFinder {
             }
         }
 
+        LinkedList<Point> sceneList = new LinkedList<>();
+        LinkedList<Point> objList = new LinkedList<>();
         for (int i = 0; i < objPoints.length; i++) {
             Point objectPoint = new Point(objPoints[i].x, objPoints[i].y);
             objList.addLast(objectPoint);
@@ -173,12 +171,7 @@ class AkazeImageFinder {
         bottom_right = objectOnScene[2];
         bottom_left = objectOnScene[3];
 
-        double initial_ratio = 1.0;
-        if ((rotationAngle == 1.0) || (rotationAngle == -1.0)) {
-            initial_ratio = initial_width / initial_height;
-        } else {
-            initial_ratio = initial_height / initial_width;
-        }
+        double initial_ratio = (rotationAngle == 1.0) || (rotationAngle == -1.0) ? initial_width / initial_height : initial_height / initial_width;
         double found_ratio1 = (bottom_left.y - top_left.y) / (top_right.x - top_left.x);
         double found_ratio2 = (bottom_right.y - top_right.y) / (bottom_right.x - bottom_left.x);
 
@@ -222,7 +215,7 @@ class AkazeImageFinder {
         points[4] = centerOriginal;
 
         logger.info("Image found at coordinates: " + (int) points[4].x + ", " + (int) points[4].y + " on screen.");
-        logger.info("All corners: " + points[0].toString() + " " + points[1].toString() + " " + points[2].toString() + " " + points[4].toString());
+        logger.info("All corners: " + points[0] + " " + points[1] + " " + points[2] + " " + points[4]);
 
         points[0] = new Point(points[0].x * resizeFactor, points[0].y * resizeFactor);
         points[1] = new Point(points[1].x * resizeFactor, points[1].y * resizeFactor);
@@ -243,7 +236,6 @@ class AkazeImageFinder {
     }
 
     private Mat drawFoundHomography(String scene_filename_nopng, Mat img_object, String filename, Mat h) {
-        String filename1 = filename;
         Mat obj_corners = new Mat(4, 1, CvType.CV_32FC2);
         Mat scene_corners = new Mat(4, 1, CvType.CV_32FC2);
 
@@ -254,6 +246,7 @@ class AkazeImageFinder {
 
         Core.perspectiveTransform(obj_corners, scene_corners, h);
 
+        String filename1 = filename;
         Mat img = Highgui.imread(filename1, Highgui.CV_LOAD_IMAGE_COLOR);
 
         //noinspection MagicNumber
@@ -274,6 +267,7 @@ class AkazeImageFinder {
     private boolean checkFoundImageSizeRatio(double initial_height, double initial_width, Point top_left, Point top_right, Point bottom_left, Point bottom_right, double initial_ratio, double found_ratio1, double found_ratio2, double tolerance) {
         //check the image size, if too small incorrect image was found
 
+        //noinspection OverlyComplexBooleanExpression
         if ((round(found_ratio1 / initial_ratio, 2) > (1 + tolerance)) || (round(initial_ratio / found_ratio2, 2) > (1 + tolerance))
                 || (round(found_ratio1 / initial_ratio, 2) < (1 - tolerance)) || (round(initial_ratio / found_ratio2, 2) < (1 - tolerance))) {
             logger.error("Size of image found is incorrect, check the ratios for more info:");
@@ -307,6 +301,7 @@ class AkazeImageFinder {
             return false;
         }
 
+        //noinspection OverlyComplexBooleanExpression
         if ((height_ratio < (1 - tolerance)) || (height_ratio > (1 + tolerance)) || (width_ratio < (1 - tolerance)) || (width_ratio > (1 + tolerance))) {
             logger.info("Height and width ratios: " + height_ratio + " and " + width_ratio);
             logger.error("Image found is not the correct shape, height or width are different on each side.");
@@ -348,15 +343,17 @@ class AkazeImageFinder {
             int exitVal = proc.waitFor();
             if (exitVal != 0)
                 logger.info("Akaze matching process exited with value: " + exitVal);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         } catch (Throwable t) {
             t.printStackTrace();
         }
 
-        if (!file.exists()) {
+        if (file.exists()) {
+            return jsonFilename;
+        } else {
             logger.error("ERROR: Image recognition with Akaze failed. No json file created.");
             return null;
-        } else {
-            return jsonFilename;
         }
     }
 
@@ -387,11 +384,10 @@ class AkazeImageFinder {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
-    protected JSONObject getJsonObject(String filename) {
-        File jsonFile = new File(filename);
-        InputStream is = null;
+    private JSONObject getJsonObject(String filename) {
         try {
-            is = new FileInputStream(jsonFile);
+            File jsonFile = new File(filename);
+            InputStream is = new FileInputStream(jsonFile);
             String jsonTxt = IOUtils.toString(is);
             return new JSONObject(jsonTxt);
 
@@ -414,7 +410,10 @@ class AkazeImageFinder {
             BigDecimal bd = new BigDecimal(value);
             bd = bd.setScale(places, RoundingMode.HALF_UP);
             return bd.doubleValue();
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return 0;
+        } catch (RuntimeException e) {
             return 0;
         }
     }

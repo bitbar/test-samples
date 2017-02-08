@@ -19,6 +19,7 @@ import java.io.IOException;
  * @author support@bitbar.com
  */
 
+@SuppressWarnings({"UnqualifiedFieldAccess", "UnqualifiedMethodAccess"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class AndroidSample extends TestdroidImageRecognition {
@@ -28,7 +29,7 @@ public class AndroidSample extends TestdroidImageRecognition {
     }
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUp() throws IllegalAccessException, java.net.MalformedURLException {
         AkazeImageFinder.setupOpenCVEnv();
         driver = getAndroidDriver();
     }
@@ -62,7 +63,7 @@ public class AndroidSample extends TestdroidImageRecognition {
     };
 
     @Test
-    public void mainPageTest() throws Exception {
+    public void mainPageTest() throws Exception, IOException, InterruptedException {
         log("Image Recognition sample script started.");
         takeScreenshot("Before hideKeyboard");
         hideKeyboard();

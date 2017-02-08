@@ -12,22 +12,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by testdroid on 22/07/16.
  */
+@SuppressWarnings({"UnqualifiedMethodAccess", "UnclearExpression"})
 abstract class AbstractAppiumTest {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractAppiumTest.class);
 
-    static AppiumDriver<MobileElement> driver;
+    static AppiumDriver<MobileElement> driver = null;
     private static final int defaultWaitTime = 60;
 
     private static int counter = 0;
     private static int retry_counter = 1;
-    static String searchedImage;
+    static String searchedImage = null;
     private static final File userDir = new File(System.getProperty("user.dir"));
 
     private static final File[] matches = userDir.listFiles((dir, name) -> name.startsWith("application"));
@@ -40,12 +42,15 @@ abstract class AbstractAppiumTest {
     static String udid = System.getenv("UDID");
     private static String platformVersion = System.getenv("PLATFORM_VERSION") != null ? System.getenv("PLATFORM_VERSION") : "";
     // Set to false to autoDismiss
-    public static boolean autoAccept = true;
+    private static boolean autoAccept = true;
     private static boolean idevicescreenshotExists = false;
+
+    protected AbstractAppiumTest() {
+    }
 
 
     @SuppressWarnings("MagicNumber")
-    static AppiumDriver<MobileElement> getIOSDriver() throws Exception {
+    static AppiumDriver<MobileElement> getIOSDriver() throws IOException, InterruptedException, MalformedURLException {
         if (platformName == null) {
             platformName = "iOS";
         }
@@ -56,11 +61,7 @@ abstract class AbstractAppiumTest {
             DefaultArtifactVersion version = new DefaultArtifactVersion(ideviceinfoCheck("ProductVersion"));
             DefaultArtifactVersion minVersion = new DefaultArtifactVersion("9.3.5");
             // Use XCUITest if device is above iOS version 9.3.5
-            if (version.compareTo(minVersion) >= 0) {
-                automationName = "XCUITest";
-            } else {
-                automationName = "Appium";
-            }
+            automationName = version.compareTo(minVersion) >= 0 ? "XCUITest" : "Appium";
         }
         if (udid == null) {
             udid = ideviceinfoCheck("UniqueDeviceID");
@@ -91,7 +92,7 @@ abstract class AbstractAppiumTest {
     }
 
     @SuppressWarnings("MagicNumber")
-    static AppiumDriver<MobileElement> getAndroidDriver() throws Exception {
+    static AppiumDriver<MobileElement> getAndroidDriver() throws MalformedURLException {
         if (platformName == null) {
             platformName = "Android";
         }
@@ -122,7 +123,7 @@ abstract class AbstractAppiumTest {
         return driver;
     }
 
-    static void takeScreenshot(String screenshotName) throws Exception {
+    static void takeScreenshot(String screenshotName) throws IOException, InterruptedException {
         takeScreenshot(screenshotName, true);
     }
 
@@ -146,8 +147,8 @@ abstract class AbstractAppiumTest {
         searchedImage = screenshotsFolder + getScreenshotsCounter() + "_" + screenshotName + getRetryCounter() + "_" + timeDifferenceStartTest + "sec";
         String fullFileName = System.getProperty("user.dir") + "/" + searchedImage + ".png";
 
-        if (platformName.equalsIgnoreCase("iOS") && idevicescreenshotExists) {
-            String[] cmd = new String[]{"idevicescreenshot", "-u", udid, fullFileName};
+        if ("iOS".equalsIgnoreCase(platformName) && idevicescreenshotExists) {
+            String[] cmd = {"idevicescreenshot", "-u", udid, fullFileName};
             Process p = Runtime.getRuntime().exec(cmd);
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line = in.readLine();
@@ -199,9 +200,9 @@ abstract class AbstractAppiumTest {
 
     // Set return type to void, since its return type is not used when being called. e.g. Line 83
     private static void idevicescreenshotCheck() throws IOException, InterruptedException {
-        String[] cmd = new String[]{"idevicescreenshot", "--help"};
         int exitVal = -1;
         try {
+            String[] cmd = {"idevicescreenshot", "--help"};
             Process p = Runtime.getRuntime().exec(cmd);
             exitVal = p.waitFor();
         } catch (IOException e) {
@@ -217,8 +218,7 @@ abstract class AbstractAppiumTest {
     }
 
     private static String ideviceinfoCheck(String key) throws IOException, InterruptedException {
-        String[] cmd = new String[]{"ideviceinfo", "--key", key};
-        int exitVal = -1;
+        String[] cmd = {"ideviceinfo", "--key", key};
         Process p = Runtime.getRuntime().exec(cmd);
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String line = in.readLine();
@@ -228,7 +228,7 @@ abstract class AbstractAppiumTest {
             output = line;
             line = in.readLine();
         }
-        exitVal = p.waitFor();
+        int exitVal = p.waitFor();
         if (exitVal != 0) {
             log("ideviceinfo process exited with value: " + exitVal);
         }
@@ -236,8 +236,7 @@ abstract class AbstractAppiumTest {
     }
 
     public static void ideviceinstall(String appPath) throws IOException, InterruptedException {
-        String[] cmd = new String[]{"ideviceinstaller", "-i", appPath};
-        int exitVal = -1;
+        String[] cmd = {"ideviceinstaller", "-i", appPath};
         Process p = Runtime.getRuntime().exec(cmd);
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String line = in.readLine();
@@ -245,15 +244,14 @@ abstract class AbstractAppiumTest {
             log(line);
             line = in.readLine();
         }
-        exitVal = p.waitFor();
+        int exitVal = p.waitFor();
         if (exitVal != 0) {
             log("ideviceinstaller process exited with value: " + exitVal);
         }
     }
 
     public static void ideviceuninstall(String bundleId) throws IOException, InterruptedException {
-        String[] cmd = new String[]{"ideviceinstaller", "-U", bundleId};
-        int exitVal = -1;
+        String[] cmd = {"ideviceinstaller", "-U", bundleId};
         Process p = Runtime.getRuntime().exec(cmd);
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String line = in.readLine();
@@ -261,7 +259,7 @@ abstract class AbstractAppiumTest {
             log(line);
             line = in.readLine();
         }
-        exitVal = p.waitFor();
+        int exitVal = p.waitFor();
         if (exitVal != 0) {
             log("ideviceinstaller process exited with value: " + exitVal);
         }
@@ -269,24 +267,13 @@ abstract class AbstractAppiumTest {
 
     //Will count the screenshots taken for separate stages of the test.
     static String getScreenshotsCounter() {
-        if (counter < 100) {
-            if (counter < 10) {
-                return "00" + counter;
-            } else {
-                return "0" + counter;
-            }
-        } else {
-            return Integer.toString(counter);
-        }
+        //noinspection NestedConditionalExpression
+        return counter < 100 ? (counter < 10 ? "00" : "0") + counter : Integer.toString(counter);
     }
 
     //Will count the number of times we tried to find the same image. When this counter goes up, the screenshot counter remains the same.
     static String getRetryCounter() {
-        if (retry_counter < 10) {
-            return "_0" + retry_counter;
-        } else {
-            return "_" + Integer.toString(retry_counter);
-        }
+        return retry_counter < 10 ? "_0" + retry_counter : "_" + Integer.toString(retry_counter);
     }
 
     //Stops the script for the given amount of seconds.
@@ -295,7 +282,7 @@ abstract class AbstractAppiumTest {
     }
 
     //Stops the script for the given amount of seconds.
-    static void sleep(double seconds) throws Exception {
+    static void sleep(double seconds) throws InterruptedException {
         double seconds1 = seconds;
         log("Waiting for " + seconds1 + " sec");
         seconds1 *= 1000;
@@ -304,6 +291,14 @@ abstract class AbstractAppiumTest {
 
     static void log(String message) {
         logger.info(message);
+    }
+
+    public static boolean isAutoAccept() {
+        return autoAccept;
+    }
+
+    public static void setAutoAccept(boolean autoAccept) {
+        AbstractAppiumTest.autoAccept = autoAccept;
     }
 
     @SuppressWarnings("MagicNumber")
@@ -429,7 +424,7 @@ abstract class AbstractAppiumTest {
         try {
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             driver.hideKeyboard();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             logger.debug("Hiding soft keyboard failed");
             logger.debug(e.toString());
         }
