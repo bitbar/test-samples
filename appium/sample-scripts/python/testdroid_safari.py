@@ -22,7 +22,7 @@ class TestdroidSafari(unittest.TestCase):
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
-        testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "false"
+        testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
         automation_name = os.environ.get('TESTDROID_AUTOMATION_NAME') or "XCUITest"
 
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
