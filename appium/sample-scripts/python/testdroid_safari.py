@@ -22,6 +22,8 @@ class TestdroidSafari(unittest.TestCase):
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
+        testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "false"
+        automation_name = os.environ.get('TESTDROID_AUTOMATION_NAME') or "XCUITest"
 
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
         self.screenshot_count = 1
@@ -52,6 +54,8 @@ class TestdroidSafari(unittest.TestCase):
         desired_capabilities_cloud['browserName'] = 'Safari'
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
+        desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
+        desired_capabilities_cloud['automationName'] = automation_name
 
         # Set up webdriver
         self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
