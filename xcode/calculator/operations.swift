@@ -10,13 +10,13 @@ import Foundation
 
 class operations {
     
-    func Addition(number1:Int, number2:Int)->Int {
+    func Addition(_ number1:Int, number2:Int)->Int {
         let Result = number1 + number2
         return Result
         
     }
 
-    func Subtraction(number1:Int, number2:Int)->Int {
+    func Subtraction(_ number1:Int, number2:Int)->Int {
         let Result = number1 - number2
         return Result
         

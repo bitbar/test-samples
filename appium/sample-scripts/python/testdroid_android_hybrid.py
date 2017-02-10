@@ -62,10 +62,10 @@ class TestdroidAndroid(unittest.TestCase):
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
         if self.api_level > 16:
             desired_capabilities_cloud['testdroid_target'] = 'android'
-            desired_capabilities_cloud['automationName'] = 'android'
+            desired_capabilities_cloud['automationName'] = 'Appium'
         else:
             desired_capabilities_cloud['testdroid_target'] = 'selendroid'
-            desired_capabilities_cloud['automationName'] = 'selendroid'
+            desired_capabilities_cloud['automationName'] = 'Selendroid'
 
         desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
         desired_capabilities_cloud['testdroid_project'] = testdroid_project

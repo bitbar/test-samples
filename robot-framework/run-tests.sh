@@ -1,12 +1,25 @@
 #!/bin/bash
 
+export APPIUM_PORT=${APPIUM_PORT:="4723"}
+
 ## Cloud setup
 echo "Starting Appium ..."
 
-/opt/appium/appium/bin/appium.js --log-no-colors --log-timestamp --command-timeout 120 >appium.log 2>&1 &
+appium-1.6 --log-no-colors --log-timestamp --command-timeout 120 >appium.log 2>&1 &
 
-# Wait for appium to fully launch
-sleep 10
+TIMEOUT=20
+
+echo "Waiting service to launch on {$APPIUM_PORT}..."
+
+while ! nc -z localhost {$APPIUM_PORT}; do   
+  sleep 1 # wait for 1 second before check again
+  TIMEOUT=$((TIMEOUT-1))
+  info "Waited $TIMEOUT"
+  if [ $TIMEOUT -le 0 ]; then
+    info "Service is not responding.."
+    break
+  fi 
+done
 
 ps -ef|grep appium
 

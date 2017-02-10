@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB441FFF1DFE9A1000307CFF /* calculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB441FFE1DFE9A1000307CFF /* calculatorTests.swift */; };
 		CB4420071DFEB4E000307CFF /* operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4420061DFEB4E000307CFF /* operations.swift */; };
+		CB93B91B1E2E536900160819 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB93B91A1E2E536900160819 /* extensions.swift */; };
 		CBA354731E02C1E200634E9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74E81931DD1FD210046E0DB /* AppDelegate.swift */; };
 		CBA354741E02C1E800634E9C /* operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4420061DFEB4E000307CFF /* operations.swift */; };
 		CBA354751E02C1F000634E9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74E81951DD1FD210046E0DB /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 		CB4420001DFE9A1000307CFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB4420061DFEB4E000307CFF /* operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = operations.swift; sourceTree = "<group>"; };
 		CB6177DF1DEC35B0009432A7 /* calculator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = calculator; sourceTree = "<group>"; };
+		CB93B91A1E2E536900160819 /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		E74E81901DD1FD210046E0DB /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E74E81931DD1FD210046E0DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E74E81951DD1FD210046E0DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				E74E81B31DD1FD220046E0DB /* calculatorUITests.swift */,
 				E74E81B51DD1FD220046E0DB /* Info.plist */,
+				CB93B91A1E2E536900160819 /* extensions.swift */,
 			);
 			path = calculatorUITests;
 			sourceTree = "<group>";
@@ -210,12 +213,14 @@
 					CB441FFB1DFE9A1000307CFF = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = N9HW7DB6H4;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = E74E818F1DD1FD210046E0DB;
 					};
 					E74E818F1DD1FD210046E0DB = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = N9HW7DB6H4;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					E74E81AE1DD1FD220046E0DB = {
@@ -300,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E74E81B41DD1FD220046E0DB /* calculatorUITests.swift in Sources */,
+				CB93B91B1E2E536900160819 /* extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +354,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.petri.example.calculatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/calculator.app/calculator";
 			};
@@ -364,7 +370,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.petri.example.calculatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/calculator.app/calculator";
 			};
@@ -472,7 +478,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.petri.calculator.calculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -489,7 +495,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.petri.calculator.calculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

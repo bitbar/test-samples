@@ -1,10 +1,14 @@
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.apache.commons.io.FileUtils;
+import org.junit.*;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Testdroid Image Recognition Sample Test
@@ -43,17 +47,29 @@ public class iOSSample extends TestdroidImageRecognition {
         }
     }
 
+    @Rule
+    public TestWatcher watcher = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            String fullFileName = System.getProperty("user.dir") + "/" + System.getProperty("SCREENSHOT_FOLDER") + description.getMethodName() + "_failure.png";
+            try {
+                File scrFile = driver.getScreenshotAs(OutputType.FILE);
+                File testScreenshot = new File(fullFileName);
+                FileUtils.copyFile(scrFile, testScreenshot);
+                logger.info("Screenshot stored to {}", testScreenshot.getAbsolutePath());
+                logger.info("PAGE SOURCE:");
+                logger.info(driver.getPageSource());
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
+        }
+    };
 
     @Test
     public void mainPageTest() throws Exception {
         log("Image Recognition sample script started.");
-
-        try {
-          driver.hideKeyboard();
-        } catch (Exception e) {
-          log("Keyboard not present; going forward.");
-        }
-
+        takeScreenshot("Before hideKeyboard");
+        hideKeyboard();
         findImageOnScreen("bitbar_logo");
         log("Success.");
     }
