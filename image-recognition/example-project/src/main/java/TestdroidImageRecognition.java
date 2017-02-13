@@ -1,15 +1,22 @@
 import io.appium.java_client.TouchAction;
+import objects.ImageLocation;
+import objects.ImageRecognitionSettings;
+import objects.ImageSearchResult;
+import objects.PlatformType;
+
+import org.apache.commons.io.FileUtils;
 import org.opencv.core.Point;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import imagerecognition.ImageRecognition;
+
 import java.io.*;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 /**
  * Created by testdroid on 22/07/16.
@@ -17,28 +24,15 @@ import static org.junit.Assert.fail;
 public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     public Logger logger = LoggerFactory.getLogger(TestdroidImageRecognition.class);
-    private final int DEFAULT_RETRIES = 5;
-    private final int DEFAULT_RETRY_WAIT = 0;
-    private final double DEFAULT_TOLERANCE = 0.6;
-    private final boolean DEFAULT_WITH_ASSERT = true;
-    private final boolean DEFAULT_TAKE_SCREENSHOT = true;
-    private final boolean DEFAULT_CROP = false;
-    AkazeImageFinder imageFinder = new AkazeImageFinder();
+    String screenshotsFolder;
+    String queryImageFolder;
 
-    private String queryimageFolder = "";
-    private static long startTime;
-    long timeDifferenceStartTest;
-    public boolean found = false;
-
-
-    //If this method is called inside a test the script will check if the device has a resolution lower than 500x500 and if so will use
-    // a different set of images when trying to find a image. These images are located in /queryimages/low_res
-    public void setQueryImageFolder() {
-        Dimension size = driver.manage().window().getSize();
-        log("Screen size: " + size.toString());
-        if ((size.getHeight() <= 500) || (size.getWidth() <= 500)) {
-            queryimageFolder = "low_res/";
-        }
+    public TestdroidImageRecognition(){
+        super();
+        screenshotsFolder = "target/reports/screenshots/";
+        queryImageFolder = "queryimages/";
+        File dir = new File(screenshotsFolder);
+        dir.mkdirs();
     }
 
     /**
@@ -47,79 +41,9 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
      * ======================================================================================
      */
 
-    public Point[] findImage(String image, String scene) throws Exception {
-        return findImage(image, scene, DEFAULT_TOLERANCE);
-    }
-
-    //This method calls on the Akaze scripts to find the coordinates of a given image in another image.
-    //The "image" parameter is the image that you are searching for
-    //The "scene" parameter is the image in which we are looking for "image"
-    // "tolerance" sets the required accuracy for the image recognition algorithm.
-    public Point[] findImage(String image, String scene, double tolerance) throws Exception {
-        Point[] imgRect = new Point[0];
-        Point[] imgRectScaled;
-
-        // queryImageFolder is "", unless set by setQueryImageFolder()
-        String queryImageFile = "queryimages/" + queryimageFolder + image;
-        log("Searching for " + queryImageFile);
-        log("Searching in " + searchedImage);
-        try {
-            imgRect = imageFinder.findImage(queryImageFile, searchedImage, tolerance);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (imgRect != null) {
-            Dimension size = getScreenSizeADB();
-
-            if (platformName.equalsIgnoreCase("iOS")) {
-                //for retina devices we need to recalculate coordinates
-                double sceneHeight = imageFinder.getSceneHeight();
-                double sceneWidth = imageFinder.getSceneWidth();
-
-                int screenHeight = size.getHeight();
-                int screenWidth = size.getWidth();
-
-                // Make sure screenshot size values are "landscape" for comparison
-                if (sceneHeight > sceneWidth) {
-                    double temp = sceneHeight;
-                    sceneHeight = sceneWidth;
-                    sceneWidth = temp;
-                }
-
-                // Make sure screen size values are "landscape" for comparison
-                if (screenHeight > screenWidth) {
-                    int temp = screenHeight;
-                    screenHeight = screenWidth;
-                    screenWidth = temp;
-                }
-
-                if ((screenHeight<sceneHeight) && (screenWidth<sceneWidth)) {
-                    if ((screenHeight<sceneHeight/2)&&(screenWidth<sceneWidth/2)) {
-                        imgRectScaled = new Point[]{new Point(imgRect[0].x / 3, imgRect[0].y / 3), new Point(imgRect[1].x / 3, imgRect[1].y / 3), new Point(imgRect[2].x / 3, imgRect[2].y / 3), new Point(imgRect[3].x / 3, imgRect[3].y / 3), new Point(imgRect[4].x / 3, imgRect[4].y / 3)};
-                        log("Device with Retina display rendered at x3 => coordinates have been recalculated");
-                        imgRect = imgRectScaled;
-                    }
-                    else {
-                        imgRectScaled = new Point[]{new Point(imgRect[0].x / 2, imgRect[0].y / 2), new Point(imgRect[1].x / 2, imgRect[1].y / 2), new Point(imgRect[2].x / 2, imgRect[2].y / 2), new Point(imgRect[3].x / 2, imgRect[3].y / 2), new Point(imgRect[4].x / 2, imgRect[4].y / 2)};
-                        log("Device with Retina display rendered at x2 => coordinates have been recalculated");
-                        imgRect = imgRectScaled;
-                    }
-                }
-            }
-
-            Point center = imgRect[4];
-
-            // Check that found center coordinate isn't out of screen bounds
-            if ((center.x >= size.width) || (center.x < 0) || (center.y >= size.height) || (center.y < 0)) {
-                log("Screen size is (width, height): " + size.getWidth() + ", " + size.getHeight());
-                log("WARNING: Coordinates found do not match the screen --> image not found.");
-                imgRect = null;
-            } else {
-              return imgRect;
-            }
-        }
-	      return null;
+    public ImageLocation findImage(String image, String scene) throws Exception {
+        ImageRecognitionSettings settings = new ImageRecognitionSettings();
+        return ImageRecognition.findImage(image, scene, settings, platform);
     }
 
     /**
@@ -132,7 +56,6 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     public void tapMiddle() throws Exception {
         Dimension size = driver.manage().window().getSize();
         Point middle = new Point(size.getWidth() / 2, size.getHeight() / 2);
-
         tapAtCoordinates((int) middle.x, (int) middle.y);
     }
 
@@ -140,7 +63,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     public void tapAtCoordinates(int x, int y) throws Exception {
         if (automationName.equalsIgnoreCase("selendroid")) {
             selendroidTapAtCoordinate(x, y, 1);
-        } else if (platformName.equalsIgnoreCase("Android")){
+        } else if (platform.equals(PlatformType.ANDROID)){
             Dimension size = driver.manage().window().getSize();
         	if(y > size.getHeight() || x > size.getWidth()){
     			log("using adb tap at " + x + ", " + y);
@@ -201,132 +124,22 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
      * ======================================================================================
      */
 
-    //Checks if an image is visible on the current screen view.
-    // "image" is the searched image name
-    // "retries" is the number of times the method will try to find the searched image. If not set, default is 5.
-    // "tolerance" sets the required accuracy for the image recognition algorithm.
-    // "with_assert" specifies if the method will return a fail or not if the searched image is not found on the screen. Use findImageOnScreenNoAssert() to have this set by default to FALSE
-    public Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance, boolean withAssert, boolean take_screenshot, boolean crop) throws Exception {
-        Point[] imgRect = null;
-        boolean new_step = true;
-        long start_time = System.nanoTime();
-        int originalRetries = retries;
-        while ((retries > 0) && (imgRect == null)) {
-            if (retries < originalRetries) {
-                if (retryWait > 0) {
-                    log("retryWait given, sleeping " + retryWait + " seconds.");
-                    sleep(retryWait);
-                }
-                new_step = false;
-            }
-
-            log("Find image started, retries left: " + retries);
-            if (take_screenshot)
-                takeScreenshot(image + "_screenshot", new_step);
-            imgRect = findImage(image, image + "_screenshot" + getRetryCounter() + "_" + timeDifferenceStartTest, tolerance);
-            retries = retries - 1;
-        }
-
-        long end_time = System.nanoTime();
-        int difference = (int) ((end_time - start_time) / 1e6 / 1000);
-        log("==> Find image took: " + difference + " secs.");
-
-        if (withAssert) {
-            assertNotNull("Image " + image + " not found on screen.", imgRect);
-        }
-
-        if (crop) {
-            Point top_left = imgRect[0];
-            Point top_right = imgRect[1];
-            Point bottom_left = imgRect[2];
-            Point center = imgRect[4];
-            imageFinder.cropImage(screenshotsFolder + getScreenshotsCounter() + "_" + image + "_screenshot" + getRetryCounter() + "_" + timeDifferenceStartTest + "sec", top_left.x, top_left.y, top_right.x - top_left.x, bottom_left.y - top_left.y);
-        }
-        return imgRect;
+    public ImageSearchResult findImageOnScreen(String image) throws Exception {
+        ImageRecognitionSettings defaultSettings = new ImageRecognitionSettings();
+        return findImageOnScreen(image, defaultSettings);
+    }
+    
+    public ImageSearchResult findImageOnScreen(String imageName, ImageRecognitionSettings settings) throws Exception {
+        String imageFile = queryImageFolder+imageName;
+        log("Searching for: "+imageFile);
+        ImageSearchResult foundImage = ImageRecognition.findImageOnScreen(imageFile, screenshotsFolder, settings, platform);
+        return foundImage;
     }
 
-    public Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance, boolean withAssert, boolean takeScreenshot) throws Exception {
-        return findImageOnScreen(image, retries, retryWait, tolerance, withAssert, takeScreenshot, DEFAULT_CROP);
-    }
-
-    public Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance, boolean withAssert) throws Exception {
-        return findImageOnScreen(image, retries, retryWait, tolerance, withAssert, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
-    }
-
-    public Point[] findImageOnScreen(String image, int retries, int retryWait, double tolerance) throws Exception {
-        return findImageOnScreen(image, retries, retryWait, tolerance, DEFAULT_WITH_ASSERT, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
-    }
-
-    public Point[] findImageOnScreen(String image, int retries, int retryWait) throws Exception {
-        return findImageOnScreen(image, retries, retryWait, DEFAULT_TOLERANCE, DEFAULT_WITH_ASSERT, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
-    }
-
-    public Point[] findImageOnScreen(String image, int retries) throws Exception {
-        return findImageOnScreen(image, retries, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE, DEFAULT_WITH_ASSERT, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
-    }
-
-    public Point[] findImageOnScreen(String image) throws Exception {
-        return findImageOnScreen(image, DEFAULT_RETRIES);
-    }
-
-    public Point[] findImageOnScreenNoAssert(String image, int retries, int retryWait, double tolerance) throws Exception {
-        return findImageOnScreen(image, retries, retryWait, tolerance, false, DEFAULT_TAKE_SCREENSHOT, DEFAULT_CROP);
-    }
-
-    public Point[] findImageOnScreenNoAssert(String image, int retries, int retryWait) throws Exception {
-        return findImageOnScreenNoAssert(image, retries, retryWait, DEFAULT_TOLERANCE);
-    }
-
-    public Point[] findImageOnScreenNoAssert(String image, int retries) throws Exception {
-        return findImageOnScreenNoAssert(image, retries, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
-    }
-
-    public Point[] findImageOnScreenNoAssert(String image) throws Exception {
-        return findImageOnScreenNoAssert(image, DEFAULT_RETRIES, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
-    }
-
-    public Point[] findImageOnScreen(String image, boolean take_screenshot) throws Exception {
-        return findImageOnScreen(image, DEFAULT_RETRIES, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE, DEFAULT_WITH_ASSERT, take_screenshot, DEFAULT_CROP);
-    }
-
-    //Searches for an image until it disappears from the current view. Good for checking if a loading screen has disappeared.
     public void waitForImageToDisappearFromScreen(String image) throws Exception {
-        boolean first_time = true;
-        boolean check = true;
-        long start, present;
-        start = System.nanoTime();
-        present = start;
-
-        log("==> Trying to find image: " + image);
-
-        while ((check) && ((present - start) / 1e6 / 1000 < 300)) {
-
-            if (first_time) {
-                first_time = false;
-                takeScreenshot(image + "_screenshot", true);
-                if ((findImage(image, image + "_screenshot" + getRetryCounter())) == null) {
-                    log("Loading screen not found. Moving on");
-                    check = false;
-                } else {
-                    sleep(3);
-                }
-            } else {
-                takeScreenshot(image + "_screenshot", false);
-                if ((findImage(image, image + "_screenshot" + getRetryCounter())) == null) {
-                    log("Loading screen not found. Moving on");
-                    check = false;
-                } else {
-                    sleep(3);
-                }
-            }
-
-            present = System.nanoTime();
-
-            if ((present - start) / 1e6 / 1000 >= 300) {
-                fail("Application takes too long to load: Stopping tests.....");
-                check = false;
-            }
-        }
+        String imageFile = queryImageFolder+image;
+        boolean hasImageDisappeared = ImageRecognition.hasImageDissappearedFromScreenBeforeTimeout(imageFile, screenshotsFolder, platform);
+        assert(hasImageDisappeared);
     }
 
     /**
@@ -340,12 +153,14 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "retries" is the number of times the method will try to find the searched image. If not set, default is 5.
     // "tolerance" sets the required accuracy for the image recognition algorithm.
     // "x_offset" and "y_offset" change the location on the found image where the tap is performed. If not used, the defaults are (0.5, 0.5) which represent the middle of the image.
-    public void tapImageOnScreen(String image, double x_offset, double y_offset, int retries, int retryWait, double tolerance) throws Exception {
-        Point[] imgRect = findImageOnScreen(image, retries, retryWait, tolerance);
-        Point top_left = imgRect[0];
-        Point top_right = imgRect[1];
-        Point bottom_left = imgRect[2];
-        Point center = imgRect[4];
+    public void tapImageOnScreen(String imageName, double x_offset, double y_offset, ImageRecognitionSettings settings) throws Exception {
+        ImageSearchResult result = findImageOnScreen(imageName, settings);
+        assert(result.isFound());
+        ImageLocation location = result.getImageLocation();
+        Point top_left = location.getTopLeft();
+        Point top_right = location.getTopRight();
+        Point bottom_left = location.getBottomLeft();
+        Point center = location.getCenter();
 
         if ((x_offset == 0.5) && (y_offset == 0.5)) {
             log("Coordinates are: " + center.x + "," + center.y);
@@ -360,32 +175,13 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         }
     }
 
-    public void tapImageOnScreen(String image, double x_offset, double y_offset, int retries, int retryWait) throws Exception {
-        tapImageOnScreen(image, x_offset, y_offset, retries, retryWait, DEFAULT_TOLERANCE);
-    }
-
-    public void tapImageOnScreen(String image, double x_offset, double y_offset, int retries) throws Exception {
-        tapImageOnScreen(image, x_offset, y_offset, retries, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
-    }
-
-    public void tapImageOnScreen(String image, double x_offset, double y_offset) throws Exception {
-        tapImageOnScreen(image, x_offset, y_offset, DEFAULT_RETRIES, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
-    }
-
-    public void tapImageOnScreen(String image, int retries, int retryWait, double tolerance) throws Exception {
-        tapImageOnScreen(image, 0.5, 0.5, retries, retryWait, tolerance);
-    }
-
-    public void tapImageOnScreen(String image, int retries, int retryWait) throws Exception {
-        tapImageOnScreen(image, 0.5, 0.5, retries, retryWait, DEFAULT_TOLERANCE);
-    }
-
-    public void tapImageOnScreen(String image, int retries) throws Exception {
-        tapImageOnScreen(image, 0.5, 0.5, retries, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
-    }
-
     public void tapImageOnScreen(String image) throws Exception {
-        tapImageOnScreen(image, 0.5, 0.5, DEFAULT_RETRIES, DEFAULT_RETRY_WAIT, DEFAULT_TOLERANCE);
+        ImageRecognitionSettings settings = new ImageRecognitionSettings();
+        tapImageOnScreen(image, 0.5, 0.5, settings);
+    }
+
+    public void tapImageOnScreen(String image, ImageRecognitionSettings settings) throws Exception {
+        tapImageOnScreen(image, 0.5, 0.5, settings);
     }
 
     //Finds an image on screen and taps on it. Method will cause a FAIL if the image is not found.
@@ -394,13 +190,15 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     // "x_offset" and "y_offset" change the location on the found image where the tap is performed. If not used, the defaults are (0.5, 0.5) which represent the middle of the image.
     // "taps" sets the number of taps that are performed.
     // "frequency" sets the frequency of the taps.
-    public void multipleTapImageOnScreen(String image, int retries, int taps, double frequency, double x_offset, double y_offset) throws Exception {
-        Point[] imgRect = findImageOnScreen(image, retries);
-        Point top_left = imgRect[0];
-        Point top_right = imgRect[1];
-        Point bottom_left = imgRect[2];
-        Point center = imgRect[4];
-        //imgRect[4] will have the center of the rectangle containing the image
+    public void multipleTapImageOnScreen(String imageName, int taps, double frequency, double x_offset, double y_offset, ImageRecognitionSettings settings) throws Exception {
+        ImageSearchResult result = findImageOnScreen(imageName, settings);
+        assert(result.isFound());
+        ImageLocation location = result.getImageLocation();
+        
+        Point top_left = location.getTopLeft();
+        Point top_right = location.getTopRight();
+        Point bottom_left = location.getBottomLeft();
+        Point center = location.getCenter();
 
         if ((x_offset == 0.5) && (y_offset == 0.5)) {
 
@@ -423,35 +221,32 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     public void multipleTapImageOnScreen(String image, int taps, double frequency, double x_offset, double y_offset) throws Exception {
-        multipleTapImageOnScreen(image, DEFAULT_RETRIES, taps, frequency, x_offset, y_offset);
-    }
-
-    public void multipleTapImageOnScreen(String image, int retries, int taps, double frequency) throws Exception {
-        multipleTapImageOnScreen(image, retries, taps, frequency, 0.5, 0.5);
+        ImageRecognitionSettings settings = new ImageRecognitionSettings();
+        multipleTapImageOnScreen(image, taps, frequency, x_offset, y_offset, settings);
     }
 
     public void multipleTapImageOnScreen(String image, int taps, double frequency) throws Exception {
-        multipleTapImageOnScreen(image, DEFAULT_RETRIES, taps, frequency, 0.5, 0.5);
+        multipleTapImageOnScreen(image, taps, frequency, 0.5, 0.5);
     }
 
     public void multipleTapImageOnScreen(String image, int taps) throws Exception {
-        multipleTapImageOnScreen(image, DEFAULT_RETRIES, taps, 1, 0.5, 0.5);
+        multipleTapImageOnScreen(image, taps, 1, 0.5, 0.5);
     }
 
     //Finds an image on screen and taps on it. Method will NOT cause a FAIL if the image is not found.
     // "image" is the searched image name
     // "retries" is the number of times the method will try to find the searched image. If not set, default is 5.
     // "x_offset" and "y_offset" change the location on the found image where the tap is performed. If not used, the defaults are (0.5, 0.5) which represent the middle of the image.
-    public boolean tryTapImageOnScreen(String image, double x_offset, double y_offset, int retries) throws Exception {
-        Point[] imgRect = findImageOnScreenNoAssert(image, retries);
+    public boolean tryTapImageOnScreen(String image, double x_offset, double y_offset, ImageRecognitionSettings settings) throws Exception {
+        ImageSearchResult searchResult = findImageOnScreen(image, settings);
 
-        if (imgRect == null) {
+        if (searchResult.isFound() == false) {
             return false;
         } else {
-            Point top_left = imgRect[0];
-            Point top_right = imgRect[1];
-            Point bottom_left = imgRect[2];
-            Point center = imgRect[4];
+            Point top_left = searchResult.getImageLocation().getBottomLeft();
+            Point top_right = searchResult.getImageLocation().getTopRight();
+            Point bottom_left = searchResult.getImageLocation().getBottomLeft();
+            Point center = searchResult.getImageLocation().getCenter();
 
             if ((x_offset == 0.5) && (y_offset == 0.5)) {
                 log("Coordinates are: " + center.x + "," + center.y);
@@ -465,34 +260,26 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         }
     }
 
-    public boolean tryTapImageOnScreen(String image, double x_offset, double y_offset) throws Exception {
-        return tryTapImageOnScreen(image, x_offset, y_offset, DEFAULT_RETRIES);
-    }
-
-    public boolean tryTapImageOnScreen(String image, int retries) throws Exception {
-        return tryTapImageOnScreen(image, 0.5, 0.5, retries);
-    }
-
     public boolean tryTapImageOnScreen(String image) throws Exception {
-        return tryTapImageOnScreen(image, 0.5, 0.5, DEFAULT_RETRIES);
+        ImageRecognitionSettings settings = new ImageRecognitionSettings();
+        return tryTapImageOnScreen(image, 0.5, 0.5, settings);
     }
-
+    
     // Finds an image on screen and taps and hold on it for a specified duration.
     // "duration" is given in seconds
-    // "with_assert" specifies if the method will return a fail or not if the image is not found.
-    public void tapAndHoldImageOnScreen(String image, double x_offset, double y_offset, int duration, boolean with_assert) throws Exception {
-
-        Point[] imgRect;
-
-        if (with_assert) {
-            imgRect = findImageOnScreen(image);
-        } else {
-            imgRect = findImageOnScreenNoAssert(image);
+    // Returns true if Image was found, false if the image was not found
+    public boolean tapAndHoldImageOnScreen(String imageName, double x_offset, double y_offset, int duration, ImageRecognitionSettings settings, boolean with_assert) throws Exception {
+        ImageSearchResult foundImage = findImageOnScreen(imageName, settings);
+        if (with_assert){
+            assert(foundImage.isFound());
+        }
+        if (foundImage.isFound() == false ) {
+            return false;
         }
 
-        Point top_left = imgRect[0];
-        Point top_right = imgRect[1];
-        Point bottom_left = imgRect[2];
+        Point top_left = foundImage.getImageLocation().getTopLeft();
+        Point top_right = foundImage.getImageLocation().getTopRight();
+        Point bottom_left = foundImage.getImageLocation().getBottomLeft();
 
         double newX = top_left.x + (top_right.x - top_left.x) * x_offset;
         double newY = top_left.y + (bottom_left.y - top_left.y) * y_offset;
@@ -504,23 +291,16 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         } else {
             driver.tap(1, (int) newX, (int) newY, duration);
         }
-    }
-
-    public void tapAndHoldImageOnScreen(String image, double x_offset, double y_offset, int duration) throws Exception {
-        tapAndHoldImageOnScreen(image, x_offset, y_offset, duration, DEFAULT_WITH_ASSERT);
+        return true;
     }
 
     public void tapAndHoldImageOnScreen(String image, int duration, boolean with_assert) throws Exception {
-        tapAndHoldImageOnScreen(image, 0.5, 0.5, duration, with_assert);
-    }
-
-    public void tapAndHoldImageOnScreen(String image, int duration) throws Exception {
-        tapAndHoldImageOnScreen(image, 0.5, 0.5, duration, DEFAULT_WITH_ASSERT);
+        ImageRecognitionSettings settings = new ImageRecognitionSettings();
+        tapAndHoldImageOnScreen(image, 0.5, 0.5, duration, settings, with_assert);
     }
 
     //Taps and holds on relative coordinates on the screen.
     public void tapAndHoldOnScreen(double x_offset, double y_offset, int duration) throws Exception {
-
         duration = duration * 1000;
         Dimension size = driver.manage().window().getSize();
         Point middle = new Point(size.getWidth(), size.getHeight());
@@ -544,15 +324,20 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //Performs a vertical swipe on the screen, starting from a searched image.
     //"distance" is given in pixels. A positive "distance" will perform a swipe down, a negative "distance" will perform a swipe up.
     //if "x_offset" and "y_offset" are used, the swipe will start from a relative coordinate of that image. If not used, the swipe will start from the center of the image.
-    public void swipeVerticallyOnImage(String image, int distance, double x_offset, double y_offset) throws Exception {
-        Point[] imgRect = findImageOnScreen(image);
-
-        int startX = (int) (imgRect[0].x + (imgRect[1].x - imgRect[0].x) * x_offset);
-        int startY = (int) (imgRect[0].y + (imgRect[2].y - imgRect[0].y) * y_offset);
+    public void swipeVerticallyOnImage(String imageName, int distance, double x_offset, double y_offset) throws Exception {
+        ImageSearchResult searchResult = findImageOnScreen(imageName);
+        assert(searchResult.isFound());
+        ImageLocation location = searchResult.getImageLocation();
+        Point top_left = location.getTopLeft();
+        Point top_right = location.getTopRight();
+        Point bottom_left = location.getBottomLeft();
+        
+        int startX = (int) (top_left.x + (top_right.x - top_left.x) * x_offset);
+        int startY = (int) (top_left.y + (bottom_left.y - top_left.y) * y_offset);
         int endX = startX;
         int endY = startY + distance;
 
-        if (platformName.equalsIgnoreCase("iOS")) {
+        if (platform.equals(PlatformType.IOS)) {
             iOSSwipe(startX, startY, endX, endY);
         } else {
             androidSwipe(startX, startY, endX, endY);
@@ -566,15 +351,20 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //Performs a horizontal swipe on the screen, starting from a searched image.
     //"distance" is given in pixels. A positive "distance" will perform a swipe to the right, a negative "distance" will perform a swipe to the left.
     //if "x_offset" and "y_offset" are used, the swipe will start from a relative coordinate of that image. If not used, the swipe will start from the center of the image.
-    public void swipeHorizontallyOnImage(String image, int distance, double x_offset, double y_offset) throws Exception {
-        Point[] imgRect = findImageOnScreen(image);
+    public void swipeHorizontallyOnImage(String imageName, int distance, double x_offset, double y_offset) throws Exception {
+        ImageSearchResult searchResult = findImageOnScreen(imageName);
+        assert(searchResult.isFound());
+        ImageLocation location = searchResult.getImageLocation();
+        Point top_left = location.getTopLeft();
+        Point top_right = location.getTopRight();
+        Point bottom_left = location.getBottomLeft();
 
-        int startX = (int) (imgRect[0].x + (imgRect[1].x - imgRect[0].x) * x_offset);
-        int startY = (int) (imgRect[0].y + (imgRect[2].y - imgRect[0].y) * y_offset);
+        int startX = (int) (top_left.x + (top_right.x - top_left.x) * x_offset);
+        int startY = (int) (top_left.y + (bottom_left.y - top_left.y) * y_offset);
         int endX = startX + distance;
         int endY = startY;
 
-        if (platformName.equalsIgnoreCase("iOS")) {
+        if (platform.equals(PlatformType.IOS)) {
             iOSSwipe(startX, startY, endX, endY);
         } else {
             androidSwipe(startX, startY, endX, endY);
@@ -603,7 +393,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
 
         for (int i = 0; i < swipes; i++) {
-            if (platformName.equalsIgnoreCase("iOS")) {
+            if (PlatformType.IOS.equals(PlatformType.IOS)) {
                 iOSSwipe(startX, startY, endX, endY);
             } else {
                 androidSwipe(startX, startY, endX, endY);
@@ -631,7 +421,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
 
         for (int i = 0; i < swipes; i++) {
-            if (platformName.equalsIgnoreCase("iOS")) {
+            if (PlatformType.IOS.equals(PlatformType.IOS)) {
                 iOSSwipe(startX, startY, endX, endY);
             } else {
                 androidSwipe(startX, startY, endX, endY);
@@ -659,7 +449,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
 
         for (int i = 0; i < swipes; i++) {
-            if (platformName.equalsIgnoreCase("iOS")) {
+            if (PlatformType.IOS.equals(PlatformType.IOS)) {
                 iOSSwipe(startX, startY, endX, endY);
             } else {
                 androidSwipe(startX, startY, endX, endY);
@@ -688,7 +478,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
 
         for (int i = 0; i < swipes; i++) {
-            if (platformName.equalsIgnoreCase("iOS")) {
+            if (PlatformType.IOS.equals(PlatformType.IOS)) {
                 iOSSwipe(startX, startY, endX, endY);
             } else {
                 androidSwipe(startX, startY, endX, endY);
@@ -727,10 +517,10 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         Point swipe_start = new Point(screen.x * startX, screen.y * startY);
         Point swipe_end = new Point(screen.x * endX, screen.y * endY);
 
-        if (platformName.equalsIgnoreCase("Android")) {
-            androidSwipe((int) swipe_start.x, (int) swipe_start.y, (int) swipe_end.x, (int) swipe_end.y);
-        } else {
+        if (PlatformType.IOS.equals(PlatformType.IOS)) {
             iOSSwipe((int) swipe_start.x, (int) swipe_start.y, (int) swipe_end.x, (int) swipe_end.y);
+        } else {
+            androidSwipe((int) swipe_start.x, (int) swipe_start.y, (int) swipe_end.x, (int) swipe_end.y);
         }
     }
 
@@ -740,17 +530,21 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
      * ======================================================================================
      */
 
-    //Performs a drag and drop from the middle of the "object" image to the middle of the "location" image.
-    public void dragFromOneImageToAnother(String object, String location) throws Exception {
+    //Performs a drag and drop from the middle of the "object" image to the middle of the "target" image.
+    public void dragFromOneImageToAnother(String object, String target) throws Exception {
+        ImageSearchResult object_image = findImageOnScreen(object);
+        assert(object_image.isFound());
+        ImageLocation object_image_location = object_image.getImageLocation();
+        
+        ImageSearchResult target_image = findImageOnScreen(target);
+        assert(target_image.isFound());
+        ImageLocation target_image_location = target_image.getImageLocation();
 
-        Point[] object_coord = findImageOnScreen(object);
-        Point[] location_coord = findImageOnScreen(location, false);
+        int startX = (int) object_image_location.getCenter().x;
+        int startY = (int) object_image_location.getCenter().y;
 
-        int startX = (int) object_coord[4].x;
-        int startY = (int) object_coord[4].y;
-
-        int endX = (int) location_coord[4].x;
-        int endY = (int) location_coord[4].y;
+        int endX = (int) target_image_location.getCenter().x;
+        int endY = (int) target_image_location.getCenter().y;
 
         if (automationName.equalsIgnoreCase("selendroid")) {
             androidSwipe(startX, startY, endX, endY);
@@ -762,14 +556,17 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     //Performs a drag and drop from the middle of the "object" image to the middle of the screen.
     public void dragImageToMiddle(String object) throws Exception {
-
         Dimension size = driver.manage().window().getSize();
         Point middle = new Point(size.getWidth() / 2 - 20, size.getHeight() / 2 + 20);
 
-        Point[] object_coord = findImageOnScreen(object, 10);
+        ImageRecognitionSettings settings = new ImageRecognitionSettings();
+        settings.setRetries(10);
+        ImageSearchResult object_image = findImageOnScreen(object, settings);
+        assert(object_image.isFound());
+        ImageLocation object_image_location = object_image.getImageLocation();
 
-        int startX = (int) object_coord[4].x;
-        int startY = (int) object_coord[4].y;
+        int startX = (int) object_image_location.getCenter().x;
+        int startY = (int) object_image_location.getCenter().y;
 
         int endX = (int) middle.x;
         int endY = (int) middle.y;
@@ -788,10 +585,14 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         Point screen = new Point(size.getWidth(), size.getHeight());
         Point swipe_end = new Point(screen.x * x_offset, screen.y * y_offset);
 
-        Point[] object_coord = findImageOnScreen(object, 10);
+        ImageRecognitionSettings settings = new ImageRecognitionSettings();
+        settings.setRetries(10);
+        ImageSearchResult object_image = findImageOnScreen(object, settings);
+        assert(object_image.isFound());
+        ImageLocation object_image_location = object_image.getImageLocation();
 
-        int startX = (int) object_coord[4].x;
-        int startY = (int) object_coord[4].y;
+        int startX = (int) object_image_location.getCenter().x;
+        int startY = (int) object_image_location.getCenter().y;
 
         int endX = (int) swipe_end.x;
         int endY = (int) swipe_end.y;
@@ -814,7 +615,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     public Dimension getScreenSizeADB() throws Exception {
         log("trying to get size from adb...");
         log("------------------------------");
-        if (platformName.equalsIgnoreCase("iOS")) {
+        if (platform.equals(PlatformType.IOS)) {
             return driver.manage().window().getSize();
         } else {
             String adb = "adb";
@@ -850,7 +651,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     public boolean findDeviceTypeADB() throws Exception {
         log("trying to find device type ...");
         log("------------------------------");
-        if (platformName.equalsIgnoreCase("iOS")) {
+        if (platform.equals(PlatformType.IOS)) {
             //TO Be added
         } else {
             String adb = "adb";
@@ -878,7 +679,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     //Uses adb commands to tap at relative coordinates. To be used when appium methods fail. Only works on Android devices.
     public void tapAtRelativeCoordinatesADB(double x_offset, double y_offset) throws Exception {
-        if (platformName.equalsIgnoreCase("iOS")) {
+        if (platform.equals(PlatformType.IOS)) {
             tapAtRelativeCoordinates(x_offset, y_offset);
         } else {
             Dimension size = getScreenSizeADB();
@@ -911,7 +712,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
     //Uses adb commands to tap at coordinates. To be used when appium methods fail. Only works on Android devices.
     public void tapAtCoordinatesADB(double x, double y) throws Exception {
         String[] adbCommand;
-        if (platformName.equalsIgnoreCase("iOS")) {
+        if (platform.equals(PlatformType.IOS)) {
             tapAtCoordinates((int) x, (int) y);
         } else {
             int Xx = (int) x;
@@ -935,7 +736,6 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     public void processBuilder(String[] adbCommand) {
         try {
-            found = true;
             ProcessBuilder p = new ProcessBuilder(adbCommand);
             Process proc = p.start();
             InputStream stdin = proc.getInputStream();
@@ -948,7 +748,6 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
             proc.waitFor();
 
         } catch (Throwable t) {
-            found = false;
             t.printStackTrace();
         }
     }
@@ -959,8 +758,12 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
      * ======================================================================================
      */
 
-    public void findAndCropImageFromScreen(String image) throws Exception {
-        findImageOnScreen(image, 3, DEFAULT_RETRY_WAIT, 0.60, true, true, true);
+    public ImageSearchResult findAndCropImageFromScreen(String imageName) throws Exception {
+        ImageRecognitionSettings settings = new ImageRecognitionSettings();
+        settings.setRetries(3);
+        settings.setTolerance(0.60);
+        settings.setCrop(true);
+        return findImageOnScreen(imageName, settings);
     }
 
     /**
@@ -969,28 +772,9 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
      * ======================================================================================
      */
 
-    public String grabText(String image) throws Exception {
-        findAndCropImageFromScreen(image);
-        String imageInput = screenshotsFolder + getScreenshotsCounter() + "_" + image + "_screenshot" + getRetryCounter() + "_" + timeDifferenceStartTest + "sec" + ".png";
-        String[] tesseractCommand = {"tesseract", imageInput, "stdout"};
-        String value = "";
-        try {
-            ProcessBuilder p = new ProcessBuilder(tesseractCommand);
-            Process proc = p.start();
-            InputStream stdin = proc.getInputStream();
-            InputStreamReader isr = new InputStreamReader(stdin);
-            BufferedReader br = new BufferedReader(isr);
-            String line;
-            String[] size = null;
-            String[] splitLines;
-            while ((line = br.readLine()) != null) {
-                value += line;
-            }
-
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-        return value;
+    public String grabText(String imageName) throws Exception {
+        ImageSearchResult result = findAndCropImageFromScreen(imageName);
+        return ImageRecognition.getTextStringFromImage(result.getScreenshotFile());
     }
 
     /**
@@ -1023,15 +807,17 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         if (driver.getPageSource().contains("Choose an account")) {
             if (automationName.equalsIgnoreCase("selendroid")) {
                 driver.findElement(By.xpath("//LinearLayout/Button[@text='Cancel']")).click();
-            } else if (platformName.equalsIgnoreCase("android")) {
+            } else if (platform.equals(PlatformType.ANDROID)) {
                 driver.findElement(By.xpath("//android.widget.Button[@text='Cancel']")).click();
             } else { //we are on ios
                 driver.findElementByAccessibilityId("Cancel").click();
             }
         }
         if (automationName.equalsIgnoreCase("selendroid")) {
-            while (findImageOnScreenNoAssert("native_sign_in_button") != null) {
-                tapImageOnScreen("native_sign_in_button", 0.75, 0.5, 1);
+            ImageRecognitionSettings settings = new ImageRecognitionSettings();
+            settings.setRetries(1);
+            while (findImageOnScreen("native_sign_in_button").isFound()) {
+                tapImageOnScreen("native_sign_in_button", 0.75, 0.5, settings);
             }
         } else {
             if (driver.getPageSource().contains("SIGN IN") || (driver.getPageSource().contains("Sign in")) || (driver.getPageSource().contains("Sign In"))) {
@@ -1045,6 +831,20 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         }
     }
 
+    protected void takeScreenshot(String screenshotName) throws IOException {
+        try {
+            ImageRecognition.takeScreenshot(screenshotName, screenshotsFolder, platform);
+        } catch (Exception e) {
+            File scrFile = driver.getScreenshotAs(OutputType.FILE);
+            String screenshotFile = screenshotsFolder + screenshotName + ".png";
+            String screenShotFilePath = System.getProperty("user.dir") + "/" + screenshotFile;
+            File testScreenshot = new File(screenShotFilePath);
+            FileUtils.copyFile(scrFile, testScreenshot);
+            logger.info("Screenshot stored to {}", testScreenshot.getAbsolutePath());
+            return;
+        }
+    }
+
     public void gameCenterLogin() throws Exception {
         if (driver.getPageSource().contains("Sign in")) {
             log("Google Plus sign in shown...");
@@ -1053,7 +853,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
             while (driver.getPageSource().contains("Sign in"))
                 if (automationName.equalsIgnoreCase("selendroid")) {
                     driver.findElement(By.xpath("//LinearLayout/Button[@text='Sign in']")).click();
-                } else if (platformName.equalsIgnoreCase("android")) {
+                } else if (platform.equals(PlatformType.ANDROID)) {
                     driver.findElement(By.xpath("//android.widget.Button[@text='Sign in']")).click();
                 } else { //we are on ios
                     driver.findElementByAccessibilityId("Sign In").click();
@@ -1064,9 +864,14 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     public void dismissFullScreenMessage() throws Exception {
         log("Trying to dismiss Full Screen notification message if it shows up...");
-        tryTapImageOnScreen("full_screen_1", 0.75, 0.75, 2);
-        tryTapImageOnScreen("full_screen_2", 0.75, 0.75, 1);
-        tryTapImageOnScreen("full_screen_3", 0.75, 0.8, 1);
+        ImageRecognitionSettings oneRetry = new ImageRecognitionSettings();
+        oneRetry.setRetries(1);
+        ImageRecognitionSettings twoRetries = new ImageRecognitionSettings();
+        twoRetries.setRetries(2);
+        tryTapImageOnScreen("full_screen_1", 0.75, 0.75, oneRetry);
+        tryTapImageOnScreen("full_screen_1", 0.75, 0.75, twoRetries);
+        tryTapImageOnScreen("full_screen_2", 0.75, 0.75, oneRetry);
+        tryTapImageOnScreen("full_screen_3", 0.75, 0.8, oneRetry);
     }
 
 }
