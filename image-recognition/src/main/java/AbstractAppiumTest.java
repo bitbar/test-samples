@@ -37,6 +37,7 @@ public abstract class AbstractAppiumTest {
 
 
     public static AppiumDriver getIOSDriver() throws Exception {
+        idevicescreenshotCheck();
         if (platform == null) {
             platform = PlatformType.IOS;
         }
@@ -75,6 +76,7 @@ public abstract class AbstractAppiumTest {
     }
 
     public static AppiumDriver getAndroidDriver() throws Exception {
+        adbCheck();
         if (platform == null) {
             platform = PlatformType.ANDROID;
         }
@@ -130,6 +132,38 @@ public abstract class AbstractAppiumTest {
             log("ideviceinfo process exited with value: " + exitVal);
         }
         return output;
+    }
+    
+    public static void idevicescreenshotCheck() throws Exception {
+        String[] cmd = new String[]{"idevicescreenshot", "--help"};
+        int exitVal = -1;
+        try {
+            Process p = Runtime.getRuntime().exec(cmd);
+            exitVal = p.waitFor();
+        } catch (IOException e) {
+            log(e.toString());
+        }
+        if (exitVal != 0) {
+            String errorMsg = "idevicescreenshot exited with value: " + exitVal + ". Please install it or add it to your path in order to use the image-recognition-opencv-library.";
+            logger.error(errorMsg);
+            throw new Exception(errorMsg);
+        }
+    }
+    
+    public static void adbCheck() throws Exception {
+        String[] cmd = new String[]{"adb"};
+        int exitVal = -1;
+        try {
+            Process p = Runtime.getRuntime().exec(cmd);
+            exitVal = p.waitFor();
+        } catch (IOException e) {
+            log(e.toString());
+        }
+        if (exitVal != 0) {
+            String errorMsg = "adb exited with value: " + exitVal + ". Please install it or add it to your path in order to use the image-recognition-opencv-library.";
+            logger.error(errorMsg);
+            throw new Exception(errorMsg);
+        }
     }
 
     public static void ideviceinstall(String appPath) throws IOException, InterruptedException {
