@@ -6,6 +6,8 @@ The project uses the Bitbar Sample App, will install it on the device, then chec
 
 The project uses:
 
+- [mobile-opencv-image-recognition-library](https://github.com/severi/opencv_library) - Library that handles OpenCV related logic
+
 - [Bitbar Testing](http://bitbar.com/testing) - Web service for automated testing on
   real mobile devices. You'll need to have an active account for launching the tests in cloud.
 
@@ -40,8 +42,19 @@ All image recognition related methods are implemented in the TestdroidImageRecog
        mvn install:install-file -Dfile=lib/<platform>/opencv/opencv-2413.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.13 -Dpackaging=jar
 
    Note that each platform has its own version of the libraries, so modify the command accordingly. If a different (newer) version of OpenCV is used, OpenCV version number needs also to be updated in pom.xml file.
+   
+2. mobile-opencv-image-recognition-library
 
-2. A-KAZE Features
+	Install the mobile-opencv-image-recognition-libary to your local maven repository. Open a new terminal and run the commands below
+	
+	```
+	git clone https://github.com/severi/opencv_library
+	cd opencv_library/library
+	mvn package
+	mvn install:install-file -Dfile=target/mobile-opencv-image-recognition-library-1.0-SNAPSHOT.jar -DpomFile=pom.xml -Djavadoc=target/mobile-opencv-image-recognition-library-1.0-SNAPSHOT-javadoc.jar -Dsources=target/mobile-opencv-image-recognition-library-1.0-SNAPSHOT-sources.jar
+	```
+
+3. A-KAZE Features
 
    The A-KAZE C++ implementation can optionally be found and built from: [Bitbar Akaze fork](https://github.com/bitbar/akaze). This project already contains the *./lib/\<platform\>/akaze/* folder with pre-built binaries for Linux, OS X and Windows. Only the akaze_match binary is currently in use.
 
