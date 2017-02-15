@@ -3,7 +3,6 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.slf4j.LoggerFactory;
 
@@ -17,18 +16,16 @@ import java.io.IOException;
  *
  * Usage:
  *
- * @TODO
- *
  * @author support@bitbar.com
  */
 
+@SuppressWarnings({"UnqualifiedFieldAccess", "UnqualifiedMethodAccess"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-public class AndroidSample extends TestdroidImageRecognition {
+public class AndroidSampleTest extends TestdroidImageRecognition {
 
-    public AndroidSample() throws Exception {
-        super();
-        logger = LoggerFactory.getLogger(AndroidSample.class);
+    public AndroidSampleTest() throws Exception {
+        super(LoggerFactory.getLogger(AndroidSampleTest.class));
     }
 
     @BeforeClass

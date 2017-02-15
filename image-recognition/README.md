@@ -61,7 +61,7 @@ Run the tests with maven using:
 
 For example, to run only the test `mainPageTest` from test class AndroidSample.java you would use:
 
-    mvn -Dtest=AndroidSample#mainPageTest test
+    mvn -Dtest=AndroidSampleTest#mainPageTest test
 
 To first clean all the previous test result files, add keyword `clean` to the command:
 
