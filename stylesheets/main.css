@@ -20,12 +20,12 @@ html, body {
 header {
     background-color: #1C2228;
     width: 100vw;
-    height: 5rem;
+    height: 6rem;
     overflow: hidden;
 }
 
 header > img#testdroid-logo {
-    height: 3.5rem;
+    height: 5rem;
     margin: .75rem auto;
     display: block;
 }

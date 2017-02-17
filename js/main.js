@@ -37,7 +37,7 @@ function ButtonHandler(){
                 count = 1;
             } else {
                 button.style.backgroundColor = "#7FFF00";
-                result.innerHTML = "Testdroid real device cloud, with real iOS and Android devices!";
+                result.innerHTML = "Bitbar Testing real device cloud, with real iOS and Android devices!";
                 count = 0;
             }
         }
