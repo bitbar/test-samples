@@ -1,0 +1,6 @@
+target/
+run-tests.sh
+android-test.zip
+ios-test.zip
+application.apk
+application.ipa
