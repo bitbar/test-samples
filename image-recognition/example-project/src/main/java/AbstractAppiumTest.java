@@ -2,6 +2,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import objects.PlatformType;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
@@ -15,44 +17,28 @@ import java.io.*;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by testdroid on 22/07/16.
- */
 public abstract class AbstractAppiumTest {
 
-    public static final int SHORT_SLEEP = 1;
-    public static final int MEDIUM_SLEEP = 5;
-    public static final int LONG_SLEEP = 10;
-
     protected static Logger logger = LoggerFactory.getLogger(AbstractAppiumTest.class);
-    private static long timeDifferenceStartTest;
-    private static long startTime;
-
     protected static AppiumDriver<MobileElement> driver;
     protected static int defaultWaitTime = 60;
 
-    private static int counter = 0;
-    private static int retry_counter = 1;
-    public static String searchedImage;
     public static File userDir = new File(System.getProperty("user.dir"));
-
     public static File[] matches = userDir.listFiles((dir, name) -> name.startsWith("application"));
-
-    public static String screenshotsFolder = "";
+    
     public static String appFile = System.getenv("APP_FILE") != null ? System.getenv("APP_FILE") : matches[0].toString();
-    public static String platformName = System.getenv("PLATFORM_NAME");
+    public static PlatformType platform;
     public static String automationName = System.getenv("AUTOMATION_NAME");
     public static String deviceName = System.getenv("DEVICE_NAME") != null ? System.getenv("DEVICE_NAME") : "device";
     public static String udid = System.getenv("UDID");
     public static String platformVersion = System.getenv("PLATFORM_VERSION") != null ? System.getenv("PLATFORM_VERSION") : "";
     // Set to false to autoDismiss
     public static boolean autoAccept = true;
-    public static boolean idevicescreenshotExists = false;
 
 
     public static AppiumDriver getIOSDriver() throws Exception {
-        if (platformName == null) {
-            platformName = "iOS";
+        if (platform == null) {
+            platform = PlatformType.IOS;
         }
         if (platformVersion == null){
         	platformVersion = "";
@@ -71,13 +57,9 @@ public abstract class AbstractAppiumTest {
             udid = ideviceinfoCheck("UniqueDeviceID");
         }
 
-        screenshotsFolder = "target/reports/screenshots/ios/";
-        File dir = new File(screenshotsFolder);
-        dir.mkdirs();
-
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("automationName", automationName);
-        capabilities.setCapability("platformName", platformName);
+        capabilities.setCapability("platformName", platform.getPlatformName());
         capabilities.setCapability("deviceName", deviceName);
         if (udid != null)
             capabilities.setCapability("udid", udid);
@@ -86,8 +68,6 @@ public abstract class AbstractAppiumTest {
         capabilities.setCapability("app", appFile);
         capabilities.setCapability("newCommandTimeout", 120);
 
-        idevicescreenshotCheck();
-
         log("Creating Appium session, this may take couple minutes..");
         driver = new IOSDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(defaultWaitTime, TimeUnit.SECONDS);
@@ -95,19 +75,16 @@ public abstract class AbstractAppiumTest {
     }
 
     public static AppiumDriver getAndroidDriver() throws Exception {
-        if (platformName == null) {
-            platformName = "Android";
+        if (platform == null) {
+            platform = PlatformType.ANDROID;
         }
         if (automationName == null){
         	automationName = "appium";
         }
-        screenshotsFolder = "target/reports/screenshots/android/";
-        File dir = new File(screenshotsFolder);
-        dir.mkdirs();
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("automationName", automationName);
-        capabilities.setCapability("platformName", platformName);
+        capabilities.setCapability("platformName", platform.getPlatformName());
         capabilities.setCapability("deviceName", "Android Device");
         if (udid != null)
             capabilities.setCapability("udid", udid);
@@ -124,64 +101,6 @@ public abstract class AbstractAppiumTest {
         return driver;
     }
 
-    public static void takeScreenshot(String screenshotName) throws Exception {
-        takeScreenshot(screenshotName, true);
-    }
-
-    public static void takeScreenshot(String screenshotName, boolean new_step) throws IOException, InterruptedException {
-      if (idevicescreenshotExists) {
-        // Keep Appium session alive between multiple non-driver screenshots
-        driver.manage().window().getSize();
-      }
-      timeDifferenceStartTest = (int) ((System.nanoTime() - startTime) / 1e6 / 1000);
-      long start_time = System.nanoTime();
-
-      if (new_step) {
-          counter = counter + 1;
-          retry_counter = 1;
-      } else {
-          retry_counter = retry_counter + 1;
-      }
-
-      searchedImage = screenshotsFolder + getScreenshotsCounter() + "_" + screenshotName + getRetryCounter() + "_" + timeDifferenceStartTest + "sec";
-      String fullFileName = System.getProperty("user.dir") + "/" + searchedImage + ".png";
-
-    	if (platformName.equalsIgnoreCase("iOS") && idevicescreenshotExists) {
-          String[] cmd = new String[]{"idevicescreenshot", "-u", udid, fullFileName};
-      		Process p = Runtime.getRuntime().exec(cmd);
-      		BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-          String line;
-      		while ((line = in.readLine()) != null)
-      			log(line);
-
-      		int exitVal = p.waitFor();
-          if (exitVal != 0) {
-              log("idevicescreenshot process exited with value: " + exitVal);
-          }
-          cmd = new String[]{"sips", "-s", "format", "png", fullFileName, "--out", fullFileName};
-          p = Runtime.getRuntime().exec(cmd);
-          exitVal = p.waitFor();
-          if (exitVal != 0) {
-              log("sips process exited with value: " + exitVal);
-          }
-    	} else {
-            // idevicescreenshot not available, using driver.getScreenshotAs()
-        	File scrFile = driver.getScreenshotAs(OutputType.FILE);
-          try {
-              File testScreenshot = new File(fullFileName);
-              FileUtils.copyFile(scrFile, testScreenshot);
-              logger.info("Screenshot stored to {}", testScreenshot.getAbsolutePath());
-              return;
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-    	}
-
-      long end_time = System.nanoTime();
-      int difference = (int) ((end_time - start_time) / 1e6 / 1000);
-      logger.info("==> Taking a screenshot took " + difference + " secs.");
-    }
-
     //On a test run on the local machine this method will save the Reports folder in different folders on every test run.
     public static void savePreviousRunReports() {
         long millis = System.currentTimeMillis();
@@ -193,25 +112,6 @@ public abstract class AbstractAppiumTest {
             dir.mkdir();
             dir.renameTo(newName);
         }
-    }
-
-    public static boolean idevicescreenshotCheck() throws IOException, InterruptedException {
-        String[] cmd = new String[]{"idevicescreenshot", "--help"};
-        int exitVal = -1;
-        try {
-            Process p = Runtime.getRuntime().exec(cmd);
-            exitVal = p.waitFor();
-        } catch (IOException e) {
-            log(e.toString());
-        }
-        if (exitVal == 0) {
-            log("idevicescreenshot exited with value: " + exitVal + ". Using it for screenshots.");
-            idevicescreenshotExists = true;
-        } else {
-            log("idevicescreenshot process exited with value: " + exitVal + ". Won't be using it for screenshots.");
-            idevicescreenshotExists = false;
-        }
-        return idevicescreenshotExists;
     }
 
     public static String ideviceinfoCheck(String key) throws IOException, InterruptedException {
@@ -259,28 +159,6 @@ public abstract class AbstractAppiumTest {
         exitVal = p.waitFor();
         if (exitVal != 0) {
             log("ideviceinstaller process exited with value: " + exitVal);
-        }
-    }
-
-    //Will count the screenshots taken for separate stages of the test.
-    public static String getScreenshotsCounter() {
-        if (counter < 100) {
-            if (counter < 10) {
-                return "00" + counter;
-            } else {
-                return "0" + counter;
-            }
-        } else {
-            return Integer.toString(counter);
-        }
-    }
-
-    //Will count the number of times we tried to find the same image. When this counter goes up, the screenshot counter remains the same.
-    static String getRetryCounter() {
-        if (retry_counter < 10) {
-            return "_0" + retry_counter;
-        } else {
-            return "_" + Integer.toString(retry_counter);
         }
     }
 

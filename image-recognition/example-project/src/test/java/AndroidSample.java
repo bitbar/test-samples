@@ -3,9 +3,12 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.slf4j.LoggerFactory;
+
+import objects.ImageSearchResult;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +36,6 @@ public class AndroidSample extends TestdroidImageRecognition {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        AkazeImageFinder.setupOpenCVEnv();
         driver = getAndroidDriver();
     }
 
@@ -70,7 +72,8 @@ public class AndroidSample extends TestdroidImageRecognition {
         log("Image Recognition sample script started.");
         takeScreenshot("Before hideKeyboard");
         hideKeyboard();
-        findImageOnScreen("bitbar_logo");
+        ImageSearchResult result = findImageOnScreen("bitbar_logo.png");
+        assert(result.isFound());
         log("Success.");
     }
 }

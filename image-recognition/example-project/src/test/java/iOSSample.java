@@ -7,6 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.slf4j.LoggerFactory;
 
+import objects.ImageSearchResult;
+
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -33,7 +37,6 @@ public class iOSSample extends TestdroidImageRecognition {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        AkazeImageFinder.setupOpenCVEnv();
         driver = getIOSDriver();
     }
 
@@ -70,7 +73,8 @@ public class iOSSample extends TestdroidImageRecognition {
         log("Image Recognition sample script started.");
         takeScreenshot("Before hideKeyboard");
         hideKeyboard();
-        findImageOnScreen("bitbar_logo");
+        ImageSearchResult result = findImageOnScreen("bitbar_logo.png");
+        assert(result.isFound());
         log("Success.");
     }
 }
