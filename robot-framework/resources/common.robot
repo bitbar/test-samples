@@ -36,7 +36,7 @@ Set Up And Open Ios Application
 
 Set Up And Open Chrome
     Open Application    ${REMOTE_URL}    platformName=${PLATFORM_NAME_ANDROID}    #platformVersion=${PLATFORM_VERSION_ANDROID}
-    ...    deviceName=${DEVICE_NAME_IOS}    browserName=Chrome    automationName=${AUTOMATION_NAME}
+    ...    deviceName=${DEVICE_NAME_ANDROID}    browserName=Chrome    automationName=${AUTOMATION_NAME}
 
 Set Up And Open Safari
     Open Application    ${REMOTE_URL}    platformName=${PLATFORM_NAME_IOS}    #platformVersion=${PLATFORM_VERSION_IOS}
