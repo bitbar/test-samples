@@ -4,8 +4,8 @@ Test Teardown    Close Application
 
 *** Variables ***
 ${NAME}                John
-${INPUT_NAME_FIELD}    name=userName
-${SUBMIT_BUTTON}       name=sendAnswer
+${INPUT_NAME_FIELD}    name = userName
+${SUBMIT_BUTTON}       name = sendAnswer
 
 *** Test cases ***
 
@@ -50,7 +50,7 @@ Input Name
 
 Select Option
     [Arguments]    ${option}
-    Click Element    xpath = //*[contains(@label, '${option}')]
+    Click Element    id = ${option}
 
 Submit Selection
     Click Element    ${SUBMIT_BUTTON}

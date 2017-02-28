@@ -6,6 +6,7 @@ ${SCREENSHOTS}                  ${PROJECTROOT}${/}screenshots${/}
 
 ${REMOTE_URL}                   http://localhost:4723/wd/hub
 ${AUTOMATION_NAME}              appium
+${IOS_AUTOMATION_NAME}          XCUITest
 
 ${PLATFORM_NAME_ANDROID}        Android
 ${PLATFORM_VERSION_ANDROID}     6.0.1   # Uncomment this from the 'Open Application' keyword if you want to be spesific
@@ -30,8 +31,17 @@ Set Up And Open Android Application
 
 Set Up And Open Ios Application
     Open Application    ${REMOTE_URL}    platformName=${PLATFORM_NAME_IOS}    #platformVersion=${PLATFORM_VERSION_IOS}
-    ...    deviceName=${DEVICE_NAME_IOS}    app=${APP_IOS}    autoAcceptAlerts=${AUTO_ACCEPT_ALERTS}
+    ...    deviceName=${DEVICE_NAME_IOS}    app=${APP_IOS}    automationName=${IOS_AUTOMATION_NAME}
     Wait Until Page Contains    What is the best way to test your application    5s
+
+Set Up And Open Chrome
+    Open Application    ${REMOTE_URL}    platformName=${PLATFORM_NAME_ANDROID}    #platformVersion=${PLATFORM_VERSION_ANDROID}
+    ...    deviceName=${DEVICE_NAME_ANDROID}    browserName=Chrome    automationName=${AUTOMATION_NAME}
+
+Set Up And Open Safari
+    Open Application    ${REMOTE_URL}    platformName=${PLATFORM_NAME_IOS}    #platformVersion=${PLATFORM_VERSION_IOS}
+    ...    deviceName=${DEVICE_NAME_IOS}    browserName=Safari    automationName=${IOS_AUTOMATION_NAME}
+    Wait Until Page Contains    Automation for Apps   10s
 
 Capture Screenshot On Failure
     Capture Page Screenshot    ${SCREENSHOTS}${/}${TEST NAME}.png
