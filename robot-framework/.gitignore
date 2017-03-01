@@ -6,6 +6,11 @@ log.html
 .DS_Store
 TEST-all.xml
 
+### Bitbar specific ###
+android-test.zip
+ios-test.zip
+run-tests.sh
+
 ### Appium ###
 *.appiumconfig
 
