@@ -147,7 +147,7 @@ class TestdroidAndroid(unittest.TestCase):
         self.utils.screenshot("answer")
 
         self.utils.log("Check answer text")
-        self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Testdroid")]')
+        self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Bitbar")]')
 
         self.utils.log("Verify button changed color")
         style = str(button.get_attribute('style'))
