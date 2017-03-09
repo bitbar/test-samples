@@ -43,18 +43,8 @@ All image recognition related methods are implemented in the TestdroidImageRecog
 
    Note that each platform has its own version of the libraries, so modify the command accordingly. If a different (newer) version of OpenCV is used, OpenCV version number needs also to be updated in pom.xml file.
    
-2. mobile-opencv-image-recognition-library
 
-	Install the mobile-opencv-image-recognition-libary to your local maven repository. Open a new terminal and run the commands below
-	
-	```
-	git clone https://github.com/severi/opencv_library
-	cd opencv_library/library
-	mvn package
-	mvn install:install-file -Dfile=target/mobile-opencv-image-recognition-library-1.0-SNAPSHOT.jar -DpomFile=pom.xml -Djavadoc=target/mobile-opencv-image-recognition-library-1.0-SNAPSHOT-javadoc.jar -Dsources=target/mobile-opencv-image-recognition-library-1.0-SNAPSHOT-sources.jar
-	```
-
-3. A-KAZE Features
+2. A-KAZE Features
 
    The A-KAZE C++ implementation can optionally be found and built from: [Bitbar Akaze fork](https://github.com/bitbar/akaze). This project already contains the *./lib/\<platform\>/akaze/* folder with pre-built binaries for Linux, OS X and Windows. Only the akaze_match binary is currently in use.
 
