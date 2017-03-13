@@ -26,7 +26,7 @@ UDID="${echo $UDID}"
 echo "UDID set to ${UDID}"
 
 echo "Starting Appium ..."
-/opt/appium/bin/appium.js -U ${UDID} --command-timeout 120 >appium.log 2>&1 &
+appium-1.6 -U ${UDID}  --log-no-colors --log-timestamp --show-ios-log --command-timeout 120 >appium.log 2>&1 &
 
 sleep 20 # Sleep for appium to launch properly
 
@@ -42,7 +42,7 @@ export APPIUM_APPFILE=$PWD/application.ipa #App is at current working folder
 export APPIUM_URL="http://localhost:4723/wd/hub" # Local & Cloud
 export APPIUM_DEVICE="Local Device"
 export APPIUM_PLATFORM="IOS"
-export APPIUM_AUTOMATION="ios"
+export APPIUM_AUTOMATION="XCUITest"
 
 ## Run the test:
 echo "Running test ${TEST}"
