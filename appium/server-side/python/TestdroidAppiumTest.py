@@ -71,9 +71,6 @@ class TestdroidAppiumTest(unittest.TestCase):
             self.set_screenshot_dir('%s/screenshots' % (os.getcwd()))
         # Initialize webdriver
         self.get_driver()
-#        if not self.browser_name:
-#            self.resolution = self.driver.get_window_size()
-#            log("Detected resolution %sx%s" % (self.resolution['width'], self.resolution['height']))
 
     def tearDown(self):
         self.driver.quit()

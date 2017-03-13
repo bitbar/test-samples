@@ -29,7 +29,7 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
                 if self.isSelendroid():
                     elem = driver.find_element_by_xpath("//LinearLayout[1]/FrameLayout[1]/ScrollView[1]/LinearLayout[1]/LinearLayout[1]/RadioGroup[1]/RadioButton[2]")
                 else:
-                    elem = driver.find_element_by_name('Use Testdroid Cloud')
+                    elem = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Use Testdroid Cloud")')
                 self.assertTrue(elem)
                 elem.click()
                 sleep(2) # always sleep before taking screenshot to let transition animations finish

@@ -20,8 +20,7 @@ sudo pip install -r requirements.txt
 
 echo "Starting Appium ..."
 
-/opt/appium/appium/bin/appium.js >appium.log 2>&1 &
-
+appium-1.6 --log-no-colors --log-timestamp
 sleep 10 # Sleep for appium to launch properly
 
 ps -ef|grep appium
@@ -41,8 +40,8 @@ echo "API level is: ${APILEVEL}"
 
 ## APPIUM_AUTOMATION 
 if [ "$APILEVEL" -gt "16" ]; then
-  echo "Setting APPIUM_AUTOMATION=android"
-  export APPIUM_AUTOMATION="Android"
+  echo "Setting APPIUM_AUTOMATION=Appium"
+  export APPIUM_AUTOMATION="Appium"
 else
   echo "Setting APPIUM_AUTOMATION=selendroid"
   export APPIUM_AUTOMATION="Selendroid"
