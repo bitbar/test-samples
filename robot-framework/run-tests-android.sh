@@ -21,4 +21,6 @@ python run_android.py -x TEST-all
 
 echo "Gathering results"
 mkdir -p output-files
-mv report.html log.html screenshots output-files
+cp -r screenshots output-files
+mv report.html log.html output-files
+zip -r output-files.zip output-files
