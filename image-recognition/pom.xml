@@ -5,21 +5,11 @@
     <groupId>com.testdroid</groupId>
     <artifactId>image-recognition-sample</artifactId>
     <version>2.0</version>
-    <repositories>
-        <repository>
-            <id>opencv-library-mvn-repo</id>
-            <url>https://raw.github.com/bitbar/opencv-library/mvn-repo/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.testdroid</groupId>
             <artifactId>mobile-opencv-image-recognition-library</artifactId>
-            <version>1.0</version>
+            <version>0.1</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

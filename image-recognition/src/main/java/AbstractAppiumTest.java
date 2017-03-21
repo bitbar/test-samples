@@ -151,7 +151,7 @@ public abstract class AbstractAppiumTest {
     }
     
     public static void adbCheck() throws Exception {
-        String[] cmd = new String[]{"adb"};
+        String[] cmd = new String[]{"adb","version"};
         int exitVal = -1;
         try {
             Process p = Runtime.getRuntime().exec(cmd);

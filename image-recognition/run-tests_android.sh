@@ -19,6 +19,7 @@ TEST_CASE="#mainPageTest"
 export SCREENSHOT_FOLDER=target/reports/screenshots/android/
 export PLATFORM_NAME=Android
 export UDID=${ANDROID_SERIAL}
+export PATH=${PATH}:$ANDROID_HOME/tools/ #needed for screenshot2 command
 
 # Check Android device API level to set Appium automationName
 APILEVEL=$(adb shell getprop ro.build.version.sdk)
