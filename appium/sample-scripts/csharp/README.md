@@ -1,8 +1,9 @@
-#Appium Testdroid Sample
+# Appium Testdroid Sample
 
 
 The capabilities has been set to run tests for Bitbar Sample Android
-app. Before running tests modify Tests.cs and replace
+app. Before running tests modify Tests.cs and
+ replace
 TESTDROID_USERNAME and TESTDROID_PASSWORD with your user
 credentials. Set the SCREENSHOT_FOLDER to an existing directory on
 your system.
