@@ -42,7 +42,7 @@ appium-1.6 --log-no-colors --log-timestamp
 mvn --quiet install:install-file -Dfile=lib/linux/opencv/opencv-2413.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.13 -Dpackaging=jar
 
 # Make sure the akaze binaries have execution rights
-chmod +x lib/*
+chmod -R +x lib/*
 
 ## Start test execution
 echo "Running tests ${TEST}${TEST_CASE}"
