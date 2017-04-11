@@ -20,7 +20,7 @@ import java.util.Set;
 
 public abstract class BaseTest {
     private static final String LOCAL_APPIUM_ADDRESS = "http://localhost:4723";
-    private static final String TESTDROID_SERVER = "http://appium.testdroid.com";
+    private static final String TESTDROID_SERVER = "https://appium.testdroid.com";
     private static final String serverSideTypeDefinition = "serverside";
     private static final String clientSideTypeDefinition = "clientside";
     protected AppiumDriver<MobileElement> wd;
@@ -38,20 +38,20 @@ public abstract class BaseTest {
         if (isClientSideTestRun()) {
             logger.debug("Setting client side specific capabilities...");
             String fileUUID = getDefaultFileUUID();
-            if (isUploadApplication()){
-                logger.debug("Uploading "+getTargetAppPath()+"to Testdroid Cloud");
+            if (isUploadApplication()) {
+                logger.debug("Uploading " + getTargetAppPath() + " to Testdroid Cloud");
                 fileUUID = FileUploader.uploadFile(getTargetAppPath(), getAppiumServerAddress(),
                         getApiKey());
-                logger.debug("File uploaded. File UUID is "+fileUUID);
+                logger.debug("File uploaded. File UUID is " + fileUUID);
             }
-            if (exportTestResultsToCloud()){
+            if (exportTestResultsToCloud()) {
                 logger.debug("Exporting results enabled");
                 capabilities.setCapability("testdroid_junitWaitTime", 300);
             }
             capabilities.setCapability("testdroid_app", fileUUID);
             capabilities.setCapability("testdroid_apiKey", getApiKey());
             logger.debug("Setting client side specific capabilities... FINISHED");
-        } else if (isServerSideTestRun()){
+        } else if (isServerSideTestRun()) {
             logger.debug("Setting server side specific capabilities...");
             capabilities.setCapability("app", getServerSideApplicationPath());
             if (System.getenv("AUTOMATION_NAME") != null) {
@@ -70,12 +70,12 @@ public abstract class BaseTest {
             logger.debug("testdroid_app not defined in properties, defaulting to \"latest\" if no .apk/.ipa has been defined with -DapplicationPath for upload");
             return defaultAppUUID;
         }
-        logger.debug("testdroid_app defined in properties, defaulting to \""+propertiesAppUUID+"\" if no .apk has been defined with -DapplicationPath for upload");
+        logger.debug("testdroid_app defined in properties, defaulting to \"" + propertiesAppUUID + "\" if no .apk has been defined with -DapplicationPath for upload");
         return propertiesAppUUID;
     }
 
     private DesiredCapabilities getDesiredCapabilitiesFromProperties() {
-        logger.debug("Setting desiredCapabilities defined in "+getDesiredCapabilitiesPropertiesFileName());
+        logger.debug("Setting desiredCapabilities defined in " + getDesiredCapabilitiesPropertiesFileName());
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         Properties desiredCapabilitiesProperties = fetchProperties(getDesiredCapabilitiesPropertiesFileName());
         Set<String> keys = desiredCapabilitiesProperties.stringPropertyNames();
@@ -95,7 +95,7 @@ public abstract class BaseTest {
             input = getClass().getClassLoader().getResourceAsStream(filename);
             if (input == null) {
                 logger.error("Sorry, unable to find " + filename);
-                throw new FileNotFoundException("Unable to find/open file: "+filename);
+                throw new FileNotFoundException("Unable to find/open file: " + filename);
             }
             properties.load(input);
 
@@ -145,8 +145,8 @@ public abstract class BaseTest {
     private String getApiKey() {
         String propertyName = "apiKey";
         String property = System.getProperty(propertyName);
-        if (property == null || property.isEmpty()){
-            logger.warn(propertyName+" mvn argument is not defined. To define it, use the following mvn argument: -D"+propertyName+"=<insert_here>");
+        if (property == null || property.isEmpty()) {
+            logger.warn(propertyName + " mvn argument is not defined. To define it, use the following mvn argument: -D" + propertyName + "=<insert_here>");
         }
         return property;
     }
@@ -154,14 +154,14 @@ public abstract class BaseTest {
     private String getExecutionType() {
         String propertyName = "executionType";
         String property = System.getProperty(propertyName);
-        if (property == null || property.isEmpty()){
-            logger.warn(propertyName+" mvn argument is not defined. To define it, use the following mvn argument: -D"+propertyName+"=<insert_here>");
+        if (property == null || property.isEmpty()) {
+            logger.warn(propertyName + " mvn argument is not defined. To define it, use the following mvn argument: -D" + propertyName + "=<insert_here>");
         }
         return property;
     }
 
     protected void quitAppiumSession() {
-        if (exportTestResultsToCloud()){
+        if (exportTestResultsToCloud()) {
             try{
                 PrintWriter writer = new PrintWriter("target/sessionid.txt", "UTF-8");
                 writer.println(wd.getSessionId().toString());
@@ -176,12 +176,12 @@ public abstract class BaseTest {
     }
 
     private boolean exportTestResultsToCloud() {
-        boolean isExportResults = System.getProperty("exportResults") !=null && System.getProperty("exportResults").equals("true");
+        boolean isExportResults = System.getProperty("exportResults") != null && System.getProperty("exportResults").equals("true");
         return isClientSideTestRun() && isExportResults;
     }
 
     protected File takeScreenshot(String screenshotName) {
-        String fullFileName = System.getProperty("user.dir") + "/screenshots/"+ screenshotName + ".png";
+        String fullFileName = System.getProperty("user.dir") + "/screenshots/" + screenshotName + ".png";
         logger.debug("Taking screenshot...");
         File scrFile = ((TakesScreenshot) wd).getScreenshotAs(OutputType.FILE);
 

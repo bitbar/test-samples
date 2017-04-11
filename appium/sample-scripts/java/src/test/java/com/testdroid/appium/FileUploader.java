@@ -45,11 +45,11 @@ public class FileUploader {
 
         HttpRequest request = requestFactory.buildPostRequest(new GenericUrl(serverURL + "/upload"), multipartContent);
 
-        HttpResponse response = request.execute();
-        logger.debug("response:" + response.parseAsString());
-
         AppiumResponse appiumResponse = request.execute().parseAs(AppiumResponse.class);
-        logger.debug("File id:" + appiumResponse.uploadStatus.fileInfo.file);
+
+        logger.debug("response: " + appiumResponse.uploadStatus.message);
+
+        logger.debug("File id: " + appiumResponse.uploadStatus.fileInfo.file);
 
         return appiumResponse.uploadStatus.fileInfo.file;
 
