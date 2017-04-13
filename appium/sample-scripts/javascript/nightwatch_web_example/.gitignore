@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+.tmp
+.sass-cache
+.DS_Store
+.DS_Store?
+/temp/
+.credentials.json
+/build/*
+!/build/.gitkeep
+/tests/reports/*
+!tests/reports/.gitkeep
+/dist/*
