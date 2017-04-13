@@ -1,0 +1,15 @@
+{
+  "name": "testdroid-nightwatch-example",
+  "description": "Basic example of using Testdroid together with gulp and nightwatch",
+  "repository": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "nightwatch": "0.9.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-inject-string": "^1.1.0",
+    "gulp-nightwatch": "^0.3.1",
+    "gulp-zip": "^3.2.0"
+  }
+}
