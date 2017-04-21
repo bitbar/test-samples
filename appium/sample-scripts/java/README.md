@@ -149,7 +149,7 @@ For more information about Testdroid specific capabilites, please refer to
 
 # Helpful Resources
 - [Complete list of available devices](https://cloud.testdroid.com/#service/devicegroups)
-- [Testdroid Documentation](http://docs.testdroid.com/)
+- [Bitbar Testing Documentation](http://docs.bitbar.com/)
 
 
 
