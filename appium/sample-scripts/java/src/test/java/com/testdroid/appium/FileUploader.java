@@ -12,7 +12,6 @@ import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -45,11 +44,11 @@ public class FileUploader {
 
         HttpRequest request = requestFactory.buildPostRequest(new GenericUrl(serverURL + "/upload"), multipartContent);
 
-        HttpResponse response = request.execute();
-        logger.debug("response:" + response.parseAsString());
-
         AppiumResponse appiumResponse = request.execute().parseAs(AppiumResponse.class);
-        logger.debug("File id:" + appiumResponse.uploadStatus.fileInfo.file);
+
+        logger.debug("response: " + appiumResponse.uploadStatus.message);
+
+        logger.debug("File id: " + appiumResponse.uploadStatus.fileInfo.file);
 
         return appiumResponse.uploadStatus.fileInfo.file;
 
