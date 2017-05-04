@@ -91,7 +91,7 @@ windows_client_side_test_and_export_results.bat ^
 -DapplicationPath=</path/to/BitbarSampleApp.apk>
 ```
 
-#Server Side Test Execution
+# Server Side Test Execution
 Create a zip file containing the project, which will be uploaded to [Testdroid Cloud](https://cloud.testdroid.com/).
 
 * On OSX/Linux machines you can just run the following command at the project's root directory:
