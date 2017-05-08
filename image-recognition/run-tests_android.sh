@@ -38,8 +38,7 @@ echo "Starting Appium ..."
 appium-1.6 --log-no-colors --log-timestamp
 
 ## Dependency installation
-# Install the OpenCV java bindings
-mvn --quiet install:install-file -Dfile=lib/linux/opencv/opencv-2413.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.13 -Dpackaging=jar
+mvn --quiet install -DskipTests
 
 # Make sure the akaze binaries have execution rights
 chmod -R +x lib/*
@@ -48,7 +47,7 @@ chmod -R +x lib/*
 echo "Running tests ${TEST}${TEST_CASE}"
 # Remove `-Dtest=${TEST}${TEST_CASE}` to launch all tests in the project
 # More examples at https://maven.apache.org/surefire/maven-surefire-plugin/examples/single-test.html
-mvn -Dtest=${TEST}${TEST_CASE} --quiet clean test
+mvn -Dtest=${TEST}${TEST_CASE} clean test
 
 ## Post-processing
 # JUnit results need to be available at root as "TEST-all.xml"
