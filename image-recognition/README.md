@@ -6,7 +6,7 @@ The project uses the Bitbar Sample App, will install it on the device, then chec
 
 The project uses:
 
-- [mobile-opencv-image-recognition-library](https://github.com/severi/opencv_library) - Library that handles OpenCV related logic
+- [mobile-opencv-image-recognition-library](https://github.com/bitbar/opencv-library) - Library that handles OpenCV related logic
 
 - [Bitbar Testing](http://bitbar.com/testing) - Web service for automated testing on
   real mobile devices. You'll need to have an active account for launching the tests in cloud.
@@ -21,7 +21,7 @@ The project uses:
 
 We use the akaze-match program from [A-KAZE Features](https://github.com/pablofdezalc/akaze) to find the matching keypoints from two images and save them to a json file. [OpenCV](http://opencv.org/) java bindings are used for processing the json file with keypoints and finding the homography of the wanted image in a scene (screenshot).
 
-The AkazeImageFinder.java class will run `akaze_match`, then use the keypoints from json to try to identify a given image inside a scene and return the corners of the image found. In our case, we look for specific images from *./queryimages/* folder and try to find them on a screenshot taken from device.
+The AkazeImageFinder.java class found within the [mobile-opencv-image-recognition-library](https://github.com/bitbar/opencv-library) will run `akaze_match`, then use the keypoints from json to try to identify a given image inside a scene and return the corners of the image found. In our case, we look for specific images from *./queryimages/* folder and try to find them on a screenshot taken from device.
 
 Once the image is located, we can:
 
@@ -34,17 +34,7 @@ All image recognition related methods are implemented in the TestdroidImageRecog
 
 ## Installing dependencies
 
-1. OpenCV
-
-   The OpenCV java libraries can be found under *./lib/\<platform\>/opencv/* directory
-   inside the project. To install them locally with maven, run:
-
-       mvn install:install-file -Dfile=lib/<platform>/opencv/opencv-2413.jar -DgroupId=opencv -DartifactId=opencv -Dversion=2.4.13 -Dpackaging=jar
-
-   Note that each platform has its own version of the libraries, so modify the command accordingly. If a different (newer) version of OpenCV is used, OpenCV version number needs also to be updated in pom.xml file.
-   
-
-2. A-KAZE Features
+1. A-KAZE Features
 
    The A-KAZE C++ implementation can optionally be found and built from: [Bitbar Akaze fork](https://github.com/bitbar/akaze). This project already contains the *./lib/\<platform\>/akaze/* folder with pre-built binaries for Linux, OS X and Windows. Only the akaze_match binary is currently in use.
 

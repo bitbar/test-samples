@@ -29,8 +29,14 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
 
     public TestdroidImageRecognition(){
         super();
-        screenshotsFolder = "target/reports/screenshots/";
-        queryImageFolder = "queryimages/";
+        screenshotsFolder = System.getenv("SCREENSHOT_FOLDER");
+        if (screenshotsFolder == null || screenshotsFolder.isEmpty()) {
+            screenshotsFolder = "target/reports/screenshots/";
+        }
+        queryImageFolder = System.getenv("QUERYIMAGES_FOLDER");
+        if (queryImageFolder == null || queryImageFolder.isEmpty()) {
+            queryImageFolder = "queryimages/";
+        }
         File dir = new File(screenshotsFolder);
         dir.mkdirs();
     }
