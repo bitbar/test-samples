@@ -5,8 +5,8 @@ This folder includes sample Appium tests using Java for Android and iOS, which c
 
 This example can be run either using client side execution or server side execution. To find more information about this, visit <http://docs.testdroid.com/appium/client-server/>
 
-#Client Side Test Execution
-##Prerequisites
+# Client Side Test Execution
+## Prerequisites
 1. Install Java
 	- Currently the example project is targeting Java 1.7. To change that, modify the target and source field in pom.xml
 
