@@ -1,0 +1,6 @@
+run-tests.sh
+*.zip
+*.apk
+*.ipa
+screenshots/
+test-reports/
