@@ -32,7 +32,7 @@ There are two runner scripts for running the tests locally, ``run_android.py`` a
 	- ``testdroid_app``
 	- ``BundleID``
 
-	More information about desired capabilities for client-side Appium can be found from Testdroid [Appium Documentation](http://help.testdroid.com/customer/portal/articles/1507074-testdroid_-desired-capabilities)
+	More information about desired capabilities for client-side Appium can be found from Testdroid [Appium Documentation](http://docs.bitbar.com/testing/appium/testdroid-desired-caps/)
 
 # References
 - [Robot Framework User Guide](http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)

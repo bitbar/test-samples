@@ -145,7 +145,7 @@ The desired capabilities can be divided to Appium-specific desired capabilities 
 The Testdroid-specific desired capabilities have to only be defined for Client Side Test Execution.
 
 For more information about Testdroid specific capabilites, please refer to
-<http://help.testdroid.com/customer/portal/articles/1507074-testdroid_-desired-capabilities>
+<http://docs.bitbar.com/testing/appium/testdroid-desired-caps/>
 
 # Helpful Resources
 - [Complete list of available devices](https://cloud.testdroid.com/#service/devicegroups)
