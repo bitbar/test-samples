@@ -24,6 +24,7 @@ class TestdroidAndroid(unittest.TestCase):
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
+        testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
 
         self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
         self.screenshot_count = 1
@@ -57,6 +58,7 @@ class TestdroidAndroid(unittest.TestCase):
         desired_capabilities_cloud['browserName'] = 'chrome'
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
+        desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
 
         # set up webdriver
         self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
