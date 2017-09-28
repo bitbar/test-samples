@@ -77,7 +77,6 @@ class TestdroidAndroid(unittest.TestCase):
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
         desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
-        desired_capabilities_cloud['testdroid_gamebench'] = 'true'
 
         # set up webdriver
         self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
