@@ -14,7 +14,7 @@ with if you don't have your own.
 * *ios/ios-test-skeleton/* - contains js test framework Jasmine example
 for testing (older) iOS versions.
 
-* *xcode/* - contains a sample XCTest and links for [building the application .ipa](http://docs.testdroid.com/xcode/ipa/) and [packaging the tests](http://docs.testdroid.com/xcode/xctest).
+* *xcode/* - contains a sample XCTest and links for [building the application .ipa](http://docs.bitbar.com/testing/xcode/ipa/) and [packaging the tests](http://docs.bitbar.com/testing/xcode/xctest/).
 
 * *robot-framework/* - directory contains example for Robot Framework test framework.
 
