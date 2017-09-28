@@ -1,6 +1,6 @@
 ##
 ## For help on setting up your machine and configuring this TestScript go to
-## http://docs.testdroid.com/appium/
+## http://docs.bitbar.com/appium/
 ##
 
 import os
