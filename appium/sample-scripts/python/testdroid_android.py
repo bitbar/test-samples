@@ -1,6 +1,6 @@
 ##
 ## For help on setting up your machine and configuring this TestScript go to
-## http://docs.testdroid.com/appium/
+## http://docs.bitbar.com/appium/
 ##
 
 import os
@@ -83,6 +83,7 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.log("WebDriver response received")
         self.utils.update_driver(self.driver)
+        self.utils.log("Driver session id: "+ self.driver.session_id)
 
     def tearDown(self):
         self.utils.log("Quitting")

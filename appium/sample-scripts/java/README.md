@@ -1,9 +1,9 @@
 Testdroid Appium Sample in Java
 ===========================
 
-This folder includes sample Appium tests using Java for Android and iOS, which can be run in [Testdroid Cloud](https://cloud.testdroid.com/).
+This folder includes sample Appium tests using Java for Android and iOS, which can be run in [Bitbar Cloud](https://cloud.testdroid.com/).
 
-This example can be run either using client side execution or server side execution. To find more information about this, visit <http://docs.testdroid.com/appium/client-server/>
+This example can be run either using client side execution or server side execution. To find more information about these possibilities, visit <http://docs.bitbar.com/testing/appium/>
 
 # Client Side Test Execution
 ## Prerequisites
@@ -37,7 +37,7 @@ mvn clean test \
 -DapplicationPath=</path/to/BitbarSampleApp.apk>
 ```
 
-in which 
+in which
 
 - \<your\_testdroid\_apiKey\> is your testdroid apiKey. The apiKey is available under 'My account' in [Testdroid Cloud](https://cloud.testdroid.com/).
 - \</path/to/BitbarSampleApp.apk\> is the path to the downloaded sample application
@@ -57,9 +57,9 @@ mvn clean test \
 -DapplicationPath=</path/to/BitbarIOSSample.ipa>
 ```
 
-in which 
+in which
 
-- \<your\_testdroid\_apiKey\> is your testdroid apiKey. The apiKey is available under 'My account' in [Testdroid Cloud](https://cloud.testdroid.com/).
+- \<your\_testdroid\_apiKey\> is your testdroid apiKey. The apiKey is available under 'My account' in [Bitbar Cloud](https://cloud.testdroid.com/).
 - \</path/to/BitbarIOSSample.ipa\> is the path to the downloaded sample application
 
 ## Notes
@@ -92,14 +92,14 @@ windows_client_side_test_and_export_results.bat ^
 ```
 
 # Server Side Test Execution
-Create a zip file containing the project, which will be uploaded to [Testdroid Cloud](https://cloud.testdroid.com/).
+Create a zip file containing the project, which will be uploaded to [Bitbar Cloud](https://cloud.testdroid.com/).
 
 * On OSX/Linux machines you can just run the following command at the project's root directory:
 
 	`./zip_project.sh` This creates a zip package called: <b>server\_side\_test\_package.zip</b>
 
 * You can also manually zip the project's sources. You have to include at least the following files in the zip package. Note that these files have to be at the root of the zip file, i.e. not inside any additional directory.
- 	* run-tests.sh 
+ 	* run-tests.sh
 	* pom.xml
 	* src/
 
@@ -149,7 +149,4 @@ For more information about Testdroid specific capabilites, please refer to
 
 # Helpful Resources
 - [Complete list of available devices](https://cloud.testdroid.com/#service/devicegroups)
-- [Bitbar Testing Documentation](http://docs.bitbar.com/)
-
-
-
+- [Bitbar Documentation](http://docs.bitbar.com/)
