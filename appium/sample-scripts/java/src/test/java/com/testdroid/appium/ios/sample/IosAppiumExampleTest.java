@@ -1,19 +1,19 @@
 package com.testdroid.appium.ios.sample;
 
+import com.testdroid.appium.ServerSideSetup;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import com.testdroid.appium.BaseIOSTest;
 
 import java.util.concurrent.TimeUnit;
 
-public class IosAppiumExampleTest extends BaseIOSTest {
+public class IosAppiumExampleTest extends ServerSideSetup {
 
     @BeforeClass
     public void setUp() throws Exception {
-        setUpTest();
+        setUpAppiumIOSDriver();
     }
     @AfterClass
     public void tearDown()
@@ -23,15 +23,14 @@ public class IosAppiumExampleTest extends BaseIOSTest {
 
     @Test
     public void mainPageTest() throws Exception {
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        wd.findElement(By.xpath("//*[contains(@name, 'answer1')]")).click();
-        WebElement element = wd.findElement(By.xpath("//*[contains(@name, 'userName')]"));
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.findElement(By.xpath("//*[contains(@name, 'answer2')]")).click();
+        WebElement element = driver.findElement(By.xpath("//*[contains(@name, 'userName')]"));
         takeScreenshot("example_screenshot");
         element.click();
         element.sendKeys("Testdroid");
-        wd.findElement(By.xpath("//*[contains(@name, 'Return')]")).click();
-        wd.findElement(By.xpath("//*[contains(@name, 'sendAnswer')]")).click();
+        driver.findElement(By.xpath("//*[contains(@name, 'Return')]")).click();
+        driver.findElement(By.xpath("//*[contains(@name, 'sendAnswer')]")).click();
+        takeScreenshot("after_answer");
     }
-
-
 }
