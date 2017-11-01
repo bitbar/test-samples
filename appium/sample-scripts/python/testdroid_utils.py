@@ -14,7 +14,6 @@ class TDUtils():
     :Args:
     - name - files are stored as #_name
     """
-
     def screenshot(self, name):
         screenshot_name = str(self.screenshot_count) + "_" + name + ".png"
         self.log("Taking screenshot: " + screenshot_name)
