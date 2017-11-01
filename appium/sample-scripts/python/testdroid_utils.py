@@ -34,11 +34,9 @@ class TDUtils():
     Search for specified xpath for defined period
 
     :Args:
-    
-    - xpath - the xpath to search for 
 
+    - xpath - the xpath to search for
     - timeout - duration in seconds to search for given xpath
-
     - step - how often to search run the search
 
     :Usage:

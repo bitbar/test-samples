@@ -1,7 +1,7 @@
-##
-## For help on setting up your machine and configuring this TestScript go to
-## http://docs.testdroid.com/appium/
-##
+#
+# For help on setting up your machine and configuring this TestScript go to
+# http://docs.bitbar.com/appium/
+#
 
 import os
 import unittest
@@ -16,11 +16,11 @@ from testdroid_utils import TDUtils
 class TestdroidAndroid(unittest.TestCase):
     def setUp(self):
 
-        ##
-        ## IMPORTANT: Set the following parameters.
-        ## You can set the parameters outside the script with environment variables.
-        ## If env var is not set the string after or is used.
-        ##
+        #
+        # IMPORTANT: Set the following parameters.
+        # You can set the parameters outside the script with environment variables.
+        # If env var is not set the string after or is used.
+        #
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
@@ -100,7 +100,7 @@ class TestdroidAndroid(unittest.TestCase):
 
         self.utils.log("  Typing in name")
         elems = self.driver.find_elements_by_class_name('android.widget.EditText')
-        self.utils.log("  info: EditText:" + `len(elems)`)
+        self.utils.log("  info: EditText:" + len(elems))
         self.utils.log("  Filling in name")
         elems[0].send_keys("Testdroid User")
         sleep(2)

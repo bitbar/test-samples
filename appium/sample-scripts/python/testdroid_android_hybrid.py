@@ -1,7 +1,7 @@
-##
-## For help on setting up your machine and configuring this TestScript go to
-## http://docs.testdroid.com/appium/
-##
+#
+# For help on setting up your machine and configuring this TestScript go to
+# http://docs.testdroid.com/appium/
+#
 
 import os
 import time
@@ -15,11 +15,11 @@ from testdroid_utils import TDUtils
 
 class TestdroidAndroid(unittest.TestCase):
     def setUp(self):
-        ##
-        ## IMPORTANT: Set the following parameters.
-        ## You can set the parameters outside the script with environment variables.
-        ## If env var is not set the string after or is used.
-        ##
+        #
+        # IMPORTANT: Set the following parameters.
+        # You can set the parameters outside the script with environment variables.
+        # If env var is not set the string after or is used.
+        #
 
         testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
@@ -93,10 +93,6 @@ class TestdroidAndroid(unittest.TestCase):
     def testSample(self):
         self.utils.log("  Getting device screen size")
         self.utils.log("  " + str(self.driver.get_window_size()))
-
-        isSelendroid = None
-        if self.api_level < 17:
-            isSelendroid = True
 
         self.utils.screenshot("app_launch")
 
