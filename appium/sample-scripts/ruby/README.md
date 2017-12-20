@@ -1,13 +1,13 @@
 # Appium Ruby Samples
 
-Testdroid can be used to run Appium tests against real devices to test
+Bitbar can be used to run Appium tests against real devices to test
 native Android or iOS applications, hybrid (Android & iOS) or for web
 testing (Safari on iOS and Chrome on Android).
 
 You'll find here all steps you need to start running your mobile tests
-against real devices in Testdroid Cloud. Before continuing with
-running with these scripts you should register with [Testdroid
-service](https://cloud.testdroid.com/).
+against real devices in Bitbar cloud. Before continuing with
+running with these scripts you should register with [Bitbar
+service](https://cloud.bitbar.com/).
 
 For more detailed guides on Appium please refer to the [documentation
 online](http://appium.io/slate/en/master/?python#about-appium).
@@ -39,19 +39,19 @@ Here are all the values that you need to edit:
 * *screen_shot_dir* - where should screenshots be stored on your local drive
 
 * *testdroid_username* - your email that you registered with to
-   Testdroid Cloud.  **Rather use testdroid_apiKey.**
+   Bitbar cloud.  **Rather use testdroid_apiKey.**
 
-* *testdroid_password* - your Testdroid Cloud password.  **Rather use
+* *testdroid_password* - your Bitbar cloud password.  **Rather use
    testdroid_apiKey.**
 
 * *testdroid_apiKey* - a personal unique key that allows you to
-   connect to Testdroid Cloud without the need to use your username
+   connect to Bitbar cloud without the need to use your username
    and passwords in your tests. You can find your api key under "My
-   account" in [Testdroid Cloud](https://cloud.testdroid.com/) UI.
+   account" in [Bitbar cloud](https://cloud.bitbar.com/) UI.
 
 * *testdroid_project* - has a default value, but you might want to add
   your own name to this. Project name is visible in your project view
-  in Testdroid Cloud. Each project must have a unique name
+  in Bitbar cloud. Each project must have a unique name
 
 * *testdroid_testrun* - name or number of this test run. Test run
   names can be modified even at every test run
@@ -60,7 +60,7 @@ Here are all the values that you need to edit:
   cloud. Eg. if you uploaded your app using a script this would look
   something like this:
   'f4660af0-10f3-46e9-932b-0622f497b0d2/Testdroid.apk' If you uploaded
-  your app through the Testdroid Cloud web UI, you can use here the
+  your app through the Bitbar cloud web UI, you can use here the
   value 'latest' that refers to the latest uploaded app file.
 
 ## Native iOS Specific Settings
@@ -102,7 +102,7 @@ look at Appium
   your *testdroid_app* desired capability value to 'latest'
 
 
-* To find available free devices in Testdroid cloud, you can use this Ruby [tool](https://github.com/bootstraponline/testdroid_device_finder)
+* To find available free devices in Bitbar cloud, you can use this Ruby [tool](https://github.com/bootstraponline/testdroid_device_finder)
 
 ## License
 

@@ -38,7 +38,7 @@ All image recognition related methods are implemented in the TestdroidImageRecog
 
    The A-KAZE C++ implementation can optionally be found and built from: [Bitbar Akaze fork](https://github.com/bitbar/akaze). This project already contains the *./lib/\<platform\>/akaze/* folder with pre-built binaries for Linux, OS X and Windows. Only the akaze_match binary is currently in use.
 
-   
+
 All other dependencies are fetched by Maven automatically.
 
 
@@ -59,7 +59,7 @@ For example, to run only the test `mainPageTest` from test class AndroidSample.j
 To first clean all the previous test result files, add keyword `clean` to the command:
 
     mvn -Dtest=AndroidSample#mainPageTest clean test
-    
+
 You can also use an IDE to launch the tests. Make sure the project is correctly imported as a Maven project and that the `pom.xml` file has been discovered for Maven's dependency management.
 
 **Reports**
@@ -78,7 +78,7 @@ or
 
     ./createiOSZip.sh
 
-Now that you have your test zip and the application file (this sample uses the Bitbar Sample Apps available at [apps/builds](https://github.com/bitbar/testdroid-samples/tree/master/apps/builds), you're ready to create a testrun in your project at the [test cloud](https://cloud.testdroid.com). Upload the app and test zip in the appropriate pages, choose the device group and finally make sure you have set high enough timeout for your tests in the Advanced options (default is 10 minutes).
+Now that you have your test zip and the application file (this sample uses the Bitbar Sample Apps available at [apps/builds](https://github.com/bitbar/testdroid-samples/tree/master/apps/builds), you're ready to create a testrun in your project at the [test cloud](https://cloud.bitbar.com). Upload the app and test zip in the appropriate pages, choose the device group and finally make sure you have set high enough timeout for your tests in the Advanced options (default is 10 minutes).
 
 If you change the name of your Android or iOS test class, you will need to update it to the run-tests_android.sh and run-tests_ios.sh TEST and TEST_CASE variables as appropriate:
 

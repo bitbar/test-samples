@@ -1,7 +1,7 @@
 Testdroid Appium Sample in Java
 ===========================
 
-This folder includes sample Appium tests using Java for Android and iOS, which can be run in [Bitbar Cloud](https://cloud.testdroid.com/).
+This folder includes sample Appium tests using Java for Android and iOS, which can be run in [Bitbar Cloud](https://cloud.bitbar.com/).
 
 This example can be run either using client side execution or server side execution. To find more information about these possibilities, visit <http://docs.bitbar.com/testing/appium/>
 
@@ -39,7 +39,7 @@ mvn clean test \
 
 in which
 
-- \<your\_testdroid\_apiKey\> is your testdroid apiKey. The apiKey is available under 'My account' in [Testdroid Cloud](https://cloud.testdroid.com/).
+- \<your\_testdroid\_apiKey\> is your apiKey to Bitbar cloud. The apiKey is available under 'My account' in [Bitbar cloud](https://cloud.bitbar.com/).
 - \</path/to/BitbarSampleApp.apk\> is the path to the downloaded sample application
 
 

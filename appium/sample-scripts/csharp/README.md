@@ -1,4 +1,4 @@
-# Appium Testdroid Sample
+# Bitbar Appium Sample
 
 
 The capabilities has been set to run tests for Bitbar Sample Android
@@ -9,14 +9,14 @@ credentials. Set the SCREENSHOT_FOLDER to an existing directory on
 your system.
 
 **Note:** Instead of using *testdroid_username* and
-  *testdroid_password* desired capabilities to identify to Testdroid
+  *testdroid_password* desired capabilities to identify to Bitbar
   Cloud you should rather use *testdroid_apiKey*. Your personal apiKey is
-  found in cloud.testdroid.com under 'My account'.
+  found in cloud.bitbar.com under 'My account'.
 
 
 #### Windows
 
-Launch the AppiumTest.sln on Visual Studio and make sure that NUnit Test Adapter is installed through the Extension Manager. Use Test Explorer to run the test. 
+Launch the AppiumTest.sln on Visual Studio and make sure that NUnit Test Adapter is installed through the Extension Manager. Use Test Explorer to run the test.
 
 #### UNIX
 
@@ -30,4 +30,3 @@ Launch the AppiumTest.sln on Visual Studio and make sure that NUnit Test Adapter
 
 ### Run tests
 `nunit-console Test123/bin/Debug/TestdroidAndroidSample.dll`
-

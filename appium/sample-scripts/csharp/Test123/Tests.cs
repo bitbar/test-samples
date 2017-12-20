@@ -39,12 +39,12 @@ namespace TestdroidAndroidSample
 			capabilities.SetCapability("testdroid_project", "C# Appium");
 			capabilities.SetCapability("testdroid_testrun", "Android Run 1");
 
-			// See available devices at: https://cloud.testdroid.com/#public/devices
+			// See available devices at: https://cloud.bitbar.com/#public/devices
 			capabilities.SetCapability("testdroid_device", "Dell Venue 7 3730"); // Freemium device
 			capabilities.SetCapability("testdroid_app", "sample/BitbarSampleApp.apk"); //to use existing app using "latest" as fileUUID
 
 			Console.WriteLine ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins");
-			driver = new AndroidDriver<AndroidElement>(new Uri("http://appium.testdroid.com/wd/hub"), capabilities, TimeSpan.FromSeconds(300)); 
+			driver = new AndroidDriver<AndroidElement>(new Uri("http://appium.bitbar.com/wd/hub"), capabilities, TimeSpan.FromSeconds(300)); 
 			Console.WriteLine ("WebDriver response received.");
 
 
@@ -53,7 +53,7 @@ namespace TestdroidAndroidSample
 		[TestFixtureTearDown]
 		public void AfterAll()
 		{
-			driver.Quit(); 
+			driver.Quit();
 		}
 
 

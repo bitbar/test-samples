@@ -2,13 +2,13 @@
 
 # Appium Python Samples
 
-Testdroid can be used to run Appium tests against real devices to test
+Bitbar can be used to run Appium tests against real devices to test
 native Android or iOS applications, hybrid (Android & iOS) or for web
 testing (Safari on iOS and Chrome on Android).
 
 You'll find here all steps you need to start running your mobile tests
-against real devices in Testdroid Cloud. Before continuing with running with
-these scripts you should register with [Testdroid service](https://cloud.testdroid.com/).
+against real devices in Bitbar cloud. Before continuing with running with
+these scripts you should register with [Bitbar service](https://cloud.bitbar.com/).
 
 For more detailed guides on Appium please refer to their
 [documentation
@@ -18,7 +18,7 @@ online](http://appium.io/slate/en/master/?python#about-appium).
 
 Uploading an app is easiest using the `upload.py` script and using
 apiKey identification. The apiKey is found under "My Account" in
-Testdroid Cloud. For the upload to be successful the full path to the
+Bitbar cloud. For the upload to be successful the full path to the
 app (apk or ipa) needs to be provided.
 
 If no app is provided on command line, then the Bitbar Sample Android app is uploaded.
@@ -27,7 +27,7 @@ If no app is provided on command line, then the Bitbar Sample Android app is upl
 $ python upload.py -h
 usage: upload.py [-h] [-k APIKEY] [-a APP_PATH] [-u URL]
 
-Upload a mobile app to Testdroid Cloud and get a handle to it
+Upload a mobile app to Bitbar cloud and get a handle to it
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -38,16 +38,16 @@ optional arguments:
                         Path to app to upload or set environment variable
                         TESTDROID_APP_PATH. Current value is:
                         '../../../apps/builds/Testdroid.apk'
-  -u URL, --url URL     Testdroid Cloud url to upload app or set environment
+  -u URL, --url URL     Bitbar cloud url to upload app or set environment
                         variable TESTDROID_UPLOAD_URL. Current value is:
-                        'http://appium.testdroid.com/upload'
+                        'http://appium.bitbar.com/upload'
 ```
 
-The below example shows how to upload a hybrid Android demo app to Testdroid Cloud.
+The below example shows how to upload a hybrid Android demo app to Bitbar Cloud.
 
 ```bash
 $ python upload.py -k xg8x...YXto -u ../../../apps/builds/Testdroid.apk
-Filename to use in testdroid capabilities in your test: 719f52c4-43c2-4c25-b91b-08884f049d3a/Testdroid.apk
+Filename to use in Bitbar capabilities in your test: 719f52c4-43c2-4c25-b91b-08884f049d3a/Testdroid.apk
 ```
 
 The response message provides the application's cloud file name that
@@ -69,17 +69,16 @@ Common values used in tests:
 * *screenshot_dir* - where should screenshots be stored on your local drive
 
 * *testdroid_username* - your email that you registered with to
-   Testdroid Cloud.  **Rather use testdroid_apiKey.**
+   Bitbar cloud.  **Rather use testdroid_apiKey.**
 
-* *testdroid_password* - your Testdroid Cloud password. **Rather use
+* *testdroid_password* - your Bitbar cloud password. **Rather use
    testdroid_apiKey.**
 
 * *testdroid_apiKey* - a personal unique key allowing you to connect
-   to Testdroid Cloud without using username and passwords in
-   tests. Api key is found under "My account" in [Testdroid
-   Cloud](https://cloud.testdroid.com/) UI.
+   to Bitbar cloud without using username and passwords in
+   tests. Api key is found under "My account" in [Bitbar cloud](https://cloud.bitbar.com/) UI.
 
-* *testdroid_project* - the project name in Testdroid Cloud. Each
+* *testdroid_project* - the project name in Bitbar cloud. Each
   project's name is unique. A project's name can be modified later on if needed.
 
 * *testdroid_testrun* - name of this test run inside of
@@ -143,7 +142,8 @@ This parameter is not needed if running against the sample BitbarIOSSample.ipa a
 
 Example script: `testdroid_android.py`
 
-To run an Appium test against a native Android application Appium needs to the following additional information:
+To run an Appium test against a native Android application Appium needs to the
+following additional information:
 
 * **app_package** - Java package of the Android app you want to run
 
@@ -170,7 +170,7 @@ Additional parameters needed to run a hybrid app:
 The above parameters are already set into the test scripts, so they are not mandatory for the sample tests. For other apps they are.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -t testdroid_android_hybrid -p "Android Hybrid"  -r `date +%R` --app b9608704-b55d-4b71-83d4-d8027c67b49a/Testdroid.apk 
+python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -t testdroid_android_hybrid -p "Android Hybrid"  -r `date +%R` --app b9608704-b55d-4b71-83d4-d8027c67b49a/Testdroid.apk
 ```
 
 ## Safari Browser Testing

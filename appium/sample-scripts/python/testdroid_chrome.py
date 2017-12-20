@@ -17,8 +17,8 @@ class TestdroidAndroid(unittest.TestCase):
         ## You can set the parameters outside the script with environment variables.
         ## If env var is not set the string after 'or' is used.
         ##
-        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
-        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.bitbar.com"
+        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.bitbar.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or 'Appium Chrome Demo'
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"

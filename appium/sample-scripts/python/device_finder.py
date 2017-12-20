@@ -9,7 +9,7 @@ from random import shuffle
 class DeviceFinder:
     """ Constructor
     """
-    def __init__(self, url="https://cloud.testdroid.com",
+    def __init__(self, url="https://cloud.bitbar.com",
                  download_buffer_size=65536):
         self.cloud_url = os.environ.get('TESTDROID_URL') or url
         self.download_buffer_size = download_buffer_size

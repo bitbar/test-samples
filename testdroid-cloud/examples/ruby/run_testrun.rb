@@ -6,20 +6,20 @@ require 'optparse'
 options = {}
 options[:show_all] = false
 options[:abort_all] = false
-options[:host] = "https://cloud.testdroid.com"
+options[:host] = "https://cloud.bitbar.com"
 
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: run_testrun.rb [options] PROJECT_NAME"
 
   opts.on('-u', '--username USERNAME', 'user name') do |p|
-    options[:username] = p 
+    options[:username] = p
   end
 
   opts.on('-p', '--password PASSWORD', 'password') do |p|
-    options[:password] = p 
+    options[:password] = p
   end
   opts.on('-e', '--endpoint API_ENDPOINT', 'cloud API endpoint') do |p|
-    options[:host] = p 
+    options[:host] = p
   end
   opts.on('-a', '--app-file-path APP_FILE_PATH', 'Application file path(.IPA)') do |p|
     options[:app_file_path] = p
@@ -38,7 +38,7 @@ optparse = OptionParser.new do |opts|
    opts.on('-w', '--wait_until_completed', 'Wait until project is completed') do |w|
         options[:wait_until_completed] = w
   end
-  
+
   opts.on('-h', '--help', 'Display this screen') do
     puts opts
     exit
@@ -50,7 +50,7 @@ end
 begin
   optparse.parse!
   mandatory = [:username, :password, :app_file_path, :zip_file_path, :device_group  ]                                         # Enforce the presence of
-  missing = mandatory.select{ |param| options[param].nil? }        
+  missing = mandatory.select{ |param| options[param].nil? }
   unless missing.empty?                                            #
     puts "Missing options: #{missing.join(', ')}"                  #
     puts optparse                                                  #
@@ -59,7 +59,7 @@ begin
 rescue OptionParser::InvalidOption, OptionParser::MissingArgument    #
   puts $!.to_s                                                           # Friendly output when parsing fails
   puts optparse                                                          #
-  exit           
+  exit
 end
 
 project_name = ARGV.pop
