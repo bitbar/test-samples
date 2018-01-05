@@ -21,7 +21,8 @@ apiKey identification. The apiKey is found under "My Account" in
 Bitbar cloud. For the upload to be successful the full path to the
 app (apk or ipa) needs to be provided.
 
-If no app is provided on command line, then the Bitbar Sample Android app is uploaded.
+If no app is provided on command line, then the Bitbar Sample Android app is
+uploaded.
 
 ```bash
 $ python upload.py -h
@@ -40,7 +41,7 @@ optional arguments:
                         '../../../apps/builds/Testdroid.apk'
   -u URL, --url URL     Bitbar cloud url to upload app or set environment
                         variable TESTDROID_UPLOAD_URL. Current value is:
-                        'http://appium.bitbar.com/upload'
+                        'https://appium.bitbar.com/upload'
 ```
 
 The below example shows how to upload a hybrid Android demo app to Bitbar Cloud.

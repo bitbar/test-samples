@@ -25,7 +25,7 @@ class TestdroidAndroid(unittest.TestCase):
         testdroid_url = os.environ.get('TESTDROID_URL') or \
             "https://cloud.bitbar.com"
         appium_url = os.environ.get('TESTDROID_APPIUM_URL') or \
-            'http://appium.bitbar.com/wd/hub'
+            'https://appium.bitbar.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_project = os.environ.get('TESTDROID_PROJECT') or \
             'Android hybrid sample project'
