@@ -43,11 +43,11 @@ desired_capabilities_cloud={
     }
 
 
-server_url = 'http://appium.testdroid.com/wd/hub'
+server_url = 'https://appium.bitbar.com/wd/hub'
 
 def upload_application(file_path, username, password)
   
-  c = Curl::Easy.new("http://appium.testdroid.com/upload")
+  c = Curl::Easy.new("https://appium.bitbar.com/upload")
   c.http_auth_types = :basic
   c.username = username
   c.password = password

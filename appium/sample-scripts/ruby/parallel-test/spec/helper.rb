@@ -9,7 +9,7 @@ testdroid_username = ENV["TESTDROID_USERNAME"]
 testdroid_password = ENV["TESTDROID_PASSWORD"]
 
 
-server_url = 'http://appium.testdroid.com/wd/hub'
+server_url = 'https://appium.bitbar.com/wd/hub'
 
 
 RSpec.configure do |config|
