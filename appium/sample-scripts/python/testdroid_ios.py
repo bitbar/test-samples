@@ -1,6 +1,6 @@
 ##
 ## For help on setting up your machine and configuring this TestScript go to
-## http://docs.bitbar.com/appium/
+## http://docs.bitbar.com/testing/appium/
 ##
 
 import os
@@ -34,8 +34,8 @@ class TestdroidIOS(unittest.TestCase):
         ##
         ## IMPORTANT: Set the following parameters.
         ##
-        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
-        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.bitbar.com"
+        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'https://appium.bitbar.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "iOS sample project"
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for uploading the test project to Testdroid Cloud as a Server side Appium test
+# Script for uploading the test project to Bitbar cloud as a Server side Appium test
 #
 # Requires the user's API key, device group name and test type (android or ios).
 # Creates the test zip, uploads it to the set project and launches the test.
@@ -11,7 +11,7 @@
 
 function help() {
     echo
-    echo "$0 - create and upload test project to Testdroid Cloud and run it"
+    echo "$0 - create and upload test project to Bitbar cloud and run it"
     echo
     echo "Usage: $0 -a/i -g <DEVICE_GROUP_NAME> -k <API_KEY>"
     echo " -a for Android test"
@@ -53,7 +53,7 @@ done
 
 # Set the Public Cloud as API_ENDPOINT, if not set to something else already
 if [ -z ${API_ENDPOINT} ]; then
-    API_ENDPOINT=https://cloud.testdroid.com
+    API_ENDPOINT=https://cloud.bitbar.com
 fi
 
 # Check that either -a or -i flag was given
@@ -170,7 +170,7 @@ else
         exit
     fi
 
-    # Upload zip to Testdroid Cloud.
+    # Upload zip to Bitbar cloud.
     echo "Uploading ${OUT_ZIP} to Project with ID ${PROJECT_ID}"
     curl -H "Accept: application/json" -u ${API_KEY}: -X POST -F "file=@${OUT_ZIP}" "${API_ENDPOINT}/api/v2/me/projects/${PROJECT_ID}/files/test"
     echo
@@ -192,7 +192,7 @@ else
 fi
 
 echo
-echo "Launching test in Testdroid!"
+echo "Launching test in Bitbar!"
 TESTRUN_ID="$(curl -s -H "Accept: application/json" -u ${API_KEY}: -X POST "${API_ENDPOINT}/api/v2/me/projects/${PROJECT_ID}/runs?usedDeviceGroupId=${DEVICE_GROUP_ID}" | python -m json.tool | sed -n -e '/"id":/ s/^.* \(.*\),.*/\1/p')"
 
 if [ -z ${TESTRUN_ID} ] ; then

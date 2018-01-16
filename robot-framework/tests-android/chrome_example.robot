@@ -6,7 +6,7 @@ Test Teardown    Close Application
 ${URL}                 http://bitbar.github.io/testdroid-samples/
 ${ANSWER_BUTTON}       xpath = //button[contains(., "Click for answer")]
 ${RESULT_ELEMENT}      xpath = //p[@id="result_element" and contains(., "Bitbar")]
-${EXPECTED_STYLE}      xpath = //button[contains(@style, "rgb(127, 255, 0")]
+${EXPECTED_STYLE}      xpath = //button[contains(@style, "rgb(127, 255, 0)")]
 
 *** Test cases ***
 

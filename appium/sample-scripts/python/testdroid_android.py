@@ -1,7 +1,7 @@
-##
-## For help on setting up your machine and configuring this TestScript go to
-## http://docs.bitbar.com/appium/
-##
+#
+# For help on setting up your machine and configuring this TestScript go to
+# http://docs.bitbar.com/testing/appium/
+#
 
 import os
 import unittest
@@ -16,30 +16,39 @@ from testdroid_utils import TDUtils
 class TestdroidAndroid(unittest.TestCase):
     def setUp(self):
 
-        ##
-        ## IMPORTANT: Set the following parameters.
-        ## You can set the parameters outside the script with environment variables.
-        ## If env var is not set the string after or is used.
-        ##
-        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
-        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+        #
+        # IMPORTANT: Set the following parameters.
+        # You can set the parameters outside the script with environment
+        # variables.
+        # If env var is not set the string after or is used.
+        #
+        testdroid_url = os.environ.get('TESTDROID_URL') or \
+            "https://cloud.bitbar.com"
+        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or \
+            'https://appium.bitbar.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
-        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Android sample project"
-        testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
+        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or \
+            "Android sample project"
+        testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or \
+            "My testrun"
         testdroid_app = os.environ.get('TESTDROID_APP') or ""
-        app_package = os.environ.get('TESTDROID_APP_PACKAGE') or 'com.bitbar.testdroid'
-        app_activity = os.environ.get('TESTDROID_ACTIVITY') or '.BitbarSampleApplicationActivity'
+        app_package = os.environ.get('TESTDROID_APP_PACKAGE') or \
+            'com.bitbar.testdroid'
+        app_activity = os.environ.get('TESTDROID_ACTIVITY') or \
+            '.BitbarSampleApplicationActivity'
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
         testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
 
-        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
+        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or \
+            os.getcwd() + "/screenshots"
         self.screenshot_count = 1
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
         # 2) Set device name to this python script
-        # 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
+        # 3) Do not set #1 and #2 and let DeviceFinder to find free device for
+        #    you
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
         deviceFinder = DeviceFinder(url=testdroid_url)
@@ -83,7 +92,7 @@ class TestdroidAndroid(unittest.TestCase):
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.log("WebDriver response received")
         self.utils.update_driver(self.driver)
-        self.utils.log("Driver session id: "+ self.driver.session_id)
+        self.utils.log("Driver session id: " + self.driver.session_id)
 
     def tearDown(self):
         self.utils.log("Quitting")
@@ -101,7 +110,7 @@ class TestdroidAndroid(unittest.TestCase):
 
         self.utils.log("  Typing in name")
         elems = self.driver.find_elements_by_class_name('android.widget.EditText')
-        self.utils.log("  info: EditText:" + `len(elems)`)
+        self.utils.log("  info: EditText:" + str(len(elems)))
         self.utils.log("  Filling in name")
         elems[0].send_keys("Testdroid User")
         sleep(2)

@@ -1,7 +1,7 @@
-##
-## For help on setting up your machine and configuring this TestScript go to
-## http://docs.bitbar.com/appium/
-##
+#
+# For help on setting up your machine and configuring this TestScript go to
+# http://docs.bitbar.com/testing/appium/
+#
 
 import os
 import unittest
@@ -12,11 +12,11 @@ from testdroid_utils import TDUtils
 
 class TestdroidSafari(unittest.TestCase):
     def setUp(self):
-        ##
-        ## IMPORTANT: Set the following parameters.
-        ##
-        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
-        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+        #
+        # IMPORTANT: Set the following parameters.
+        #
+        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.bitbar.com"
+        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'https://appium.bitbar.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
         testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Safari sample project"
         testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
@@ -31,7 +31,7 @@ class TestdroidSafari(unittest.TestCase):
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
         # 2) Set device name to this python script
-        # 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
+        # 3) Do not set #1 and #2 and let DeviceFinder find a free device
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
         deviceFinder = DeviceFinder(url=testdroid_url)

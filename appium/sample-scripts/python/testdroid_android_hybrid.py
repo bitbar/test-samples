@@ -1,7 +1,7 @@
-##
-## For help on setting up your machine and configuring this TestScript go to
-## http://docs.bitbar.com/appium/
-##
+#
+# For help on setting up your machine and configuring this TestScript go to
+# http://docs.testdroid.com/testing/appium/
+#
 
 import os
 import time
@@ -15,30 +15,39 @@ from testdroid_utils import TDUtils
 
 class TestdroidAndroid(unittest.TestCase):
     def setUp(self):
-        ##
-        ## IMPORTANT: Set the following parameters.
-        ## You can set the parameters outside the script with environment variables.
-        ## If env var is not set the string after or is used.
-        ##
+        #
+        # IMPORTANT: Set the following parameters.
+        # You can set the parameters outside the script with environment
+        # variables.
+        # If env var is not set the string after or is used.
+        #
 
-        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.testdroid.com"
-        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'http://appium.testdroid.com/wd/hub'
+        testdroid_url = os.environ.get('TESTDROID_URL') or \
+            "https://cloud.bitbar.com"
+        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or \
+            'https://appium.bitbar.com/wd/hub'
         testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
-        testdroid_project = os.environ.get('TESTDROID_PROJECT') or 'Android hybrid sample project'
-        testdroid_testrun = os.environ.get('TESTDROID_TESTRUN') or 'My testrun'
+        testdroid_project = os.environ.get('TESTDROID_PROJECT') or \
+            'Android hybrid sample project'
+        testdroid_testrun = os.environ.get('TESTDROID_TESTRUN') or \
+            'My testrun'
         testdroid_app = os.environ.get('TESTDROID_APP') or ""
-        app_package = os.environ.get('TESTDROID_APP_PACKAGE') or 'com.testdroid.sample.android'
-        app_activity = os.environ.get('TESTDROID_ACTIVITY') or '.MM_MainMenu'
+        app_package = os.environ.get('TESTDROID_APP_PACKAGE') or \
+            'com.testdroid.sample.android'
+        app_activity = os.environ.get('TESTDROID_ACTIVITY') or \
+            '.MM_MainMenu'
         new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
         testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
 
-        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
+        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or \
+            os.getcwd() + "/screenshots"
         self.screenshot_count = 1
 
         # Options to select device
         # 1) Set environment variable TESTDROID_DEVICE
         # 2) Set device name to this python script
-        # 3) Do not set #1 and #2 and let DeviceFinder to find free device for you
+        # 3) Do not set #1 and #2 and let DeviceFinder to find free device for
+        #    you
         testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
 
         deviceFinder = DeviceFinder(url=testdroid_url)
@@ -81,7 +90,8 @@ class TestdroidAndroid(unittest.TestCase):
         desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
 
         # set up webdriver
-        self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
+        self.utils.log("WebDriver request initiated. Waiting for response, \
+                        this typically takes 2-3 mins")
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.update_driver(self.driver)
         self.utils.log("WebDriver response received")
@@ -94,16 +104,14 @@ class TestdroidAndroid(unittest.TestCase):
         self.utils.log("  Getting device screen size")
         self.utils.log("  " + str(self.driver.get_window_size()))
 
-        isSelendroid = None
-        if self.api_level < 17:
-            isSelendroid = True
-
         self.utils.screenshot("app_launch")
 
-        self.utils.log("Checking API level. This test works only on API 19 and above.")
+        self.utils.log("Checking API level. This test works only on API 19 \
+                        and above.")
         self.utils.log("API level: " + str(self.api_level))
         if self.api_level < 19:
-            raise Exception("The chosen device has API level under 19. The Hybrid view will crash.")
+            raise Exception("The chosen device has API level under 19. \
+                            Hybrid view will crash.")
 
         self.utils.log('Clicking button "hybrid app"')
         element = self.driver.find_element_by_id('com.testdroid.sample.android:id/mm_b_hybrid')

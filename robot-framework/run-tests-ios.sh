@@ -15,7 +15,7 @@ echo "Starting Appium ..."
 appium-1.6 -U ${UDID} --log-no-colors --log-timestamp --show-ios-log
 
 echo "Extracting tests.zip..."
-unzip tests.zip
+unzip -o tests.zip
 
 echo "Installing requirements"
 pip install -r ./resources/requirements.txt --user

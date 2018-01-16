@@ -9,7 +9,8 @@ from random import shuffle
 class DeviceFinder:
     """ Constructor
     """
-    def __init__(self, url="https://cloud.testdroid.com", download_buffer_size=65536):
+    def __init__(self, url="https://cloud.bitbar.com",
+                 download_buffer_size=65536):
         self.cloud_url = os.environ.get('TESTDROID_URL') or url
         self.download_buffer_size = download_buffer_size
         self.url_query = None
@@ -23,7 +24,7 @@ class DeviceFinder:
     def _build_headers(self, headers=None):
         hdrs = {}
         hdrs["Accept"] = "application/json"
-        if headers != None:
+        if headers is not None:
             hdrs.update(headers)
         return hdrs
 
@@ -36,7 +37,8 @@ class DeviceFinder:
         if res.ok:
             return res.json()
         else:
-            print "Failed query: {}\nusing headers: {}".format(self.url_query, query_headers)
+            print "Failed query: {}\nusing headers: {}".format(self.url_query,
+                                                               query_headers)
             sys.exit(-1)
 
     """ Returns list of devices
@@ -56,14 +58,19 @@ class DeviceFinder:
 
         for device in self.get_devices(limit):
             if self.device_group:
-                if device['online'] == True and device['locked'] == False and device['osType'] == "ANDROID" and \
-                                device['softwareVersion']['apiLevel'] > 16:
+                if (device['online'] is True and
+                        device['locked'] is False and
+                        device['osType'] == "ANDROID" and
+                        device['softwareVersion']['apiLevel'] > 16):
                     print "Found device '%s'" % device['displayName']
                     print ""
                     return str(device['displayName'])
             else:
-                if device['online'] == True and device['creditsPrice'] == 0 and device['locked'] == False and device[
-                    'osType'] == "ANDROID" and device['softwareVersion']['apiLevel'] > 16:
+                if (device['online'] is True and
+                        device['creditsPrice'] == 0 and
+                        device['locked'] is False and
+                        device['osType'] == "ANDROID" and
+                        device['softwareVersion']['apiLevel'] > 16):
                     print "Found device '%s'" % device['displayName']
                     print ""
                     return str(device['displayName'])
@@ -79,13 +86,17 @@ class DeviceFinder:
 
         for device in self.get_devices(limit):
             if self.device_group:
-                if device['online'] == True and device['locked'] == False and device['osType'] == "IOS":
+                if (device['online'] is True and
+                        device['locked'] is False and
+                        device['osType'] == "IOS"):
                     print "Found device '%s'" % device['displayName']
                     print ""
                     return str(device['displayName'])
             else:
-                if device['online'] == True and device['creditsPrice'] == 0 and device['locked'] == False and device[
-                    'osType'] == "IOS":
+                if (device['online'] is True and
+                        device['creditsPrice'] == 0 and
+                        device['locked'] is False and
+                        device['osType'] == "IOS"):
                     print "Found device '%s'" % device['displayName']
                     print ""
                     return str(device['displayName'])
