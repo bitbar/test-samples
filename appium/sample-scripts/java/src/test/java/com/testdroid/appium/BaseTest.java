@@ -20,7 +20,7 @@ import java.util.Set;
 
 public abstract class BaseTest {
     private static final String LOCAL_APPIUM_ADDRESS = "http://localhost:4723";
-    private static final String TESTDROID_SERVER = "https://appium.testdroid.com";
+    private static final String TESTDROID_SERVER = "https://appium.bitbar.com";
     private static final String serverSideTypeDefinition = "serverside";
     private static final String clientSideTypeDefinition = "clientside";
     protected AppiumDriver<MobileElement> wd;

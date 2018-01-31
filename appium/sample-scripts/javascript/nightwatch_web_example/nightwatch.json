@@ -9,7 +9,7 @@
         "testdroid_ios": {
             "launch_url": "https://appium.bitbar.com:80/wd/hub",
             "selenium_port": 80,
-            "selenium_host": "appium.testdroid.com",
+            "selenium_host": "appium.bitbar.com",
             "screenshots": {
                 "enabled": false,
                 "path": ""
@@ -29,7 +29,7 @@
         "testdroid_android": {
             "launch_url": "https://appium.bitbar.com:80/wd/hub",
             "selenium_port": 80,
-            "selenium_host": "appium.testdroid.com",
+            "selenium_host": "appium.bitbar.com",
             "screenshots": {
                 "enabled": false,
                 "path": ""
