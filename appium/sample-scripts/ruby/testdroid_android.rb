@@ -17,7 +17,7 @@ include Selenium
 screen_shot_dir= "screenshot-folder"
 testdroid_username = ENV["TESTDROID_USERNAME"]
 testdroid_password = ENV["TESTDROID_PASSWORD"]
-testdroid_device = "Samsung Galaxy Nexus GT-I9250 4.2.2" # Example device. Change if you desire.
+testdroid_device = "Nexus"
 testdroid_app_file = "../../../apps/builds/BitbarSampleApp.apk"
 
 
@@ -45,7 +45,7 @@ desired_capabilities_cloud={
 server_url = 'https://appium.bitbar.com/wd/hub'
 
 def upload_application(file_path, username, password)
-  
+
   c = Curl::Easy.new("https://appium.bitbar.com/upload")
   c.http_auth_types = :basic
   c.username = username
@@ -81,22 +81,22 @@ describe "BitbarSampleApp testing" do
   end
 
   it "should show failure page"  do
-    log ("view1: Clicking button [0] - 'Buy 101 devices'")
-    @driver.find_elements(:name, 'Buy 101 devices')[0].click()
+    log ("view1: Clicking button - 'Buy 101 devices'")
+    @driver.find_element(:id, 'com.bitbar.testdroid:id/radio0').click 
     
-    log ("view1: Typing in textfield[0]: Testdroid user")
-    @driver.find_elements(:class_name, 'android.widget.EditText')[0].send_keys("Testdroid user")
+    log ("view1: Typing in textfield[0]: Bitbar user")
+    @driver.find_element(:id, 'com.bitbar.testdroid:id/editText1').send_keys("Bitbar user")
     @driver.navigate.back()
     log ("view1: Taking screenshot screenshot1.png")
     @driver.save_screenshot(screen_shot_dir + "/screenshot1.png")
     
   
     log ("view1: Clicking button Answer")
-    @driver.find_elements(:name, :Answer)[0].click()
+    @driver.find_element(:id, 'com.bitbar.testdroid:id/button1').click
 
     log ("view2: Taking screenshot screenshot2.png")
     @driver.save_screenshot(screen_shot_dir + "/screenshot2.png")
-    @driver.find_elements(:name, 'Wrong Answer!') != nil
+    @driver.find_element(:id, 'com.bitbar.testdroid:id/textView1').text == 'Wrong Answer!'
     sleep(2)
   end
 
@@ -107,15 +107,15 @@ describe "BitbarSampleApp testing" do
   end
 
   it "should click 2nd radio button" do
-    log ("view1: Clicking button [0] - 'Use Testdroid Cloud'")
-    @driver.find_elements(:name, 'Use Testdroid Cloud')[0].click()
+    log ("view1: Clicking button - 'Use Testdroid Cloud'")
+    @driver.find_element(:id, 'com.bitbar.testdroid:id/radio1').click 
     @driver.save_screenshot(screen_shot_dir + "/screenshot3.png")
     log ("view1: Clicking Answer")
-    @driver.find_elements(:name, :Answer)[0].click()
+    @driver.find_element(:id, 'com.bitbar.testdroid:id/button1').click
 
     log ("view1: Taking screenshot screenshot4.png")
     @driver.save_screenshot(screen_shot_dir + "/screenshot4.png")
-    @driver.find_elements(:name, 'You are right!') != nil
+    @driver.find_element(:id, 'com.bitbar.testdroid:id/textView1').text == 'You are right!'
     log ("view1: Sleeping 3 before quitting webdriver")
     sleep(3)
 
