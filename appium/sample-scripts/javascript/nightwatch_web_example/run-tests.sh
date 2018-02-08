@@ -23,7 +23,7 @@ startAppium(){
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		# Create the screenshots directory, if it doesn't exist'
 		echo "Starting Appium on Linux..."
-		appium-1.6 --log-no-colors --log-timestamp
+		appium-1.7 --log-no-colors --log-timestamp
 	else
 		echo "Operating system not supported, exiting..."
 		exit 1

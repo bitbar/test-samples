@@ -13,7 +13,7 @@ echo "Installing requirements"
 
 ## start Appium server
 echo "Starting Appium ..."
-appium-1.6 --log-no-colors --log-timestamp --command-timeout 120
+appium-1.7 --log-no-colors --log-timestamp --command-timeout 120
 
 ## Start test execution
 echo "Running test"
