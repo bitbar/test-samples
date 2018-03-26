@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 14
+    buildToolsVersion "26.0.2"
+
+    defaultConfig {
+        applicationId "com.bitbar.testdroid"
+        minSdkVersion 14
+        targetSdkVersion 14
+
+        testApplicationId "com.bitbar.testdroid.sampletests.test"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+    }
+}
+dependencies{
+    testImplementation 'junit:junit:4.12'
+
+    // Android runner and rules support
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
+
+    // Espresso support
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // add this for intent mocking support
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
+
+    // add this for webview testing support
+    androidTestImplementation 'com.android.support.test.espresso:espresso-web:3.0.1'
+}
