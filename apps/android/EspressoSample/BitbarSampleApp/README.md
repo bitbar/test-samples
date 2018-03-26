@@ -34,6 +34,7 @@ Apks to upload to testdroid cloud are in:
 Create new <b>"Android Instrumentation"</b> project.
 Upload <b>""app-debug.apk"</b> or "app-release.apk" as the <b>""application"</b> file.
 Upload <b>""app-debug-androidTest.apk"</b> or "app-release-androidTest.apk" as the <b>""test"</b> file.
+Set this as screenshots directory: <b>/sdcard/Pictures/Screenshots</b> 
 </pre>
 
 
@@ -41,7 +42,7 @@ Upload <b>""app-debug-androidTest.apk"</b> or "app-release-androidTest.apk" as t
 This project only supports "./gradlew clean connectedDebugAndroidTest" or "./gradlew clean connectedAndroidTest"
 
 
-these commands can be set in `"Use test cases from:"` option, if "class" is selected:
+These commands can be set in `"Use test cases from:"` option in "4. Advanced options:" section in a new cloud test run, if `"class"` is selected:
 
 run tests in class:
 ```
