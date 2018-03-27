@@ -23,6 +23,7 @@ Apks to upload to testdroid cloud will be in (after project is built):
 Create new <b>"Android Instrumentation"</b> project.
 Upload <b>""app-debug.apk"</b> as the <b>""application"</b> file.
 Upload <b>""app-debug-androidTest.apk"</b> as the <b>""test"</b> file.
+Set as "Custom test runner" value: <b>android.support.test.runner.AndroidJUnitRunner</b>
 Set this as screenshots directory: <b>/sdcard/Pictures/Screenshots</b> 
 </pre>
 
