@@ -1,16 +1,12 @@
 
 package com.bitbar.testdroid.sampletests;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 
 
-import android.content.res.Resources;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.filters.LargeTest;
@@ -36,38 +32,55 @@ public class BitbarSampleTests extends TestUtilities {
     public static final String WRONG_ANSWER_TEXT = "Wrong Answer!";
     public static final String RIGHT_ANSWER_TEXT = "You are right!";
 
-    private Resources resources;
 
+    // open mainActivity (BitbarSampleApplicationActivity) at test start
     @Rule
     public ActivityTestRule<BitbarSampleApplicationActivity> mActivityRule = new ActivityTestRule(
             BitbarSampleApplicationActivity.class);
 
-    @Before
-    public void init() {
-        resources = mActivityRule.getActivity().getResources();
-    }
-
-
     @Rule
-    public TestRule watcher = new TestWatcher() {
-        @Override
-        protected void failed(Throwable e, Description description) {
-            //take screenshot at test failure
-            try {
-                takeScreenshot("failed-"+description.getClassName() + "-" + description.getMethodName(), getCurrentActivity());
-            }catch (Exception e1)
-            {}
-        }
-    };
+    public final TestName testName = new TestName();
 
 
     @Test
+    public void runWrongAnswerTest() throws Exception {
+
+        // run test and capture screenshot if test fails
+        try
+        {
+            wrongAnswerTest();
+        }
+        catch (Exception e)
+        {
+            takeScreenshot("test-"+testName.getMethodName()+"-failed",getCurrentActivity());
+            throw e;
+        }
+
+    }
+
+    @Test
+    public void runRightAnswerTest() throws Exception {
+
+        try
+        {
+            rightAnswerTest();
+        }
+        catch (Exception e)
+        {
+            takeScreenshot("test-"+testName.getMethodName()+"-failed",getCurrentActivity());
+            throw e;
+        }
+
+    }
+
     public void wrongAnswerTest() throws Exception {
 
         // select "Buy 101 devices"
         onView(withId(R.id.radio0)).perform(click());
 
         takeScreenshot("wrongAnswer-app-open", getCurrentActivity());
+
+        onView(withId(R.id.editText1)).check(matches(isDisplayed()));
 
         // type "Espresso", close keyboard
         onView(withId(R.id.editText1))
@@ -85,13 +98,14 @@ public class BitbarSampleTests extends TestUtilities {
         onView(withId(R.id.wrongTextView1)).check(matches(withText(WRONG_ANSWER_TEXT)));
     }
 
-    @Test
     public void rightAnswerTest() throws Exception {
 
         // select "Use Testdroid cloud"
         onView(withId(R.id.radio1)).perform(click());
 
         takeScreenshot("rightAnswer-app-open", getCurrentActivity());
+
+        onView(withId(R.id.editText1)).check(matches(isDisplayed()));
 
         // type "Espresso", close keyboard
         onView(withId(R.id.editText1))
