@@ -81,11 +81,11 @@ cat detox.log
 echo "detox-server-log"
 cat detox-server.log
 
-adb uninstall com.detox.rn.example
-adb uninstall com.detox.rn.example.test
+adb uninstall com.sampleproject
+adb uninstall com.sampleproject.test
 
-adb shell pm list packages -f | grep detox
-adb shell pm list instrumentation | grep detox
+adb shell pm list packages -f | grep sampleproject
+adb shell pm list instrumentation | grep sampleproject
 
 echo "Test has been run $(date), exit status: '${scriptExitStatus}'"
 
