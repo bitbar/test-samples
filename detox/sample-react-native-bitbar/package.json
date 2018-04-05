@@ -33,7 +33,7 @@
         "name": "iPhone 7"
       },
       "ios.sim.release": {
-        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/example.app",
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/sampleproject.app",
         "build": "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild -project ios/SampleProject.xcodeproj -scheme sampleproject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -quiet",
         "type": "ios.simulator",
         "name": "iPhone 7"
@@ -57,16 +57,6 @@
         },
         "type": "android.attached",
         "name": "0118c1a421df378a"
-      },
-      "android.device.release.local2": {
-        "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
-        "build": "pushd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && popd",
-        "session": {
-          "server": "ws://localhost:8099",
-          "sessionId": "test"
-        },
-        "type": "android.attached",
-        "name": "ZY223S2SGG"
       },
       "android.device.debug": {
         "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
