@@ -21,8 +21,31 @@ source: https://github.com/wix/detox/blob/master/docs/Introduction.GettingStarte
 	Install Detox command line tools (detox-cli)
 	1. npm install -g detox-cli
 
-  Install dependencies
-  1. npm install
+
+
+Build project and run test locally in short
+-------------------- 
+
+
+	1. clone repo, go to detox/sample-react-native-bitbar -folder
+	
+	2. Install dependencies
+ 		- `npm install`
+	
+	3. Start detox server (for Android real device)
+		- `"${PWD}/node_modules/.bin/detox" run-server &`
+	
+	4. Connect Android device to detox server port
+		- `adb reverse tcp:8099 tcp:8099` 
+	
+	5. Build app
+		- change device id in package.json `android.device.release.local` configuration
+		- (Android) `"${PWD}/node_modules/.bin/detox" build --configuration android.device.release.local`
+		- (iOS) `"${PWD}/node_modules/.bin/detox" build --configuration ios.sim.release`
+	
+	6. Run test
+		- (Android) `"${PWD}/node_modules/.bin/detox" test --configuration android.device.release.local`
+		- (iOS) `"${PWD}/node_modules/.bin/detox" test --configuration ios.sim.release`
 
 
 
