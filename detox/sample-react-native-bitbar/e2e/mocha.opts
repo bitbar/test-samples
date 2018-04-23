@@ -1,0 +1,4 @@
+--recursive
+--timeout 120000
+--reporter mocha-jenkins-reporter
+--reporter-options junit_report_path=test-report.xml
