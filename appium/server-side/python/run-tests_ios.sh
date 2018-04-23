@@ -7,8 +7,6 @@ echo "Extracting tests.zip..."
 unzip tests.zip
 
 echo "Setting UDID..."
-echo $UDID
-UDID="${echo $UDID}"
 echo "UDID set to ${UDID}"
 
 echo "Starting Appium ..."
