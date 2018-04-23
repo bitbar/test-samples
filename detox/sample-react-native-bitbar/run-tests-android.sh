@@ -59,7 +59,6 @@ npm install
 #"${PWD}/node_modules/.bin/detox" build --configuration android.device.release
 
 echo "Launching Detox server"
-"${PWD}/node_modules/.bin/detox" -version
 #"${PWD}/node_modules/.bin/detox" run-server &
 "${PWD}/node_modules/.bin/detox" run-server > detox-server.log 2>&1 &
 

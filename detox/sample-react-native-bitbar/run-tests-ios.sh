@@ -34,7 +34,6 @@ if [ -z ${UDID} ] ; then
 fi
 	echo "UDID is ${UDID}"
 
-#xcrun instruments -s devices | grep -v 'instruments' | grep -v 'Simulator' | grep 65b82a5578d9ff66fa41e200ee92a92112b87225 | tail -1
 
 rm -rf "$SCREENSHOTSFOLDER"
 rm ./*.xml
@@ -57,7 +56,6 @@ npm install
 
 #echo "Launching Detox server"
 # no need to start server for iOS simulator
-#"${PWD}/node_modules/.bin/detox" -version
 #"${PWD}/node_modules/.bin/detox" run-server &
 #"${PWD}/node_modules/.bin/detox" run-server > detox-server.log 2>&1 &
 
