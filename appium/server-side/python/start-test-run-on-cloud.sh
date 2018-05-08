@@ -16,7 +16,8 @@ function is_valid_id_or_exit (){
     re='^[0-9]+$'
     if ! [[ "$1" =~ $re ]] ; then
         echo "Received error message:
-$1" >&2; return 1
+$1" >&2;
+        exit 1
     fi
     # echo "is_valid_id_or_exit is valid number: ${1}"
     return 0
@@ -32,7 +33,7 @@ $1" >&2; return 1
 # Return - exit value
 #######################################################################
 function get_project_information () {
-    local project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET https://staging.bitbar.com/api/v2/me/projects | jq '.data[] | if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
+    local project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET "${CLOUD_URL}api/v2/me/projects" | jq '.data[] | if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
 
     echo "... ... get_project_information: ${project_id}"
     is_valid_id_or_exit "${project_id}"
@@ -46,7 +47,7 @@ function get_project_information () {
         echo "... ... project existed, getting app and test file IDs"
         PROJECT_ID=${project_id}
         # GET previous app and test files
-        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET https://staging.bitbar.com/api/v2/projects/"${PROJECT_ID}"/runs-extended?sort=createTime_d | jq -r '.data[0].files.data[] | .id' < test-runs.json))
+        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET "${CLOUD_URL}api/v2/projects/${PROJECT_ID}/runs-extended?sort=createTime_d" | jq -r '.data[0].files.data[] | .id' < test-runs.json))
         APP_FILE_ID=${app_and_test_ids[0]}
         TEST_FILE_ID=${app_and_test_ids[1]}
         echo "... ... found latest app ($APP_FILE_ID) and test ($TEST_FILE_ID) files, will use these if none were given as params"
@@ -64,7 +65,7 @@ function get_project_information () {
 #######################################################################
 function create_new_project () {
     echo "... create new project with name '${PROJECT_NAME}'"
-    project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -d "name=${PROJECT_NAME}"  https://staging.bitbar.com/api/me/projects | jq 'if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
+    project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -d "name=${PROJECT_NAME}"  "${CLOUD_URL}api/me/projects" | jq 'if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
     is_valid_id_or_exit "${project_id}"
     echo "... project ID: ${project_id}"
     PROJECT_ID=${project_id}
@@ -76,7 +77,7 @@ function create_new_project () {
 #######################################################################
 function upload_application_file() {
     echo "... ...Uploading  ${APP_FILE} to project"
-    local app_file_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${APP_FILE}"'"' "https://staging.bitbar.com/api/v2/me/projects/${PROJECT_ID}/files/application"  | jq '. | if .id then .id else .message end')
+    local app_file_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${APP_FILE}"'"' "${CLOUD_URL}api/v2/me/projects/${PROJECT_ID}/files/application"  | jq '. | if .id then .id else .message end')
     
     is_valid_id_or_exit "${app_file_id}"
     echo "... ...Updated app file id to: ${app_file_id}"
@@ -89,7 +90,7 @@ function upload_application_file() {
 #######################################################################
 function upload_test_file () {
     echo "... ... Uploading  ${TEST_FILE} to project"
-    local test_file_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${TEST_FILE}"'"' "https://staging.bitbar.com/api/v2/me/projects/${PROJECT_ID}/files/test"  | jq '. | if .id then .id else .message end')
+    local test_file_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${TEST_FILE}"'"' "${CLOUD_URL}api/v2/me/projects/${PROJECT_ID}/files/test"  | jq '. | if .id then .id else .message end')
 
     is_valid_id_or_exit "${test_file_id}"
     echo "... ...Updated test file id to: ${test_file_id}"
@@ -105,6 +106,7 @@ function print_help_and_die() {
     -a|--app-file <application>
     -d|--device-group-id <device group id>
     -k|--api-key <api key>, Mandatory to do anything else
+    -u|--url <cloud url>, Web URL for cloud endpoint eg. 'https://cloud.bitbar.com/'
     -p|--project <project name for test run> Mandatory, if project does not exist a new one is created
     -h|--help, print this help message"
     
@@ -114,9 +116,11 @@ function print_help_and_die() {
 #######################################################################
 # Default values for global variables
 #######################################################################
+CLOUD_URL="https://staging.bitbar.com/"
 OS_TYPE="IOS"
+FRAMEWORKID=542 # staging "Appium ios server side is 560"
 API_KEY="${API_KEY}"
-DEVICE_GROUP_ID=68095
+DEVICE_GROUP_ID=-1
 APP_FILE=""
 APP_FILE_ID=-1
 TEST_FILE=""
@@ -158,6 +162,11 @@ do
             shift
             shift
             ;;
+        -u|--url)
+            CLOUD_URL="$2"
+            shift
+            shift
+            ;;
         -h|--help)
             print_help_and_die
             ;;
@@ -179,7 +188,7 @@ done
 #    parameters
 # 3) 
 #######################################################################
-if [ -z "${PROJECT_NAME}" ]; then
+if [[ -z "${PROJECT_NAME}" ]] ||  [[ -z "${DEVICE_GROUP_ID}" ]]; then
     print_help_and_die
 fi
 
@@ -201,7 +210,6 @@ else
 fi
 
 
-
 #######################################################################
 # if TEST_FILE give, then upload new test file to project
 #######################################################################
@@ -211,11 +219,21 @@ else
     echo "... Using existing test file id: ${TEST_FILE_ID}"
 fi
 
+#######################################################################
+# Check test and app files are set
+#######################################################################
+if [[ ${TEST_FILE_ID} -eq -1 ]] ||  [[ ${APP_FILE_ID} -eq -1 ]]; then
+    echo "... No TEST or APP files given or found from project"
+fi
+
+#######################################################################
+# Starting the test run with provided params
+#######################################################################
 echo "... Starting new test run in cloud with params: project: ${PROJECT_ID}, app file: ${APP_FILE_ID} and test file: ${TEST_FILE_ID}"
-TESTRUN_ID=$(curl -s 'https://staging.bitbar.com/api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":560,"files":[{"id":"'"${APP_FILE_ID}"'"},{"id":"'"${TEST_FILE_ID}"'"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
+TESTRUN_ID=$(curl -s "${CLOUD_URL}"'api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":"'"${FRAMEWORKID}"'","files":[{"id":"'"${APP_FILE_ID}"'"},{"id":"'"${TEST_FILE_ID}"'"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
 
 is_valid_id_or_exit "${TESTRUN_ID}"
 
 
 echo "Test run started: 
-https://staging.bitbar.com/#testing/test-run/${PROJECT_ID}/${TESTRUN_ID}"
+"${CLOUD_URL}"#testing/test-run/${PROJECT_ID}/${TESTRUN_ID}"
