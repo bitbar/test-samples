@@ -8,57 +8,129 @@
 # __author__ = 'Niko Cankar <niko.cankar@bitbar.com>'
 
 
-function is_valid_id_or_exit {
-    #echo "is_valid_id_or_exit: checking ${1}"
+#######################################################################
+# Verify the provided ID looks like id and is not string message
+#######################################################################
+function is_valid_id_or_exit (){
+    # echo "is_valid_id_or_exit checking: ${1}"
     re='^[0-9]+$'
     if ! [[ "$1" =~ $re ]] ; then
         echo "Received error message:
 $1" >&2; return 1
     fi
-    # echo "'$1' is valid number"
+    # echo "is_valid_id_or_exit is valid number: ${1}"
     return 0
 }
 
-# params: 1) api-key, 2) project name to check id for
-function get_project_id {
-    eval key="${1}"
-    eval name="${2}"
-    echo "... ... get_project_id: 1) $key 2) $name"
-    local project_id=$(curl -s -H "Accept: application/json" -u "${key}": -X GET https://staging.testdroid.com/api/v2/me/projects | jq '.data[] | if .name=="'"${name}"'" then .id else empty end')
+#######################################################################
+# Check if parameter project exists and create new project if
+# it does not exist yet.
+#
+# Params:
+# $1 - api key to cloud
+# $2 - project name to get ID for
+#
+# Return - exit value
+#######################################################################
+function get_project_id () {
+    local project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET https://staging.testdroid.com/api/v2/me/projects | jq '.data[] | if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
 
     echo "... ... get_project_id: ${project_id}"
     is_valid_id_or_exit "${project_id}"
     local ok=$?
-    echo "is valid id returned: ${ok}"
 
     if [ ${ok} -gt 0 ]; then
-        echo "... let's create new project with name ${2}"
-        # project_id=...
+        echo "... ... didn't find project"
+        # create_new_project
+        exit 0
+    else
+        echo "... ... project existed, getting app and test file IDs"
+        PROJECT_ID=${project_id}
+        # GET previous app and test files
+        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET https://staging.testdroid.com/api/v2/projects/"${PROJECT_ID}"/runs-extended?sort=createTime_d | jq -r '.data[0].files.data[] | .id' < test-runs.json))
+        APP_FILE_ID=${app_and_test_ids[0]}
+        TEST_FILE_ID=${app_and_test_ids[1]}
+        echo "... ... found latest app ($APP_FILE_ID) and test ($TEST_FILE_ID) files, will use these if none were given as params"
     fi
+}
+
+#######################################################################
+# Create a new project and set the new project ID to global PROJECT_ID
+# variable.
+#
+# Params:
+# $1 - project name to create
+#
+# Return - exit value and PROJECT_ID updated with 
+#######################################################################
+function create_new_project () {
+    echo "... create new project with name '${PROJECT_NAME}'"
+    project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -d "name=${PROJECT_NAME}"  https://staging.testdroid.com/api/me/projects | jq 'if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
+    is_valid_id_or_exit "${project_id}"
     echo "... project ID: ${project_id}"
     PROJECT_ID=${project_id}
 }
 
-# default values that may be overriden by command line params
+#######################################################################
+# Upload application file to existing project (ID)
+# This sets the global variable APP_FILE_ID
+#######################################################################
+function upload_application_file() {
+    echo "... Uploading  ${APP_FILE} to project"
+    APP_FILE_ID=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${APP_FILE}"'"' "https://staging.testdroid.com/api/v2/me/projects/${PROJECT_ID}/files/application"  | jq '. | if .id then .id else .message end')
+g
+    is_valid_id_or_exit "${APP_FILE_ID}"    
+}
+
+function print_help_and_die() {
+    echo "Usage: $0 
+    -t|--test-file <file>
+    -a|--app-file <application>
+    -d|--device-group-id <device group id>
+    -k|--api-key <api key>, Mandatory to do anything else
+    -p|--project-name <project name for test run> Mandatory, if project does not exist a new one is created"
+    
+    exit 0
+}
+
+
+
+#######################################################################
+# Default values for global variables
+#######################################################################
 ENV="ios"
 API_KEY="iOdbfNRhApqRGT5KcJvGpmNmFblKKYie" 
-PROJECT_NAME="ios appium"
 DEVICE_GROUP_ID=68095
+APP_FILE=""
+APP_FILE_ID=-1
 TEST_FILE=""
-TEST_FILE_ID=40924162
-PROJECT_NAME="ios appium"
+TEST_FILE_ID=-1
+PROJECT_NAME=""
+PROJECT_ID=-1
 
-
+#######################################################################
+# Parse inputs and store variables
 # https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash
+#######################################################################
 while [[ $# -gt 0 ]]
 do
     key="$1"
-
     case $key in
+        -p|--project-name)
+            PROJECT_NAME="$2"
+            shift
+            shift
+            ;;
         -t|--test-file)
             TEST_FILE="$2"
             shift # past argument
             shift # past value
+            ;;
+        -a|--app-file)
+            APP_FILE="${2}"
+            # uploade app file to cloud
+            shift
+            shift
             ;;
         -d|--device-group-id)
             DEVICE_GROUP_ID="$2"
@@ -67,11 +139,6 @@ do
             ;;
         -k|--api-key)
             API_KEY="$2"
-            shift
-            shift
-            ;;
-        -p|--project-name)
-            PROJECT_NAME="$2"
             shift
             shift
             ;;
@@ -85,28 +152,52 @@ do
 done
 
 
+#######################################################################
+# Check required minimum params were given
+# 1) project name is required
+# 2) if project does not exist - then test and app files required as
+#    parameters
+# 3) 
+#######################################################################
+if [ -z "${PROJECT_NAME}" ]; then
+    print_help_and_die
+fi
+
+
+#######################################################################
+# Get project id or create a new project if one does not exist already
+#######################################################################
 echo "... Getting project's (${PROJECT_NAME}) ID or create new project"
 get_project_id "\${API_KEY}" "\${PROJECT_NAME}"
 
 
-# if TEST_FILE is not empty, new test file needs to be updated and new TEST_FILE_ID created
+#######################################################################
+# if APP_FILE give, then upload new app file to project
+#######################################################################
+if [ ! -z "${APP_FILE}" ]; then
+    upload_application_file ${APP_FILE}
+fi
+
+
+#######################################################################
+# if TEST_FILE give, then upload new test file to project
+#######################################################################
 if [ ! -z "${TEST_FILE}" ]; then
     echo "Creating test file for environment: ${ENV}"
     cp run-tests_${ENV}.sh run-tests.sh && zip -r "${TEST_FILE}" requirements.txt *py run-tests.sh
-
-
-    #curl -H "Accept: application/json" -u ${API_KEY}: -X GET https://staging.testdroid.com/api/v2/me/projects?name="ios appium"
 
     echo "... Uploading  ${TEST_FILE} to project"
     TEST_FILE_ID=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${TEST_FILE}"'"' "https://staging.testdroid.com/api/v2/me/projects/${PROJECT_ID}/files/test"  | jq '. | if .id then .id else .message end')
 
     is_valid_id_or_exit "${TEST_FILE_ID}"
-else
+else  # TEST_FILE was empty so using fixed TEST_FILE_ID
     echo "... Using existing test file id: ${TEST_FILE_ID}"
 fi
 
+
+exit 0
 echo "... Starting new test run in cloud"
-TESTRUN_ID=$(curl -s 'https://staging.testdroid.com/api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u ${API_KEY}: -X POST --data '{"osType":"IOS","projectId":"'"${PROJECT_ID}"'","frameworkId":560,"files":[{"id":40548259},{"id":"'"${TEST_FILE_ID}"'"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
+TESTRUN_ID=$(curl -s 'https://staging.testdroid.com/api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u ${API_KEY}: -X POST --data '{"osType":"IOS","projectId":"'"${PROJECT_ID}"'","frameworkId":560,"files":[{"id":"'"${APP_FILE_ID}"'"},{"id":"'"${TEST_FILE_ID}"'"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
 
 is_valid_id_or_exit "${TESTRUN_ID}"
 
