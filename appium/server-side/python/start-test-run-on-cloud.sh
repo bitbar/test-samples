@@ -32,7 +32,7 @@ $1" >&2; return 1
 # Return - exit value
 #######################################################################
 function get_project_information () {
-    local project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET https://staging.testdroid.com/api/v2/me/projects | jq '.data[] | if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
+    local project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET https://staging.bitbar.com/api/v2/me/projects | jq '.data[] | if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
 
     echo "... ... get_project_information: ${project_id}"
     is_valid_id_or_exit "${project_id}"
@@ -46,7 +46,7 @@ function get_project_information () {
         echo "... ... project existed, getting app and test file IDs"
         PROJECT_ID=${project_id}
         # GET previous app and test files
-        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET https://staging.testdroid.com/api/v2/projects/"${PROJECT_ID}"/runs-extended?sort=createTime_d | jq -r '.data[0].files.data[] | .id' < test-runs.json))
+        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET https://staging.bitbar.com/api/v2/projects/"${PROJECT_ID}"/runs-extended?sort=createTime_d | jq -r '.data[0].files.data[] | .id' < test-runs.json))
         APP_FILE_ID=${app_and_test_ids[0]}
         TEST_FILE_ID=${app_and_test_ids[1]}
         echo "... ... found latest app ($APP_FILE_ID) and test ($TEST_FILE_ID) files, will use these if none were given as params"
@@ -64,7 +64,7 @@ function get_project_information () {
 #######################################################################
 function create_new_project () {
     echo "... create new project with name '${PROJECT_NAME}'"
-    project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -d "name=${PROJECT_NAME}"  https://staging.testdroid.com/api/me/projects | jq 'if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
+    project_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -d "name=${PROJECT_NAME}"  https://staging.bitbar.com/api/me/projects | jq 'if .name=="'"${PROJECT_NAME}"'" then .id else empty end')
     is_valid_id_or_exit "${project_id}"
     echo "... project ID: ${project_id}"
     PROJECT_ID=${project_id}
@@ -76,7 +76,7 @@ function create_new_project () {
 #######################################################################
 function upload_application_file() {
     echo "... ...Uploading  ${APP_FILE} to project"
-    local app_file_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${APP_FILE}"'"' "https://staging.testdroid.com/api/v2/me/projects/${PROJECT_ID}/files/application"  | jq '. | if .id then .id else .message end')
+    local app_file_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${APP_FILE}"'"' "https://staging.bitbar.com/api/v2/me/projects/${PROJECT_ID}/files/application"  | jq '. | if .id then .id else .message end')
     
     is_valid_id_or_exit "${app_file_id}"
     echo "... ...Updated app file id to: ${app_file_id}"
@@ -89,7 +89,7 @@ function upload_application_file() {
 #######################################################################
 function upload_test_file () {
     echo "... ... Uploading  ${TEST_FILE} to project"
-    local test_file_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${TEST_FILE}"'"' "https://staging.testdroid.com/api/v2/me/projects/${PROJECT_ID}/files/test"  | jq '. | if .id then .id else .message end')
+    local test_file_id=$(curl -s -H "Accept: application/json" -u "${API_KEY}": -X POST -F 'file=@"'"${TEST_FILE}"'"' "https://staging.bitbar.com/api/v2/me/projects/${PROJECT_ID}/files/test"  | jq '. | if .id then .id else .message end')
 
     is_valid_id_or_exit "${test_file_id}"
     echo "... ...Updated test file id to: ${test_file_id}"
@@ -212,10 +212,10 @@ else
 fi
 
 echo "... Starting new test run in cloud with params: project: ${PROJECT_ID}, app file: ${APP_FILE_ID} and test file: ${TEST_FILE_ID}"
-TESTRUN_ID=$(curl -s 'https://staging.testdroid.com/api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":560,"files":[{"id":"'"${APP_FILE_ID}"'"},{"id":"'"${TEST_FILE_ID}"'"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
+TESTRUN_ID=$(curl -s 'https://staging.bitbar.com/api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":560,"files":[{"id":"'"${APP_FILE_ID}"'"},{"id":"'"${TEST_FILE_ID}"'"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
 
 is_valid_id_or_exit "${TESTRUN_ID}"
 
 
 echo "Test run started: 
-https://staging.testdroid.com/#testing/test-run/${PROJECT_ID}/${TESTRUN_ID}"
+https://staging.bitbar.com/#testing/test-run/${PROJECT_ID}/${TESTRUN_ID}"
