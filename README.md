@@ -20,6 +20,8 @@ for testing (older) iOS versions.
 
 * *espresso-sample/* - sample Android app to demonstrate Espresso testing framework, based on BitbarSampleApp from apps directory.
 
+* *detox/* - contains sample project to demonstrate Detox test framework.
+
 ## License
 
 See the [LICENSE](LICENSE) file.

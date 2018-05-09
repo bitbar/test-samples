@@ -22,6 +22,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.not;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -64,6 +65,21 @@ public class BitbarSampleTests extends TestUtilities {
         try
         {
             rightAnswerTest();
+        }
+        catch (Exception e)
+        {
+            takeScreenshot("test-"+testName.getMethodName()+"-failed",getCurrentActivity());
+            throw e;
+        }
+
+    }
+
+    @Test
+    public void runFailIntentionallyTest() throws Exception {
+
+        try
+        {
+            failTest();
         }
         catch (Exception e)
         {
@@ -121,5 +137,30 @@ public class BitbarSampleTests extends TestUtilities {
 
         // check that element contains correct text (You are right!)
         onView(withId(R.id.correctTextView1)).check(matches(withText(RIGHT_ANSWER_TEXT)));
+    }
+
+    public void failTest() throws Exception {
+
+        // select "Ask mom for help
+        onView(withId(R.id.radio2)).perform(click());
+
+        takeScreenshot("failTestIntentionally-app-open", getCurrentActivity());
+
+        onView(withId(R.id.editText1)).check(matches(isDisplayed()));
+
+        // type "Espresso", close keyboard
+        onView(withId(R.id.editText1))
+                .perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());
+
+        // click "Answer"
+        onView(withId(R.id.button1)).perform(click());
+
+        // check that proper element is visible
+        onView(withId(R.id.wrongTextView1)).check(matches(isDisplayed()));
+
+        takeScreenshot("failTestIntentionally-atWrongAnswerScreen", getCurrentActivity());
+
+        // check that element does not contain text (Wrong Answer!)
+        onView(withId(R.id.wrongTextView1)).check(matches(not(withText(WRONG_ANSWER_TEXT))));
     }
 }
