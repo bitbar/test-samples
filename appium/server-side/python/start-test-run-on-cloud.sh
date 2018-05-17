@@ -116,10 +116,10 @@ function print_help_and_die() {
 #######################################################################
 # Default values for global variables
 #######################################################################
-CLOUD_URL="https://staging.bitbar.com/"
-OS_TYPE="IOS"
-FRAMEWORKID=542 # staging "Appium ios server side is 560"
-API_KEY="${API_KEY}"
+OS_TYPE="IOS" # UNDEFINED, IOS, ANDROID
+FRAMEWORKID=542 
+CLOUD_URL="https://cloud.bitbar.com/"
+API_KEY=""
 DEVICE_GROUP_ID=-1
 APP_FILE=""
 APP_FILE_ID=-1
@@ -188,7 +188,7 @@ done
 #    parameters
 # 3) 
 #######################################################################
-if [[ -z "${PROJECT_NAME}" ]] ||  [[ -z "${DEVICE_GROUP_ID}" ]]; then
+if [[ -z "${PROJECT_NAME}" ]] ||  [[ -z "${DEVICE_GROUP_ID}" ]] ||  [[ -z "${API_KEY}" ]]; then
     print_help_and_die
 fi
 
