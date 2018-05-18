@@ -44,10 +44,10 @@ function get_project_information () {
         # create_new_project
         exit 0
     else
-        echo "... ... project existed, getting app and test file IDs"
+        echo "... ... project existed, getting last app and test file IDs"
         PROJECT_ID=${project_id}
         # GET previous app and test files
-        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET "${CLOUD_URL}api/v2/projects/${PROJECT_ID}/runs-extended?sort=createTime_d" | jq -r '.data[0].files.data[] | .id' < test-runs.json))
+        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET "${CLOUD_URL}api/v2/projects/${PROJECT_ID}/runs-extended?sort=createTime_d" | jq -r '.data[0].files.data[] | .id'))
         APP_FILE_ID=${app_and_test_ids[0]}
         TEST_FILE_ID=${app_and_test_ids[1]}
         echo "... ... found latest app ($APP_FILE_ID) and test ($TEST_FILE_ID) files, will use these if none were given as params"
@@ -201,7 +201,7 @@ get_project_information "\${API_KEY}" "\${PROJECT_NAME}"
 
 
 #######################################################################
-# if APP_FILE give, then upload new app file to project
+# if APP_FILE given as param, then upload new app file to project
 #######################################################################
 if [ ! -z "${APP_FILE}" ]; then
     upload_application_file ${APP_FILE}
@@ -211,7 +211,7 @@ fi
 
 
 #######################################################################
-# if TEST_FILE give, then upload new test file to project
+# if TEST_FILE given as param, then upload new test file to project
 #######################################################################
 if [ ! -z "${TEST_FILE}" ]; then
     upload_test_file ${TEST_FILE}
@@ -230,7 +230,7 @@ fi
 # Starting the test run with provided params
 #######################################################################
 echo "... Starting new test run in cloud with params: project: ${PROJECT_ID}, app file: ${APP_FILE_ID} and test file: ${TEST_FILE_ID}"
-TESTRUN_ID=$(curl -s "${CLOUD_URL}"'api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":"'"${FRAMEWORKID}"'","files":[{"id":"'"${APP_FILE_ID}"'"},{"id":"'"${TEST_FILE_ID}"'"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
+TESTRUN_ID=$(curl -s "${CLOUD_URL}"'api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":"'"${FRAMEWORKID}"'","files":[{"id":"'"${APP_FILE_ID}"'", "action":"INSTALL"},{"id":"'"${TEST_FILE_ID}"'", "action":"RUN_TEST"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
 
 is_valid_id_or_exit "${TESTRUN_ID}"
 
