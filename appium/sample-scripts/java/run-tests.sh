@@ -20,7 +20,7 @@ startAppiumOSX(){
 	mkdir -p .screenshots
         echo "Starting Appium on Mac..."
         export AUTOMATION_NAME="XCUITest"
-	appium-1.6 -U ${UDID} --log-no-colors --log-timestamp --show-ios-log
+	appium -U ${UDID} --log-no-colors --log-timestamp --show-ios-log
 }
 
 startAppiumLinux(){
