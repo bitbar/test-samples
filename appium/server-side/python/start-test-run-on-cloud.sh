@@ -107,6 +107,7 @@ function print_help_and_die() {
     -d|--device-group-id <device group id>
     -k|--api-key <api key>, Mandatory to do anything else
     -u|--url <cloud url>, Web URL for cloud endpoint eg. 'https://cloud.bitbar.com/'
+    -f|--framework <framework ID>, the ID of the framework to use to execute the test. Defaults to Android Appium server side
     -p|--project <project name for test run> Mandatory, if project does not exist a new one is created
     -h|--help, print this help message"
     
