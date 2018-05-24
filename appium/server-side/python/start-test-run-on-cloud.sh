@@ -166,6 +166,11 @@ do
             shift
             shift
             ;;
+        -f|--framework)
+            FRAMEWORKID="$2"
+            shift
+            shift
+            ;;
         -h|--help)
             print_help_and_die
             ;;
@@ -228,7 +233,7 @@ fi
 #######################################################################
 # Starting the test run with provided params
 #######################################################################
-echo "... Starting new test run in cloud with params: project: ${PROJECT_ID}, app file: ${APP_FILE_ID} and test file: ${TEST_FILE_ID}"
+echo "... Starting new test run in cloud with params: project: ${PROJECT_ID}, app file: ${APP_FILE_ID}, test file: ${TEST_FILE_ID} and FRAMEWORKID: ${FRAMEWORKID}"
 TESTRUN_ID=$(curl -s "${CLOUD_URL}"'api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":"'"${FRAMEWORKID}"'","files":[{"id":"'"${APP_FILE_ID}"'", "action":"INSTALL"},{"id":"'"${TEST_FILE_ID}"'", "action":"RUN_TEST"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
 
 is_valid_id_or_exit "${TESTRUN_ID}"
