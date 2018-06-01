@@ -10,14 +10,12 @@ unzip tests.zip
 export SCREENSHOT_FOLDER=target/reports/screenshots/
 
 echo "Setting UDID..."
-echo "UDID set to ${UDID}"
+echo "UDID set to ${IOS_UDID}"
 
 echo "Starting Appium ..."
-appium-1.6 -U ${UDID}  --log-no-colors --log-timestamp --show-ios-log --command-timeout 120
+appium -U ${IOS_UDID}  --log-no-colors --log-timestamp --show-ios-log --command-timeout 120
 ps -ef|grep appium
 ##### Cloud testrun dependencies end.
-
-export APPIUM_APPFILE=$PWD/application.ipa #App is at current working folder
 
 ## Run the test:
 bundle install

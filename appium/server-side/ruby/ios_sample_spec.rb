@@ -20,7 +20,7 @@ describe "TestSuite" do
 
     @log.log("view1: Typing in textfield: Bitbar user")
     @driver.find_element(:name, "your name").send_keys("Bitbar user")
-    @driver.hide_keyboard
+    @driver.hide_keyboard('return', :pressKey)
 
     @log.log("view1: Taking screenshot screenshot1.png")
     @driver.screenshot("#{SetupAppium.screenshot_dir}screenshot1.png")

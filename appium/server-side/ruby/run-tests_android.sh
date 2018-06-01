@@ -13,8 +13,6 @@ echo "Starting Appium ..."
 appium-1.7 --log-no-colors --log-timestamp
 ##### Cloud testrun dependencies end.
 
-export APPIUM_APPFILE=$PWD/application.apk #App is at current working folder
-
 ## Run the test:
 bundle install
 echo "Running test ${TEST}"

@@ -8,7 +8,7 @@ class SetupAppium
   app_path = Dir.pwd
   @@app_file_android = File.join(app_path, app_file_android)
   @@app_file_ios = File.join(app_path, app_file_ios)
-  @@udid = ENV['UDID']
+  @@udid = ENV['IOS_UDID']
 
 
   def self.screenshot_dir
@@ -39,8 +39,9 @@ class SetupAppium
   end
 
   def get_ios_driver
+    log("Starting to creating ios_driver")
     desired_caps = {}
-    desired_caps['platformName'] = 'iOS'
+    desired_caps['platformName'] = 'IOS'
     desired_caps['automationName'] = 'XCUITest'
     desired_caps['bundleId'] = 'com.bitbar.testdroid.BitbarIOSSample'
     desired_caps['deviceName'] = 'iPhone device'
