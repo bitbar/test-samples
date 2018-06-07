@@ -39,9 +39,8 @@ class SetupAppium
   end
 
   def get_ios_driver
-    log("Starting to creating ios_driver")
     desired_caps = {}
-    desired_caps['platformName'] = 'IOS'
+    desired_caps['platformName'] = 'iOS'
     desired_caps['automationName'] = 'XCUITest'
     desired_caps['bundleId'] = 'com.bitbar.testdroid.BitbarIOSSample'
     desired_caps['deviceName'] = 'iPhone device'
