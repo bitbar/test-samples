@@ -1,0 +1,7 @@
+source "https://www.rubygems.org"
+
+gem "selenium-webdriver"
+gem "appium_lib"
+gem "rspec"
+gem "rspec_junit_formatter"
+
