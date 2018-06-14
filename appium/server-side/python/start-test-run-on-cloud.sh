@@ -115,6 +115,17 @@ function print_help_and_die() {
 }
 
 #######################################################################
+# Check jq is installed or propose installation
+#######################################################################
+if [ 0 -lt $(which jq 1>/dev/null; echo $?) ]
+then
+    # jq not installed
+    echo "You need to have 'jq' tool installed to run this script"
+    echo "Please install it with 'brew install jq' (Mac) or 'sudo apt-get install jq' (Linux)"
+fi
+
+
+#######################################################################
 # Default values for global variables
 #######################################################################
 OS_TYPE="IOS" # UNDEFINED, IOS, ANDROID
