@@ -24,7 +24,8 @@ $1" >&2;
 }
 
 #######################################################################
-# Check if project exists and get project files if they exist
+# Check if project exists and get project files, framework and OS from
+# existing project
 #
 # Params:
 # $1 - api key to cloud
@@ -47,10 +48,34 @@ function get_project_information () {
         echo "... ... project existed, getting last app and test file IDs"
         PROJECT_ID=${project_id}
         # GET previous app and test files
-        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET "${CLOUD_URL}api/v2/projects/${PROJECT_ID}/runs-extended?sort=createTime_d" | jq -r '.data[0].files.data[] | .id'))
-        APP_FILE_ID=${app_and_test_ids[0]}
-        TEST_FILE_ID=${app_and_test_ids[1]}
+        local app_and_test_ids=($(curl -s -H "Accept: application/json" -u "${API_KEY}": -X GET "${CLOUD_URL}api/v2/projects/${PROJECT_ID}/runs-extended?sort=createTime_d" | jq -r '.data[0] | .frameworkId, (.files.data[] | .id), .frameworkName'))
+
+        # if framework ID was not provided, use the one from project
+        if [ ${FRAMEWORK_ID} -lt 0 ]; then
+            FRAMEWORK_ID=${app_and_test_ids[0]}
+            echo "... ... using project's existing framework ($FRAMEWORK_ID)"
+        fi
+
+        # use found app and test files from project
+        APP_FILE_ID=${app_and_test_ids[1]}
+        TEST_FILE_ID=${app_and_test_ids[2]}
         echo "... ... found latest app ($APP_FILE_ID) and test ($TEST_FILE_ID) files, will use these if none were given as params"
+
+        # use existing OS type based on framework name - this could go wrong if framework does not contain OS name
+        echo "Finding OS_TYPE from '${app_and_test_ids[3]}'"
+        shopt -s nocasematch
+        case "${app_and_test_ids[@]}" in
+            *ANDROID*)
+                OS_TYPE="ANDROID"
+                ;;
+            *IOS*)
+                OS_TYPE="IOS"
+                ;;
+            *)
+                OS_TYPE="UNDEFINED"
+        esac
+        shopt -u nocasematch
+        echo "... ... guessing project type to ${OS_TYPE} - if this is incorrect pass correct value as parameter"
     fi
 }
 
@@ -104,11 +129,11 @@ function print_help_and_die() {
     echo "Usage: $0 
     -t|--test-file <file>
     -a|--app-file <application>
-    -d|--device-group-id <device group id>
-    -k|--api-key <api key>, Mandatory to do anything else
+    -d|--device-group-id [device group id] - mandatory parameter
+    -k|--api-key [api key] - mandatory parameter
     -u|--url <cloud url>, Web URL for cloud endpoint eg. 'https://cloud.bitbar.com/'
-    -f|--framework <framework ID>, the ID of the framework to use to execute the test. Defaults to Android Appium server side. Get the list of available frameworks with: '${CLOUD_URL}api/v2/me/available-frameworks'
-    -p|--project <project name for test run> Mandatory, if project does not exist a new one is created
+    -f|--framework <framework ID>, the ID of the framework to use to execute the test. Defaults to project's current framework. Get the list of available frameworks with: 'curl -H \"Accept: application/json\" -u <API_KEY>: <CLOUD_URL>api/v2/me/available-frameworks'
+    -p|--project [project name] - mandatory parameter, if project does not exist a new one is created
     -h|--help, print this help message"
     
     exit 0
@@ -128,11 +153,11 @@ fi
 #######################################################################
 # Default values for global variables
 #######################################################################
-OS_TYPE="IOS" # UNDEFINED, IOS, ANDROID
-FRAMEWORKID=542 
+OS_TYPE="" # UNDEFINED, IOS, ANDROID
+FRAMEWORK_ID=-1
 CLOUD_URL="https://cloud.bitbar.com/"
 API_KEY=""
-DEVICE_GROUP_ID=-1
+DEVICE_GROUP_ID=""
 APP_FILE=""
 APP_FILE_ID=-1
 TEST_FILE=""
@@ -179,7 +204,7 @@ do
             shift
             ;;
         -f|--framework)
-            FRAMEWORKID="$2"
+            FRAMEWORK_ID="$2"
             shift
             shift
             ;;
@@ -245,8 +270,8 @@ fi
 #######################################################################
 # Starting the test run with provided params
 #######################################################################
-echo "... Starting new test run in cloud with params: project: ${PROJECT_ID}, app file: ${APP_FILE_ID}, test file: ${TEST_FILE_ID} and FRAMEWORKID: ${FRAMEWORKID}"
-TESTRUN_ID=$(curl -s "${CLOUD_URL}"'api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":"'"${FRAMEWORKID}"'","files":[{"id":"'"${APP_FILE_ID}"'", "action":"INSTALL"},{"id":"'"${TEST_FILE_ID}"'", "action":"RUN_TEST"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
+echo "... Starting new test run in cloud with params: project: ${PROJECT_ID}, app file: ${APP_FILE_ID}, test file: ${TEST_FILE_ID} and FRAMEWORK_ID: ${FRAMEWORK_ID}"
+TESTRUN_ID=$(curl -s "${CLOUD_URL}"'api/v2/me/runs' -H "Content-Type: application/json" -H "Accept: application/json" -u "${API_KEY}": -X POST --data '{"osType":"'"${OS_TYPE}"'","projectId":"'"${PROJECT_ID}"'","frameworkId":"'"${FRAMEWORK_ID}"'","files":[{"id":"'"${APP_FILE_ID}"'", "action":"INSTALL"},{"id":"'"${TEST_FILE_ID}"'", "action":"RUN_TEST"}],"deviceGroupId":"'"${DEVICE_GROUP_ID}"'"}'  | jq '. | if .id then .id else .message end')
 
 is_valid_id_or_exit "${TESTRUN_ID}"
 
