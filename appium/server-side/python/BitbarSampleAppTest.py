@@ -22,7 +22,7 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
         # print self.driver.page_source
 
         if self.isAndroid():
-            #try:
+            try:
                 log("Taking screenshot 0_appLaunch.png")
                 driver.save_screenshot(self.screenshot_dir + "/0_appLaunch.png")
                 log("Clicking element 'Use Testdroid Cloud'")
@@ -38,8 +38,8 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
                 
                 log("Sleeping 3 before quitting webdriver")
                 sleep(3)
-            #except WebDriverException:
-                #log("Testrun failed..")
+            except WebDriverException:
+                log("Android testrun failed..")
         else: # iOS
             try:
                 log("Taking screenshot 0_appLaunch.png")
@@ -55,32 +55,7 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
                 log("Sleeping 3 before quitting webdriver")
                 sleep(3)
             except WebDriverException:
-                log("Testrun failed..")
-        driver.quit()
-                
-    def test_the_app_second(self):
-        driver = self.get_driver() # Initialize Appium connection to device
-
-        sleep(10) # Wait that the app loads
-        log("Start!")
-        # Use this to get detected screen hierarchy
-        # print self.driver.page_source
-
-    #try:
-        log("Taking screenshot 0_appLaunch.png")
-        driver.save_screenshot(self.screenshot_dir + "/0_appLaunch.png")
-        log("Clicking element 'Use Testdroid Cloud'")
-        if self.isSelendroid():
-                elem = driver.find_element_by_xpath("//LinearLayout[1]/FrameLayout[1]/ScrollView[1]/LinearLayout[1]/LinearLayout[1]/RadioGroup[1]/RadioButton[2]")
-        else:
-            elem = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Use Testdroid Cloud")')
-        self.assertTrue(elem)
-        elem.click()
-        sleep(2) # always sleep before taking screenshot to let transition animations finish
-        log("Taking screenshot: 1_radiobuttonPressed.png")
-        driver.save_screenshot(self.screenshot_dir + "/1_radiobuttonPressed.png")
-        log("Sleeping 3 before quitting webdriver")
-        sleep(3)
+                log("iOS testrun failed..")
 
     # Test end.
 
