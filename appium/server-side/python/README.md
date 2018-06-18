@@ -26,11 +26,14 @@ This folder contains the following files:
 
 * `create-zip.sh` is a script that packages the test files into a zip
   file. The output of this file needs to be uploaded to your server
-  side test run.
+  side test run. You need to provide parameter `ios` or `android`
+  depending which environment you want to use.
 
 * `start-test-run-on-cloud.sh` - a script to launch server side test
   runs from the command line. You'll need to set some environment
-  parameters to get this working. These are the cloud URL, you api key
-  for identification etc. To get more help on how the script works
-  type `./start-test-run-on-cloud.sh --help`
+  parameters to get this working or provide these as command line
+  parameters. These parameters are the cloud URL, your api key for
+  identification and the device group for selecting the devices to run
+  tests on. To get more help on how the script works type
+  `./start-test-run-on-cloud.sh --help`.
   
