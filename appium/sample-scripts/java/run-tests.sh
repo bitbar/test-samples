@@ -18,16 +18,16 @@ startAppiumOSX(){
 		echo "UDID is ${UDID}"
 	# Create the screenshots directory, if it doesn't exist'
 	mkdir -p .screenshots
-    echo "Starting Appium on Mac..."
-  export AUTOMATION_NAME="XCUITest"
-	appium-1.6 -U ${UDID} --log-no-colors --log-timestamp --show-ios-log
+        echo "Starting Appium on Mac..."
+        export AUTOMATION_NAME="XCUITest"
+	appium -U ${UDID} --log-no-colors --log-timestamp --show-ios-log
 }
 
 startAppiumLinux(){
 	# Create the screenshots directory, if it doesn't exist'
 	mkdir -p .screenshots
-    echo "Starting Appium on Linux..."
-	appium-1.6 --log-no-colors --log-timestamp
+        echo "Starting Appium on Linux..."
+	appium-1.7 --log-no-colors --log-timestamp
 }
 
 executeTests(){
