@@ -26,11 +26,15 @@ public class IosAppiumExampleTest extends BaseIOSTest {
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.findElement(By.xpath("//*[contains(@name, 'answer1')]")).click();
         WebElement element = wd.findElement(By.xpath("//*[contains(@name, 'userName')]"));
-        takeScreenshot("example_screenshot");
+        takeScreenshot("answer1_element_clicked");
         element.click();
         element.sendKeys("Testdroid");
+        wd.hideKeyboard();
+        takeScreenshot("answer_typed");
         wd.findElement(By.xpath("//*[contains(@name, 'Return')]")).click();
+        takeScreenshot("return_clicked");
         wd.findElement(By.xpath("//*[contains(@name, 'sendAnswer')]")).click();
+        takeScreenshot("answer_sent");
     }
 
 
