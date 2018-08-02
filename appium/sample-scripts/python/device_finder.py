@@ -3,15 +3,16 @@
 import os
 import requests
 import sys
+import base64
 from random import shuffle
 
 
 class DeviceFinder:
     """ Constructor
     """
-    def __init__(self, url="https://cloud.bitbar.com",
-                 download_buffer_size=65536):
+    def __init__(self, url="https://cloud.bitbar.com", api_key="", download_buffer_size=65536):
         self.cloud_url = os.environ.get('TESTDROID_URL') or url
+        self.api_key = os.environ.get('TESTDROID_APIKEY') or api_key
         self.download_buffer_size = download_buffer_size
         self.url_query = None
         # to use devices from particular device group set the device
@@ -22,8 +23,7 @@ class DeviceFinder:
     """ Append dictionary items to header
     """
     def _build_headers(self, headers=None):
-        hdrs = {}
-        hdrs["Accept"] = "application/json"
+        hdrs = {'Authorization' : 'Basic %s' % base64.b64encode((self.api_key+":").encode(encoding='utf_8')).decode(), 'Accept' : 'application/json' }
         if headers is not None:
             hdrs.update(headers)
         return hdrs
