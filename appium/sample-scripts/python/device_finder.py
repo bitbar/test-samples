@@ -3,6 +3,7 @@
 import os
 import requests
 import sys
+import base64
 from random import shuffle
 
 
