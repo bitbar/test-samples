@@ -44,7 +44,7 @@ in which
 
 
 
-##iOS
+## iOS
 Download Sample Application  [BitbarIOSSample.ipa](https://github.com/bitbar/testdroid-samples/blob/master/apps/builds/BitbarIOSSample.ipa)
 
 Run the following command in the root directory of the project:
