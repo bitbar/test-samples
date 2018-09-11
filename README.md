@@ -22,6 +22,8 @@ for testing (older) iOS versions.
 
 * *detox/* - contains sample project to demonstrate Detox test framework.
 
+* *jenkins/* - contains a sample Dockerfile for creating your own Jenkins instance with the Bitbar plugin, to help you build your first CI pipeline to our cloud
+
 ## License
 
 See the [LICENSE](LICENSE) file.
