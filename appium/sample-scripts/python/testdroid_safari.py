@@ -61,6 +61,7 @@ class TestdroidSafari(unittest.TestCase):
         self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.update_driver(self.driver)
+        self.utils.sleep(6)
         test_url = "http://bitbar.github.io/testdroid-samples/"
         self.utils.log("Loading page " + test_url)
         self.driver.get(test_url)
