@@ -62,7 +62,7 @@ class TestdroidSafari(unittest.TestCase):
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.update_driver(self.driver)
         self.utils.sleep(6)
-        test_url = "http://bitbar.github.io/testdroid-samples/"
+        test_url = "http://bitbar.github.io/bitbar-samples/"
         self.utils.log("Loading page " + test_url)
         self.driver.get(test_url)
 
