@@ -1,9 +1,9 @@
-# Testdroid Samples
+# Bitbar Samples
 
-Repository for Testdroid sample applications and test scripts.
+Repository for Bitbar sample applications and test scripts.
 
 * *appium/sample-scripts/* - directory contains examples to interact with your
-Testdroid account for running test written with different languages
+Bitbar account for running test written with different languages
 (Python, Java, Ruby and CSharp).
 
 * *apps/* - directory contains sample applications that you can start testing
