@@ -35,7 +35,7 @@ fi
 ## Appium server launch
 # Use appium-1.4, appium-1.5 or appium-1.6 to choose Appium server version
 echo "Starting Appium ..."
-appium-1.6 --log-no-colors --log-timestamp
+appium --log-no-colors --log-timestamp
 
 ## Dependency installation
 mvn --quiet install -DskipTests
