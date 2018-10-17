@@ -10,7 +10,7 @@ unzip tests.zip
 export SCREENSHOT_FOLDER=target/reports/screenshots/
 
 echo "Starting Appium ..."
-appium-1.7 --log-no-colors --log-timestamp
+appium --log-no-colors --log-timestamp
 ##### Cloud testrun dependencies end.
 
 ## Run the test:

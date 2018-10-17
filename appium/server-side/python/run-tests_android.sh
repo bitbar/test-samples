@@ -20,7 +20,7 @@ sudo pip install -r requirements.txt
 
 echo "Starting Appium ..."
 
-appium-1.7 --log-no-colors --log-timestamp
+appium --log-no-colors --log-timestamp
 
 ps -ef|grep appium
 ##### Cloud testrun dependencies end.

@@ -27,7 +27,7 @@ startAppiumLinux(){
 	# Create the screenshots directory, if it doesn't exist'
 	mkdir -p .screenshots
         echo "Starting Appium on Linux..."
-	appium-1.7 --log-no-colors --log-timestamp
+	appium --log-no-colors --log-timestamp
 }
 
 executeTests(){
