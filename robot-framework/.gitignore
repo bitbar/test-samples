@@ -7,8 +7,8 @@ log.html
 TEST-all.xml
 
 ### Bitbar specific ###
-android-test.zip
-ios-test.zip
+tests-robot-android.zip
+tests-robot-ios.zip
 run-tests.sh
 
 ### Appium ###

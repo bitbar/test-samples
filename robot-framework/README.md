@@ -20,7 +20,7 @@ There are two runner scripts for running the tests locally, ``run_android.py`` a
 
 # Running tests on the Cloud:
 - From ``common.robot`` choose the correct ``${APP_ANDROID}`` or ``${APP_IOS}`` path by uncommenting the one with ``application.apk`` or ``application.ipa`` and commenting out other paths.
-- ``createAndroidTestZip.sh`` and ``createIosTestZip.sh`` will create .zip files containing all necessary files for cloud execution. Scripts output ``android-test.zip`` and ``ios-test.zip`` files that can be uploaded to Testdroid Cloud for test execution.
+- ``create-test-zip-android.sh`` and ``create-test-zip-ios.sh`` will create .zip files containing all necessary files for cloud execution. Scripts output ``tests-robot-android.zip`` and ``tests-robot-ios.zip`` files that can be uploaded to Testdroid Cloud for test execution.
 - By default the tests will be run as server-side Appium and the driver is configured to use ``localhost`` address as: ``${REMOTE_URL}    http://localhost:4723/wd/hub``
 - Framework can be configured also to run the tests as client-side Appium. To do this, the ``localhost`` address has to be replaced with ``appium.bitbar.com``. Also following additional capabilities have to be added:
 	- ``testdroid_username``
