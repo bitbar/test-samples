@@ -37,7 +37,7 @@ echo "UDID is ${UDID}"
 
 ## Appium server launch
 echo "Starting Appium ..."
-appium-1.6 -U ${UDID} --log-no-colors --log-timestamp
+appium -U ${UDID} --log-no-colors --log-timestamp
 
 ## Dependency installation
 mvn --quiet install -DskipTests

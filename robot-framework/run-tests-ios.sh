@@ -12,7 +12,7 @@ echo "UDID is ${UDID}"
 mkdir -p .screenshots
 
 echo "Starting Appium ..."
-appium-1.6 -U ${UDID} --log-no-colors --log-timestamp --show-ios-log
+appium -U ${UDID} --log-no-colors --log-timestamp
 
 echo "Extracting tests.zip..."
 unzip -o tests.zip
