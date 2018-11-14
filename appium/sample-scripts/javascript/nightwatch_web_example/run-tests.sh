@@ -19,7 +19,7 @@ startAppium(){
 		#startWebkit proxy for web testing
 		startIOSWebkitProxy
 		echo "Starting Appium on Mac..."
-		appium -U ${UDID} --log-no-colors --log-timestamp --show-ios-log
+		appium -U ${UDID} --log-no-colors --log-timestamp
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		# Create the screenshots directory, if it doesn't exist'
 		echo "Starting Appium on Linux..."
