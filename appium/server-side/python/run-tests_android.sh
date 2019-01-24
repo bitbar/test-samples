@@ -40,7 +40,7 @@ echo "API level is: ${APILEVEL}"
 ## APPIUM_AUTOMATION 
 if [ "$APILEVEL" -gt "16" ]; then
   echo "Setting APPIUM_AUTOMATION=Appium"
-  export APPIUM_AUTOMATION="Appium"
+  export APPIUM_AUTOMATION="uiautomator2"
 else
   echo "Setting APPIUM_AUTOMATION=selendroid"
   export APPIUM_AUTOMATION="Selendroid"
