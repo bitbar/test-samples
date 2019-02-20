@@ -14,7 +14,7 @@ class UploadApp():
         self.myfile = os.environ.get('TESTDROID_APP_PATH') or \
             '../../../apps/builds/BitbarSampleApp.apk'
         self.upload_url = os.environ.get('TESTDROID_UPLOAD_URL') or \
-            'https://appium.bitbar.com/upload'
+            'https://cloud.bitbar.com/api/v2/me/files'
         # Provide mandatory API key with this env var or with -k/--apikey flag
         self.api_key = os.environ.get("TESTDROID_APIKEY") or ""
 
@@ -48,7 +48,7 @@ class UploadApp():
         r = requests.post(self.upload_url, files=files, headers=self.build_headers())
 
         try:
-            print "Filename to use in testdroid capabilities in your test: {}".format(r.json()['value']['uploads']['file'])
+            print "File id to use in testdroid capabilities in your test: {}".format(r.json()['id'])
         except ValueError:
             print "Upload response: \n{}".format(r)
 

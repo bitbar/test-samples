@@ -11,8 +11,7 @@ against real devices in Bitbar cloud. Before continuing with running with
 these scripts you should register with [Bitbar service](https://cloud.bitbar.com/).
 
 For more detailed guides on Appium please refer to their
-[documentation
-online](http://appium.io/slate/en/master/?python#about-appium).
+[documentation online](http://appium.io/slate/en/master/?python#about-appium).
 
 # Uploading Your App To Cloud
 
@@ -41,20 +40,19 @@ optional arguments:
                         '../../../apps/builds/Testdroid.apk'
   -u URL, --url URL     Bitbar cloud url to upload app or set environment
                         variable TESTDROID_UPLOAD_URL. Current value is:
-                        'https://appium.bitbar.com/upload'
+                        'https://cloud.bitbar.com/api/v2/me/files'
 ```
 
 The below example shows how to upload a hybrid Android demo app to Bitbar Cloud.
 
 ```bash
 $ python upload.py -k xg8x...YXto -a ../../../apps/builds/Testdroid.apk
-Filename to use in Bitbar capabilities in your test: 719f52c4-43c2-4c25-b91b-08884f049d3a/Testdroid.apk
+File id to use in Bitbar capabilities in your test: 127314812
 ```
 
 The response message provides the application's cloud file name that
-is the path to use with `testdroid_app` capability. From the above
-example the path to store is:
-'719f52c4-43c2-4c25-b90b-08884f049d3a/Testdroid.apk'.
+is the path to use with `bitbar_app` capability. From the above
+example the path to store is: '127314812'.
 
 
 # Common Settings in Example Tests
@@ -69,28 +67,26 @@ Common values used in tests:
 
 * *screenshot_dir* - where should screenshots be stored on your local drive
 
-* *testdroid_username* - your email that you registered with to
-   Bitbar cloud.  **Rather use testdroid_apiKey.**
+* *bitbar_username* - your email that you registered with to
+   Bitbar cloud.  **Rather use bitbar_apiKey.**
 
-* *testdroid_password* - your Bitbar cloud password. **Rather use
-   testdroid_apiKey.**
+* *bitbar_password* - your Bitbar cloud password. **Rather use bitbar_apiKey.**
 
-* *testdroid_apiKey* - a personal unique key allowing you to connect
+* *bitbar_apiKey* - a personal unique key allowing you to connect
    to Bitbar cloud without using username and passwords in
    tests. Api key is found under "My account" in [Bitbar cloud](https://cloud.bitbar.com/) UI.
 
-* *testdroid_project* - the project name in Bitbar cloud. Each
+* *bitbar_project* - the project name in Bitbar cloud. Each
   project's name is unique. A project's name can be modified later on if needed.
 
-* *testdroid_testrun* - name of this test run inside of
-  `testdroid_project`. Each test run can have the same name, but it is
+* *bitbar_testrun* - name of this test run inside of
+  `bitbar_project`. Each test run can have the same name, but it is
   recommended to set it dynamically (e.g. with timestamp or device
   name). If no test run name is given, the system automatically names
   it in "Test Run x".
 
-* *testdroid_app* - name of the app uploaded using `upload.py`
-  script. Example filename could be
-  'f4660af0-10f4-46e9-932b-0622f497b0d2/Testdroid.apk' To rerun using
+* *bitbar_app* - id of the app uploaded using `upload.py`
+  script. Example id could be '127314812' To rerun using
   last uploaded app testdroid_app can be set to *latest*
 
 ## Example Run
@@ -154,7 +150,7 @@ following additional information:
 For running the sample applications and tests these do not need to be set as they are set inside of the sample scripts if no parameter is given.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a 830571c8-51f1-4cd1-ad91-82e76c00a1b0/BitbarSampleApp.apk -p "Android Native" -r  `date +%R` -t testdroid_android
+python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a '127314812' -p "Android Native" -r  `date +%R` -t testdroid_android
 ```
 
 ## Hybrid Android Specific Settings
@@ -171,7 +167,7 @@ Additional parameters needed to run a hybrid app:
 The above parameters are already set into the test scripts, so they are not mandatory for the sample tests. For other apps they are.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -t testdroid_android_hybrid -p "Android Hybrid"  -r `date +%R` --app b9608704-b55d-4b71-83d4-d8027c67b49a/Testdroid.apk
+python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -t testdroid_android_hybrid -p "Android Hybrid"  -r `date +%R` --app '127314812'
 ```
 
 ## Safari Browser Testing
