@@ -42,41 +42,17 @@ public class FileUploader {
         MultipartFormDataContent.Part filePart = new MultipartFormDataContent.Part("file", fileContent);
         multipartContent.addPart(filePart);
 
-        HttpRequest request = requestFactory.buildPostRequest(new GenericUrl(serverURL + "/upload"), multipartContent);
+        HttpRequest request = requestFactory.buildPostRequest(new GenericUrl(serverURL + "/api/v2/me/files"), multipartContent);
 
-        AppiumResponse appiumResponse = request.execute().parseAs(AppiumResponse.class);
+        UploadResponse uploadResponse = request.execute().parseAs(UploadResponse.class);
 
-        logger.debug("response: " + appiumResponse.uploadStatus.message);
+        logger.debug("File id: " + uploadResponse.id);
 
-        logger.debug("File id: " + appiumResponse.uploadStatus.fileInfo.file);
-
-        return appiumResponse.uploadStatus.fileInfo.file;
-
-    }
-    
-    public static class AppiumResponse {
-        Integer status;
-        @Key("sessionId")
-        String sessionId;
-
-        @Key("value")
-        FileUploader.UploadStatus uploadStatus;
-
+        return uploadResponse.id.toString();
     }
 
-    public static class UploadedFile {
-        @Key("file")
-        String file;
-    }
-
-    public static class UploadStatus {
-        @Key("message")
-        String message;
-        @Key("uploadCount")
-        Integer uploadCount;
-        @Key("expiresIn")
-        Integer expiresIn;
-        @Key("uploads")
-        FileUploader.UploadedFile fileInfo;
+    public static class UploadResponse {
+        @Key("id")
+        Long id;
     }
 }
