@@ -21,54 +21,43 @@ and dependencies.
 
     bundle install
 
-* Update your test script (testdroid_*.rb) with necessary information
+* Update your test script (bitbar_*.rb) with necessary information
   (see below).
 
 * Start test case run with eg.:
 
-    rspec testdroid_android.rb
+    rspec bitbar_android.rb
 
 ## Common Necessary Settings
 
 There are some common settings that you need to set in all scripts
-regardless of the app type that you are testing. Each testdroid_*.rb
+regardless of the app type that you are testing. Each bitbar_*.rb
 file needs to be updated with the following values.
 
 Here are all the values that you need to edit:
 
 * *screen_shot_dir* - where should screenshots be stored on your local drive
 
-* *testdroid_username* - your email that you registered with to
-   Bitbar cloud.  **Rather use testdroid_apiKey.**
-
-* *testdroid_password* - your Bitbar cloud password.  **Rather use
-   testdroid_apiKey.**
-
-* *testdroid_apiKey* - a personal unique key that allows you to
+* *bitbar_apiKey* - a personal unique key that allows you to
    connect to Bitbar cloud without the need to use your username
    and passwords in your tests. You can find your api key under "My
    account" in [Bitbar cloud](https://cloud.bitbar.com/) UI.
 
-* *testdroid_project* - has a default value, but you might want to add
+* *bitbar_project* - has a default value, but you might want to add
   your own name to this. Project name is visible in your project view
   in Bitbar cloud. Each project must have a unique name
 
-* *testdroid_testrun* - name or number of this test run. Test run
+* *bitbar_testrun* - name or number of this test run. Test run
   names can be modified even at every test run
 
-* *testdroid_app* - should be the name of the app you uploaded to
-  cloud. Eg. if you uploaded your app using a script this would look
-  something like this:
-  'f4660af0-10f3-46e9-932b-0622f497b0d2/Testdroid.apk' If you uploaded
-  your app through the Bitbar cloud web UI, you can use here the
-  value 'latest' that refers to the latest uploaded app file.
+* *bitbar_app* - should be the id of the app you uploaded to cloud.
 
 ## Native iOS Specific Settings
 
-Example script: testdroid_appiumdriver_ios.rb
+Example script: bitbar_appiumdriver_ios.rb
 
 To run your Appium tests against your native iOS application with real
-devices you need to edit the testdroid_appiumdriver_ios.rb script.
+devices you need to edit the bitbar_appiumdriver_ios.rb script.
 
 In addition to the above mentioned Appium capabilities for iOS testing
 you need set
@@ -77,7 +66,7 @@ you need set
 
 ## Native Android Specific Settings
 
-Example script: testdroid_android.rb
+Example script: bitbar_android.rb
 
 To configure this script for testing your own app, in addition to the
 common settings done above, you need to change the following values.
@@ -89,7 +78,7 @@ common settings done above, you need to change the following values.
 
 ## Web App Specific Settings
 
-Example: testdroid_selendroid.rb and testdroid_webdriver_ios.rb
+Example: bitbar_selendroid.rb and bitbar_webdriver_ios.rb
 
 For a more complete explanation on testing hybrid application take a
 look at Appium
@@ -99,10 +88,10 @@ look at Appium
 ## Tips
 
 * To run tests against your previously uploaded app you can simply set
-  your *testdroid_app* desired capability value to 'latest'
+  your *bitbar_app* desired capability value to 'latest'
 
 
-* To find available free devices in Bitbar cloud, you can use this Ruby [tool](https://github.com/bootstraponline/testdroid_device_finder)
+* To find available free devices in Bitbar cloud, you can use this Ruby [tool](https://github.com/bootstraponline/bitbar_device_finder)
 
 ## License
 

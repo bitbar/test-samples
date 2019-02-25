@@ -1,8 +1,7 @@
-
 # install the required gems with bundler by doing:
 #   "bundle install"
 # execute tests using rspec:
-#  rspec testdroid_ios.rb
+#  rspec bitbar_appiumdriver_ios.rb
 require 'json'
 require 'rspec'
 require 'selenium-webdriver'
@@ -12,70 +11,68 @@ require 'selenium/webdriver/remote/http/curb'
 require 'fileutils'
 
 
-
 ##
 ## IMPORTANT: Set the following parameters.
 ##
-screen_shot_dir= "screenshot-folder"
-testdroid_username = ENV["TESTDROID_USERNAME"]
-testdroid_password = ENV["TESTDROID_PASSWORD"]
-testdroid_device = "iPad 2 A1395 7.0.4" # Example device. Change if you desire.
-testdroid_app_file = "BitbarIOSSample.ipa" 
+screen_shot_dir = "screenshot-folder"
+bitbar_api_key = ENV["BITBAR_APIKEY"]
+bitbar_device = "iPad 2 A1395 7.0.4" # Example device. Change if you desire.
+bitbar_app_file = "BitbarIOSSample.ipa"
 
 
 def log(msg)
-    puts "#{Time.now}: #{msg}"
+  puts "#{Time.now}: #{msg}"
 end
-@testdroid_app=nil
-desired_capabilities_cloud={
-        'device'=> 'iphone',
-        'testdroid_app'=> nil,
-        'testdroid_username'=> testdroid_username,
-        'testdroid_password'=> testdroid_password,
-        'testdroid_project'=> 'Appium iOS Project1',
-        'testdroid_description'=> 'Appium project description',
-        'testdroid_testrun'=> 'Test Run 1',
-        'testdroid_device'=> testdroid_device,
-        'testdroid_target' => 'ios',
-        'deviceName' => 'iPhone device',
-        'platformName' => 'iOS',
-        'bundleId' => 'com.bitbar.testdroid.BitbarIOSSample'
-    }
+
+@bitbar_app = nil
+desired_capabilities_cloud = {
+    'device' => 'iphone',
+    'bitbar_app' => nil,
+    'bitbar_apiKey' => bitbar_api_key,
+    'bitbar_project' => 'Appium iOS Project1',
+    'bitbar_description' => 'Appium project description',
+    'bitbar_testrun' => 'Test Run 1',
+    'bitbar_device' => bitbar_device,
+    'bitbar_target' => 'ios',
+    'deviceName' => 'iPhone device',
+    'platformName' => 'iOS',
+    'bundleId' => 'com.bitbar.testdroid.BitbarIOSSample'
+}
 
 
 server_url = 'https://appium.bitbar.com/wd/hub'
 
-def upload_application(file_path, username, password)
-  
-  c = Curl::Easy.new("https://appium.bitbar.com/upload")
+def upload_application(file_path, bitbar_api_key)
+
+  c = Curl::Easy.new("https://cloud.bitbar.com/api/v2/me/files")
   c.http_auth_types = :basic
-  c.username = username
-  c.password = password
+  c.username = bitbar_api_key
+  c.password = nil
   c.multipart_form_post = true
   c.verbose = true
-  c.http_post(Curl::PostField.file('BitbarIOSSample.ipa', file_path))
+  c.http_post(Curl::PostField.file("file", file_path))
   resp = JSON.parse(c.body_str)
 
-  @testdroid_app = resp["value"]["uploads"]["BitbarIOSSample.ipa"]
+  @bitbar_app = resp["id"]
 end
 
 describe "BitbarIOSSample testing" do
   before :all do
-    
-    FileUtils.mkdir_p 'screen_shot_dir'
 
-    log ("Upload application #{testdroid_app_file}")
-    # => upload_application(testdroid_app_file, testdroid_username , testdroid_password)
-    log ("Uploaded file uuid #{@testdroid_app}")
+    FileUtils.mkdir_p screen_shot_dir
 
-    desired_capabilities_cloud['testdroid_app']="latest"
+    log ("Upload application #{bitbar_app_file}")
+    upload_application(bitbar_app_file, bitbar_api_key)
+    log ("Uploaded file id #{@bitbar_app}")
+
+    desired_capabilities_cloud['bitbar_app'] = @bitbar_app
 
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
-    @appium_driver = Appium::Driver.new  ({:caps => desired_capabilities_cloud, :appium_lib =>{ :server_url => server_url}})
+    @appium_driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
     @web_driver = @appium_driver.start_driver()
 
     log ("WebDriver response received")
-   end
+  end
 
   after :all do
     log ("Stop WebDriver")
@@ -83,7 +80,7 @@ describe "BitbarIOSSample testing" do
     @appium_driver.driver_quit
   end
 
-  it "should show failure page"  do
+  it "should show failure page" do
     log ("view1: Finding buttons")
     buttons = @appium_driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
     log ("view1: Clicking button [0] - RadioButton 1")
@@ -108,7 +105,7 @@ describe "BitbarIOSSample testing" do
   end
 
   it "should click back button" do
-     # view2
+    # view2
     log ("view2: Finding buttons")
     buttons = @appium_driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
     log ("view2: Clicking button[0] - Back/OK button")
@@ -131,12 +128,6 @@ describe "BitbarIOSSample testing" do
     log ("view1: Sleeping 3 before quitting webdriver")
     sleep(3)
 
-  end
-
-  it "should get window size" do
-    size = @appium_driver.manage.window.size
-    size.width.should eq(768)
-    size.height.should eq(1024)
   end
 
 end
