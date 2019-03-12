@@ -46,7 +46,7 @@ optional arguments:
 The below example shows how to upload a hybrid Android demo app to Bitbar Cloud.
 
 ```bash
-$ python upload.py -k xg8x...YXto -a ../../../apps/builds/Testdroid.apk
+$ python upload.py -k xg8x...YXto -a ../../../../../apps/android/testdroid-sample-app.apk
 File id to use in Bitbar capabilities in your test: 127314812
 ```
 

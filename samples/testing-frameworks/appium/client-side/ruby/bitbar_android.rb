@@ -16,7 +16,7 @@ include Selenium
 screen_shot_dir = "screenshot-folder"
 bitbar_api_key = ENV["BITBAR_APIKEY"]
 bitbar_device = "Nexus"
-bitbar_app_file = "../../../apps/builds/BitbarSampleApp.apk"
+bitbar_app_file = "../../../../../apps/android/bitbar-sample-app.apk"
 
 
 def log(msg)
