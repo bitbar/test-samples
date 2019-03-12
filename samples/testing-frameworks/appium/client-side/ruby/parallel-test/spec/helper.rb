@@ -5,8 +5,7 @@ require 'curb'
 require 'selenium/webdriver/remote/http/curb'
 
 #make sure that credentials has been set
-testdroid_username = ENV["TESTDROID_USERNAME"]
-testdroid_password = ENV["TESTDROID_PASSWORD"]
+bitbar_api_key = ENV["BITBAR_APIKEY"]
 
 
 server_url = 'https://appium.bitbar.com/wd/hub'
@@ -20,7 +19,7 @@ require 'selenium-webdriver'
   	device = ["Asus Google Nexus 7 ME370T 4.2.2", "Asus Google Nexus 7 ME370T 4.3 JWR66Y", "Asus Google Nexus 7 ME370T 4.4.2"]
     File.delete("upload.completed") if File.exist?('upload.completed')
     #Only the first process should do the app uploading - now it returns "latest" which means that use earlier uploaded file
-    testdroid_app = ParallelTests.first_process? ? upload_file() : sleep_until_upload_completed()
+    bitbar_app = ParallelTests.first_process? ? upload_file() : sleep_until_upload_completed()
     index = 0
     #TEST_ENV_NUMBER - has the current process number (1st = "" , 2nd = 1, 3rd = 2..etc)
     if (ENV['TEST_ENV_NUMBER'] == "" )
@@ -31,23 +30,21 @@ require 'selenium-webdriver'
     puts "Current device:"+device[index];
    
     #Set Testdroid cloud appium settings
-    desired_capabilities_cloud={
-          'device'=> 'Android',
-        'testdroid_app'=> nil,
-        'testdroid_username'=> testdroid_username,
-        'testdroid_password'=> testdroid_password,
-        'testdroid_project'=> 'Appium Android demo',
-        'testdroid_description'=> 'Appium project description',
-        'testdroid_testrun'=> 'Test Run 1',
-        'testdroid_device'=> device[index],
+    desired_capabilities_cloud = {
+        'device' => 'Android',
+        'bitbar_app' => bitbar_app,
+        'bitbar_apiKey' => bitbar_api_key,
+        'bitbar_project' => 'Appium Android demo',
+        'bitbar_description' => 'Appium project description',
+        'bitbar_testrun' => 'Test Run 1',
+        'bitbar_device' => device[index],
         'appPackage' => 'com.bitbar.testdroid',
-         'appActivity' => '.BitbarSampleApplicationActivity',
-         'testdroid_target' => 'Android',
-         'deviceName' => 'Android Phone',
-         'platformName' => 'Android',
+        'appActivity' => '.BitbarSampleApplicationActivity',
+        'bitbar_target' => 'Android',
+        'deviceName' => 'Android Phone',
+        'platformName' => 'Android',
     }
 
-    desired_capabilities_cloud['testdroid_app']=testdroid_app
     http_client = WebDriver::Remote::Http::Curb.new
     http_client.timeout = nil #not timeout for Webdriver calls
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")

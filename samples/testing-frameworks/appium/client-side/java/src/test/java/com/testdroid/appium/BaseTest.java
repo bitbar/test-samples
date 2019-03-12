@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -20,7 +21,8 @@ import java.util.Set;
 
 public abstract class BaseTest {
     private static final String LOCAL_APPIUM_ADDRESS = "http://localhost:4723";
-    private static final String TESTDROID_SERVER = "https://appium.bitbar.com";
+    private static final String APPIUM_SERVER = "https://appium.bitbar.com";
+    private static final String CLOUD_SERVER = "https://cloud.bitbar.com";
     private static final String serverSideTypeDefinition = "serverside";
     private static final String clientSideTypeDefinition = "clientside";
     protected AppiumDriver<MobileElement> wd;
@@ -40,9 +42,8 @@ public abstract class BaseTest {
             String fileUUID = getDefaultFileUUID();
             if (isUploadApplication()) {
                 logger.debug("Uploading " + getTargetAppPath() + " to Testdroid Cloud");
-                fileUUID = FileUploader.uploadFile(getTargetAppPath(), getAppiumServerAddress(),
-                        getApiKey());
-                logger.debug("File uploaded. File UUID is " + fileUUID);
+                fileUUID = FileUploader.uploadFile(getTargetAppPath(), getCloudServerAddress(), getApiKey());
+                logger.debug("File uploaded. File id is " + fileUUID);
             }
             if (exportTestResultsToCloud()) {
                 logger.debug("Exporting results enabled");
@@ -123,13 +124,6 @@ public abstract class BaseTest {
         return getExecutionType().equals(clientSideTypeDefinition);
     }
 
-    protected String getAppiumServerAddress() {
-        if (isClientSideTestRun()){
-            return TESTDROID_SERVER;
-        }
-        return LOCAL_APPIUM_ADDRESS;
-    }
-
     private boolean isUploadApplication() {
         String targetAppPath = getTargetAppPath();
         return targetAppPath != null && !targetAppPath.isEmpty();
@@ -149,6 +143,25 @@ public abstract class BaseTest {
             logger.warn(propertyName + " mvn argument is not defined. To define it, use the following mvn argument: -D" + propertyName + "=<insert_here>");
         }
         return property;
+    }
+
+    protected String getCloudServerAddress() {
+        String property = System.getProperty("cloudServerAddress");
+        if (StringUtils.isNotBlank(property)) {
+            return property;
+        } else {
+            return CLOUD_SERVER;
+        }
+    }
+
+    protected String getAppiumServerAddress() {
+        String property = System.getProperty("appiumServerAddress");
+        if (StringUtils.isNotBlank(property)) {
+            return property;
+        } else if (isClientSideTestRun()){
+            return APPIUM_SERVER;
+        }
+        return LOCAL_APPIUM_ADDRESS;
     }
 
     private String getExecutionType() {
