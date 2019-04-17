@@ -22,7 +22,7 @@ desired_capabilities['bitbar_testTimeout'] = '600'
 
 begin
 	driver = Selenium::WebDriver.for(:remote,
-	  :url => "http://westeurope-hub.bitbar.com/wd/hub",
+	  :url => "http://hub.bitbar.com/wd/hub",
 	  :desired_capabilities => desired_capabilities)
 	  
 	# check page title
