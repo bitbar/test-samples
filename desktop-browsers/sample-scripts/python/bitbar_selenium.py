@@ -30,7 +30,7 @@ class BitbarSeleniumSample(unittest.TestCase):
 
         self.screenshot_dir = os.getcwd() + '/screenshots'
 
-        self.driver = webdriver.Remote(command_executor='http://westeurope-hub.bitbar.com/wd/hub',
+        self.driver = webdriver.Remote(command_executor='http://hub.bitbar.com/wd/hub',
                                        desired_capabilities=desired_capabilities)
 
     def tearDown(self):

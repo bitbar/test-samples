@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class BitbarSelenium {
 
-    public static final String URL = "http://westeurope-hub.bitbar.com/wd/hub";
+    public static final String URL = "http://hub.bitbar.com/wd/hub";
 
     public static void main(String[] args) throws Exception {
         // IMPORTANT: Set the following parameters according to your needs.
