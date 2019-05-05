@@ -1,3 +1,0 @@
-Appium-Python-Client==0.24
-selenium==3.0.2
-xmlrunner==1.7.7
