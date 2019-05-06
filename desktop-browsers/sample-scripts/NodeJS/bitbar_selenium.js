@@ -14,7 +14,7 @@ var desiredCapabilities = {
     'bitbar_apiKey': '<insert your Bitbar API key here>',
     'platform': 'windows',
     'browserName': 'chrome',
-    'browserVersion': '72',
+    'version': '72',
     'resolution': '1920x1080',
     'bitbar_project': 'Selenium sample project',
     'bitbar_testrun': 'NodeJS sample test',

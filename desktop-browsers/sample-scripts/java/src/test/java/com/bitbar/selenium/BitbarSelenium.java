@@ -23,7 +23,7 @@ public class BitbarSelenium {
         caps.setCapability("bitbar_apiKey", "<insert your Bitbar API key here>");
         caps.setCapability("platform", "windows");
         caps.setCapability("browserName", "chrome");
-        caps.setCapability("browserVersion", "72");
+        caps.setCapability("version", "72");
         caps.setCapability("resolution", "1920x1080");
         caps.setCapability("bitbar_project", "Selenium sample project");
         caps.setCapability("bitbar_testrun", "Java sample test");
