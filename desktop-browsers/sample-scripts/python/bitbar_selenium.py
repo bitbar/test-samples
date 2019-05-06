@@ -16,7 +16,7 @@ class BitbarSeleniumSample(unittest.TestCase):
         #
 
         # user-customizable parameters start here
-        desired_capabilities = {
+        capabilities = {
             'bitbar_apiKey': '<insert your Bitbar API key here>',
             'platform': 'windows',
             'browserName': 'chrome',
@@ -31,7 +31,7 @@ class BitbarSeleniumSample(unittest.TestCase):
         self.screenshot_dir = os.getcwd() + '/screenshots'
 
         self.driver = webdriver.Remote(command_executor='http://hub.bitbar.com/wd/hub',
-                                       desired_capabilities=desired_capabilities)
+                                       desired_capabilities=capabilities)
 
     def tearDown(self):
         self.driver.quit()

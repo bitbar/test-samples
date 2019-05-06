@@ -19,18 +19,18 @@ public class BitbarSelenium {
         // https://cloud.bitbar.com/#user/my-account (My Integrations > API Access)
 
         // user-customizable parameters start here
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("bitbar_apiKey", "<insert your Bitbar API key here>");
-        caps.setCapability("platform", "windows");
-        caps.setCapability("browserName", "chrome");
-        caps.setCapability("version", "72");
-        caps.setCapability("resolution", "1920x1080");
-        caps.setCapability("bitbar_project", "Selenium sample project");
-        caps.setCapability("bitbar_testrun", "Java sample test");
-        caps.setCapability("bitbar_testTimeout", "600");
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("bitbar_apiKey", "<insert your Bitbar API key here>");
+        capabilities.setCapability("platform", "windows");
+        capabilities.setCapability("browserName", "chrome");
+        capabilities.setCapability("version", "72");
+        capabilities.setCapability("resolution", "1920x1080");
+        capabilities.setCapability("bitbar_project", "Selenium sample project");
+        capabilities.setCapability("bitbar_testrun", "Java sample test");
+        capabilities.setCapability("bitbar_testTimeout", "600");
         // user-customizable parameters end here
 
-        WebDriver driver = new RemoteWebDriver(new URL(URL), caps);
+        WebDriver driver = new RemoteWebDriver(new URL(URL), capabilities);
 
         // check page title
         String test_url = "http://bitbar.github.io/bitbar-samples/";
