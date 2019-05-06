@@ -9,21 +9,21 @@ require 'selenium-webdriver'
 #
 
 # user-customizable parameters start here
-desired_capabilities = Selenium::WebDriver::Remote::Capabilities.new
-desired_capabilities['bitbar_apiKey'] = '<insert your Bitbar API key here>'
-desired_capabilities['platform'] = 'windows'
-desired_capabilities['browserName'] = 'chrome'
-desired_capabilities['browserVersion'] = '72'
-desired_capabilities['resolution'] = '1920x1080'
-desired_capabilities['bitbar_project'] = 'Selenium sample project'
-desired_capabilities['bitbar_testrun'] = 'Ruby sample test'
-desired_capabilities['bitbar_testTimeout'] = '600'
+capabilities = Selenium::WebDriver::Remote::Capabilities.new
+capabilities['bitbar_apiKey'] = '<insert your Bitbar API key here>'
+capabilities['platform'] = 'windows'
+capabilities['browserName'] = 'chrome'
+capabilities['version'] = '72'
+capabilities['resolution'] = '1920x1080'
+capabilities['bitbar_project'] = 'Selenium sample project'
+capabilities['bitbar_testrun'] = 'Ruby sample test'
+capabilities['bitbar_testTimeout'] = '600'
 # user-customizable parameters end here
 
 begin
 	driver = Selenium::WebDriver.for(:remote,
 	  :url => "http://hub.bitbar.com/wd/hub",
-	  :desired_capabilities => desired_capabilities)
+	  :desired_capabilities => capabilities)
 	  
 	# check page title
 	test_url = "http://bitbar.github.io/bitbar-samples/"
