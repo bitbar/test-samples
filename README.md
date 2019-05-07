@@ -2,29 +2,31 @@
 
 Repository for Bitbar sample applications and test scripts.
 
-* *appium/sample-scripts/* - directory contains examples to interact with your
-Bitbar account for running test written with different languages
-(Python, Java, Ruby and CSharp).
+## Repository Structure
+* *apps/* - contains prebuilt sample applications that you can use to start testing if you don't have your own
+* *samples/* - contains several samples for using different testing frameworks and some other examples
 
-* *apps/* - directory contains sample applications that you can start testing
-with if you don't have your own.
+## Additional Reading
 
-* *calabash/* - directory examples for Calaba.sh test framework.
+### iOS
+* [How to package a native iOS app for Bitbar Cloud](http://docs.bitbar.com/testing/xcode/ipa/index.html)
+* [How to run XCTests on Bitbar Cloud](http://docs.bitbar.com/testing/xcode/xctest/index.html)
+* [How to run XCUITests on Bitbar Cloud](http://docs.bitbar.com/testing/xcode/xcuitest/index.html)
 
-* *ios/ios-test-skeleton/* - contains js test framework Jasmine example
-for testing (older) iOS versions.
+### Android 
+* [How to run Espresso tests on Bitbar Cloud](http://docs.bitbar.com/testing/espresso/index.html)
 
-* *xcode/* - contains a sample XCTest and links for [building the application .ipa](http://docs.bitbar.com/testing/xcode/ipa/) and [packaging the tests](http://docs.bitbar.com/testing/xcode/xctest/).
+### Appium 
+* [How to run client side Appium tests on Bitbar Cloud](http://docs.bitbar.com/testing/appium/client-side/index.html)
+* [How to run server side Appium tests on Bitbar Cloud](http://docs.bitbar.com/testing/appium/server-side/index.html)
 
-* *robot-framework/* - directory contains example for Robot Framework test framework.
+### Custom Frameworks 
+* [How to use a custom testing framework on Bitbar Cloud](http://docs.bitbar.com/testing/scripted-run/index.html)
 
-* *espresso-sample/* - sample Android app to demonstrate Espresso testing framework, based on BitbarSampleApp from apps directory.
+### AI Testbot
+* [How to use the AI Testbot for automatic testing](http://docs.bitbar.com/testing/appcrawler/index.html)
 
-* *detox/* - contains sample project to demonstrate Detox test framework.
-
-* *docker/jenkins/* - contains a sample Dockerfile for creating your own Jenkins instance with the Bitbar plugin, to help you build your first CI pipeline to our cloud
 
 ## License
 
-See the [LICENSE](LICENSE) file.
-
+See [LICENSE](LICENSE)
