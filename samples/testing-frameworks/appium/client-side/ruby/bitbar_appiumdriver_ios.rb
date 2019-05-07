@@ -28,7 +28,6 @@ end
 @bitbar_app = nil
 desired_capabilities_cloud = {
     'device' => 'iphone',
-    'bitbar_app' => nil,
     'bitbar_apiKey' => bitbar_api_key,
     'bitbar_project' => 'Appium iOS Project1',
     'bitbar_description' => 'Appium project description',

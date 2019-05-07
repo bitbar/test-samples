@@ -30,7 +30,6 @@ desired_capabilities_cloud = {
     'device' => 'Android',
     'platformName' => 'Android',
     'deviceName' => 'Android',
-    #'bitbar_app' => nil,
     'bitbar_apiKey' => bitbar_api_key,
     'bitbar_target' => 'Android',
     'bitbar_project' => 'Appium Ruby Demo',
