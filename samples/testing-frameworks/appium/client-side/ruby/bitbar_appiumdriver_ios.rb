@@ -16,8 +16,9 @@ require 'fileutils'
 ##
 screen_shot_dir = "screenshot-folder"
 bitbar_api_key = ENV["BITBAR_APIKEY"]
-bitbar_device = "iPad 2 A1395 7.0.4" # Example device. Change if you desire.
-bitbar_app_file = "BitbarIOSSample.ipa"
+bitbar_device = ENV["BITBAR_DEVICE"]
+bitbar_find_device = ENV["BITBAR_FIND_DEVICE"]
+bitbar_app_file = "../../../../../apps/ios/bitbar-ios-sample.ipa"
 
 
 def log(msg)
@@ -33,10 +34,12 @@ desired_capabilities_cloud = {
     'bitbar_description' => 'Appium project description',
     'bitbar_testrun' => 'Test Run 1',
     'bitbar_device' => bitbar_device,
+    'bitbar_findDevice' => bitbar_find_device,
     'bitbar_target' => 'ios',
     'deviceName' => 'iPhone device',
     'platformName' => 'iOS',
-    'bundleId' => 'com.bitbar.testdroid.BitbarIOSSample'
+    'bundleId' => 'com.bitbar.testdroid.BitbarIOSSample',
+    'automationName' => 'XCUITest'
 }
 
 
@@ -68,8 +71,8 @@ describe "BitbarIOSSample testing" do
     desired_capabilities_cloud['bitbar_app'] = @bitbar_app
 
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
-    @appium_driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
-    @web_driver = @appium_driver.start_driver()
+    @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
+    @web_driver = @driver.start_driver()
 
     log ("WebDriver response received")
   end
@@ -77,53 +80,54 @@ describe "BitbarIOSSample testing" do
   after :all do
     log ("Stop WebDriver")
 
-    @appium_driver.driver_quit
+    @driver.driver_quit
   end
 
   it "should show failure page" do
     log ("view1: Finding buttons")
-    buttons = @appium_driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
-    log ("view1: Clicking button [0] - RadioButton 1")
-    buttons[0].click()
+    @driver.find_element(:name, "answer1").click
 
-    log ("view1: Typing in textfield[0]: Testdroid user")
-    @appium_driver.find_element(:name, "userName").send_keys("Testdroid user\n")
+    log ("view1: Typing in edit field: Bitbar user")
+    @driver.find_element(:name, "your name").send_keys("Bitbar user\n")
+    @driver.hide_keyboard('return', :pressKey)
+    sleep(2)
 
     log ("view1: Taking screenshot screenshot1.png")
-    @appium_driver.screenshot(screen_shot_dir + "/screenshot1.png")
-    sleep(5)
+    @driver.screenshot(screen_shot_dir + "/screenshot1.png")
+    sleep(2)
 
-    log ("view1: Taking screenshot screenshot2.png")
-    @appium_driver.screenshot(screen_shot_dir + "/screenshot2.png")
-    sleep(5)
-    log ("view1: Clicking button[6] - Answer  Button")
-    buttons[6].click()
+    log ("view1: Clicking Send Answer  Button")
+    @driver.find_element(:name, "sendAnswer").click
+    sleep(2)
 
-    log ("view2: Taking screenshot screenshot3.png")
-    @appium_driver.screenshot(screen_shot_dir + "/screenshot3.png")
-    sleep(5)
+    log ("view2: Taking screenshot screenshot2.png")
+    @driver.screenshot(screen_shot_dir + "/screenshot2.png")
+    sleep(2)
   end
 
   it "should click back button" do
     # view2
-    log ("view2: Finding buttons")
-    buttons = @appium_driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
-    log ("view2: Clicking button[0] - Back/OK button")
-    buttons[0].click()
+    log ("view2: Clicking button - Back/OK button")
+    @driver.find_element(:name, "back").click
+    sleep(2)
+    log ("view2: Taking screenshot screenshot3.png")
+    @driver.screenshot(screen_shot_dir + "/screenshot3.png")
   end
 
   it "should click 2nd radio button" do
 
-    log ("view1: Clicking button[2] - RadioButton 2")
+    log ("view1: Clicking answer2 - RadioButton 2")
 
-    buttons = @appium_driver.find_elements(:xpath, "//UIAApplication[1]/UIAWindow[1]/UIAButton")
-    buttons[2].click()
-
-    log ("view1: Clicking button[6] - Answer Button")
-    buttons[6].click()
-
+    @driver.find_element(:name, "answer2").click
+    sleep(1)
     log ("view1: Taking screenshot screenshot4.png")
-    @appium_driver.screenshot(screen_shot_dir + "/screenshot4.png")
+    @driver.screenshot(screen_shot_dir + "/screenshot4.png")
+
+    log ("view1: Clicking Send Answer Button")
+    @driver.find_element(:name, "sendAnswer").click
+
+    log ("view1: Taking screenshot screenshot5.png")
+    @driver.screenshot(screen_shot_dir + "/screenshot5.png")
 
     log ("view1: Sleeping 3 before quitting webdriver")
     sleep(3)
