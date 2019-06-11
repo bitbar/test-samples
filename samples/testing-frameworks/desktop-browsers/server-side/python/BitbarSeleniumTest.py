@@ -1,0 +1,71 @@
+# -*- coding: UTF-8 -*-
+
+#
+# Copyright(C) 2019 Bitbar Technologies Oy
+#
+
+import os
+import sys
+import time
+import unittest
+import pprint
+from selenium import webdriver
+
+def log(msg):
+    print ("%s: %s" % (time.strftime("%H:%M:%S"), msg))
+    sys.stdout.flush()
+
+class BitbarSeleniumTest(unittest.TestCase):
+    driver = None
+
+    hub_url = None
+    screenshot_dir = None
+
+    browser_name = None
+    version = None
+    platform = None
+
+    def setUp(self, hub_url='http://localhost:4723/wd/hub', browser_name=None, version=None, platform=None,
+            screenshot_dir=None):
+        self.hub_url = os.environ.get('HUB_URL') or hub_url
+
+        self.browser_name = os.environ.get('BROWSER_NAME') or browser_name
+        self.version = os.environ.get('VERSION') or version
+        self.platform = os.environ.get('PLATFORM') or platform
+
+        if screenshot_dir:
+            self.set_screenshot_dir(screenshot_dir)
+        else:
+            self.set_screenshot_dir('%s/screenshots/' % (os.getcwd()))
+
+        self.get_driver()
+
+    def tearDown(self):
+        self.driver.quit()
+
+    def set_screenshot_dir(self, screenshot_dir):
+        self.screenshot_dir = screenshot_dir
+        if not os.path.exists(screenshot_dir):
+            log('Creating directory %s' % screenshot_dir)
+            os.mkdir(self.screenshot_dir)
+
+    def get_desired_capabilities(self):
+        desired_caps = {}
+        if self.browser_name:
+            desired_caps['browserName'] = self.browser_name
+        if self.version:
+            desired_caps['version'] = self.version
+        if self.platform:
+            desired_caps['platform'] = self.platform
+
+        log(pprint.pformat(desired_caps))
+        return desired_caps
+
+    def get_driver(self):
+        if self.driver:
+            return self.driver
+        log("Connecting WebDriver to %s" % self.hub_url)
+        self.driver = webdriver.Remote(self.hub_url, self.get_desired_capabilities())
+        self.driver.implicitly_wait(30)
+        log("WebDriver response received")
+        return self.driver
