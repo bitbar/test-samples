@@ -10,10 +10,10 @@ from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
 from selenium.common.exceptions import WebDriverException
-from testdroid_utils import TDUtils
+from bitbar_utils import BitbarUtils
 
 
-class TestdroidAndroid(unittest.TestCase):
+class BitbarAndroid(unittest.TestCase):
     def setUp(self):
 
         #
@@ -22,70 +22,70 @@ class TestdroidAndroid(unittest.TestCase):
         # variables.
         # If env var is not set the string after or is used.
         #
-        testdroid_url = os.environ.get('TESTDROID_URL') or \
+        bitbar_url = os.environ.get('BITBAR_URL') or \
             "https://cloud.bitbar.com"
-        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or \
+        appium_url = os.environ.get('BITBAR_APPIUM_URL') or \
             'https://appium.bitbar.com/wd/hub'
-        testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
-        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or \
+        bitbar_apiKey = os.environ.get('BITBAR_APIKEY') or ""
+        bitbar_project_name = os.environ.get('BITBAR_PROJECT') or \
             "Android sample project"
-        testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or \
+        bitbar_testrun_name = os.environ.get('BITBAR_TESTRUN') or \
             "My testrun"
-        testdroid_app = os.environ.get('TESTDROID_APP') or ""
-        app_package = os.environ.get('TESTDROID_APP_PACKAGE') or \
+        bitbar_app = os.environ.get('BITBAR_APP') or ""
+        app_package = os.environ.get('BITBAR_APP_PACKAGE') or \
             'com.bitbar.testdroid'
-        app_activity = os.environ.get('TESTDROID_ACTIVITY') or \
+        app_activity = os.environ.get('BITBAR_ACTIVITY') or \
             '.BitbarSampleApplicationActivity'
-        new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
-        testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
-        testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
+        new_command_timeout = os.environ.get('BITBAR_CMD_TIMEOUT') or '60'
+        bitbar_test_timeout = os.environ.get('BITBAR_TEST_TIMEOUT') or '600'
+        bitbar_find_device = os.environ.get('BITBAR_FINDDEVICE') or "true"
 
-        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or \
+        self.screenshot_dir = os.environ.get('BITBAR_SCREENSHOTS') or \
             os.getcwd() + "/screenshots"
         self.screenshot_count = 1
 
         # Options to select device
-        # 1) Set environment variable TESTDROID_DEVICE
+        # 1) Set environment variable BITBAR_DEVICE
         # 2) Set device name to this python script
         # 3) Do not set #1 and #2 and let DeviceFinder to find free device for
         #    you
-        testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
+        bitbar_device = os.environ.get('BITBAR_DEVICE') or ""
 
-        deviceFinder = DeviceFinder(url=testdroid_url)
+        deviceFinder = DeviceFinder(url=bitbar_url)
         # Loop will not exit until free device is found
-        while testdroid_device == "":
-            testdroid_device = deviceFinder.available_android_device()
+        while bitbar_device == "":
+            bitbar_device = deviceFinder.available_android_device()
 
         if "localhost" in appium_url:
             self.api_level = subprocess.check_output(["adb", "shell", "getprop ro.build.version.sdk"])
         else:
-            self.api_level = deviceFinder.device_API_level(testdroid_device)
+            self.api_level = deviceFinder.device_API_level(bitbar_device)
 
-        self.utils = TDUtils(self.screenshot_dir)
+        self.utils = BitbarUtils(self.screenshot_dir)
         self.utils.log("Will save screenshots at: " + self.screenshot_dir)
 
         self.utils.log("Device API level is %s" % self.api_level)
-        self.utils.log("Starting Appium test using device '%s'" % testdroid_device)
+        self.utils.log("Starting Appium test using device '%s'" % bitbar_device)
 
         desired_capabilities_cloud = {}
-        desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
-        desired_capabilities_cloud['testdroid_target'] = 'android'
+        desired_capabilities_cloud['bitbar_apiKey'] = bitbar_apiKey
+        desired_capabilities_cloud['bitbar_target'] = 'android'
         desired_capabilities_cloud['automationName'] = 'Appium'
         if self.api_level <= 16:
-            desired_capabilities_cloud['testdroid_target'] = 'selendroid'
+            desired_capabilities_cloud['bitbar_target'] = 'selendroid'
             desired_capabilities_cloud['automationName'] = 'Selendroid'
 
-        desired_capabilities_cloud['testdroid_project'] = testdroid_project_name
-        desired_capabilities_cloud['testdroid_testrun'] = testdroid_testrun_name
-        desired_capabilities_cloud['testdroid_device'] = testdroid_device
-        desired_capabilities_cloud['testdroid_app'] = testdroid_app
+        desired_capabilities_cloud['bitbar_project'] = bitbar_project_name
+        desired_capabilities_cloud['bitbar_testrun'] = bitbar_testrun_name
+        desired_capabilities_cloud['bitbar_device'] = bitbar_device
+        desired_capabilities_cloud['bitbar_app'] = bitbar_app
         desired_capabilities_cloud['platformName'] = 'Android'
         desired_capabilities_cloud['deviceName'] = 'Android Phone'
         desired_capabilities_cloud['appPackage'] = app_package
         desired_capabilities_cloud['appActivity'] = app_activity
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
-        desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
-        desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
+        desired_capabilities_cloud['bitbar_testTimeout'] = bitbar_test_timeout
+        desired_capabilities_cloud['bitbar_findDevice'] = bitbar_find_device
 
         # set up webdriver
         self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
@@ -112,7 +112,7 @@ class TestdroidAndroid(unittest.TestCase):
         elems = self.driver.find_elements_by_class_name('android.widget.EditText')
         self.utils.log("  info: EditText:" + str(len(elems)))
         self.utils.log("  Filling in name")
-        elems[0].send_keys("Testdroid User")
+        elems[0].send_keys("Bitbar User")
         sleep(2)
         self.utils.screenshot("name_typed")
 
@@ -170,9 +170,9 @@ class TestdroidAndroid(unittest.TestCase):
 
 
 def initialize():
-    return TestdroidAndroid
+    return BitbarAndroid
 
 
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidAndroid)
+    suite = unittest.TestLoader().loadTestsFromTestCase(BitbarAndroid)
     unittest.TextTestRunner(verbosity=2).run(suite)

@@ -7,8 +7,9 @@ native Android or iOS applications, hybrid (Android & iOS) or for web
 testing (Safari on iOS and Chrome on Android).
 
 You'll find here all steps you need to start running your mobile tests
-against real devices in Bitbar cloud. Before continuing with running with
-these scripts you should register with [Bitbar service](https://cloud.bitbar.com/).
+against real devices in Bitbar. Before continuing with running these
+scripts you should register with [Bitbar
+service](https://cloud.bitbar.com/).
 
 For more detailed guides on Appium please refer to their
 [documentation online](http://appium.io/slate/en/master/?python#about-appium).
@@ -33,13 +34,13 @@ optional arguments:
   -h, --help            show this help message and exit
   -k APIKEY, --apikey APIKEY
                         User's apiKey to identify to cloud, or set environment
-                        variable TESTDROID_APIKEY
+                        variable BITBAR_APIKEY
   -a APP_PATH, --app_path APP_PATH
                         Path to app to upload or set environment variable
-                        TESTDROID_APP_PATH. Current value is:
+                        BITBAR_APP_PATH. Current value is:
                         '../../../../../apps/android/testdroid-sample-app.apk'
   -u URL, --url URL     Bitbar cloud url to upload app or set environment
-                        variable TESTDROID_UPLOAD_URL. Current value is:
+                        variable BITBAR_UPLOAD_URL. Current value is:
                         'https://cloud.bitbar.com/api/v2/me/files'
 ```
 
@@ -58,7 +59,7 @@ example the path to store is: '127314812'.
 # Common Settings in Example Tests
 
 There are some common settings needed to run any of the example tests,
-regardless of the app type being tested. Each `testdroid_*.py` file
+regardless of the app type being tested. Each `bitbar_*.py` file
 needs to have the following values set as environment variables or set
 in the files. Values can also be given as command line parameters to
 `run-test.py` script.
@@ -87,13 +88,13 @@ Common values used in tests:
 
 * *bitbar_app* - id of the app uploaded using `upload.py`
   script. Example id could be '127314812' To rerun using
-  last uploaded app testdroid_app can be set to *latest*
+  last uploaded app bitbar_app can be set to *latest*
 
 ## Example Run
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -t testdroid_ios -a "latest"
-testSample (testdroid_ios.TestdroidIOS) ... Searching Available Free iOS Device...
+$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -t bitbar_ios -a "latest"
+testSample (bitbar_ios.TestdroidIOS) ... Searching Available Free iOS Device...
 Found device 'Apple iPad Mini A1432 9.2.1'
 
 Starting Appium test using device 'Apple iPad Mini A1432 9.2.1'
@@ -122,14 +123,14 @@ ok
 
 ## Native iOS Example
 
-Example script: `testdroid_ios.py`
+Example script: `bitbar_ios.py`
 
 To run iOS native app tests additional parameter is required to be provided:
 
 * **bundleId** - this is your application's unique name
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a "latest" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t testdroid_ios  
+$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a "latest" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t bitbar_ios  
 ```
 
 This parameter is not needed if running against the sample BitbarIOSSample.ipa application, as it's set inside of the sample script.
@@ -137,7 +138,7 @@ This parameter is not needed if running against the sample BitbarIOSSample.ipa a
 
 ## Native Android Example
 
-Example script: `testdroid_android.py`
+Example script: `bitbar_android.py`
 
 To run an Appium test against a native Android application Appium needs to the
 following additional information:
@@ -150,12 +151,12 @@ following additional information:
 For running the sample applications and tests these do not need to be set as they are set inside of the sample scripts if no parameter is given.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a '127314812' -p "Android Native" -r  `date +%R` -t testdroid_android
+python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a '127314812' -p "Android Native" -r  `date +%R` -t bitbar_android
 ```
 
 ## Hybrid Android Specific Settings
 
-Example: `testdroid_android_hybrid.py`
+Example: `bitbar_android_hybrid.py`
 
 Additional parameters needed to run a hybrid app:
 
@@ -167,27 +168,27 @@ Additional parameters needed to run a hybrid app:
 The above parameters are already set into the test scripts, so they are not mandatory for the sample tests. For other apps they are.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -t testdroid_android_hybrid -p "Android Hybrid"  -r `date +%R` --app '127314812'
+python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -t bitbar_android_hybrid -p "Android Hybrid"  -r `date +%R` --app '127314812'
 ```
 
 ## Safari Browser Testing
 
 Does not need any specific settings.
 
-Example: `testdroid_safari.py`
+Example: `bitbar_safari.py`
 
 ```bash
-python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t testdroid_safari -p "Safari browser"  -r `date +%R`
+python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t bitbar_safari -p "Safari browser"  -r `date +%R`
 ```
 
 ##  Chrome Browser Testing
 
 Does not need any special settings.
 
-Example: `testdroid_chrome.py`
+Example: `bitbar_chrome.py`
 
 ```bash
-python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t testdroid_chrome -p "Chrome browser"  -r `date +%R`
+python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t bitbar_chrome -p "Chrome browser"  -r `date +%R`
 ```
 
 # License

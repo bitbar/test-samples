@@ -11,18 +11,18 @@ import sys
 
 class UploadApp():
     def __init__(self):
-        self.myfile = os.environ.get('TESTDROID_APP_PATH') or \
+        self.myfile = os.environ.get('BITBAR_APP_PATH') or \
             '../../../../../apps/android/testdroid-sample-app.apk'
-        self.upload_url = os.environ.get('TESTDROID_UPLOAD_URL') or \
+        self.upload_url = os.environ.get('BITBAR_UPLOAD_URL') or \
             'https://cloud.bitbar.com/api/v2/me/files'
         # Provide mandatory API key with this env var or with -k/--apikey flag
-        self.api_key = os.environ.get("TESTDROID_APIKEY") or ""
+        self.api_key = os.environ.get("BITBAR_APIKEY") or ""
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Upload a mobile app to Testdroid Cloud and get a handle to it')
-        parser.add_argument('-k', '--apikey', type=str, required=False, help="User's apiKey to identify to cloud, or set environment variable TESTDROID_APIKEY")
-        parser.add_argument('-a', '--app_path', type=str, required=False, help="Path to app to upload or set environment variable TESTDROID_APP_PATH. Current value is: '{}'".format(self.myfile))
-        parser.add_argument('-u', '--url', type=str, required=False, help="Testdroid Cloud url to upload app or set environment variable TESTDROID_UPLOAD_URL. Current value is: '{}'".format(self.upload_url))
+        parser.add_argument('-k', '--apikey', type=str, required=False, help="User's apiKey to identify to cloud, or set environment variable BITBAR_APIKEY")
+        parser.add_argument('-a', '--app_path', type=str, required=False, help="Path to app to upload or set environment variable BITBAR_APP_PATH. Current value is: '{}'".format(self.myfile))
+        parser.add_argument('-u', '--url', type=str, required=False, help="Testdroid Cloud url to upload app or set environment variable BITBAR_UPLOAD_URL. Current value is: '{}'".format(self.upload_url))
 
         args = parser.parse_args()
         if args.app_path:
@@ -34,7 +34,7 @@ class UploadApp():
 
         # Sanity checks
         if len(self.api_key) == 0:
-            print "ERROR: API key is missing. Provide TESTDROID_APIKEY env var or -k/--apikey <APIKEY> flag."
+            print("ERROR: API key is missing. Provide BITBAR_APIKEY env var or -k/--apikey <APIKEY> flag.")
             sys.exit(1)
 
     def build_headers(self):
@@ -48,9 +48,9 @@ class UploadApp():
         r = requests.post(self.upload_url, files=files, headers=self.build_headers())
 
         try:
-            print "File id to use in testdroid capabilities in your test: {}".format(r.json()['id'])
+            print("File id to use in testdroid capabilities in your test: {}".format(r.json()['id']))
         except ValueError:
-            print "Upload response: \n{}".format(r)
+            print("Upload response: \n{}".format(r))
 
 
 if __name__ == '__main__':

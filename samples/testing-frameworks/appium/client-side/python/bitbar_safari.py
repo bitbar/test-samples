@@ -7,54 +7,54 @@ import os
 import unittest
 from appium import webdriver
 from device_finder import DeviceFinder
-from testdroid_utils import TDUtils
+from bitbar_utils import BitbarUtils
 
 
-class TestdroidSafari(unittest.TestCase):
+class BitbarSafari(unittest.TestCase):
     def setUp(self):
         #
         # IMPORTANT: Set the following parameters.
         #
-        testdroid_url = os.environ.get('TESTDROID_URL') or "https://cloud.bitbar.com"
-        appium_url = os.environ.get('TESTDROID_APPIUM_URL') or 'https://appium.bitbar.com/wd/hub'
-        testdroid_apiKey = os.environ.get('TESTDROID_APIKEY') or ""
-        testdroid_project_name = os.environ.get('TESTDROID_PROJECT') or "Safari sample project"
-        testdroid_testrun_name = os.environ.get('TESTDROID_TESTRUN') or "My testrun"
-        new_command_timeout = os.environ.get('TESTDROID_CMD_TIMEOUT') or '60'
-        testdroid_test_timeout = os.environ.get('TESTDROID_TEST_TIMEOUT') or '600'
-        testdroid_find_device = os.environ.get('TESTDROID_FINDDEVICE') or "true"
-        automation_name = os.environ.get('TESTDROID_AUTOMATION_NAME') or "XCUITest"
+        bitbar_url = os.environ.get('BITBAR_URL') or "https://cloud.bitbar.com"
+        appium_url = os.environ.get('BITBAR_APPIUM_URL') or 'https://appium.bitbar.com/wd/hub'
+        bitbar_apiKey = os.environ.get('BITBAR_APIKEY') or ""
+        bitbar_project_name = os.environ.get('BITBAR_PROJECT') or "Safari sample project"
+        bitbar_testrun_name = os.environ.get('BITBAR_TESTRUN') or "My testrun"
+        new_command_timeout = os.environ.get('BITBAR_CMD_TIMEOUT') or '60'
+        bitbar_test_timeout = os.environ.get('BITBAR_TEST_TIMEOUT') or '600'
+        bitbar_find_device = os.environ.get('BITBAR_FINDDEVICE') or "true"
+        automation_name = os.environ.get('BITBAR_AUTOMATION_NAME') or "XCUITest"
 
-        self.screenshot_dir = os.environ.get('TESTDROID_SCREENSHOTS') or os.getcwd() + "/screenshots"
+        self.screenshot_dir = os.environ.get('BITBAR_SCREENSHOTS') or os.getcwd() + "/screenshots"
         self.screenshot_count = 1
 
         # Options to select device
-        # 1) Set environment variable TESTDROID_DEVICE
+        # 1) Set environment variable BITBAR_DEVICE
         # 2) Set device name to this python script
         # 3) Do not set #1 and #2 and let DeviceFinder find a free device
-        testdroid_device = os.environ.get('TESTDROID_DEVICE') or ""
+        bitbar_device = os.environ.get('BITBAR_DEVICE') or ""
 
-        deviceFinder = DeviceFinder(url=testdroid_url)
-        while testdroid_device == "":
-            testdroid_device = deviceFinder.available_ios_device()
+        deviceFinder = DeviceFinder(url=bitbar_url)
+        while bitbar_device == "":
+            bitbar_device = deviceFinder.available_ios_device()
 
-        print "Starting Appium test using device '%s'" % testdroid_device
+        print("Starting Appium test using device '%s'" % bitbar_device)
 
-        self.utils = TDUtils(self.screenshot_dir)
+        self.utils = BitbarUtils(self.screenshot_dir)
         self.utils.log("Will save screenshots at: " + self.screenshot_dir)
 
         desired_capabilities_cloud = {}
-        desired_capabilities_cloud['testdroid_apiKey'] = testdroid_apiKey
-        desired_capabilities_cloud['testdroid_target'] = 'safari'
-        desired_capabilities_cloud['testdroid_project'] = testdroid_project_name
-        desired_capabilities_cloud['testdroid_testrun'] = testdroid_testrun_name
-        desired_capabilities_cloud['testdroid_device'] = testdroid_device
+        desired_capabilities_cloud['bitbar_apiKey'] = bitbar_apiKey
+        desired_capabilities_cloud['bitbar_target'] = 'safari'
+        desired_capabilities_cloud['bitbar_project'] = bitbar_project_name
+        desired_capabilities_cloud['bitbar_testrun'] = bitbar_testrun_name
+        desired_capabilities_cloud['bitbar_device'] = bitbar_device
         desired_capabilities_cloud['platformName'] = 'iOS'
         desired_capabilities_cloud['deviceName'] = 'iOS Device'
         desired_capabilities_cloud['browserName'] = 'Safari'
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
-        desired_capabilities_cloud['testdroid_testTimeout'] = testdroid_test_timeout
-        desired_capabilities_cloud['testdroid_findDevice'] = testdroid_find_device
+        desired_capabilities_cloud['bitbar_testTimeout'] = bitbar_test_timeout
+        desired_capabilities_cloud['bitbar_findDevice'] = bitbar_find_device
         desired_capabilities_cloud['automationName'] = automation_name
 
         # Set up webdriver
@@ -97,9 +97,9 @@ class TestdroidSafari(unittest.TestCase):
 
 
 def initialize():
-    return TestdroidSafari
+    return BitbarSafari
 
 
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestdroidSafari)
+    suite = unittest.TestLoader().loadTestsFromTestCase(BitbarSafari)
     unittest.TextTestRunner(verbosity=2).run(suite)

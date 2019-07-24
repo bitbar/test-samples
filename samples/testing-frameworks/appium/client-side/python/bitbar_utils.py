@@ -2,7 +2,7 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 
 
-class TDUtils():
+class BitbarUtils():
     def __init__(self, dir):
         self.screenshot_count = 1
         self.screenshot_dir = dir
@@ -18,16 +18,16 @@ class TDUtils():
         """
         screenshot_name = str(self.screenshot_count) + "_" + name + ".png"
         self.log("Taking screenshot: " + screenshot_name)
-        # on Android, switching context to NATIVE_APP for screenshot
-        # taking to get screenshots also stored to Testdroid Cloud
-        # device run view. After screenshot switching back to
-        # WEBVIEW. Works ok for Safari too.
+        # on Android, switching context to NATIVE_APP for screenshot taking to
+        # get screenshots also stored to Bitbar device run view. After
+        # screenshot switching back to WEBVIEW. Works ok for Safari too.
         orig_context = self.driver.current_context
         self.driver.switch_to.context("NATIVE_APP")
         self.driver.save_screenshot(self.screenshot_dir + "/" + screenshot_name)
-        # only change context if originally context was WEBVIEW
-        if orig_context not in self.driver.current_context:
+        # only change context if originally context was WEBVIEW 
+        if orig_context is not None and orig_context not in self.driver.current_context:
             self.driver.switch_to.context(orig_context)
+        
         self.screenshot_count += 1
 
     def wait_until_xpath_matches(self, xpath, timeout=10, step=1):

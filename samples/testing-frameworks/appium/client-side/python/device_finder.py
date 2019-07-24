@@ -37,8 +37,8 @@ class DeviceFinder:
         if res.ok:
             return res.json()
         else:
-            print "Failed query: {}\nusing headers: {}".format(self.url_query,
-                                                               query_headers)
+            print("Failed query: {}\nusing headers: {}".format(self.url_query,
+                                                               query_headers))
             sys.exit(-1)
 
     """ Returns list of devices
@@ -54,7 +54,7 @@ class DeviceFinder:
     """ Find available Android device
     """
     def available_android_device(self, limit=0):
-        print "Searching available Android device..."
+        print("Searching available Android device...")
 
         for device in self.get_devices(limit):
             if self.device_group:
@@ -62,8 +62,8 @@ class DeviceFinder:
                         device['locked'] is False and
                         device['osType'] == "ANDROID" and
                         device['softwareVersion']['apiLevel'] > 16):
-                    print "Found device '%s'" % device['displayName']
-                    print ""
+                    print("Found device '%s'" % device['displayName'])
+                    print("")
                     return str(device['displayName'])
             else:
                 if (device['online'] is True and
@@ -71,53 +71,53 @@ class DeviceFinder:
                         device['locked'] is False and
                         device['osType'] == "ANDROID" and
                         device['softwareVersion']['apiLevel'] > 16):
-                    print "Found device '%s'" % device['displayName']
-                    print ""
+                    print("Found device '%s'" % device['displayName'])
+                    print("")
                     return str(device['displayName'])
 
-        print "No available device found"
-        print ""
+        print("No available device found")
+        print("")
         return ""
 
     """ Find available iOS device
     """
     def available_ios_device(self, limit=0):
-        print "Searching available iOS device..."
+        print("Searching available iOS device...")
 
         for device in self.get_devices(limit):
             if self.device_group:
                 if (device['online'] is True and
                         device['locked'] is False and
                         device['osType'] == "IOS"):
-                    print "Found device '%s'" % device['displayName']
-                    print ""
+                    print("Found device '%s'" % device['displayName'])
+                    print("")
                     return str(device['displayName'])
             else:
                 if (device['online'] is True and
                         device['creditsPrice'] == 0 and
                         device['locked'] is False and
                         device['osType'] == "IOS"):
-                    print "Found device '%s'" % device['displayName']
-                    print ""
+                    print("Found device '%s'" % device['displayName'])
+                    print("")
                     return str(device['displayName'])
 
-        print "No available device found"
-        print ""
+        print("No available device found")
+        print("")
         return ""
 
     """ Find out the API level of a Device
     """
     def device_API_level(self, deviceName):
-        print "Searching for API level of device '%s'" % deviceName
+        print("Searching for API level of device '%s'" % deviceName)
 
         try:
             devices = self.get(path="devices?search=%s" % deviceName)['data']
             picked_device = devices[0]
-            print "Selected device '{}' has API level '{}'".format(picked_device['displayName'],
-                                                                   picked_device['softwareVersion']['apiLevel'])
+            print("Selected device '{}' has API level '{}'".format(picked_device['displayName'],
+                                                                   picked_device['softwareVersion']['apiLevel']))
             return picked_device['softwareVersion']['apiLevel']
-        except Exception, e:
-            print "Error: %s" % e
+        except Exception as e:
+            print("Error: %s" % e)
             return
 
 
@@ -126,4 +126,4 @@ than directly from command line
 """
 if __name__ == '__main__':
     df = DeviceFinder()
-    print "DeviceFinder: {}".format(df.available_android_device())
+    print("DeviceFinder: {}".format(df.available_android_device()))
