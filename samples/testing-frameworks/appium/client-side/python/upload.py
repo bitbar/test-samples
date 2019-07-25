@@ -1,5 +1,5 @@
 #
-# Example how to upload application to Testdroid Cloud before Appium test
+# Example how to upload application to Bitbar Cloud before Appium test
 #
 
 import argparse
@@ -19,10 +19,10 @@ class UploadApp():
         self.api_key = os.environ.get("BITBAR_APIKEY") or ""
 
     def parse_args(self):
-        parser = argparse.ArgumentParser(description='Upload a mobile app to Testdroid Cloud and get a handle to it')
+        parser = argparse.ArgumentParser(description='Upload a mobile app to Bitbar Cloud and get a handle to it')
         parser.add_argument('-k', '--apikey', type=str, required=False, help="User's apiKey to identify to cloud, or set environment variable BITBAR_APIKEY")
         parser.add_argument('-a', '--app_path', type=str, required=False, help="Path to app to upload or set environment variable BITBAR_APP_PATH. Current value is: '{}'".format(self.myfile))
-        parser.add_argument('-u', '--url', type=str, required=False, help="Testdroid Cloud url to upload app or set environment variable BITBAR_UPLOAD_URL. Current value is: '{}'".format(self.upload_url))
+        parser.add_argument('-u', '--url', type=str, required=False, help="Bitbar Cloud url to upload app or set environment variable BITBAR_UPLOAD_URL. Current value is: '{}'".format(self.upload_url))
 
         args = parser.parse_args()
         if args.app_path:
@@ -48,7 +48,7 @@ class UploadApp():
         r = requests.post(self.upload_url, files=files, headers=self.build_headers())
 
         try:
-            print("File id to use in testdroid capabilities in your test: {}".format(r.json()['id']))
+            print("File id to use in bitbar capabilities in your test: {}".format(r.json()['id']))
         except ValueError:
             print("Upload response: \n{}".format(r))
 

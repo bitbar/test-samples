@@ -11,14 +11,14 @@ class DeviceFinder:
     """ Constructor
     """
     def __init__(self, url="https://cloud.bitbar.com", api_key="", download_buffer_size=65536):
-        self.cloud_url = os.environ.get('TESTDROID_URL') or url
-        self.api_key = os.environ.get('TESTDROID_APIKEY') or api_key
+        self.cloud_url = os.environ.get('BITBAR_URL') or url
+        self.api_key = os.environ.get('BITBAR_APIKEY') or api_key
         self.download_buffer_size = download_buffer_size
         self.url_query = None
         # to use devices from particular device group set the device
         # group id as environment variable. Otherwise free devices are
         # looked for
-        self.device_group = os.environ.get('TESTDROID_DEVICE_GROUP') or ""
+        self.device_group = os.environ.get('BITBAR_DEVICE_GROUP') or ""
 
     """ Append dictionary items to header
     """
