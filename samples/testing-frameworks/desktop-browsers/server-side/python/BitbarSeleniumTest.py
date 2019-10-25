@@ -20,18 +20,12 @@ class BitbarSeleniumTest(unittest.TestCase):
 
     hub_url = None
     screenshot_dir = None
+    desired_caps = {}
 
-    browser_name = None
-    version = None
-    platform = None
-
-    def setUp(self, hub_url='http://localhost:4723/wd/hub', browser_name=None, version=None, platform=None,
-            screenshot_dir=None):
+    def setUp(self, hub_url='http://localhost:4723/wd/hub', desired_caps = {}, screenshot_dir=None):
         self.hub_url = os.environ.get('HUB_URL') or hub_url
 
-        self.browser_name = os.environ.get('BROWSER_NAME') or browser_name
-        self.version = os.environ.get('VERSION') or version
-        self.platform = os.environ.get('PLATFORM') or platform
+        self.desired_caps = desired_caps
 
         if screenshot_dir:
             self.set_screenshot_dir(screenshot_dir)
@@ -49,23 +43,11 @@ class BitbarSeleniumTest(unittest.TestCase):
             log('Creating directory %s' % screenshot_dir)
             os.mkdir(self.screenshot_dir)
 
-    def get_desired_capabilities(self):
-        desired_caps = {}
-        if self.browser_name:
-            desired_caps['browserName'] = self.browser_name
-        if self.version:
-            desired_caps['version'] = self.version
-        if self.platform:
-            desired_caps['platform'] = self.platform
-
-        log(pprint.pformat(desired_caps))
-        return desired_caps
-
     def get_driver(self):
         if self.driver:
             return self.driver
         log("Connecting WebDriver to %s" % self.hub_url)
-        self.driver = webdriver.Remote(self.hub_url, self.get_desired_capabilities())
+        self.driver = webdriver.Remote(self.hub_url, self.desired_caps)
         self.driver.implicitly_wait(30)
         log("WebDriver response received")
         return self.driver
