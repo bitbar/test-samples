@@ -37,7 +37,7 @@ public class BaseTest {
         loadProperties(device);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("bitbar_apiKey", "iW1e08HZp9KBhhw3hKYvtJg53eaJBetD");
+        capabilities.setCapability("bitbar_apiKey", "<YOUR_BITBAR_API_KEY>");
         capabilities.setCapability("bitbar_testrun", this.getClass().getSimpleName());
         capabilities.setCapability("bitbar_project", xmlTestName);
         capabilities.setCapability("bitbar_device", bitbarDevice);
