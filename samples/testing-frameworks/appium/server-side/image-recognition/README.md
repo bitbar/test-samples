@@ -1,4 +1,4 @@
-# Java Image Recognition Sample
+# Appium Server Side Java Image Recognition Sample
 
 This Java project shows how to create Akaze image recognition tests together with Appium mobile automation framework for use in [Bitbar Testing](http://bitbar.com/testing) mobile device cloud. This project is particularly suited for automated tests on mobile apps that don't have platform specific native elements.
 
@@ -17,7 +17,7 @@ The project uses:
 
 - [Maven](https://maven.apache.org/) - Compiles and launches the test code.
 
-# Info on OpenCV and Akaze
+## Info on OpenCV and Akaze
 
 We use the akaze-match program from [A-KAZE Features](https://github.com/pablofdezalc/akaze) to find the matching keypoints from two images and save them to a json file. [OpenCV](http://opencv.org/) java bindings are used for processing the json file with keypoints and finding the homography of the wanted image in a scene (screenshot).
 
@@ -32,17 +32,15 @@ Once the image is located, we can:
 
 All image recognition related methods are implemented in the TestdroidImageRecognition.java class. The class has different functions for first finding the coordinates of the image and then injecting gestures on the device screen. Appium mobile automation framework is used for the automated gestures.
 
-## Installing dependencies
+### Installing dependencies
 
 1. A-KAZE Features
 
    The A-KAZE C++ implementation can optionally be found and built from: [Bitbar Akaze fork](https://github.com/bitbar/akaze). This project already contains the *./lib/\<platform\>/akaze/* folder with pre-built binaries for Linux, OS X and Windows. Only the akaze_match binary is currently in use.
 
-
 All other dependencies are fetched by Maven automatically.
 
-
-## Run tests locally from Command Line with Maven
+### Run tests locally from Command Line with Maven
 
 The project uses Bitbar Sample apps, which are available in this repository at [apps/](https://github.com/bitbar/bitbar-samples/tree/master/apps/). By default, the tested application is assumed to be found at the root of the project with name `application.apk` or `application.ipa` depending on the tested platform. The bitbar-ios-sample.ipa application file will also need to be first re-signed for your own test devices, if you'd like to use try it out locally.
 
@@ -67,7 +65,7 @@ You can also use an IDE to launch the tests. Make sure the project is correctly 
 The reports, screenshots and everything else will be found under:
 *./target/reports/*
 
-## Run tests as Server Side Appium in [Bitbar Testing](http://bitbar.com/testing)
+### Run tests as Server Side Appium in [Bitbar Testing](http://bitbar.com/testing)
 
 You will need a Bitbar Testing cloud project of type `Appium Android server side` or `Appium iOS server side` according to the target platform.
 

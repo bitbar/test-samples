@@ -1,13 +1,10 @@
-Intro
-=====
-
+# Appium Server Side Python Samples
 
 This folder contains a sample Appium server side test case for Android
 and iOS environments. To read more about server and client Appium runs
 in Bitbar Cloud, check our online documentation from `http://docs.bitbar.com/testing/appium/index.html`.
 
-Folder Content
---------------
+## Folder Content
 
 This folder contains the following files:
 
@@ -28,5 +25,3 @@ This folder contains the following files:
   file. The output of this file needs to be uploaded to your server
   side test run. You need to provide parameter `ios` or `android`
   depending which environment you want to use.
-
-  
