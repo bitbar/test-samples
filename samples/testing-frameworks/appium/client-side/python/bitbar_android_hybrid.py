@@ -118,7 +118,7 @@ class BitbarAndroid(unittest.TestCase):
         element.click()
         self.utils.screenshot('hybrid_activity')
 
-        url = "http://bitbar.github.io/bitbar-samples/"
+        url = "https://bitbar.github.io/web-testing-target/"
         self.utils.log('Typing in the url ' + url)
         element = self.driver.find_element_by_id('com.testdroid.sample.android:id/hy_et_url')
         element.send_keys(url)

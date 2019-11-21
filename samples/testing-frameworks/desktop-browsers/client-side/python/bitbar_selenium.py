@@ -38,7 +38,7 @@ class BitbarSeleniumSample(unittest.TestCase):
 
     def test_sample(self):
         # check page title
-        test_url = 'http://bitbar.github.io/bitbar-samples/'
+        test_url = 'https://bitbar.github.io/web-testing-target/'
         self.driver.get(test_url)
         expected_title = 'Bitbar - Test Page for Samples'
         assert self.driver.title == expected_title, 'Wrong page title'

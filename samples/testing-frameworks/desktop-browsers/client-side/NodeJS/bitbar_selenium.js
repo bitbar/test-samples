@@ -30,7 +30,7 @@ async function nodeJsSample() {
             .build();
 
         // check page title
-        test_url = 'http://bitbar.github.io/bitbar-samples/';
+        test_url = 'https://bitbar.github.io/web-testing-target/';
         await driver.get(test_url);
         expected_title = 'Bitbar - Test Page for Samples'
         assert.equal(await driver.getTitle(), expected_title, 'Wrong page title')

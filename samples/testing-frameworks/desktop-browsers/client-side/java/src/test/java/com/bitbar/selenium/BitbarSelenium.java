@@ -33,7 +33,7 @@ public class BitbarSelenium {
         WebDriver driver = new RemoteWebDriver(new URL(URL), capabilities);
 
         // check page title
-        String test_url = "http://bitbar.github.io/bitbar-samples/";
+        String test_url = "https://bitbar.github.io/web-testing-target/";
         driver.get(test_url);
         String title = driver.getTitle();
         System.out.println(title);
