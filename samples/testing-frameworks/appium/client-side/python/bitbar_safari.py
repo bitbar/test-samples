@@ -62,7 +62,7 @@ class BitbarSafari(unittest.TestCase):
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.update_driver(self.driver)
         self.utils.wait_until_xpath_matches('//*[contains(., "Automation for Apps")]')
-        test_url = "http://bitbar.github.io/bitbar-samples/"
+        test_url = "https://bitbar.github.io/web-testing-target/"
         self.utils.log("Loading page " + test_url)
         self.driver.get(test_url)
 

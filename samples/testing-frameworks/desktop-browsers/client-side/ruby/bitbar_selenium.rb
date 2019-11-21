@@ -26,7 +26,7 @@ begin
 	  :desired_capabilities => capabilities)
 	  
 	# check page title
-	test_url = "http://bitbar.github.io/bitbar-samples/"
+	test_url = "https://bitbar.github.io/web-testing-target/"
 	driver.navigate.to test_url
 	expected_title = "Bitbar - Test Page for Samples"
 	raise "Wrong page title" unless expected_title == driver.title

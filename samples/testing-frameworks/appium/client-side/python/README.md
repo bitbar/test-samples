@@ -1,5 +1,3 @@
-
-
 # Appium Python Samples
 
 Bitbar can be used to run Appium tests against real devices to test
@@ -14,7 +12,7 @@ service](https://cloud.bitbar.com/).
 For more detailed guides on Appium please refer to their
 [documentation online](http://appium.io/slate/en/master/?python#about-appium).
 
-# Uploading Your App To Cloud
+## Uploading Your App To Cloud
 
 Uploading an app is easiest using the `upload.py` script and using
 apiKey identification. The apiKey is found under "My Account" in
@@ -55,8 +53,7 @@ The response message provides the application's cloud file name that
 is the path to use with `bitbar_app` capability. From the above
 example the path to store is: '127314812'.
 
-
-# Common Settings in Example Tests
+## Common Settings in Example Tests
 
 There are some common settings needed to run any of the example tests,
 regardless of the app type being tested. Each `bitbar_*.py` file
@@ -135,7 +132,6 @@ $ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a 
 
 This parameter is not needed if running against the sample BitbarIOSSample.ipa application, as it's set inside of the sample script.
 
-
 ## Native Android Example
 
 Example script: `bitbar_android.py`
@@ -181,7 +177,7 @@ Example: `bitbar_safari.py`
 python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t bitbar_safari -p "Safari browser"  -r `date +%R`
 ```
 
-##  Chrome Browser Testing
+## Chrome Browser Testing
 
 Does not need any special settings.
 
@@ -191,6 +187,6 @@ Example: `bitbar_chrome.py`
 python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t bitbar_chrome -p "Chrome browser"  -r `date +%R`
 ```
 
-# License
+## License
 
-See the [LICENSE](https://github.com/bitbar/testdroid-samples/blob/master/LICENSE) file.
+See the [LICENSE](../../../../../LICENSE) file.

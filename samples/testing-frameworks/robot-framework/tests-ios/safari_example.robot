@@ -3,7 +3,7 @@ Resource         ${PROJECTROOT}${/}resources${/}common.robot
 Test Teardown    Close Application
 
 *** Variables ***
-${URL}                 https://bitbar.github.io/bitbar-samples/
+${URL}                 https://bitbar.github.io/web-testing-target/
 ${ANSWER_BUTTON}       xpath = //button[contains(., "Click for answer")]
 ${RESULT_ELEMENT}      xpath = //p[@id="result_element" and contains(., "Bitbar")]
 ${EXPECTED_STYLE}      xpath = //button[contains(@style, "rgb(127, 255, 0")]
