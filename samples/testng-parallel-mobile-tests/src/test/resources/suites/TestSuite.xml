@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Test Suite" thread-count="2" parallel="tests">
+
+    <test name="Simple Google Test Google Pixel XL">
+        <parameter name="Device" value="GooglePixelXL"/>
+        <classes>
+            <class name="SimpleGoogleTest"/>
+        </classes>
+    </test>
+
+    <test name="Simple Google Test iPhone7 11.3.1">
+        <parameter name="Device" value="iPhone7_11.3.1"/>
+        <classes>
+            <class name="SimpleGoogleTest"/>
+        </classes>
+    </test>
+
+</suite>
