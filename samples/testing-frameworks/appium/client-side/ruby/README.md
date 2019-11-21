@@ -1,4 +1,4 @@
-# Appium Ruby Samples
+# Appium Client Side Ruby Samples
 
 Bitbar can be used to run Appium tests against real devices to test
 native Android or iOS applications, hybrid (Android & iOS) or for web
@@ -84,17 +84,9 @@ For a more complete explanation on testing hybrid application take a
 look at Appium
 [documentation](https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/hybrid.md).
 
-
 ## Tips
 
 * To run tests against your previously uploaded app you can simply set
   your *bitbar_app* desired capability value to 'latest'
 
-
 * To find available free devices in Bitbar cloud, you can use this Ruby [tool](https://github.com/bootstraponline/bitbar_device_finder)
-
-## License
-
-See the
-[LICENSE](https://github.com/bitbar/testdroid-samples/blob/master/LICENSE)
-file.

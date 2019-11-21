@@ -1,4 +1,4 @@
-# Appium Python Samples
+# Appium Client Side Python Samples
 
 Bitbar can be used to run Appium tests against real devices to test
 native Android or iOS applications, hybrid (Android & iOS) or for web
@@ -186,7 +186,3 @@ Example: `bitbar_chrome.py`
 ```bash
 python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t bitbar_chrome -p "Chrome browser"  -r `date +%R`
 ```
-
-## License
-
-See the [LICENSE](../../../../../LICENSE) file.
