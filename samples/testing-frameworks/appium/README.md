@@ -22,5 +22,6 @@ We are taking care for the rest.
 Currently we have samples for:
 
 * [Java (Image Recognition)](image-recognition/)
+* [JavaScript (Node.js)](javascript/)
 * [Python 3](python/)
 * [Ruby](ruby/)
