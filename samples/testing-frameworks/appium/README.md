@@ -8,11 +8,11 @@ Client Side means that you are running test locally (on your machine), but using
 
 Currently we have samples for:
 
-* [C#](csharp/)
-* [Java](java/)
-* [JavaScript (Node.js)](javascript/)
-* [Python 3](python/)
-* [Ruby](ruby/)
+* [C#](client-side/csharp/)
+* [Java](client-side/java/)
+* [JavaScript (Node.js)](client-side/javascript/)
+* [Python 3](client-side/python/)
+* [Ruby](client-side/ruby/)
 
 ## Server Side
 
@@ -21,7 +21,7 @@ We are taking care for the rest.
 
 Currently we have samples for:
 
-* [Java (Image Recognition)](image-recognition/)
-* [JavaScript (Node.js)](javascript/)
-* [Python 3](python/)
-* [Ruby](ruby/)
+* [Java (Image Recognition)](server-side/image-recognition/)
+* [JavaScript (Node.js)](server-side/javascript/)
+* [Python 3](server-side/python/)
+* [Ruby](server-side/ruby/)
