@@ -42,7 +42,7 @@ it contains information about project and what's more important - dependenencies
 As always for server side execution you need to create zip package. Zip all files mentioned in [Structure](#structure)
 section above.
 
-You can do in either manually (with your OS file explorer) or my command line. Linux example:
+You can do in either manually (with your OS file explorer) or by command line. Linux example:
 
 ```sh
 zip sample-test.zip \
