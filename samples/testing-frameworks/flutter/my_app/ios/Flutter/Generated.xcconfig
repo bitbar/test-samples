@@ -1,0 +1,9 @@
+// This is a generated file; do not edit or check into version control.
+FLUTTER_ROOT=/Users/jarnoniemela/flutter/flutter
+FLUTTER_APPLICATION_PATH=/Users/jarnoniemela/samples/flutter/flutter-sample-wip/my_app
+FLUTTER_TARGET=lib/main.dart
+FLUTTER_BUILD_DIR=build
+SYMROOT=${SOURCE_ROOT}/../build/ios
+FLUTTER_FRAMEWORK_DIR=/Users/jarnoniemela/flutter/flutter/bin/cache/artifacts/engine/ios-release
+FLUTTER_BUILD_NAME=1.0.0
+FLUTTER_BUILD_NUMBER=1
