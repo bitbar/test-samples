@@ -3,8 +3,17 @@
 echo "Extracting tests.zip..."
 unzip tests.zip
 
+echo "check if flutter is installed"
+flutter doctor
+
+echo "download and install flutter"
+wget -q https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.12.13+hotfix.5-stable.zip
+unzip -qq flutter_macos_v1.12.13+hotfix.5-stable.zip
+
+export PATH="$PATH:`pwd`/flutter/bin"
+
 echo "install cocoapods"
-sudo gem install cocoapods -v 1.7.5
+sudo gem install cocoapods
 pod setup
 
 echo "run flutter doctor"
@@ -13,7 +22,7 @@ flutter doctor
 cd my_app
 
 echo "run integration tests"
-flutter drive --target=test_driver/main.dart > testconsole.log
+flutter drive -v --target=test_driver/main.dart > testconsole.log
 
 while read line; do
   echo "$line"

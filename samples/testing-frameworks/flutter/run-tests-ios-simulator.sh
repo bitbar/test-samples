@@ -6,7 +6,7 @@ unzip tests.zip
 flutter doctor
 
 echo "install cocoapods"
-sudo gem install cocoapods -v 1.7.5
+sudo gem install cocoapods
 pod setup
 
 echo "run flutter doctor"

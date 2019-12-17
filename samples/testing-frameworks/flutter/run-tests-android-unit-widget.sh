@@ -15,15 +15,9 @@ PUB_CACHE_BIN="/opt/testdroid/flutter/.pub-cache/bin"
 DART_PATH="/opt/testdroid/flutter/bin/cache/dart-sdk/bin"
 export PATH=$PATH:$FLUTTER_PATH:$PUB_CACHE_BIN:$DART_PATH
 
-echo "install android SDK"
-wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-unzip sdk-tools-linux-4333796.zip
-
-# rename old tools and move the new one to its place
-mv $ANDROID_HOME/tools $ANDROID_HOME/tools-old
-mv tools $ANDROID_HOME/
-
-yes | /root/android-sdk-linux/tools/bin/sdkmanager "platforms;android-28" "build-tools;28.0.3" "platform-tools"
+echo "accept sdk licences"
+yes | sdkmanager --licenses
+yes | flutter doctor --android-licenses
 
 echo "run flutter doctor"
 flutter doctor

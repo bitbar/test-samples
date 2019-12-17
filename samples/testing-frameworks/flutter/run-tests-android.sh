@@ -15,8 +15,6 @@ pwd
 
 echo "accept sdk licences"
 yes | sdkmanager --licenses
-yes | /root/android-sdk-linux/tools/bin/sdkmanager --licenses
-
 yes | flutter doctor --android-licenses
 
 echo "run flutter doctor"

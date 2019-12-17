@@ -81,7 +81,7 @@ Check installation
 - run `flutter doctor` it will show if everything is installed
 
 Run test:
-- **flutter driver --target test_driver/main_test.dart**
+- **flutter drive --target=test_driver/main_test.dart**
 
 Integration test results must be converted to some other format.
 There is a (crude) sample how to display at least that all tests passed or some failed.
@@ -116,10 +116,8 @@ Note: iOS real device test run is not guaranteed to work in cloud.
 These are scripts for creating test package:
 - zip-test-files-android.sh
   - creates android integration test package
-- zip-test-files-android-with-sdk.sh
-  - creates android integration test package (installs Android SDK 28)
 - zip-test-files-android-unit-widget.sh
-  - creates android unit and widget test package (installs Android SDK 28)
+  - creates android unit and widget test package
 - zip-test-files-ios.sh
   - creates ios integration test package
   - upload ipa not apk file with this
