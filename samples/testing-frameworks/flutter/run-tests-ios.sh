@@ -19,10 +19,21 @@ pod setup
 echo "run flutter doctor"
 flutter doctor
 
+# unzip resigned app
+mv application.ipa application.zip
+unzip application.zip
+
+mv Payload/Runner.app Runner.app
+
+# move app to build folder
+#mkdir -p my_app/build/ios/iphoneos
+mv Runner.app my_app/build/ios/iphoneos/Runner.app
+
 cd my_app
 
 echo "run integration tests"
-flutter drive -v --target=test_driver/main.dart > testconsole.log
+#flutter drive -v --target=test_driver/main.dart > testconsole.log
+flutter drive -v --no-build --target=test_driver/main.dart > testconsole.log
 
 while read line; do
   echo "$line"

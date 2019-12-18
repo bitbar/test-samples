@@ -111,8 +111,6 @@ Look more info from "run-tests-*.sh files".
 
 Create a zip-file containing app directory (app and tests, in my case “my_app” directory) and “run-tests.sh” file (use shell scripts below). Upload this .zip file to “Appium Server Side” type project in Bitbar Cloud. Also upload some .apk file (or .ipa), for example bitbarSample.apk. “Appium Server Side” type project expects an .apk file to be uploaded to test run.
 
-Note: iOS real device test run is not guaranteed to work in cloud.
-
 These are scripts for creating test package:
 - zip-test-files-android.sh
   - creates android integration test package
@@ -130,3 +128,36 @@ These are scripts for creating test package:
 - zip-test-files-ios-simulator-install-flutter.sh
   - creates ios simulator integration test package (install flutter)
   - upload ipa not apk file with this
+
+  **Steps for Bitbar cloud iOS real devices runs**
+
+  - No guarantee that this will work!
+  - Open "Runner.xcworkspace" in XCode from "ios" folder and set your correct app signing "Team" (Runner target) (don't build)
+  - close XCode
+  - Run app locally with command: flutter run
+  - Run tests locally with command: flutter drive --target=test_driver/main_test.dart
+  - Delete "build/ios/Debug-iphoneos/" -folder (and the Runner.app in this folder)
+  - Create ipa from the built app (Runner.app) from "build/ios/iphoneos/" -folder
+    - To create ipa:
+      - Create "Payload" folder
+      - move "Runner.app" to "Payload" folder
+      - Zip "Payload" folder and rename the zip as ipa (for example app.ipa)
+  - Upload this ipa to cloud as the app to run tests on
+  - remove the Runner.app file from "build/ios/iphoneos/" -folder
+  - In "run-tests-ios.sh" script, move the app to "build/ios/iphoneos/" -folder
+  - (the uploaded app will be resigned in cloud and it will be called application.ipa)
+  <pre>
+  # unzip resigned app
+  mv application.ipa application.zip
+  unzip application.zip
+
+  # move app to build folder
+  mkdir -p my_app/build/ios/iphoneos
+  mv Runner.app my_app/build/ios/iphoneos/Runner.app
+  </pre>
+  - In "run-tests-ios.sh" script, run test with "--no-build" -flag: flutter drive --no-build --target=test_driver/main.dart
+  - Use "zip-test-files-ios.sh" script to create test zip file and upload it to cloud as the test file
+
+  ![xcode signing Team](xcode.png)
+  ![create ipa](ipa.png)
+  ![files uploaded to cloud](cloud-files.png)
