@@ -6,8 +6,8 @@ unzip tests.zip
 flutter doctor
 
 echo "download and install flutter"
-wget -q https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.12.13+hotfix.5-stable.zip
-unzip -qq flutter_macos_v1.12.13+hotfix.5-stable.zip
+wget -q https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.9.1+hotfix.2-stable.zip
+unzip -qq flutter_macos_v1.9.1+hotfix.2-stable.zip
 
 export PATH="$PATH:`pwd`/flutter/bin"
 
@@ -25,7 +25,9 @@ echo "install and start simulator"
 npm install -g ios-sim
 ios-sim showdevicetypes
 ios-sim start --devicetypeid "iPhone-8"
-
+sleep 10
+flutter emulators
+flutter devices
 flutter devices > devices.txt
 
 cat devices.txt | while read line

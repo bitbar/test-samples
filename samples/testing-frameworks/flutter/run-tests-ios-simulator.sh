@@ -19,7 +19,9 @@ echo "install and start simulator"
 npm install -g ios-sim
 ios-sim showdevicetypes
 ios-sim start --devicetypeid "iPhone-8"
-
+sleep 10
+flutter emulators
+flutter devices
 flutter devices > devices.txt
 
 cat devices.txt | while read line
