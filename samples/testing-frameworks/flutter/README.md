@@ -81,7 +81,7 @@ Check installation
 - run `flutter doctor` it will show if everything is installed
 
 Run test:
-- **flutter drive --target=test_driver/main_test.dart**
+- **flutter drive --target=test_driver/main.dart**
 
 Integration test results must be converted to some other format.
 There is a (crude) sample how to display at least that all tests passed or some failed.
@@ -135,7 +135,7 @@ These are scripts for creating test package:
   - Open "Runner.xcworkspace" in XCode from "ios" folder and set your correct app signing "Team" (Runner target) (don't build)
   - close XCode
   - Run app locally with command: flutter run
-  - Run tests locally with command: flutter drive --target=test_driver/main_test.dart
+  - Run tests locally with command: flutter drive --target=test_driver/main.dart
   - Delete "build/ios/Debug-iphoneos/" -folder (and the Runner.app in this folder)
   - Create ipa from the built app (Runner.app) from "build/ios/iphoneos/" -folder
     - To create ipa:
