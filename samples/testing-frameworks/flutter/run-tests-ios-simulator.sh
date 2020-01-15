@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ios simulator integration tests Bitbar cloud
+
 echo "Extracting tests.zip..."
 unzip tests.zip
 
@@ -13,6 +15,11 @@ echo "run flutter doctor"
 flutter doctor
 
 cd my_app
+
+echo "clean project folder"
+flutter clean
+rm -r .packages
+rm pubspec.lock
 
 # install simulator
 echo "install and start simulator"

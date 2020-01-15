@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# integration tests
+# Android real device integration tests Bitbar cloud
 
 git --version
 flutter --version
@@ -20,6 +20,11 @@ yes | flutter doctor --android-licenses
 echo "run flutter doctor"
 flutter doctor
 cd my_app
+
+echo "clean project folder"
+flutter clean
+rm -r .packages
+rm pubspec.lock
 
 echo "devices"
 flutter devices

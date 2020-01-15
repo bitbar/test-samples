@@ -1,16 +1,20 @@
 #!/bin/bash
 
+# ios real device integration tests Bitbar cloud
+
 echo "Extracting tests.zip..."
 unzip tests.zip
 
 echo "check if flutter is installed"
 flutter doctor
 
-echo "download and install flutter"
-wget -q https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.12.13+hotfix.5-stable.zip
-unzip -qq flutter_macos_v1.12.13+hotfix.5-stable.zip
+# in case flutter is not installed
 
-export PATH="$PATH:`pwd`/flutter/bin"
+#echo "download and install flutter"
+#wget -q https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.12.13+hotfix.5-stable.zip
+#unzip -qq flutter_macos_v1.12.13+hotfix.5-stable.zip
+
+#export PATH="$PATH:`pwd`/flutter/bin"
 
 echo "install cocoapods"
 sudo gem install cocoapods
@@ -30,6 +34,8 @@ mv Payload/Runner.app Runner.app
 mv Runner.app my_app/build/ios/iphoneos/Runner.app
 
 cd my_app
+
+# don't clean project in iOS real device test run
 
 echo "run integration tests"
 #flutter drive -v --target=test_driver/main.dart > testconsole.log
