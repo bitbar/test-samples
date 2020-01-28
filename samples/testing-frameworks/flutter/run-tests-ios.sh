@@ -8,7 +8,8 @@ unzip tests.zip
 echo "check if flutter is installed"
 flutter doctor
 
-# in case flutter is not installed
+# in case tests fail in cloud because flutter is not installed
+# uncomment these
 
 #echo "download and install flutter"
 #wget -q https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.12.13+hotfix.5-stable.zip
@@ -23,14 +24,13 @@ pod setup
 echo "run flutter doctor"
 flutter doctor
 
-# unzip resigned app
+# unzip re-signed app (will be called application.ipa after re-sign process)
 mv application.ipa application.zip
 unzip application.zip
 
 mv Payload/Runner.app Runner.app
 
 # move app to build folder
-#mkdir -p my_app/build/ios/iphoneos
 mv Runner.app my_app/build/ios/iphoneos/Runner.app
 
 cd my_app
@@ -38,7 +38,6 @@ cd my_app
 # don't clean project in iOS real device test run
 
 echo "run integration tests"
-#flutter drive -v --target=test_driver/main.dart > testconsole.log
 flutter drive -v --no-build --target=test_driver/main.dart > testconsole.log
 
 while read line; do
