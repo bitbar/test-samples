@@ -14,6 +14,7 @@ unzip tests.zip
 echo "Installing dependencies..."
 npm install
 
+echo "Running tests..."
 if [ "$(uname)" == "Darwin" ]; then
 		./node_modules/.bin/wdio ios.conf.js
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -22,4 +23,3 @@ else
 		echo "Unknown OS system, exiting..."
 		exit 1
 fi
-echo "Running tests..."
