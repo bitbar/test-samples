@@ -15,4 +15,11 @@ echo "Installing dependencies..."
 npm install
 
 echo "Running tests..."
-./node_modules/.bin/wdio wdio.conf.js
+if [ "$(uname)" == "Darwin" ]; then
+		./node_modules/.bin/wdio ios.conf.js
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+		./node_modules/.bin/wdio android.conf.js
+else
+		echo "Unknown OS system, exiting..."
+		exit 1
+fi
