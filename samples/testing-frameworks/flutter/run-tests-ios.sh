@@ -1,28 +1,24 @@
 #!/bin/bash
 
 # ios real device integration tests Bitbar cloud
+# https://github.com/bitbar/test-samples/tree/master/samples/testing-frameworks/flutter
+
+export LANG="en_US.UTF-8"
+
+FLUTTER_PATH="/opt/flutter/bin"
+PUB_CACHE_BIN="/opt/flutter/.pub-cache/bin"
+DART_PATH="/opt/flutter/bin/cache/dart-sdk/bin"
+export PATH=$PATH:$FLUTTER_PATH:$PUB_CACHE_BIN:$DART_PATH
 
 echo "Extracting tests.zip..."
 unzip tests.zip
-
-echo "check if flutter is installed"
-flutter doctor
-
-# in case tests fail in cloud because flutter is not installed
-# uncomment these
-
-#echo "download and install flutter"
-#wget -q https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.12.13+hotfix.5-stable.zip
-#unzip -qq flutter_macos_v1.12.13+hotfix.5-stable.zip
-
-#export PATH="$PATH:`pwd`/flutter/bin"
 
 echo "install cocoapods"
 sudo gem install cocoapods
 pod setup
 
 echo "run flutter doctor"
-flutter doctor
+flutter doctor -v
 
 # unzip re-signed app (will be called application.ipa after re-sign process)
 mv application.ipa application.zip
@@ -30,15 +26,17 @@ unzip application.zip
 
 mv Payload/Runner.app Runner.app
 
+# make sure build folder exists
+mkdir -p my_app/build/ios/iphoneos
+
 # move app to build folder
 mv Runner.app my_app/build/ios/iphoneos/Runner.app
 
 cd my_app
 
-# don't clean project in iOS real device test run
-
 echo "run integration tests"
 flutter drive -v --no-build --target=test_driver/main.dart > testconsole.log
+scriptExitStatus=$?
 
 while read line; do
   echo "$line"
@@ -99,3 +97,5 @@ mkdir -p screenshots
 ls -la /tmp/screenshots/test
 mv /tmp/screenshots/test/ screenshots
 mv my_app/TEST-all.xml TEST-all.xml
+
+exit $scriptExitStatus
