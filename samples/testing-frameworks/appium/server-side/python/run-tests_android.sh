@@ -12,11 +12,11 @@ unzip tests.zip
 
 echo "Installing pip for python"
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-sudo python get-pip.py
+python get-pip.py
 
 echo "Installing Appium Python Client 0.24 and xmlrunner 1.7.7"
 chmod 0755 requirements.txt
-sudo pip install -r requirements.txt
+pip install -r requirements.txt
 
 echo "Starting Appium ..."
 
