@@ -35,8 +35,8 @@ exports.config = {
       'appActivity': '.BitbarSampleApplicationActivity',
       'appPackage': 'com.bitbar.testdroid',
       'newCommandTimeout': 240,
-      ‘fullReset’: false,
-      ‘noReset’: true,
+      'fullReset': false,
+      'noReset': true,
 
       'bitbar_apiKey': 'YOUR_API_KEY_HERE',
       'bitbar_project' : 'My Client Side Tests',
