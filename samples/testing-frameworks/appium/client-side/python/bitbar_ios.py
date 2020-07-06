@@ -33,7 +33,7 @@ class BitbarIOS(unittest.TestCase):
         bitbar_bundle_id = os.environ.get('BITBAR_BUNDLE_ID') or "com.bitbar.testdroid.BitbarIOSSample"
         new_command_timeout = os.environ.get('BITBAR_CMD_TIMEOUT') or '60'
         bitbar_test_timeout = os.environ.get('BITBAR_TEST_TIMEOUT') or '600'
-        bitbar_find_device = os.environ.get('BITBAR_FINDDEVICE') or "true"
+        bitbar_find_device = os.environ.get('BITBAR_FINDDEVICE') or True
         automation_name = os.environ.get('BITBAR_AUTOMATION_NAME') or "XCUITest"
 
         self.screenshot_dir = os.environ.get('BITBAR_SCREENSHOTS') or os.getcwd() + "/screenshots"

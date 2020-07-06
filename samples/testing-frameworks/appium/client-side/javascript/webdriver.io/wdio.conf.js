@@ -35,14 +35,15 @@ exports.config = {
       'appActivity': '.BitbarSampleApplicationActivity',
       'appPackage': 'com.bitbar.testdroid',
       'newCommandTimeout': 240,
+      'fullReset': false,
+      'noReset': true,
 
       'bitbar_apiKey': 'YOUR_API_KEY_HERE',
       'bitbar_project' : 'My Client Side Tests',
       'bitbar_testrun' : 'Android Client Side Test',
       'bitbar_device' : 'Motorola Google Nexus 6 7.1.1',
-      // 'bitbar_findDevice': 'Or put here name of device to find',
-      'bitbar_app' :  129054171, // Id of public sample app "BitbarSampleApp.apk"
-      // 'bitbar_locale' : 'pl_PL', // You can put your locale here
+      'bitbar_findDevice': true, //Change to 'false' to disable finding a close match of requested device from 'bitbar_device'
+      'bitbar_app' :  131936175, // Id of public sample app "BitbarSampleApp.apk"
     }],
 
     //

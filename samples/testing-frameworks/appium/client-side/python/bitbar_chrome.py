@@ -28,7 +28,7 @@ class BitbarAndroid(unittest.TestCase):
             "My testrun"
         new_command_timeout = os.environ.get('BITBAR_CMD_TIMEOUT') or '60'
         bitbar_test_timeout = os.environ.get('BITBAR_TEST_TIMEOUT') or '600'
-        bitbar_find_device = os.environ.get('BITBAR_FINDDEVICE') or "true"
+        bitbar_find_device = os.environ.get('BITBAR_FINDDEVICE') or True
 
         self.screenshot_dir = os.environ.get('BITBAR_SCREENSHOTS') or \
             os.getcwd() + "/screenshots"
