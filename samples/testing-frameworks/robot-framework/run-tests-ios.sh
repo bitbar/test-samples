@@ -18,7 +18,6 @@ echo "Extracting tests.zip..."
 unzip -o tests.zip
 
 echo "Installing requirements"
-echo "Installing requirements from requirements.txt"
 chmod 0755 resources/requirements.txt
 pip3 install --user  --requirement resources/requirements.txt
 
