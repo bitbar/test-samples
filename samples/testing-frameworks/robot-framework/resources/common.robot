@@ -26,7 +26,7 @@ ${AUTO_ACCEPT_ALERTS}           true
 
 Set Up And Open Android Application
     Open Application    ${REMOTE_URL}    platformName=${PLATFORM_NAME_ANDROID}    #platformVersion=${PLATFORM_VERSION_ANDROID}
-    ...    deviceName=${DEVICE_NAME_ANDROID}    app=${APP_ANDROID}    automationName=${AUTOMATION_NAME}
+    ...    deviceName=${DEVICE_NAME_ANDROID}    app=${APP_ANDROID}    automationName=${AUTOMATION_NAME}    noReset=true    fullReset=false
     Wait Until Page Contains    What is the best way to test your application    5s
 
 Set Up And Open Ios Application

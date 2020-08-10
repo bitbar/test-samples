@@ -18,11 +18,12 @@ echo "Extracting tests.zip..."
 unzip -o tests.zip
 
 echo "Installing requirements"
-pip install -r ./resources/requirements.txt --user
+chmod 0755 resources/requirements.txt
+pip3 install --user  --requirement resources/requirements.txt
 
 ## Start test execution
 echo "Running test"
-python run_ios.py -x TEST-all
+python3 run_ios.py -x TEST-all
 
 echo "Gathering results"
 mkdir -p output-files

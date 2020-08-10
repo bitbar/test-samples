@@ -10,7 +10,7 @@ from robot import run_cli
 CURDIR = abspath(dirname(__file__))
 LIBROOT = path_join(CURDIR, 'libs')
 ESCAPED_CURDIR = CURDIR.replace(' ', '!')
-DEFAULT_ARGS = '--escape space:! --variable PROJECTROOT:{root} {source}'.format(
+DEFAULT_ARGS = '--variable PROJECTROOT:{root} {source}'.format(
     root=ESCAPED_CURDIR, source=path_join(ESCAPED_CURDIR, 'tests-android'))
 
 def extend_python_path():
