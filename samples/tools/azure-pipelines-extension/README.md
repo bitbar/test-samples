@@ -18,7 +18,7 @@
 <p>3. Add a new Service Connection from the Project Settings page using the type BitBar Credentials</p>
 <p><img class="" src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure5.png" width="286" height="384" /></p>
 <p>4. Add the BitBar Configuration task to your azure-pipelines.yml file</p>
-<p><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure6.png" /></p>
+<p><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure8.png" /></p>
 <p><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure7.png" /></p>
 <p>5. Save and Run</p>
 <p>You should see your build start to run in Azure Pipelines and in the BitBar app <a href="https://cloud.bitbar.com/#testing/projects">here</a>.</p>
