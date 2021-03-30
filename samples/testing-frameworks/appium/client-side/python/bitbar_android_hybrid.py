@@ -85,7 +85,8 @@ class BitbarAndroid(unittest.TestCase):
         desired_capabilities_cloud['appActivity'] = app_activity
         desired_capabilities_cloud['platformName'] = 'Android'
         desired_capabilities_cloud['deviceName'] = 'Android Phone'
-
+        desired_capabilities_cloud['fullReset'] = False
+        desired_capabilities_cloud['noReset'] = True
         desired_capabilities_cloud['newCommandTimeout'] = new_command_timeout
         desired_capabilities_cloud['bitbar_testTimeout'] = bitbar_test_timeout
 
