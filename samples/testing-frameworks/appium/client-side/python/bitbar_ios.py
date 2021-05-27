@@ -68,7 +68,7 @@ class BitbarIOS(unittest.TestCase):
         desired_capabilities_cloud['bitbar_testTimeout'] = bitbar_test_timeout
         desired_capabilities_cloud['bitbar_findDevice'] = bitbar_find_device
         desired_capabilities_cloud['automationName'] = automation_name
-        desired_capabilities_cloud['app'] = bitbar_bundle_id
+        desired_capabilities_cloud['bundleId'] = bitbar_bundle_id
 
         # set up webdriver
         self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
