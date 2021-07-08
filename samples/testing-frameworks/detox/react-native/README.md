@@ -1,3 +1,10 @@
+## :no_entry: Deprecated :no_entry:
+
+Detox is not officially supported on BitBar device cloud. We'll check
+again when the Detox project brings proper real device support for
+both iOS and Android.
+
+
 Sample app / project to demonstrate Detox in Bitbar cloud. Project is based on `demo-react-native` example from Wix/detox repo:
 https://github.com/wix/detox/tree/master/examples/demo-react-native
 
