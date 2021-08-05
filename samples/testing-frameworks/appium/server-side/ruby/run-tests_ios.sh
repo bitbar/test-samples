@@ -7,6 +7,7 @@ echo "Extracting tests.zip..."
 unzip tests.zip
 
 ## Environment variables setup
+export CPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include
 export SCREENSHOT_FOLDER=target/reports/screenshots/
 
 echo "Setting UDID..."
