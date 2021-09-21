@@ -25,7 +25,12 @@ appium --log-no-colors --log-timestamp
 ps -ef|grep appium
 ##### Cloud testrun dependencies end.
 
-export APPIUM_APPFILE=$PWD/application.apk #App file is at current working folder
+#App file is at current working folder
+if [ -f application.apk ]; then
+  export APPIUM_APPFILE=$PWD/application.apk
+elif [ -f application.apks ]; then
+  export APPIUM_APPFILE=$PWD/application.apks
+fi
 
 ## Desired capabilities:
 
@@ -37,7 +42,7 @@ APILEVEL=$(adb shell getprop ro.build.version.sdk)
 APILEVEL="${APILEVEL//[$'\t\r\n']}"
 echo "API level is: ${APILEVEL}"
 
-## APPIUM_AUTOMATION 
+## APPIUM_AUTOMATION
 if [ "$APILEVEL" -gt "16" ]; then
   echo "Setting APPIUM_AUTOMATION=Appium"
   export APPIUM_AUTOMATION="uiautomator2"

@@ -62,7 +62,7 @@ class TestdroidAppiumTest(unittest.TestCase):
 
         self.application_package = application_package or os.environ.get('APPIUM_PACKAGE')
         self.application_activity = application_activity or os.environ.get('APPIUM_ACTIVITY')
-        
+
         self.device_name = os.environ.get('APPIUM_DEVICE') or device_name
 
         if screenshot_dir:
