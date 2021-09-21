@@ -11,8 +11,8 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
     def setUp(self):
         # TestdroidAppiumTest takes settings (local or cloud) from environment variables
         super(BitbarSampleAppTest, self).setUp()
-    
-    # Test start.    
+
+    # Test start.
     def test_the_app(self):
         driver = self.get_driver() # Initialize Appium connection to device
 
@@ -35,7 +35,7 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
                 sleep(2) # always sleep before taking screenshot to let transition animations finish
                 log("Taking screenshot: 1_radiobuttonPressed.png")
                 driver.save_screenshot(self.screenshot_dir + "/1_radiobuttonPressed.png")
-                
+
                 log("Sleeping 3 before quitting webdriver")
                 sleep(3)
             except WebDriverException:
