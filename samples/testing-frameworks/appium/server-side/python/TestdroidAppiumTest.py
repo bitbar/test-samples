@@ -49,7 +49,7 @@ class TestdroidAppiumTest(unittest.TestCase):
     resolution = None
 
     def setUp(self, appium_url='http://localhost:4723/wd/hub', platform_name=None, bundle_id = None, application_file=None, browser_name=None, application_package=None, screenshot_dir=None,
-                 application_activity=None, automation_name=None):
+                 application_activity=None, automation_name=None, noReset=None, fullReset=None):
         self.appium_url = os.environ.get('APPIUM_URL') or appium_url
         self.platform_name = platform_name or os.environ.get('APPIUM_PLATFORM') or 'Android'
 
@@ -69,6 +69,8 @@ class TestdroidAppiumTest(unittest.TestCase):
             self.set_screenshot_dir(screenshot_dir)
         else:
             self.set_screenshot_dir('%s/screenshots' % (os.getcwd()))
+        self.fullReset = fullReset or False
+        self.noReset = noReset or True
         # Initialize webdriver
         self.get_driver()
 
@@ -109,6 +111,8 @@ class TestdroidAppiumTest(unittest.TestCase):
             desired_caps['appPackage'] = self.application_package
         if self.application_activity:
             desired_caps['appActivity'] = self.application_activity
+        desired_caps['fullReset'] = self.fullReset
+        desired_caps['noReset'] = self.noReset
 
         log(pprint.pformat(desired_caps))
         return desired_caps
