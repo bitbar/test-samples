@@ -96,6 +96,7 @@ class BitbarAndroid(unittest.TestCase):
         self.driver = webdriver.Remote(appium_url, desired_capabilities_cloud)
         self.utils.update_driver(self.driver)
         self.utils.log("WebDriver response received")
+        self.driver.implicitly_wait(5)
 
     def tearDown(self):
         self.utils.log("Quitting")
