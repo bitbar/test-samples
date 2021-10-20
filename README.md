@@ -28,9 +28,6 @@ This repository contains Bitbar Cloud sample test scripts and applications.
 
 * [How to use a custom testing framework on Bitbar Cloud](http://docs.bitbar.com/testing/scripted-run/index.html)
 
-### AI Testbot
-
-* [How to use the AI Testbot for automatic testing](http://docs.bitbar.com/testing/appcrawler/index.html)
 
 ## License
 
