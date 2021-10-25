@@ -9,28 +9,37 @@ import java.net.URL;
 
 public class BitbarSelenium {
 
-    public static final String URL = "http://hub.bitbar.com/wd/hub";
-
     public static void main(String[] args) throws Exception {
         // IMPORTANT: Set the following parameters according to your needs.
         // You can use Capabilities creator:
-        // https://bitbar.github.io/capabilities-creator/
+        // https://cloud.bitbar.com/#public/capabilities-creator
         // Please mind bitbar_apiKey is required and can be found at
         // https://cloud.bitbar.com/#user/my-account (My Integrations > API Access)
 
         // user-customizable parameters start here
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("bitbar_apiKey", "<insert your Bitbar API key here>");
-        capabilities.setCapability("platform", "windows");
-        capabilities.setCapability("browserName", "chrome");
-        capabilities.setCapability("version", "72");
+        capabilities.setCapability("platform", "Windows");
+        capabilities.setCapability("browserName", "Chrome");
+        capabilities.setCapability("version", "94");
         capabilities.setCapability("resolution", "1920x1080");
         capabilities.setCapability("bitbar_project", "Selenium sample project");
         capabilities.setCapability("bitbar_testrun", "Java sample test");
         capabilities.setCapability("bitbar_testTimeout", "600");
         // user-customizable parameters end here
 
-        WebDriver driver = new RemoteWebDriver(new URL(URL), capabilities);
+        String hub_url;
+        String platform = capabilities.getPlatform().toString().toLowerCase();
+
+        if (platform.equals("windows")) {
+            hub_url = "https://westeurope-hub.bitbar.com/wd/hub";
+        } else if (platform.equals("linux")) {
+            hub_url = "https://broker-cloud.bitbar.com/wd/hub";
+        } else {
+            throw new Exception("Unsupported platform");
+        }
+
+        WebDriver driver = new RemoteWebDriver(new URL(hub_url), capabilities);
 
         // check page title
         String test_url = "https://bitbar.github.io/web-testing-target/";

@@ -3,7 +3,7 @@ require 'selenium-webdriver'
 #
 # IMPORTANT: Set the following parameters according to your needs.
 # You can use Capabilities creator:
-# https://bitbar.github.io/capabilities-creator/
+# https://cloud.bitbar.com/#public/capabilities-creator
 # Please mind bitbar_apiKey is required and can be found at
 # https://cloud.bitbar.com/#user/my-account (My Integrations > API Access)
 #
@@ -11,20 +11,28 @@ require 'selenium-webdriver'
 # user-customizable parameters start here
 capabilities = Selenium::WebDriver::Remote::Capabilities.new
 capabilities['bitbar_apiKey'] = '<insert your Bitbar API key here>'
-capabilities['platform'] = 'windows'
-capabilities['browserName'] = 'chrome'
-capabilities['version'] = '72'
+capabilities['platform'] = 'Windows'
+capabilities['browserName'] = 'Chrome'
+capabilities['version'] = '94'
 capabilities['resolution'] = '1920x1080'
 capabilities['bitbar_project'] = 'Selenium sample project'
 capabilities['bitbar_testrun'] = 'Ruby sample test'
 capabilities['bitbar_testTimeout'] = '600'
 # user-customizable parameters end here
 
+if capabilities['platform'].downcase == 'windows'
+  hub_url = "https://westeurope-hub.bitbar.com/wd/hub"
+elsif capabilities['platform'].downcase == 'linux'
+  hub_url = "https://broker-cloud.bitbar.com/wd/hub"
+else
+  raise "Unsupported platform"
+end
+
 begin
 	driver = Selenium::WebDriver.for(:remote,
-	  :url => "http://hub.bitbar.com/wd/hub",
-	  :desired_capabilities => capabilities)
-	  
+	  :url => hub_url,
+	  :capabilities => capabilities)
+
 	# check page title
 	test_url = "https://bitbar.github.io/web-testing-target/"
 	driver.navigate.to test_url
