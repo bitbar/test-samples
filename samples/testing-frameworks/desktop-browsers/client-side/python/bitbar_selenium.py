@@ -10,7 +10,7 @@ class BitbarSeleniumSample(unittest.TestCase):
         #
         # IMPORTANT: Set the following parameters according to your needs.
         # You can use Capabilities creator:
-        # https://bitbar.github.io/capabilities-creator/
+        # https://cloud.bitbar.com/#public/capabilities-creator
         # Please mind bitbar_apiKey is required and can be found at
         # https://cloud.bitbar.com/#user/my-account (My Integrations > API Access)
         #
@@ -18,9 +18,9 @@ class BitbarSeleniumSample(unittest.TestCase):
         # user-customizable parameters start here
         capabilities = {
             'bitbar_apiKey': '<insert your Bitbar API key here>',
-            'platform': 'windows',
-            'browserName': 'chrome',
-            'version': '72',
+            'platform': 'Windows',
+            'browserName': 'Chrome',
+            'version': '94',
             'resolution': '1920x1080',
             'bitbar_project': 'Selenium sample project',
             'bitbar_testrun': 'Python sample test',
@@ -30,7 +30,14 @@ class BitbarSeleniumSample(unittest.TestCase):
 
         self.screenshot_dir = os.getcwd() + '/screenshots'
 
-        self.driver = webdriver.Remote(command_executor='http://hub.bitbar.com/wd/hub',
+        if capabilities['platform'].lower() == 'windows':
+            hub_url = 'https://westeurope-hub.bitbar.com/wd/hub'
+        elif capabilities['platform'].lower() == 'linux':
+            hub_url = 'https://broker-cloud.bitbar.com/wd/hub'
+        else:
+            raise Exception("Unsupported platform")
+
+        self.driver = webdriver.Remote(command_executor=hub_url,
                                        desired_capabilities=capabilities)
 
     def tearDown(self):
