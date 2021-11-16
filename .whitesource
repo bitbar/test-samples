@@ -1,3 +1,6 @@
 {
-  "settingsInheritedFrom": "bitbar/whitesource-config@main"
+  "settingsInheritedFrom": "bitbar/whitesource-config@main",
+  "checkRunSettings": {
+    "vulnerableCheckRunConclusionLevel": "success"
+  }
 }
