@@ -1,15 +1,6 @@
 {
-  "scanSettings": {
-    "configMode": "AUTO",
-    "configExternalURL": "",
-    "projectToken": "",
-    "baseBranches": []
-  },
+  "settingsInheritedFrom": "bitbar/whitesource-config@main",
   "checkRunSettings": {
-    "vulnerableCheckRunConclusionLevel": "success",
-    "displayMode": "diff"
-  },
-  "issueSettings": {
-    "minSeverityLevel": "NONE"
+    "vulnerableCheckRunConclusionLevel": "success"
   }
 }
