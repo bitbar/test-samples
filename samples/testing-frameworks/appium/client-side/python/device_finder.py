@@ -46,7 +46,7 @@ class DeviceFinder:
     def get_devices(self, limit=0):
         query_str = "devices?limit=%s" % (limit)
         if self.device_group:
-            query_str += "&device_group_id[]=%s" % (self.device_group)
+            query_str = "me/device-groups/%s/devices?limit=0" % (self.device_group)
         devices = self.get(query_str)['data']
         shuffle(devices)
         return devices
