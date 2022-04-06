@@ -1,0 +1,314 @@
+{
+    "check_type": "dockerfile",
+    "results": {
+        "passed_checks": [
+            {
+                "check_id": "CKV_DOCKER_7",
+                "bc_check_id": "BC_DKR_7",
+                "check_name": "Ensure the base image uses a non latest version tag",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": null
+                },
+                "code_block": [
+                    [
+                        1,
+                        "FROM jenkins/jenkins:lts\n"
+                    ],
+                    [
+                        2,
+                        "RUN /usr/local/bin/install-plugins.sh testdroid-run-in-cloud\n"
+                    ],
+                    [
+                        3,
+                        "USER root\n"
+                    ],
+                    [
+                        4,
+                        "RUN apt-get update && apt-get install -y python-dev python-pip\n"
+                    ],
+                    [
+                        5,
+                        "RUN pip install testdroid\n"
+                    ],
+                    [
+                        6,
+                        "EXPOSE 8080\n"
+                    ],
+                    [
+                        7,
+                        "USER jenkins"
+                    ]
+                ],
+                "file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_abs_path": "/tmp/ws-scm/test-samples/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "repo_file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_line_range": [
+                    1,
+                    7
+                ],
+                "resource": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile.",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.ReferenceLatestTag",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "guideline": "https://docs.bridgecrew.io/docs/ensure-the-base-image-uses-a-non-latest-version-tag"
+            },
+            {
+                "check_id": "CKV_DOCKER_8",
+                "bc_check_id": "BC_DKR_8",
+                "check_name": "Ensure the last USER is not root",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": {
+                        "instruction": "USER",
+                        "startline": 6,
+                        "endline": 6,
+                        "content": "USER jenkins",
+                        "value": "jenkins"
+                    }
+                },
+                "code_block": [
+                    [
+                        7,
+                        "USER jenkins"
+                    ]
+                ],
+                "file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_abs_path": "/tmp/ws-scm/test-samples/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "repo_file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_line_range": [
+                    7,
+                    7
+                ],
+                "resource": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile.USER",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.RootUser",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "guideline": "https://docs.bridgecrew.io/docs/ensure-the-last-user-is-not-root"
+            },
+            {
+                "check_id": "CKV_DOCKER_5",
+                "bc_check_id": "BC_DKR_4",
+                "check_name": "Ensure update instructions are not use alone in the Dockerfile",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": null
+                },
+                "code_block": [
+                    [
+                        1,
+                        "FROM jenkins/jenkins:lts\n"
+                    ],
+                    [
+                        2,
+                        "RUN /usr/local/bin/install-plugins.sh testdroid-run-in-cloud\n"
+                    ],
+                    [
+                        3,
+                        "USER root\n"
+                    ],
+                    [
+                        4,
+                        "RUN apt-get update && apt-get install -y python-dev python-pip\n"
+                    ],
+                    [
+                        5,
+                        "RUN pip install testdroid\n"
+                    ],
+                    [
+                        6,
+                        "EXPOSE 8080\n"
+                    ],
+                    [
+                        7,
+                        "USER jenkins"
+                    ]
+                ],
+                "file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_abs_path": "/tmp/ws-scm/test-samples/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "repo_file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_line_range": [
+                    1,
+                    7
+                ],
+                "resource": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile.",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.UpdateNotAlone",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "guideline": "https://docs.bridgecrew.io/docs/ensure-update-instructions-are-not-used-alone-in-the-dockerfile"
+            },
+            {
+                "check_id": "CKV_DOCKER_1",
+                "bc_check_id": "BC_DKR_1",
+                "check_name": "Ensure port 22 is not exposed",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": null
+                },
+                "code_block": [
+                    [
+                        1,
+                        "FROM jenkins/jenkins:lts\n"
+                    ],
+                    [
+                        2,
+                        "RUN /usr/local/bin/install-plugins.sh testdroid-run-in-cloud\n"
+                    ],
+                    [
+                        3,
+                        "USER root\n"
+                    ],
+                    [
+                        4,
+                        "RUN apt-get update && apt-get install -y python-dev python-pip\n"
+                    ],
+                    [
+                        5,
+                        "RUN pip install testdroid\n"
+                    ],
+                    [
+                        6,
+                        "EXPOSE 8080\n"
+                    ],
+                    [
+                        7,
+                        "USER jenkins"
+                    ]
+                ],
+                "file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_abs_path": "/tmp/ws-scm/test-samples/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "repo_file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_line_range": [
+                    1,
+                    7
+                ],
+                "resource": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile.",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.ExposePort22",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "guideline": "https://docs.bridgecrew.io/docs/ensure-port-22-is-not-exposed"
+            },
+            {
+                "check_id": "CKV_DOCKER_3",
+                "bc_check_id": "BC_DKR_3",
+                "check_name": "Ensure that a user for the container has been created",
+                "check_result": {
+                    "result": "PASSED",
+                    "results_configuration": {
+                        "instruction": "USER",
+                        "startline": 2,
+                        "endline": 2,
+                        "content": "USER root\n",
+                        "value": "root"
+                    }
+                },
+                "code_block": [
+                    [
+                        3,
+                        "USER root\n"
+                    ]
+                ],
+                "file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_abs_path": "/tmp/ws-scm/test-samples/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "repo_file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_line_range": [
+                    3,
+                    3
+                ],
+                "resource": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile.USER",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.UserExists",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "guideline": "https://docs.bridgecrew.io/docs/ensure-that-a-user-for-the-container-has-been-created"
+            }
+        ],
+        "failed_checks": [
+            {
+                "check_id": "CKV_DOCKER_2",
+                "bc_check_id": "BC_DKR_2",
+                "check_name": "Ensure that HEALTHCHECK instructions have been added to container images",
+                "check_result": {
+                    "result": "FAILED",
+                    "results_configuration": null
+                },
+                "code_block": [
+                    [
+                        1,
+                        "FROM jenkins/jenkins:lts\n"
+                    ],
+                    [
+                        2,
+                        "RUN /usr/local/bin/install-plugins.sh testdroid-run-in-cloud\n"
+                    ],
+                    [
+                        3,
+                        "USER root\n"
+                    ],
+                    [
+                        4,
+                        "RUN apt-get update && apt-get install -y python-dev python-pip\n"
+                    ],
+                    [
+                        5,
+                        "RUN pip install testdroid\n"
+                    ],
+                    [
+                        6,
+                        "EXPOSE 8080\n"
+                    ],
+                    [
+                        7,
+                        "USER jenkins"
+                    ]
+                ],
+                "file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_abs_path": "/tmp/ws-scm/test-samples/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "repo_file_path": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile",
+                "file_line_range": [
+                    1,
+                    7
+                ],
+                "resource": "/samples/tools/docker-jenkins-bitbar-plugin/Dockerfile.",
+                "evaluations": null,
+                "check_class": "checkov.dockerfile.checks.HealthcheckExists",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "guideline": "https://docs.bridgecrew.io/docs/ensure-that-healthcheck-instructions-have-been-added-to-container-images"
+            }
+        ],
+        "skipped_checks": [],
+        "parsing_errors": []
+    },
+    "summary": {
+        "passed": 5,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 1,
+        "checkov_version": "2.0.707"
+    },
+    "url": "Add an api key '--bc-api-key <api-key>' to see more detailed insights via https://bridgecrew.cloud"
+}
