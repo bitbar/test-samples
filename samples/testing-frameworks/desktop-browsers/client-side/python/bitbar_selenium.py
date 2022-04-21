@@ -20,7 +20,7 @@ class BitbarSeleniumSample(unittest.TestCase):
             'bitbar_apiKey': '<insert your Bitbar API key here>',
             'platform': 'Windows',
             'browserName': 'Chrome',
-            'version': '94',
+            'version': '99',
             'resolution': '1920x1080',
             'bitbar_project': 'Selenium sample project',
             'bitbar_testrun': 'Python sample test',
@@ -30,14 +30,7 @@ class BitbarSeleniumSample(unittest.TestCase):
 
         self.screenshot_dir = os.getcwd() + '/screenshots'
 
-        if capabilities['platform'].lower() == 'windows':
-            hub_url = 'https://westeurope-hub.bitbar.com/wd/hub'
-        elif capabilities['platform'].lower() == 'linux':
-            hub_url = 'https://broker-cloud.bitbar.com/wd/hub'
-        else:
-            raise Exception("Unsupported platform")
-
-        self.driver = webdriver.Remote(command_executor=hub_url,
+        self.driver = webdriver.Remote(command_executor='https://appium.bitbar.com/wd/hub',
                                        desired_capabilities=capabilities)
 
     def tearDown(self):

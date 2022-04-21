@@ -9,6 +9,8 @@ import java.net.URL;
 
 public class BitbarSelenium {
 
+    public static final String URL = "https://appium.bitbar.com/wd/hub";
+
     public static void main(String[] args) throws Exception {
         // IMPORTANT: Set the following parameters according to your needs.
         // You can use Capabilities creator:
@@ -21,25 +23,14 @@ public class BitbarSelenium {
         capabilities.setCapability("bitbar_apiKey", "<insert your Bitbar API key here>");
         capabilities.setCapability("platform", "Windows");
         capabilities.setCapability("browserName", "Chrome");
-        capabilities.setCapability("version", "94");
+        capabilities.setCapability("version", "99");
         capabilities.setCapability("resolution", "1920x1080");
         capabilities.setCapability("bitbar_project", "Selenium sample project");
         capabilities.setCapability("bitbar_testrun", "Java sample test");
         capabilities.setCapability("bitbar_testTimeout", "600");
         // user-customizable parameters end here
 
-        String hub_url;
-        String platform = capabilities.getPlatform().toString().toLowerCase();
-
-        if (platform.equals("windows")) {
-            hub_url = "https://westeurope-hub.bitbar.com/wd/hub";
-        } else if (platform.equals("linux")) {
-            hub_url = "https://broker-cloud.bitbar.com/wd/hub";
-        } else {
-            throw new Exception("Unsupported platform");
-        }
-
-        WebDriver driver = new RemoteWebDriver(new URL(hub_url), capabilities);
+        WebDriver driver = new RemoteWebDriver(new URL(URL), capabilities);
 
         // check page title
         String test_url = "https://bitbar.github.io/web-testing-target/";

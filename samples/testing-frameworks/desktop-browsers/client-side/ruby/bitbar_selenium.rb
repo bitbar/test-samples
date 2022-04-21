@@ -13,24 +13,16 @@ capabilities = Selenium::WebDriver::Remote::Capabilities.new
 capabilities['bitbar_apiKey'] = '<insert your Bitbar API key here>'
 capabilities['platform'] = 'Windows'
 capabilities['browserName'] = 'Chrome'
-capabilities['version'] = '94'
+capabilities['version'] = '99'
 capabilities['resolution'] = '1920x1080'
 capabilities['bitbar_project'] = 'Selenium sample project'
 capabilities['bitbar_testrun'] = 'Ruby sample test'
 capabilities['bitbar_testTimeout'] = '600'
 # user-customizable parameters end here
 
-if capabilities['platform'].downcase == 'windows'
-  hub_url = "https://westeurope-hub.bitbar.com/wd/hub"
-elsif capabilities['platform'].downcase == 'linux'
-  hub_url = "https://broker-cloud.bitbar.com/wd/hub"
-else
-  raise "Unsupported platform"
-end
-
 begin
 	driver = Selenium::WebDriver.for(:remote,
-	  :url => hub_url,
+	  :url => "https://appium.bitbar.com/wd/hub",
 	  :capabilities => capabilities)
 
 	# check page title

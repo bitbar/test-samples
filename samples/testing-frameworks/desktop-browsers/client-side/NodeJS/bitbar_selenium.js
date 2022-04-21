@@ -14,7 +14,7 @@ var capabilities = {
     'bitbar_apiKey': '<insert your Bitbar API key here>',
     'platform': 'Windows',
     'browserName': 'Chrome',
-    'version': '94',
+    'version': '99',
     'resolution': '1920x1080',
     'bitbar_project': 'Selenium sample project',
     'bitbar_testrun': 'NodeJS sample test',
@@ -22,18 +22,10 @@ var capabilities = {
 }
 // user-customizable parameters end here
 
-if (capabilities['platform'].toLowerCase() == 'windows') {
-    var hub_url = 'https://westeurope-hub.bitbar.com/wd/hub';
-} else if (capabilities['platform'].toLowerCase() == 'linux') {
-    var hub_url = 'https://broker-cloud.bitbar.com/wd/hub';
-} else {
-    throw 'Unsupported platform';
-}
-
 async function nodeJsSample() {
     try {
         var driver = new webdriver.Builder()
-            .usingServer(hub_url)
+            .usingServer('https://appium.bitbar.com/wd/hub')
             .withCapabilities(capabilities)
             .build();
 
