@@ -5,7 +5,8 @@
 
 #Intllij file
 *.iml
-.idea/
+.idea/*
+!.idea/codeStyleSettings.xml
 
 #Java and Maven
 *.class
