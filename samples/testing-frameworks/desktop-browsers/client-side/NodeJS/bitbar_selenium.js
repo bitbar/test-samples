@@ -11,10 +11,11 @@ var webdriver = require('selenium-webdriver');
 
 // user-customizable parameters start here
 var capabilities = {
-    'bitbar_apiKey': '<insert your Bitbar API key here>',
+    'bitbar_apiKey': '<insert your BitBar API key here>',
     'platform': 'Windows',
+    'osVersion': '10',
     'browserName': 'Chrome',
-    'version': '99',
+    'version': '102',
     'resolution': '1920x1080',
     'bitbar_project': 'Selenium sample project',
     'bitbar_testrun': 'NodeJS sample test',
@@ -25,7 +26,7 @@ var capabilities = {
 async function nodeJsSample() {
     try {
         var driver = new webdriver.Builder()
-            .usingServer('https://appium.bitbar.com/wd/hub')
+            .usingServer('https://us-west-desktop-hub.bitbar.com/wd/hub')
             .withCapabilities(capabilities)
             .build();
 
