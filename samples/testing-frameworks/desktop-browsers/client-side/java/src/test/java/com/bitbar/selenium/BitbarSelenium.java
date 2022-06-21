@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class BitbarSelenium {
 
-    public static final String URL = "https://appium.bitbar.com/wd/hub";
+    public static final String URL = "https://us-west-desktop-hub.bitbar.com/wd/hub";
 
     public static void main(String[] args) throws Exception {
         // IMPORTANT: Set the following parameters according to your needs.
@@ -20,10 +20,11 @@ public class BitbarSelenium {
 
         // user-customizable parameters start here
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("bitbar_apiKey", "<insert your Bitbar API key here>");
+        capabilities.setCapability("bitbar_apiKey", "<insert your BitBar API key here>");
         capabilities.setCapability("platform", "Windows");
+        capabilities.setCapability("osVersion", "10");
         capabilities.setCapability("browserName", "Chrome");
-        capabilities.setCapability("version", "99");
+        capabilities.setCapability("version", "102");
         capabilities.setCapability("resolution", "1920x1080");
         capabilities.setCapability("bitbar_project", "Selenium sample project");
         capabilities.setCapability("bitbar_testrun", "Java sample test");

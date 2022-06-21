@@ -10,10 +10,11 @@ require 'selenium-webdriver'
 
 # user-customizable parameters start here
 capabilities = Selenium::WebDriver::Remote::Capabilities.new
-capabilities['bitbar_apiKey'] = '<insert your Bitbar API key here>'
+capabilities['bitbar_apiKey'] = '<insert your BitBar API key here>'
 capabilities['platform'] = 'Windows'
+capabilities['osVersion'] = '10'
 capabilities['browserName'] = 'Chrome'
-capabilities['version'] = '99'
+capabilities['version'] = '102'
 capabilities['resolution'] = '1920x1080'
 capabilities['bitbar_project'] = 'Selenium sample project'
 capabilities['bitbar_testrun'] = 'Ruby sample test'
@@ -22,7 +23,7 @@ capabilities['bitbar_testTimeout'] = '600'
 
 begin
 	driver = Selenium::WebDriver.for(:remote,
-	  :url => "https://appium.bitbar.com/wd/hub",
+	  :url => "https://us-west-desktop-hub.bitbar.com/wd/hub",
 	  :capabilities => capabilities)
 
 	# check page title
