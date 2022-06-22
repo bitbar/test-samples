@@ -1,28 +1,28 @@
 package com.testdroid.appium.ios.sample;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import com.testdroid.appium.BaseIOSTest;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import com.testdroid.appium.BaseIOSTest;
 
 import java.util.concurrent.TimeUnit;
 
-public class IosAppiumExampleTest extends BaseIOSTest {
+class IosAppiumExampleTest extends BaseIOSTest {
 
-    @BeforeClass
+    @BeforeEach
     public void setUp() throws Exception {
         setUpTest();
     }
-    @AfterClass
-    public void tearDown()
-    {
+
+    @AfterEach
+    public void tearDown() {
         quitAppiumSession();
     }
 
     @Test
-    public void mainPageTest() throws Exception {
+    public void mainPageTest() {
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.findElement(By.xpath("//*[contains(@name, 'answer1')]")).click();
         WebElement element = wd.findElement(By.xpath("//*[contains(@name, 'userName')]"));

@@ -1,30 +1,27 @@
 package com.testdroid.appium.android.sample;
 
-import org.openqa.selenium.By;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
 import com.testdroid.appium.BaseAndroidTest;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class AndroidAppiumExampleTest  extends BaseAndroidTest {
+class AndroidAppiumExampleTest extends BaseAndroidTest {
 
-    @BeforeClass
+    @BeforeEach
     public void setUp() throws Exception {
         setUpTest();
     }
-    @AfterClass
-    public void tearDown()
-    {
+
+    @AfterEach
+    public void tearDown() {
         quitAppiumSession();
     }
 
-
     @Test
-    public void mainPageTest() throws IOException, InterruptedException {
+    public void mainPageTest() {
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         takeScreenshot("start");
         wd.findElement(By.xpath("//android.widget.RadioButton[@text='Use Testdroid Cloud']")).click();
