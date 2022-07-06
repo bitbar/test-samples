@@ -13,18 +13,26 @@ import org.opencv.core.Point;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.interactions.touch.TouchActions;
+import org.openqa.selenium.interactions.Pause;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.time.Duration;
+import java.util.Collections;
 
+import static java.time.Duration.ofMillis;
+import static org.openqa.selenium.interactions.PointerInput.Kind.TOUCH;
+import static org.openqa.selenium.interactions.PointerInput.MouseButton.LEFT;
+import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
 /**
  * Created by testdroid on 22/07/16.
  */
 public abstract class TestdroidImageRecognition extends AbstractAppiumTest {
+
+    private final static PointerInput FINGER = new PointerInput(TOUCH, "finger");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestdroidImageRecognition.class);
     String screenshotsFolder;
@@ -93,10 +101,12 @@ public abstract class TestdroidImageRecognition extends AbstractAppiumTest {
 
     // Selendroid specific taps at given coordinates in pixels
     public void selendroidTapAtCoordinate(int x, int y, int secs) throws Exception {
-        TouchActions actions = new TouchActions(driver);
-        actions.down(x, y).perform();
-        sleep(secs);
-        actions.up(x, y).perform();
+        Sequence sequence = new Sequence(FINGER, 1)
+            .addAction(FINGER.createPointerMove(ofMillis(0), viewport(), x, y))
+            .addAction(FINGER.createPointerDown(LEFT.asArg()))
+            .addAction(new Pause(FINGER, ofMillis(secs)));
+        driver.perform(Collections.singletonList(sequence));
+
     }
 
     //Taps at relative coordinates on the screen.
@@ -510,26 +520,25 @@ public abstract class TestdroidImageRecognition extends AbstractAppiumTest {
     }
 
     public void androidSwipe(int startX, int startY, int endX, int endY) throws Exception {
-        TouchActions actions = new TouchActions(driver);
-
-        actions.down(startX, startY).perform();
-        sleep(0.5);
-        actions.move(endX, endY).perform();
-        actions.up(endX, endY).perform();
+        Sequence swipe = new Sequence(FINGER, 1)
+            .addAction(FINGER.createPointerMove(ofMillis(0), viewport(), startX, startY))
+            .addAction(FINGER.createPointerDown(LEFT.asArg()))
+            .addAction(FINGER.createPointerMove(ofMillis(500), viewport(), endX,endY))
+            .addAction(FINGER.createPointerUp(LEFT.asArg()));
+        driver.perform(Collections.singletonList(swipe));
     }
 
     public void iOSSwipe(int startX, int startY, int endX, int endY) {
         TouchAction action = new TouchAction((PerformsTouchActions) driver);
 
         action.press(PointOption.point(startX, startY));
-        action.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)));  //has to be >= 500 otherwise it will fail
+        action.waitAction(WaitOptions.waitOptions(ofMillis(1000)));  //has to be >= 500 otherwise it will fail
         action.moveTo(PointOption.point(endX, endY));
         action.release();
         action.perform();
     }
 
     public void swipe(double startX, double startY, double endX, double endY) throws Exception {
-        TouchActions actions = new TouchActions(driver);
         Dimension size = driver.manage().window().getSize();
 
         Point screen = new Point(size.getWidth(), size.getHeight());
