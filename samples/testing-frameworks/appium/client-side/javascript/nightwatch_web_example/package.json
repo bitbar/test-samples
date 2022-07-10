@@ -4,7 +4,7 @@
   "repository": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "nightwatch": "0.9.8"
+    "nightwatch": "1.0.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
