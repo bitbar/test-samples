@@ -6,8 +6,6 @@ import xmlrunner
 from time import sleep
 from TestdroidAppiumTest import TestdroidAppiumTest, log
 from selenium.common.exceptions import WebDriverException
-from selenium.webdriver.common.by import By
-from appium.webdriver.common.appiumby import AppiumBy
 
 class BitbarSampleAppTest(TestdroidAppiumTest):
     def setUp(self):
@@ -29,9 +27,9 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
                 driver.save_screenshot(self.screenshot_dir + "/0_appLaunch.png")
                 log("Clicking element 'Use Testdroid Cloud'")
                 if self.isSelendroid():
-                    elem = driver.find_element(By.XPATH, "//LinearLayout[1]/FrameLayout[1]/ScrollView[1]/LinearLayout[1]/LinearLayout[1]/RadioGroup[1]/RadioButton[2]")
+                    elem = driver.find_element_by_xpath("//LinearLayout[1]/FrameLayout[1]/ScrollView[1]/LinearLayout[1]/LinearLayout[1]/RadioGroup[1]/RadioButton[2]")
                 else:
-                    elem = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Use Testdroid Cloud")')
+                    elem = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Use Testdroid Cloud")')
                 self.assertTrue(elem)
                 elem.click()
                 sleep(2) # always sleep before taking screenshot to let transition animations finish
@@ -47,7 +45,7 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
                 log("Taking screenshot 0_appLaunch.png")
                 driver.save_screenshot(self.screenshot_dir + "/0_appLaunch.png")
                 log("Finding buttons")
-                buttons = driver.find_elements(By.CLASS_NAME, 'UIAButton')
+                buttons = driver.find_elements_by_class_name('UIAButton')
                 log("Clicking button [2] - Radiobutton 2")
                 buttons[2].click()
 
