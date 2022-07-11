@@ -3,6 +3,10 @@
   "description": "Basic example of using Testdroid together with gulp and nightwatch",
   "repository": "",
   "license": "Apache-2.0",
+  "engines" : { 
+    "npm" : ">=8.0.0",
+    "node" : ">=18.0.0"
+  },
   "dependencies": {
     "nightwatch": "2.2.2"
   },
