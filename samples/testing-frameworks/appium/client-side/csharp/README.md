@@ -1,11 +1,11 @@
 # Appium Client Side C# Sample
 
 The capabilities has been set to run tests for Bitbar Sample Android app.
-Before running tests modify Tests.cs and replace `TESTDROID_USERNAME` and `TESTDROID_PASSWORD` with your user
+Before running tests modify Tests.cs and replace `BITBAR_USERNAME` and `BITBAR_PASSWORD` with your user
 credentials. Set the `SCREENSHOT_FOLDER` to an existing directory on your system.
 
-**Note:** Instead of using `testdroid_username` and `testdroid_password` desired capabilities to identify to
-Bitbar Cloud you should rather use `testdroid_apiKey`. You can find API key in
+**Note:** Instead of using `bitbar_username` and `bitbar_password` desired capabilities to identify to
+Bitbar Cloud you should rather use `bitbar_apiKey`. You can find API key in
 https://cloud.bitbar.com/#user/my-account under _My Integrations_.
 
 ## Windows
@@ -24,7 +24,7 @@ the Extension Manager. Use Test Explorer to run the test.
 1. Build Test Package
 
     ```sh
-    xbuild
+    msbuild
     ```
 
 1. Run tests

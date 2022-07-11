@@ -10,43 +10,42 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace TestdroidAndroidSample
 {
-	[TestFixture ()]
+	[TestFixture]
 	public class Tests
 	{
-
+		//Default screenshots output folder (testdroid-samples/appium/sample-scripts/csharp/screenshots)
+		//Make sure that the screenshots folder exists already.
+		readonly String SCREENSHOT_FOLDER = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "/screenshots/";
 		AppiumDriver<AndroidElement> driver;
-		// Make sure that the screenshots folder exists already (testdroid-samples/appium/sample-scripts/csharp/screenshots).
 
 		[TestFixtureSetUp]
 		public void BeforeAll()
 		{
 
-			//String TESTDROID_USERNAME = "Testdroid username";
-			//String TESTDROID_PASSWORD = "Testdroid Password";
-			String TESTDROID_APIKEY = "Testdroid apikey";	//either username & password or apikey
+			//String BITBAR_USERNAME = "Testdroid username";
+			//String BITBAR_PASSWORD = "Testdroid Password";
+			String BITBAR_APIKEY = "Your bitbar api key";	//either username & password or apikey
 
 			DesiredCapabilities capabilities = new DesiredCapabilities();
-			capabilities.SetCapability("device", "Android");
 
-			capabilities.SetCapability("deviceName", "Android");
+			capabilities.SetCapability("deviceName", "Android"); //"Android"
 			capabilities.SetCapability("platformName", "Android");
 
 
-			//capabilities.SetCapability("testdroid_username", TESTDROID_USERNAME);
-			//capabilities.SetCapability("testdroid_password", TESTDROID_PASSWORD);
-			capabilities.SetCapability("testdroid_apiKey", TESTDROID_APIKEY);
-			capabilities.SetCapability("testdroid_target", "Android");
-			capabilities.SetCapability("testdroid_project", "C# Appium");
-			capabilities.SetCapability("testdroid_testrun", "Android Run 1");
+			//capabilities.SetCapability("testdroid_username", BITBAR_USERNAME);
+			//capabilities.SetCapability("testdroid_password", BITBAR_PASSWORD);
+			capabilities.SetCapability("bitbar_apiKey", BITBAR_APIKEY);
+			capabilities.SetCapability("bitbar_target", "Android");
+			capabilities.SetCapability("bitbar_project", "C# Appium");
+			capabilities.SetCapability("bitbar_testrun", "Android Run 1");
 
 			// See available devices at: https://cloud.bitbar.com/#public/devices
-			capabilities.SetCapability("testdroid_device", "Dell Venue 7 3730"); // Freemium device
-			capabilities.SetCapability("testdroid_app", "sample/bitbar-sample-app.apk"); //to use existing app using "latest" as fileUUID
+			capabilities.SetCapability("device", "(new) Motorola Moto G100 5G /03"); // Freemium device
+			capabilities.SetCapability("bitbar_app", "sample/bitbar-sample-app.apk"); //to use existing app using "latest" as fileUUID
 
 			Console.WriteLine ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins");
-			driver = new AndroidDriver<AndroidElement>(new Uri("http://appium.bitbar.com/wd/hub"), capabilities, TimeSpan.FromSeconds(300)); 
+			driver = new AndroidDriver<AndroidElement>(new Uri("https://appium.bitbar.com/wd/hub"), capabilities, TimeSpan.FromSeconds(300)); 
 			Console.WriteLine ("WebDriver response received.");
-
 
 		}
 
@@ -57,10 +56,10 @@ namespace TestdroidAndroidSample
 		}
 
 
-		[Test ()]
+		[Test]
 		public void TestSampleApp()
 		{
-			driver.Manage ().Timeouts ().ImplicitlyWait (TimeSpan.FromSeconds(60));
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
 			TakeScreenshot ("First");
 			driver.FindElement(By.XPath("//android.widget.RadioButton[@text='Use Testdroid Cloud']")).Click();
 			driver.FindElement(By.XPath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).SendKeys("C Sharp");
@@ -74,10 +73,9 @@ namespace TestdroidAndroidSample
 		public void TakeScreenshot(String filename)
 		{
 			Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-			String path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-			String filepath = path + "/screenshots/" + filename + ".png";
+			String filepath = SCREENSHOT_FOLDER + filename + ".png";
 			Console.WriteLine ("Taking screenshot: " + filepath);
-			ss.SaveAsFile (filepath, ImageFormat.Png);
+			ss.SaveAsFile (filepath, ScreenshotImageFormat.Png);
 		}
 	}
 }
