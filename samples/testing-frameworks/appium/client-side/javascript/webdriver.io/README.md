@@ -11,19 +11,23 @@ Note: For now it's Android only example.
 .
 ├── package.json
 ├── package-lock.json
+├── .npmrc
 ├── screenshots
 │   └── .gitkeep
 ├── test
 │   └── specs
 │       └── main.js
-└── wdio.conf.js
+├── wdio.conf.js
+└── .credentials.json
 ```
 
 * `package.json` and `package-lock.json` is obvious for everyone familiar with Node.js. Shortly for those who doesn't know:
 it contains information about project and what's more important - dependenencies.
+* `.npmrc` - Config for npm
 * `screenshots` - Here will appear all taken screenshots. Note: Directory will be cleared before each test run.
 * `test/specs/main.js` - Test itself
 * `wdio.conf.js` - Config for [Webdriver.io Testrunner](https://webdriver.io/docs/gettingstarted.html)
+* .`credentials.json` - This file isn't included in the repository, however it's required to run sample code. You need to create it by yourself according to instruictions below. It is used to store sensitive data.
 
 ### Dependencies
 
@@ -52,7 +56,7 @@ Create a file called ".credentials.json" in the project's root and add your test
 ```
 
 ### Add sample application ID to `./.credentials.json`
-Download [sample application](https://github.com/bitbar/test-samples/blob/master/apps/android/bitbar-sample-app.apk) and upload it to your BitBar Files Library. Copy applications ID and add it to  `.credentials.json`.
+Download [sample application](https://github.com/bitbar/test-samples/blob/master/apps/android/bitbar-sample-app.apk) and upload it to your BitBar Files Library. Copy applications ID and add it to  `.credentials.json` file:
 
 ```json
 {
