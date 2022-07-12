@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Android;
+using System.Net;
 
 namespace TestdroidAndroidSample
 {
@@ -17,10 +18,12 @@ namespace TestdroidAndroidSample
 		//Make sure that the screenshots folder exists already.
 		readonly String SCREENSHOT_FOLDER = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "/screenshots/";
 		AppiumDriver<AndroidElement> driver;
-
+		
+		//[OneTimeSetUp]
 		[TestFixtureSetUp]
 		public void BeforeAll()
 		{
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
 			//String BITBAR_USERNAME = "Testdroid username";
 			//String BITBAR_PASSWORD = "Testdroid Password";
@@ -48,6 +51,7 @@ namespace TestdroidAndroidSample
 
 		}
 
+		//[OneTimeTearDown]
 		[TestFixtureTearDown]
 		public void AfterAll()
 		{
