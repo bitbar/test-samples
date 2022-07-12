@@ -14,7 +14,7 @@ echo "Installing pip for python"
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py
 
-echo "Installing Appium Python Client 2.2.0 and xmlrunner 1.7.7"
+echo "Installing Appium Python Client 0.24 and xmlrunner 1.7.7"
 chmod 0755 requirements.txt
 pip install -r requirements.txt
 
@@ -34,7 +34,7 @@ fi
 
 ## Desired capabilities:
 
-export APPIUM_URL="https://appium.bitbar.com/wd/hub" # Local & Cloud
+export APPIUM_URL="http://localhost:4723/wd/hub" # Local & Cloud
 export APPIUM_DEVICE="Local Device"
 export APPIUM_PLATFORM="android"
 
@@ -55,6 +55,6 @@ fi
 echo "Running test ${TEST}"
 rm -rf screenshots
 
-python3 ${TEST}
+python ${TEST}
 
 mv test-reports/*.xml TEST-all.xml
