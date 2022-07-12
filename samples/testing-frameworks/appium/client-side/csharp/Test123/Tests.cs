@@ -28,9 +28,8 @@ namespace TestdroidAndroidSample
 
 			DesiredCapabilities capabilities = new DesiredCapabilities();
 
-			capabilities.SetCapability("deviceName", "Android"); //"Android"
+			capabilities.SetCapability("deviceName", "Android");
 			capabilities.SetCapability("platformName", "Android");
-
 
 			//capabilities.SetCapability("testdroid_username", BITBAR_USERNAME);
 			//capabilities.SetCapability("testdroid_password", BITBAR_PASSWORD);
@@ -40,7 +39,7 @@ namespace TestdroidAndroidSample
 			capabilities.SetCapability("bitbar_testrun", "Android Run 1");
 
 			// See available devices at: https://cloud.bitbar.com/#public/devices
-			capabilities.SetCapability("device", "(new) Motorola Moto G100 5G /03"); // Freemium device
+			capabilities.SetCapability("device", "Google Pixel 3a Android 12"); // Freemium device
 			capabilities.SetCapability("bitbar_app", "sample/bitbar-sample-app.apk"); //to use existing app using "latest" as fileUUID
 
 			Console.WriteLine ("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins");
