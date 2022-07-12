@@ -116,7 +116,7 @@ class BitbarIOS(unittest.TestCase):
         self.utils.screenshot("back-to-view1")
         
         # view1
-        self.utils.log("view1: Fin1ing buttons")
+        self.utils.log("view1: Finding buttons")
         buttons = self.driver.find_elements(By.CLASS_NAME, 'UIAButton')
         self.utils.log("view1: Clicking button[2] - RadioButton 2")
         buttons[2].click()
