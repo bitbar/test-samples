@@ -1,5 +1,9 @@
 const path = require('path');
 
+const credentials = require('./.credentials.json');
+const apiKey = credentials["apiKey"];
+const appId = credentials["appId"];
+
 exports.config = {
     framework: 'mocha',
     mochaOpts: {
@@ -29,21 +33,14 @@ exports.config = {
     ],
 
     capabilities: [{
-      'platformName' : 'Android',
-      'automationName': 'UiAutomator2',
-      'app': null,
-      'appActivity': '.BitbarSampleApplicationActivity',
-      'appPackage': 'com.bitbar.testdroid',
-      'newCommandTimeout': 240,
-      'fullReset': false,
-      'noReset': true,
-
-      'bitbar_apiKey': 'YOUR_API_KEY_HERE',
-      'bitbar_project' : 'My Client Side Tests',
-      'bitbar_testrun' : 'Android Client Side Test',
-      'bitbar_device' : 'Motorola Google Nexus 6 7.1.1',
-      'bitbar_findDevice': true, //Change to 'false' to disable finding a close match of requested device from 'bitbar_device'
-      'bitbar_app' :  131936175, // Id of public sample app "BitbarSampleApp.apk"
+      bitbar_apiKey: apiKey,
+      bitbar_device: "Google Pixel 3a Android 12",
+      bitbar_app :  appId,
+      platformName: "Android",
+      deviceName: "Android Phone",
+      automationName: "Appium",
+      bitbar_project: "WebdriverIO_Example_Android",
+      bitbar_testrun: "TestRun_Android",
     }],
 
     //

@@ -7,9 +7,8 @@
   "scripts": {
     "test": "npx wdio wdio.conf.js"
   },
-  "engines" : { 
-    "npm" : ">=8.0.0",
-    "node" : ">=18.0.0"
+  "engines": {
+    "npm": ">=6.0.0"
   },
   "dependencies": {
     "@wdio/cli": "^7.20.5",

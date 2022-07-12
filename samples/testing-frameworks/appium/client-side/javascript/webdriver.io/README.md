@@ -7,7 +7,7 @@ Note: For now it's Android only example.
 
 ## Structure
 
-```sh
+```
 .
 ├── package.json
 ├── package-lock.json
@@ -38,19 +38,38 @@ it contains information about project and what's more important - dependenencies
 
 ### Install Dependencies
 
-```sh
+```
 npm ci
+```
+### Add your apiKey to `./.credentials.json`
+
+Create a file called ".credentials.json" in the project's root and add your testdroid apiKey to it as described below:
+
+```json
+{
+    "apiKey": "YOUR_TESTDROID_CLOUD_APIKEY"
+}
+```
+
+### Add sample application ID to `./.credentials.json`
+Download [sample application](https://github.com/bitbar/test-samples/blob/master/apps/android/bitbar-sample-app.apk) and upload it to your BitBar Files Library. Copy applications ID and add it to  `.credentials.json`.
+
+```json
+{
+    "apiKey": "YOUR_TESTDROID_CLOUD_APIKEY",
+    "appId": "YOUR_APPLICATION_ID"
+}
 ```
 
 ### Prepare Webdriver.io Configuration
 
 You need to edit `wdio.conf.js` and set capabilities. You can either edit existing one (if you set API key then it should
-work out of the box) or you can use [Capabilities Creator](https://bitbar.github.io/capabilities-creator/) (you just need
-to switch mode to "Appium" and in top right corner language to "Node.js").
+work out of the box) or you can use [Capabilities Creator](https://staging.bitbar.com/#public/capabilities-creator) (you just need
+to switch mode to "Appium" and language to "Node.js").
 
 ### Run
 
-```sh
+```
 npm run test
 ```
 
