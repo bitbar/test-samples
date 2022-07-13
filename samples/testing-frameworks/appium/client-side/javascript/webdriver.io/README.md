@@ -27,7 +27,7 @@ it contains information about project and what's more important - dependenencies
 * `screenshots` - Here will appear all taken screenshots. Note: Directory will be cleared before each test run.
 * `test/specs/main.js` - Test itself
 * `wdio.conf.js` - Config for [Webdriver.io Testrunner](https://webdriver.io/docs/gettingstarted.html)
-* .`credentials.json` - This file isn't included in the repository, however it's required to run sample code. You need to create it by yourself according to instruictions below. It is used to store sensitive data.
+* .`credentials.json` - This file isn't included in the repository, however it's required to run sample code. You need to create it by yourself according to instructions below. It is used to store sensitive data.
 
 ### Dependencies
 
@@ -51,7 +51,7 @@ Create a file called ".credentials.json" in the project's root and add your test
 
 ```json
 {
-    "apiKey": "YOUR_TESTDROID_CLOUD_APIKEY"
+    "apiKey": "YOUR_BITBAR_CLOUD_APIKEY"
 }
 ```
 
@@ -60,7 +60,7 @@ Download [sample application](https://github.com/bitbar/test-samples/blob/master
 
 ```json
 {
-    "apiKey": "YOUR_TESTDROID_CLOUD_APIKEY",
+    "apiKey": "YOUR_BITBAR_CLOUD_APIKEY",
     "appId": "YOUR_APPLICATION_ID"
 }
 ```
@@ -68,7 +68,7 @@ Download [sample application](https://github.com/bitbar/test-samples/blob/master
 ### Prepare Webdriver.io Configuration
 
 You need to edit `wdio.conf.js` and set capabilities. You can either edit existing one (if you set API key then it should
-work out of the box) or you can use [Capabilities Creator](https://staging.bitbar.com/#public/capabilities-creator) (you just need
+work out of the box) or you can use [Capabilities Creator](https://cloud.bitbar.com/#public/capabilities-creator) (you just need
 to switch mode to "Appium" and language to "Node.js").
 
 ### Run
