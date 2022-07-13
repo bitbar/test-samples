@@ -9,3 +9,4 @@ venv
 .classpath
 .project
 .settings/
+!screenshot-folder/.gitkeep
