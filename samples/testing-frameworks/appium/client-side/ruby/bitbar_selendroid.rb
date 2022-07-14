@@ -7,28 +7,36 @@ require 'rspec'
 require 'selenium-webdriver'
 require 'curb'
 require 'selenium/webdriver/remote/http/curb'
+require 'webdrivers'
 include Selenium
 
 
 ##
 ## IMPORTANT: Set the following parameters.
+## Make sure that the screenshot directory already exists!
 ##
 screen_shot_dir = "screenshot-folder"
-bitbar_api_key = ENV["BITBAR_APIKEY"]
-bitbar_device = "Samsung Galaxy Nexus GT-I9250 4.2.2" # Example device. Change if you desire.
+bitbar_api_key = "Your bitbar api key"
+bitbar_device = "Motorola Nexus 6 /03" # Example device. Change if you desire.
 bitbar_app_file = "BitbarAndroidSample.apk"
 
+##
+##  If your app is already uploaded assign its ID to the bitbar_app_id (can be found in bitbar files library)
+##
+bitbar_app_id = nil
 
 def log(msg)
   puts "#{Time.now}: #{msg}"
 end
 
-@bitbar_app = nil
-desired_capabilities_cloud = {
-    'device' => 'Selendroid',
+##
+##  Set other parameters if needed, see more on README
+## 
+opt =
+{
+    'device' => 'Motorola Nexus 6 /03',
     'platformName' => 'Android',
-    'deviceName' => 'Android',
-    'bitbar_app' => nil,
+    'deviceName' => bitbar_device,
     'bitbar_apiKey' => bitbar_api_key,
     'bitbar_target' => 'selendroid',
     'bitbar_project' => 'Appium Android(Selendroid) demo',
@@ -38,7 +46,6 @@ desired_capabilities_cloud = {
     'app-package' => 'com.bitbar.testdroid',
     'app-activity' => '.BitbarSampleApplicationActivity',
 }
-
 
 server_url = 'https://appium.bitbar.com/wd/hub'
 
@@ -58,16 +65,18 @@ end
 
 describe "BitbarAndroidSample testing" do
   before :all do
+    if bitbar_app_id == nil
+      log ("Upload application #{bitbar_app_file}")
+      upload_application(bitbar_app_file, bitbar_api_key)
+      log ("Uploaded file id #{bitbar_app_id}")
+    end
 
-    log ("Upload application #{bitbar_app_file}")
-    upload_application(bitbar_app_file, bitbar_api_key)
-    log ("Uploaded file id #{@bitbar_app}")
+    opt['bitbar_app'] = bitbar_app_id
+    desired_capabilities_cloud= Selenium::WebDriver::Remote::Capabilities.new(opt)
 
-    desired_capabilities_cloud['bitbar_app'] = @bitbar_app
     http_client = WebDriver::Remote::Http::Curb.new
-    http_client.timeout = nil #not timeout for Webdriver calls
-    log ("Start Webdriver with [#{desired_capabilities_cloud}]")
-    @driver = Selenium::WebDriver.for(:remote, :desired_capabilities => desired_capabilities_cloud, :url => server_url, :http_client => http_client)
+    log ("Start Webdriver with [#{opt}]")
+    @driver = Selenium::WebDriver.for(:remote, :capabilities => desired_capabilities_cloud, :url => server_url, :http_client => http_client)
 
     log ("WebDriver response received")
   end
@@ -79,7 +88,7 @@ describe "BitbarAndroidSample testing" do
   after :all do
     log ("Stop WebDriver")
 
-    @driver.quit
+    @driver.quit()
   end
 
   it "should show failure page" do
