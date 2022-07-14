@@ -68,7 +68,7 @@ describe "BitbarSampleApp testing" do
     if bitbar_app_id == nil
       log ("Upload application #{bitbar_app_file}")
       upload_application(bitbar_app_file, bitbar_api_key)
-      log ("Uploaded file id #{@bitbar_app}")
+      log ("Uploaded file id #{bitbar_app_id}")
     end
     desired_capabilities_cloud['bitbar_app'] = bitbar_app_id
     http_client = WebDriver::Remote::Http::Curb.new
