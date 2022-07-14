@@ -10,7 +10,7 @@ scripts you should register with [Bitbar
 service](https://cloud.bitbar.com/).
 
 For more detailed guides on Appium please refer to their
-[documentation online](http://appium.io/slate/en/master/?python#about-appium).
+[documentation online](https://appium.github.io/python-client-sphinx/).
 
 ## Uploading Your App To Cloud
 

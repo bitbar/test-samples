@@ -10,6 +10,7 @@ from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
 from bitbar_utils import BitbarUtils
+from selenium.webdriver.common.by import By
 
 class BitbarIOS(unittest.TestCase):
     """
@@ -72,7 +73,6 @@ class BitbarIOS(unittest.TestCase):
 
         # set up webdriver
         self.utils.log("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins")
-
         self.driver = webdriver.Remote(command_executor=appium_url, desired_capabilities=desired_capabilities_cloud)
         self.utils.update_driver(self.driver)
         self.utils.log("WebDriver response received")
@@ -84,12 +84,12 @@ class BitbarIOS(unittest.TestCase):
     def testSample(self):
         # view1
         self.utils.log("view1: Finding buttons")
-        buttons = self.driver.find_elements_by_class_name('UIAButton')
+        buttons = self.driver.find_elements(By.CLASS_NAME, 'UIAButton')
         self.utils.log("view1: Clicking button [0] - RadioButton 1")
         buttons[0].click()
 
         self.utils.log("view1: Typing in textfield[0]: Bitbar user")
-        elem = self.driver.find_element_by_class_name('UIATextField')
+        elem = self.driver.find_element(By.CLASS_NAME,'UIATextField')
         elem.clear()
         elem.send_keys('Bitbar user')
 
@@ -97,7 +97,7 @@ class BitbarIOS(unittest.TestCase):
         self.utils.screenshot("text-in-field")
 
         self.utils.log("view1: Hiding Keyboard")
-        self.driver.find_element_by_xpath("//*[contains(@name, 'Return')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(@name, 'Return')]").click()
         
         self.utils.log("view1: Hiding keyboard")
         self.utils.screenshot("keyboard-hidden")
@@ -110,14 +110,14 @@ class BitbarIOS(unittest.TestCase):
 
         # view2
         self.utils.log("view2: Finding buttons")
-        buttons = self.driver.find_elements_by_class_name('UIAButton')
+        buttons = self.driver.find_elements(By.CLASS_NAME, 'UIAButton')
         self.utils.log("view2: Clicking button[0] - Back/OK button")
         buttons[0].click()
         self.utils.screenshot("back-to-view1")
         
         # view1
         self.utils.log("view1: Finding buttons")
-        buttons = self.driver.find_elements_by_class_name('UIAButton')
+        buttons = self.driver.find_elements(By.CLASS_NAME, 'UIAButton')
         self.utils.log("view1: Clicking button[2] - RadioButton 2")
         buttons[2].click()
         self.utils.screenshot("radio-button-clicked")

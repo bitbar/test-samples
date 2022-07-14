@@ -3,11 +3,10 @@
 #
 
 import argparse
-import base64
 import os
 import requests
 import sys
-
+from requests.auth import HTTPBasicAuth
 
 class UploadApp():
     def __init__(self):
@@ -37,15 +36,10 @@ class UploadApp():
             print("ERROR: API key is missing. Provide BITBAR_APIKEY env var or -k/--apikey <APIKEY> flag.")
             sys.exit(1)
 
-    def build_headers(self):
-        hdrs = {'Authorization': 'Basic %s' % base64.b64encode(self.api_key + ":"),
-                'Accept': 'application/json'}
-        return hdrs
-
     def upload_app(self):
         self.parse_args()
         files = {'file': (os.path.basename(self.myfile), open(self.myfile, 'rb'), 'application/octet-stream')}
-        r = requests.post(self.upload_url, files=files, headers=self.build_headers())
+        r = requests.post(self.upload_url, files=files, auth=HTTPBasicAuth(self.api_key, ''))
 
         try:
             print("File id to use in bitbar capabilities in your test: {}".format(r.json()['id']))
@@ -56,3 +50,4 @@ class UploadApp():
 if __name__ == '__main__':
     up = UploadApp()
     up.upload_app()
+    
