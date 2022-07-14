@@ -17,7 +17,7 @@ require 'fileutils'
 ##
 screen_shot_dir = "screenshot-folder"
 bitbar_api_key = "Your bitbar api key"
-bitbar_device = "Apple iPhone 8 A1863 15.3"
+bitbar_device = "Apple iPhone 8 A1863 15.3" # Example device
 bitbar_app_file = "../../../../../apps/ios/bitbar-ios-sample.ipa"
 
 ##
