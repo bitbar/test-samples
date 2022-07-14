@@ -7,23 +7,27 @@ Note: For now it's Android only example.
 
 ## Structure
 
-```sh
+```
 .
 ├── package.json
 ├── package-lock.json
+├── .npmrc
 ├── screenshots
 │   └── .gitkeep
 ├── test
 │   └── specs
 │       └── main.js
-└── wdio.conf.js
+├── wdio.conf.js
+└── .credentials.json
 ```
 
 * `package.json` and `package-lock.json` is obvious for everyone familiar with Node.js. Shortly for those who doesn't know:
 it contains information about project and what's more important - dependenencies.
+* `.npmrc` - Config for npm
 * `screenshots` - Here will appear all taken screenshots. Note: Directory will be cleared before each test run.
 * `test/specs/main.js` - Test itself
 * `wdio.conf.js` - Config for [Webdriver.io Testrunner](https://webdriver.io/docs/gettingstarted.html)
+* .`credentials.json` - This file isn't included in the repository, however it's required to run sample code. You need to create it by yourself according to instructions below. It is used to store sensitive data.
 
 ### Dependencies
 
@@ -38,19 +42,38 @@ it contains information about project and what's more important - dependenencies
 
 ### Install Dependencies
 
-```sh
+```
 npm ci
+```
+### Add your apiKey to `./.credentials.json`
+
+Create a file called ".credentials.json" in the project's root and add your testdroid apiKey to it as described below:
+
+```json
+{
+    "apiKey": "YOUR_BITBAR_CLOUD_APIKEY"
+}
+```
+
+### Add sample application ID to `./.credentials.json`
+Download [sample application](https://github.com/bitbar/test-samples/blob/master/apps/android/bitbar-sample-app.apk) and upload it to your BitBar Files Library. Copy applications ID and add it to  `.credentials.json` file:
+
+```json
+{
+    "apiKey": "YOUR_BITBAR_CLOUD_APIKEY",
+    "appId": "YOUR_APPLICATION_ID"
+}
 ```
 
 ### Prepare Webdriver.io Configuration
 
 You need to edit `wdio.conf.js` and set capabilities. You can either edit existing one (if you set API key then it should
-work out of the box) or you can use [Capabilities Creator](https://bitbar.github.io/capabilities-creator/) (you just need
-to switch mode to "Appium" and in top right corner language to "Node.js").
+work out of the box) or you can use [Capabilities Creator](https://cloud.bitbar.com/#public/capabilities-creator) (you just need
+to switch mode to "Appium" and language to "Node.js").
 
 ### Run
 
-```sh
+```
 npm run test
 ```
 

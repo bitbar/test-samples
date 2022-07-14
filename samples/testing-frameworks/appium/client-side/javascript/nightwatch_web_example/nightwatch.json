@@ -6,46 +6,45 @@
     "page_objects_path": "",
     "globals_path": "",
     "test_settings": {
-        "testdroid_ios": {
-            "launch_url": "https://appium.bitbar.com:80/wd/hub",
-            "selenium_port": 80,
+        "bitbar_ios": {
+            "launch_url": "https://appium.bitbar.com/wd/hub",
+            "selenium_port": 443,
             "selenium_host": "appium.bitbar.com",
             "screenshots": {
                 "enabled": false,
                 "path": ""
             },
             "desiredCapabilities": {
-                "testdroid_apiKey": "<insert_your_apiKey_to_credentials_file>",
-                "testdroid_target": "safari",
-                "testdroid_project": "Nightwatch_Example_iOS",
-                "testdroid_testrun": "TestRun_iOS",
-                "testdroid_device": "Apple iPhone 5 A1429 10.2",
+                "bitbar_apiKey": "<insert_your_apiKey_to_credentials_file>",
+                "bitbar_device": "Apple iPhone 7 A1778 15.4.1",
                 "platformName": "iOS",
-                "deviceName": "iPhone",
+                "deviceName": "iPhone device",
+                "automationName": "XCUITest",
                 "browserName": "safari",
-                "automationName": "XCUITest"
+                "bitbar_project": "Nightwatch_Example_IOS",
+                "bitbar_testrun": "TestRun_IOS"
             }
         },
-        "testdroid_android": {
-            "launch_url": "https://appium.bitbar.com:80/wd/hub",
-            "selenium_port": 80,
+        "bitbar_android": {
+            "launch_url": "https://appium.bitbar.com/wd/hub",
+            "selenium_port": 443,
             "selenium_host": "appium.bitbar.com",
             "screenshots": {
                 "enabled": false,
                 "path": ""
             },
             "desiredCapabilities": {
-                "testdroid_apiKey": "<insert_your_apiKey_to_credentials_file>",
-                "testdroid_target": "chrome",
-                "testdroid_project": "Nightwatch_Example_Android",
-                "testdroid_testrun": "TestRun_Android",
-                "testdroid_device": "LG Google Nexus 5 6.0.1 -US",
-                "deviceName": "LG Google Nexus 5 6.0.1 -US",
+                "bitbar_apiKey": "<insert_your_apiKey_to_credentials_file>",
+                "bitbar_device": "Google Pixel 3a Android 12",
                 "platformName": "Android",
-                "browserName": "chrome"
+                "deviceName": "Android Phone",
+                "browserName": "chrome",
+                "automationName": "Appium",
+                "bitbar_project": "Nightwatch_Example_Android",
+                "bitbar_testrun": "TestRun_Android"
             }
         },
-        "testdroid_ios_server_side": {
+        "bitbar_ios_server_side": {
             "launch_url": "http://localhost:4723/wd/hub",
             "selenium_port": 4723,
             "selenium_host": "localhost",
@@ -62,7 +61,7 @@
                 "automationName": "XCUITest"
             }
         },
-        "testdroid_android_server_side": {
+        "bitbar_android_server_side": {
             "launch_url": "http://localhost:4723/wd/hub",
             "selenium_port": 4723,
             "selenium_host": "localhost",

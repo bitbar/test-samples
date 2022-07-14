@@ -26,7 +26,7 @@
     }
     ```
 
-* Modify the `nightwatch.json-file` according to your project
+* Modify the `nightwatch.json` file according to your project
 
 ### Run
 

@@ -7,13 +7,16 @@
   "scripts": {
     "test": "npx wdio wdio.conf.js"
   },
+  "engines": {
+    "npm": ">=6.0.0"
+  },
   "dependencies": {
-    "@wdio/cli": "^5.16.7",
-    "@wdio/local-runner": "^5.16.7",
-    "@wdio/mocha-framework": "^5.16.5",
-    "@wdio/spec-reporter": "^5.16.5",
-    "@wdio/sync": "^5.16.5",
-    "chai": "^4.2.0",
+    "@wdio/cli": "^7.20.5",
+    "@wdio/local-runner": "^7.20.5",
+    "@wdio/mocha-framework": "^7.20.3",
+    "@wdio/spec-reporter": "^7.20.3",
+    "@wdio/sync": "^7.20.5",
+    "chai": "^4.3.6",
     "rimraf": "^3.0.2"
   }
 }

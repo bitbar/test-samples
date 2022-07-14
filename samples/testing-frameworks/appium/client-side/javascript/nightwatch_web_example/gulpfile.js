@@ -20,7 +20,7 @@ gulp.task('ios', function() {
   return build_client_side()
     .pipe(nightwatch({
       configFile: 'build/nightwatch.json',
-      cliArgs: [ '--env testdroid_ios']
+      cliArgs: [ '--env bitbar_ios']
     }));
 });
 
@@ -28,7 +28,7 @@ gulp.task('android', function() {
   return build_client_side()
     .pipe(nightwatch({
       configFile: 'build/nightwatch.json',
-      cliArgs: [ '--env testdroid_android']
+      cliArgs: [ '--env bitbar_android']
     }));
 });
 
@@ -45,7 +45,7 @@ gulp.task('androidServerSide', function() {
   return build_server_side()
     .pipe(nightwatch({
       configFile: 'build/nightwatch.json',
-      cliArgs: [ '--env testdroid_android_server_side','--verbose']
+      cliArgs: [ '--env bitbar_android_server_side','--verbose']
     }));
 });
 
@@ -53,7 +53,7 @@ gulp.task('iosServerSide', function() {
   return build_server_side()
     .pipe(nightwatch({
       configFile: 'build/nightwatch.json',
-      cliArgs: [ '--env testdroid_ios_server_side','--verbose']
+      cliArgs: [ '--env bitbar_ios_server_side','--verbose']
     }));
 });
 
