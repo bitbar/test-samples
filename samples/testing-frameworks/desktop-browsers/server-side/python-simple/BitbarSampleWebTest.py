@@ -11,7 +11,6 @@ import unittest
 import xmlrunner
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
-from selenium.webdriver.common.by import By
 
 def log(msg):
     print ("%s: %s" % (time.strftime("%H:%M:%S"), msg))
@@ -33,7 +32,7 @@ class BitbarSampleWebTest(unittest.TestCase):
 
         try:
             driver.get("https://bitbar.com/")
-            print driver.title
+            print(driver.title)
 
             driver.get_screenshot_as_file(self.screenshot_dir + 'frontpage.png')
             log("Finish!")
