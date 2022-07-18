@@ -19,14 +19,21 @@ Note that these files have to be at the root of the zip file, i.e. not inside an
   * setup_appium.rb
   * android_sample_spec.rb / ios_sample_spec.rb
 
+You can use a Bitbar Testing cloud project of type `Appium Android server side` or `Appium iOS server side` according to the target platform.
+
+Once you have your cloud project created, you can use created .zip file and your application (.apk or .ipa) file.
+
+Now that you have your test zip and the application file (this sample uses the Bitbar Sample Apps available at [apps/builds](https://github.com/bitbar/testdroid-samples/tree/master/apps/builds), you're ready to create a testrun in your project at the [test cloud](https://cloud.bitbar.com). Upload the app and test zip in the appropriate pages, choose the device group and finally make sure you have set high enough timeout for your tests in the Advanced options (default is 10 minutes).
+
 ### Quick Start
 
 * Install [Bundler](http://bundler.io/) to install all necessary gems
 and dependencies.
 
 * Install necessary gems and dependencies. Run in current directory:
-
-bundle install
+    ```sh
+    bundle install
+    ```
 
 * Update your test script (setup_appium.rb) with necessary information
 (see below).
