@@ -16,14 +16,14 @@ require 'fileutils'
 ## Make sure that the screenshot directory already exists!
 ##
 screen_shot_dir = "screenshot-folder"
-bitbar_api_key = "lp5pYpMvDitoGnp750y3NYNRFxrJ9uF4"
-bitbar_device = "Apple iPad 4 mini 13.2.3 /08 BS" # Example device. Change if you desire.
+bitbar_api_key = ENV["BITBAR_APIKEY"] #Your bitbar api key
+bitbar_device = "Apple iPhone 7 A1778 15.4.1" # Example device. Change if you desire.
 bitbar_app_file = "BitbarIOSSample.ipa"
 
 ##
 ##  If your app is already uploaded assign its ID to the bitbar_app_id (can be found in bitbar files library)
 ##
-bitbar_app_id = "47532858"
+bitbar_app_id = nil
 
 
 ##
@@ -45,7 +45,7 @@ desired_capabilities_cloud = {
 }
 
 
-server_url = 'https://broker-staging.bitbar.com/wd/hub'
+server_url = 'https://appium.bitbar.com/wd/hub'
 
 def log(msg)
   puts "#{Time.now}: #{msg}"
@@ -91,7 +91,7 @@ describe "BitbarIOSSample testing" do
     @driver.find_element(:name, "answer1").click
 
     log ("view1: Typing in edit field: Bitbar user")
-    @driver.find_element(:name, "your name").send_keys("Bitbar user\n")
+    @driver.find_element(:name, "userName").send_keys("Bitbar user\n")
     @driver.hide_keyboard('return', :pressKey)
     sleep(2)
 
@@ -137,5 +137,5 @@ describe "BitbarIOSSample testing" do
 
   end
 
-
 end
+

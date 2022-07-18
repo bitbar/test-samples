@@ -16,8 +16,8 @@ include Selenium
 ## Make sure that the screenshot directory already exists!
 ##
 screen_shot_dir = "screenshot-folder"
-bitbar_api_key = "Your Bitbar api key"
-bitbar_device = "Motorola Nexus 6 7.1.1"
+bitbar_api_key = ENV["BITBAR_APIKEY"]
+bitbar_device = "Motorola Nexus 6 7.1.1" # Example device. Change if you desire.
 bitbar_app_file = "../../../../../apps/android/bitbar-sample-app.apk"
 
 ##
@@ -71,7 +71,6 @@ describe "BitbarSampleApp testing" do
       log ("Uploaded file id #{bitbar_app_id}")
     end
     desired_capabilities_cloud['bitbar_app'] = bitbar_app_id
-    http_client = WebDriver::Remote::Http::Curb.new
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
     @web_driver = @driver.start_driver()
@@ -119,3 +118,4 @@ describe "BitbarSampleApp testing" do
   end
 
 end
+

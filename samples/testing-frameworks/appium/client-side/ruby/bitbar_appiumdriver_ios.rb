@@ -16,8 +16,8 @@ require 'fileutils'
 ## Make sure that the screenshot directory already exists!
 ##
 screen_shot_dir = "screenshot-folder"
-bitbar_api_key = "Your bitbar api key"
-bitbar_device = "Apple iPhone 8 A1863 15.3" # Example device
+bitbar_api_key = ENV["BITBAR_APIKEY"]
+bitbar_device = "Apple iPhone 7 A1778 15.4.1" # Example device. Change if you desire.
 bitbar_app_file = "../../../../../apps/ios/bitbar-ios-sample.ipa"
 
 ##
@@ -30,7 +30,7 @@ def log(msg)
 end
 
 ##
-##  Set other parameters if needed, see more on README
+##  Set other parameters if needed, see more in README
 ## 
 desired_capabilities_cloud = {
     'device' => 'iphone',
@@ -71,7 +71,6 @@ describe "BitbarIOSSample testing" do
       upload_application(bitbar_app_file, bitbar_api_key)
       log ("Uploaded file id #{bitbar_app_id}")
     end
-    
     desired_capabilities_cloud['bitbar_app'] = bitbar_app_id
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
@@ -91,7 +90,7 @@ describe "BitbarIOSSample testing" do
     @driver.find_element(:name, "answer1").click
 
     log ("view1: Typing in edit field: Bitbar user")
-    @driver.find_element(:name, "your name").send_keys("Bitbar user\n")
+    @driver.find_element(:name, "userName").send_keys("Bitbar user\n")
     @driver.hide_keyboard('return', :pressKey)
     sleep(2)
 
@@ -138,3 +137,4 @@ describe "BitbarIOSSample testing" do
   end
 
 end
+
