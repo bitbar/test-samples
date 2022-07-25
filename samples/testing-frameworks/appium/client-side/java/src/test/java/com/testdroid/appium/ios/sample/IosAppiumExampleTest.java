@@ -29,13 +29,11 @@ class IosAppiumExampleTest extends BaseIOSTest {
         takeScreenshot("answer1_element_clicked");
         element.click();
         element.sendKeys("Testdroid");
-        wd.hideKeyboard();
         takeScreenshot("answer_typed");
         wd.findElement(By.xpath("//*[contains(@name, 'Return')]")).click();
         takeScreenshot("return_clicked");
         wd.findElement(By.xpath("//*[contains(@name, 'sendAnswer')]")).click();
         takeScreenshot("answer_sent");
     }
-
 
 }
