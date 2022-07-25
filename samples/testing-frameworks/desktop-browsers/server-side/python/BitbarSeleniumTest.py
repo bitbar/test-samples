@@ -8,7 +8,6 @@ import os
 import sys
 import time
 import unittest
-import pprint
 from selenium import webdriver
 
 def log(msg):
@@ -16,13 +15,22 @@ def log(msg):
     sys.stdout.flush()
 
 class BitbarSeleniumTest(unittest.TestCase):
-    driver = None
+    driver = 'Chrome'
 
-    hub_url = None
+    hub_url = 'https://us-west-desktop-hub.bitbar.com/wd/hub'
     screenshot_dir = None
-    desired_caps = {}
+    desired_caps = {
+        'platform': None,
+        'osVersion': None,
+        'browserName': None,
+        'version': None,
+        'resolution': None,
+        'bitbar_apiKey': '<insert your BitBar API key here>',
+        'bitbar_project': None,
+        'bitbar_testrun': None,
+    }
 
-    def setUp(self, hub_url='http://localhost:4723/wd/hub', desired_caps = {}, screenshot_dir=None):
+    def setUp(self, hub_url=hub_url, desired_caps = desired_caps, screenshot_dir=screenshot_dir):
         self.hub_url = os.environ.get('HUB_URL') or hub_url
 
         self.desired_caps = desired_caps
@@ -31,9 +39,7 @@ class BitbarSeleniumTest(unittest.TestCase):
             self.set_screenshot_dir(screenshot_dir)
         else:
             self.set_screenshot_dir('%s/screenshots/' % (os.getcwd()))
-
-        self.get_driver()
-
+        
     def tearDown(self):
         self.driver.quit()
 
@@ -45,6 +51,7 @@ class BitbarSeleniumTest(unittest.TestCase):
 
     def get_driver(self):
         if self.driver:
+            self.driver = getattr(webdriver, self.driver)()
             return self.driver
         log("Connecting WebDriver to %s" % self.hub_url)
         self.driver = webdriver.Remote(self.hub_url, self.desired_caps)
