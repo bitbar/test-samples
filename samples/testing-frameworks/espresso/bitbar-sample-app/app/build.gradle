@@ -2,9 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "26.0.2"
 
-    defaultConfig {
+  defaultConfig {
         applicationId "com.bitbar.testdroid"
         minSdkVersion 19
         targetSdkVersion 30
@@ -19,11 +18,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
-
-    packagingOptions {
-        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
-        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+  packagingOptions {
+    resources {
+      excludes += ['META-INF/maven/com.google.guava/guava/pom.properties', 'META-INF/maven/com.google.guava/guava/pom.xml']
     }
+  }
+
 }
 dependencies{
     testImplementation 'junit:junit:4.13.2'
