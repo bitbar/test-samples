@@ -11,6 +11,7 @@ from appium import webdriver
 from device_finder import DeviceFinder
 from selenium.common.exceptions import WebDriverException
 from bitbar_utils import BitbarUtils
+from selenium.webdriver.common.by import By
 
 
 class BitbarAndroid(unittest.TestCase):
@@ -116,13 +117,13 @@ class BitbarAndroid(unittest.TestCase):
                             Hybrid view will crash.")
 
         self.utils.log('Clicking button "hybrid app"')
-        element = self.driver.find_element_by_id('com.testdroid.sample.android:id/mm_b_hybrid')
+        element = self.driver.find_element(By.ID, 'com.testdroid.sample.android:id/mm_b_hybrid')
         element.click()
         self.utils.screenshot('hybrid_activity')
 
         url = "https://bitbar.github.io/web-testing-target/"
         self.utils.log('Typing in the url ' + url)
-        element = self.driver.find_element_by_id('com.testdroid.sample.android:id/hy_et_url')
+        element = self.driver.find_element(By.ID, 'com.testdroid.sample.android:id/hy_et_url')
         element.send_keys(url)
         self.utils.screenshot('url_typed')
 
@@ -134,7 +135,7 @@ class BitbarAndroid(unittest.TestCase):
         self.utils.screenshot('keyboard_hidden')
 
         self.utils.log('Clicking Load url button')
-        element = self.driver.find_element_by_id('com.testdroid.sample.android:id/hy_ib_loadUrl')
+        element = self.driver.find_element(By.ID, 'com.testdroid.sample.android:id/hy_ib_loadUrl')
         element.click()
         self.utils.screenshot('webpage_loaded')
 
@@ -157,7 +158,7 @@ class BitbarAndroid(unittest.TestCase):
         self.utils.screenshot("answer")
 
         self.utils.log("Check answer text")
-        self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Bitbar")]')
+        self.driver.find_element(By.XPATH, '//p[@id="result_element" and contains(., "Bitbar")]')
 
         self.utils.log("Verify button changed color")
         style = str(button.get_attribute('style'))

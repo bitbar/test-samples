@@ -6,7 +6,6 @@
 import os
 import unittest
 import subprocess
-from uiautomator import Selector
 from time import sleep
 from appium import webdriver
 from device_finder import DeviceFinder
