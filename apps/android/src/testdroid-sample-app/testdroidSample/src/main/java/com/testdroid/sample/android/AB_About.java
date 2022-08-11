@@ -11,8 +11,6 @@ import utils.Helpers;
  */
 public class AB_About extends Activity {
 
-    private static final String TAG = AB_About.class.getName().toString();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

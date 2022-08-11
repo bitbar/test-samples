@@ -16,7 +16,7 @@ import utils.Helpers;
  */
 public class FC_Functions extends Activity implements View.OnClickListener {
 
-    private static final String TAG = FC_Functions.class.getName().toString();
+    private static final String TAG = FC_Functions.class.getName();
 
     // UI Widgets
     private static Button b_pingTest;
@@ -85,11 +85,7 @@ public class FC_Functions extends Activity implements View.OnClickListener {
             isExplode = true;
         }
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                isExplode = false;
-            }
-        }, 2000);
+        new Handler().postDelayed(() -> isExplode = false, 2000);
     }
 
     private void anr() {
@@ -105,11 +101,7 @@ public class FC_Functions extends Activity implements View.OnClickListener {
             isAnr = true;
         }
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                isAnr = false;
-            }
-        }, 2000);
+        new Handler().postDelayed(() -> isAnr = false, 2000);
 
     }
 

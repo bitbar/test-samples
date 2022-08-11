@@ -3,11 +3,7 @@ package com.testdroid.sample.android.models;
 public class DeviceProperty {
 
     private String name;
-    private String value;
-
-    public DeviceProperty() {
-
-    }
+    private final String value;
 
     public DeviceProperty(String name, String value) {
         this.name = name;
@@ -26,7 +22,4 @@ public class DeviceProperty {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

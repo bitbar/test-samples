@@ -1,17 +1,12 @@
 package com.testdroid.sample.android;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -21,9 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import utils.Animations;
-import utils.Constants;
-
 /**
  * Activity which can open text file from external storage.
  *
@@ -31,7 +23,7 @@ import utils.Constants;
  */
 public class ES_ExternalStorage extends Activity implements View.OnClickListener {
 
-    private static final String TAG = ES_ExternalStorage.class.getName().toString();
+    private static final String TAG = ES_ExternalStorage.class.getName();
 
     private static final String DEFAULT_FILE = "/sdcard/datadir/datafile.txt";
 

@@ -1,5 +1,6 @@
 package com.testdroid.sample.android;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -12,12 +13,8 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 
 import com.testdroid.sample.android.adapters.DevicePropertyExpandableArrayAdapter;
 import com.testdroid.sample.android.models.DeviceProperty;
@@ -26,12 +23,11 @@ import com.testdroid.sample.android.models.DevicePropertyGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickListener {
+public class DI_DeviceInfo extends Activity implements View.OnClickListener {
 
-    private static final String TAG = DI_DeviceInfo.class.getName().toString();
+    private static final String TAG = DI_DeviceInfo.class.getName();
 
     // UI Widgets
-    private static ListView lv_deviceInfo;
     private static ExpandableListView elv_deviceInfo;
 
     private static ArrayList<DevicePropertyGroup> propertyGroupList;
@@ -70,7 +66,7 @@ public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()) {
+        switch (view.getId()) {           
         }
     }
 
@@ -94,7 +90,6 @@ public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickList
         propertyGroup.add(new DeviceProperty("SDK", "" + Build.VERSION.SDK_INT));
         propertyGroup.add(new DeviceProperty("Release", Build.VERSION.RELEASE));
         propertyGroup.add(new DeviceProperty("Serial", Build.SERIAL));
-        propertyGroup.add(new DeviceProperty("IMEI", ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId()));
 
         propertyGroupList.add(new DevicePropertyGroup("Build", propertyGroup));
 
@@ -177,7 +172,7 @@ public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickList
         propertyGroup.add(new DeviceProperty("Level", "" + levelFloat));
 
         // status
-        String statusString = null;
+        String statusString;
         switch (status) {
             case BatteryManager.BATTERY_STATUS_CHARGING:
                 statusString = "Charging";
@@ -201,7 +196,7 @@ public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickList
         propertyGroup.add(new DeviceProperty("Status", statusString));
 
         // plugged
-        String pluggedString = null;
+        String pluggedString;
         switch (plugged) {
             case BatteryManager.BATTERY_PLUGGED_AC:
                 pluggedString = "AC";
@@ -225,7 +220,7 @@ public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickList
         propertyGroup.add(new DeviceProperty("Temperature", "" + (float) temperature / 10.0));
 
         // health
-        String healthString = null;
+        String healthString;
         switch (health) {
             case BatteryManager.BATTERY_HEALTH_COLD:
                 healthString = "Cold";
@@ -258,17 +253,6 @@ public class DI_DeviceInfo extends ActionBarActivity implements View.OnClickList
         propertyGroup.add(new DeviceProperty("Technology", technology));
 
         propertyGroupList.add(new DevicePropertyGroup("Battery", propertyGroup));
-
-    }
-
-    private void printPropertyList(ArrayList<DevicePropertyGroup> propertyGroupList) {
-
-        for (DevicePropertyGroup propertyGroup : propertyGroupList) {
-            String groupName = propertyGroup.getName();
-            for (DeviceProperty deviceProperty : propertyGroup.getPropertyList()) {
-                Log.d(TAG, String.format("Group: %s | Property: %s, Value: %s", groupName, deviceProperty.getName(), deviceProperty.getValue()));
-            }
-        }
 
     }
 

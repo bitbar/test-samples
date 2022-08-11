@@ -1,25 +1,19 @@
 package com.testdroid.sample.android;
 
 import android.app.Activity;
-import android.app.NotificationManager;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import utils.Constants;
-import utils.Helpers;
 
 /**
  * @author Saad Chaudhry <saad.chaudry@bitbar.com>
  */
 public class WE_Wear extends Activity implements View.OnClickListener {
-
-    private static final String TAG = WE_Wear.class.getName().toString();
 
     // UI Widgets
     private static Button b_notify;

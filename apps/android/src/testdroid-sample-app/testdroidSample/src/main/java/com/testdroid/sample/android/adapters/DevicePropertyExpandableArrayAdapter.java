@@ -71,7 +71,7 @@ public class DevicePropertyExpandableArrayAdapter extends BaseExpandableListAdap
             convertView = layoutInflater.inflate(R.layout.device_property_group_layout, null);
         }
 
-        TextView tv_name = (TextView) convertView.findViewById(R.id.device_property_group_tv_name);
+        TextView tv_name = convertView.findViewById(R.id.device_property_group_tv_name);
         tv_name.setText(propertyGroupList.get(groupPosition).getName());
 
         return convertView;
@@ -84,8 +84,8 @@ public class DevicePropertyExpandableArrayAdapter extends BaseExpandableListAdap
             convertView = layoutInflater.inflate(R.layout.device_property_layout, null);
         }
 
-        TextView tv_name = (TextView) convertView.findViewById(R.id.device_property_tv_name);
-        TextView tv_value = (TextView) convertView.findViewById(R.id.device_property_tv_value);
+        TextView tv_name = convertView.findViewById(R.id.device_property_tv_name);
+        TextView tv_value = convertView.findViewById(R.id.device_property_tv_value);
 
         DeviceProperty deviceProperty = propertyGroupList.get(groupPosition).getPropertyList().get(childPosition);
 

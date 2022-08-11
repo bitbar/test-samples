@@ -9,8 +9,6 @@ import com.testdroid.sample.android.game.GameView;
 
 public class GA_Game extends Activity {
 
-    private static final String TAG = GA_Game.class.getName().toString();
-
     // UI Widgets
     // private static TextView tv_version;
 

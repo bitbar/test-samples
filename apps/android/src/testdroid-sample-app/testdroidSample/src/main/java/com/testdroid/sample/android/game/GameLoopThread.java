@@ -6,9 +6,7 @@ import utils.Constants;
 
 public class GameLoopThread extends Thread {
 
-    private int FPS = Constants.GAME_FPS;
-
-    private GameView gameView;
+    private final GameView gameView;
     private boolean running = false;
 
     public GameLoopThread(GameView gameView) {
@@ -22,6 +20,7 @@ public class GameLoopThread extends Thread {
     @Override
     public void run() {
 
+        int FPS = Constants.GAME_FPS;
         long ticksPerSec = 1000 / FPS; // ticks is the minimum time each iteration should take
         long startTime;
         long sleepTime;
