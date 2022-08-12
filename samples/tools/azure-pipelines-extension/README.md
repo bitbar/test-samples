@@ -7,19 +7,19 @@
 <p>1. Sign into your Azure DevOps organization or follow the detailed guide <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-sign-up?view=azure-devops">here</a> to create a new one.</p>
 <p>2. Install the <a href="https://marketplace.visualstudio.com/items?itemName=BitBar.bb-tasks">BitBar for Azure DevOps</a> extension for your organization</p>
 <p>3. Navigate to your GitHub account and <a href="https://github.com/new">create a new repository</a>.</p>
-<h4><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure1.png" /></h4>
+<h4><img src="images/azure1.png" /></h4>
 <p>4. Add test files from the <a href="https://github.com/bitbar/test-samples/tree/master/samples/tools/azure-pipelines-extension">example repository</a> </p>
 <h4><strong>Building Your Pipeline</strong></h4>
 <p>1. From the <a href="https://dev.azure.com/">Azure DevOps dashboard Dashboard</a>, create a new project and select Pipelines</p>
-<p><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure2.png" /></p>
+<p><img src="images/azure2.png" /></p>
 <p>2. Create a new pipeline  and set up your GitHub repo</p>
-<p><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure3.png" /></p>
-<p><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure4.png" /></p>
+<p><img src="images/azure3.png" /></p>
+<p><img src="images/azure4.png" /></p>
 <p>3. Add a new Service Connection from the Project Settings page using the type BitBar Credentials</p>
-<p><img class="" src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure5.png" width="286" height="384" /></p>
+<p><img class="" src="images/azure5.png" width="286" height="384" /></p>
 <p>4. Add the BitBar Configuration task to your azure-pipelines.yml file</p>
-<p><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure8.png" /></p>
-<p><img src="https://github.com/daphnemcrossbrowser/test-samples/blob/master/samples/tools/azure-pipelines-extension/images/azure7.png" /></p>
+<p><img src="images/azure8.png" /></p>
+<p><img src="images/azure7.png" /></p>
 <p>5. Save and Run</p>
 <p>You should see your build start to run in Azure Pipelines and in the BitBar app <a href="https://cloud.bitbar.com/#testing/projects">here</a>.</p>
 <p>If you have any questions or concerns, feel <a href="https://support.smartbear.com/bitbar/docs/index.html">free to get in touch</a>.</p>
