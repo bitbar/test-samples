@@ -37,6 +37,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
+        <dependency>
             <groupId>com.testdroid</groupId>
             <artifactId>mobile-opencv-image-recognition-library</artifactId>
             <version>0.3</version>
