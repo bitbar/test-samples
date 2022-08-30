@@ -5,17 +5,15 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.List;
 
 public class SimpleGoogleTest extends BaseTest {
 
-    private static final String GOOGLE_SEARCH_URL = "https://www.google.com/";
+    private static final String BITBAR_TEST_URL = "https://bitbar.github.io/web-testing-target/";
 
-    private static By searchInput = By.cssSelector("[name='q']");
-    private static By searchButton = By.cssSelector(".Tg7LZd");
+    private static By clickForAnswerButton = By.id("submit_button");
+    private static By resultElement = By.xpath("//p[@id=\"result_element\" and contains(., \"Bitbar\")]");
 
-    private static By searchResultTable = By.id("cnt");
-    private static By searchResultItemHeader = By.cssSelector("#rso div.zlBHuf");
+
 
     @Test
     public void searchForBitbar() throws InterruptedException {
@@ -23,24 +21,23 @@ public class SimpleGoogleTest extends BaseTest {
         // Get driver instance
         WebDriver driver = BaseTest.getDriver();
 
-        // Open main Google Search page
-        driver.get(GOOGLE_SEARCH_URL);
-        Assert.assertEquals(driver.getCurrentUrl(), GOOGLE_SEARCH_URL);
-
-        // Input "Bitbar" search term and click on search button
-        driver.findElement(searchInput).sendKeys("Bitbar");
-        driver.findElement(searchButton).click();
+        // Open Bitbar testing target site
+        driver.get(BITBAR_TEST_URL);
+        Assert.assertEquals(driver.getCurrentUrl(), BITBAR_TEST_URL);
         Thread.sleep(3000);
-        // Check that Search result table present with search results
-        Assert.assertTrue(driver.findElements(searchResultTable).size() > 0);
 
-        // Check that at least one search result item contains word "Bitbar"
-        List<WebElement> resultItems = driver.findElements(searchResultItemHeader);
-        boolean isPresent = false;
-        for (WebElement item : resultItems) {
-            if (item.getText().contains("Bitbar"))
-                isPresent = true;
-        }
-        Assert.assertTrue(isPresent);
+        // Press "Click for answer" button
+        driver.findElement(clickForAnswerButton).click();
+        Thread.sleep(3000);
+
+        // Check answer text
+        driver.findElement(resultElement);
+
+        // Check if button color has changed
+        String style = driver.findElement(clickForAnswerButton).getAttribute("style");
+        String expectedStyle = "rgb(127, 255, 0";
+
+        Assert.assertTrue(style.contains(expectedStyle));
+        
     }
 }
