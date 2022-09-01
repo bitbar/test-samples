@@ -6,13 +6,17 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "react": "^16.3.0-alpha.1",
-    "react-native": "^0.54.3"
+    "react": "^16.14.0",
+    "react-native": "^0.64.4"
+  },
+  "overrides": {
+    "lodash": "4.17.21",
+    "plist": "3.0.6"
   },
   "devDependencies": {
     "babel-jest": "22.4.3",
     "babel-preset-react-native": "4.0.0",
-    "detox": "^7.3.2",
+    "detox": "16.7.2",
     "jest": "22.4.3",
     "mocha": "^5.0.5",
     "react-test-renderer": "^16.3.0-alpha.1",
