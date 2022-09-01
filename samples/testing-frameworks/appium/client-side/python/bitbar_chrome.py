@@ -8,7 +8,7 @@ import unittest
 from appium import webdriver
 from device_finder import DeviceFinder
 from bitbar_utils import BitbarUtils
-
+from selenium.webdriver.common.by import By
 
 class BitbarAndroid(unittest.TestCase):
     def setUp(self):
@@ -96,7 +96,7 @@ class BitbarAndroid(unittest.TestCase):
         self.utils.screenshot("answer")
 
         self.utils.log("Check answer text")
-        self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Bitbar")]')
+        self.driver.find_element(By.XPATH,'//p[@id="result_element" and contains(., "Bitbar")]')
 
         self.utils.log("Verify button changed color")
         style = str(button.get_attribute('style'))
