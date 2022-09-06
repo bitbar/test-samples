@@ -39,7 +39,7 @@ public class GameView extends SurfaceView {
     private int[][] positionsGuns = null;
 
     private static final int MARGIN_HORIZONTAL = 50;
-    private static final int   MARGIN_VERTICAL = 50;
+    private static final int MARGIN_VERTICAL = 50;
     private static final int BULLET_SPEED = 25;
 
 
