@@ -60,7 +60,7 @@ def upload_application(file_path, bitbar_api_key)
   c.verbose = true
   c.http_post(Curl::PostField.file("file", file_path))
   resp = JSON.parse(c.body_str)
-  bitbar_app_id= resp["id"]
+  bitbar_app_id = resp["id"]
 end
 
 describe "BitbarSampleApp testing" do
