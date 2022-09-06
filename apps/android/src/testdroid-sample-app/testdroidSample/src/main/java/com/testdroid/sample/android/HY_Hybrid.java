@@ -31,7 +31,7 @@ import static android.webkit.WebView.setWebContentsDebuggingEnabled;
  */
 public class HY_Hybrid extends Activity implements View.OnClickListener {
 
-    private static final String TAG = HY_Hybrid.class.getName().toString();
+    private static final String TAG = HY_Hybrid.class.getName();
 
     private InputMethodManager inputMethodManager;
     Menu menu;
@@ -144,12 +144,9 @@ public class HY_Hybrid extends Activity implements View.OnClickListener {
 
     }
 
-    View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            if (hasFocus) {
-                urlBarClicked();
-            }
+    View.OnFocusChangeListener onFocusChangeListener = (v, hasFocus) -> {
+        if (hasFocus) {
+            urlBarClicked();
         }
     };
 

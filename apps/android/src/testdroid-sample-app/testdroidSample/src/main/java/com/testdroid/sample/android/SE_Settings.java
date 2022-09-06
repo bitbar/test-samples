@@ -15,8 +15,6 @@ import utils.Helpers;
  */
 public class SE_Settings extends Activity implements View.OnClickListener {
 
-    private static final String TAG = SE_Settings.class.getName().toString();
-
     // UI Widgets
     private static Button b_deleteCache;
 
@@ -60,8 +58,8 @@ public class SE_Settings extends Activity implements View.OnClickListener {
     public static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
+            for (String child : children) {
+                boolean success = deleteDir(new File(dir, child));
                 if (!success) {
                     return false;
                 }

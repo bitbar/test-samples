@@ -18,7 +18,7 @@ import utils.Helpers;
 
 public class GameView extends SurfaceView {
 
-    private static final String TAG = GameView.class.getName().toString();
+    private static final String TAG = GameView.class.getName();
 
     private SurfaceHolder surfaceHolder;
     private GameLoopThread gameLoopThread;
@@ -29,7 +29,7 @@ public class GameView extends SurfaceView {
     private int[] idsImagesBullets = {R.drawable.game_bullet1, R.drawable.game_bullet2, R.drawable.game_bullet3, R.drawable.game_bullet4};
     private int[] idsSoundsGuns = {R.raw.gun1, R.raw.gun2, R.raw.gun3, R.raw.gun4};
 
-    private int[] SPEED_X_BUGS = {2, 5, 8, 10, 15, 25};
+    private final int[] SPEED_X_BUGS = {2, 5, 8, 10, 15, 25};
 
     private Bitmap bitmapBullet;
     private Bitmap[] bitmapsBugs;
@@ -38,9 +38,9 @@ public class GameView extends SurfaceView {
 
     private int[][] positionsGuns = null;
 
-    private static int MARGIN_HORIZONTAL = 50;
-    private static int MARGIN_VERTICAL = 50;
-    private static int BULLET_SPEED = 25;
+    private static final int MARGIN_HORIZONTAL = 50;
+    private static final int MARGIN_VERTICAL = 50;
+    private static final int BULLET_SPEED = 25;
 
 
     private int bugType = -1;
@@ -128,6 +128,7 @@ public class GameView extends SurfaceView {
 
     public void draw(Canvas canvas) {
 
+        super.draw(canvas);
         if (canvas == null) {
             return;
         }
@@ -140,7 +141,6 @@ public class GameView extends SurfaceView {
 
         if (firingGun != -1) {
             drawBullet(canvas);
-        } else {
         }
 
         checkHit();
@@ -216,17 +216,17 @@ public class GameView extends SurfaceView {
 
         int totalGuns = bitmapGuns.length;
 
-        int gunPositions[][] = new int[totalGuns][2];
+        int[][] gunPositions = new int[totalGuns][2];
 
         int widestGun = 0;
         int highestGun = 0;
 
-        for (int i = 0; i < totalGuns; i++) {
-            if (bitmapGuns[i].getWidth() > widestGun) {
-                widestGun = bitmapGuns[i].getWidth();
+        for (Bitmap bitmapGun : bitmapGuns) {
+            if (bitmapGun.getWidth() > widestGun) {
+                widestGun = bitmapGun.getWidth();
             }
-            if (bitmapGuns[i].getHeight() > highestGun) {
-                highestGun = bitmapGuns[i].getHeight();
+            if (bitmapGun.getHeight() > highestGun) {
+                highestGun = bitmapGun.getHeight();
             }
         }
 
@@ -270,12 +270,9 @@ public class GameView extends SurfaceView {
         soundHit = soundPool.load(getContext(), R.raw.hit, 1);
         soundBackground = soundPool.load(getContext(), R.raw.bg, 1);
 
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                if (sampleId == soundBackground) {
-                    soundPool.play(soundBackground, 1.0f, 1.0f, 1, -1, 1.0f);
-                }
+        soundPool.setOnLoadCompleteListener((soundPool, sampleId, status) -> {
+            if (sampleId == soundBackground) {
+                soundPool.play(soundBackground, 1.0f, 1.0f, 1, -1, 1.0f);
             }
         });
 

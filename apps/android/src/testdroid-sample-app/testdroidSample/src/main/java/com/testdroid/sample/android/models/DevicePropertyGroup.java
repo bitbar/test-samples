@@ -5,11 +5,7 @@ import java.util.ArrayList;
 public class DevicePropertyGroup {
 
     private String name;
-    private ArrayList<DeviceProperty> propertyList;
-
-    public DevicePropertyGroup() {
-
-    }
+    private final ArrayList<DeviceProperty> propertyList;
 
     public DevicePropertyGroup(String label, ArrayList<DeviceProperty> propertyList) {
         this.name = label;
@@ -28,7 +24,4 @@ public class DevicePropertyGroup {
         return propertyList;
     }
 
-    public void setPropertyList(ArrayList<DeviceProperty> propertyList) {
-        this.propertyList = propertyList;
-    }
 }

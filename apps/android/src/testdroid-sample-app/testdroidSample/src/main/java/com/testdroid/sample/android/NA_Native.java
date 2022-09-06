@@ -26,8 +26,6 @@ import utils.Helpers;
  */
 public class NA_Native extends Activity implements View.OnClickListener {
 
-    private static final String TAG = NA_Native.class.getName().toString();
-
     private InputMethodManager inputMethodManager;
 
     private static final String STATE_FREE = "free";
@@ -182,11 +180,7 @@ public class NA_Native extends Activity implements View.OnClickListener {
         inputMethodManager.hideSoftInputFromWindow(et_name.getWindowToken(), 0);
 
         String name = et_name.getText().toString();
-        if (rg_options.getCheckedRadioButtonId() == R.id.na_rb_option2) {
-            goto_AN(true, name);
-        } else {
-            goto_AN(false, name);
-        }
+        goto_AN(rg_options.getCheckedRadioButtonId() == R.id.na_rb_option2, name);
     }
 
     private void enableAnswerButton() {

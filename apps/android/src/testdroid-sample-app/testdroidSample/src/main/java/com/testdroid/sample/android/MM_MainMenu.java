@@ -1,8 +1,8 @@
 package com.testdroid.sample.android;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +16,7 @@ import utils.Helpers;
 /**
  * @author Saad Chaudhry <saad.chaudry@bitbar.com>
  */
-public class MM_MainMenu extends ActionBarActivity implements View.OnClickListener {
-
-    private static final String TAG = MM_MainMenu.class.getName().toString();
+public class MM_MainMenu extends Activity implements View.OnClickListener {
 
     // UI Widgets
     private static TextView tv_version;

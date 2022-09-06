@@ -17,20 +17,6 @@ import utils.Helpers;
  */
 public class AN_Answer extends Activity {
 
-    private static final String TAG = AN_Answer.class.getName().toString();
-
-    private boolean isAnswerCorrect;
-    private String name;
-    private int score;
-
-    // UI Widgets
-    private static ImageView iv_icon;
-    private static LinearLayout ll_score;
-    private static TextView tv_heading;
-    private static TextView tv_comment;
-    private static TextView tv_score;
-    private static TextView tv_scoreMax;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,23 +30,23 @@ public class AN_Answer extends Activity {
 
         }
 
-        iv_icon = (ImageView) findViewById(R.id.iv_icon);
-        ll_score = (LinearLayout) findViewById(R.id.an_ll_score);
-        tv_heading = (TextView) findViewById(R.id.an_tv_heading);
-        tv_comment = (TextView) findViewById(R.id.an_tv_comment);
-        tv_score = (TextView) findViewById(R.id.an_tv_score);
-        tv_scoreMax = (TextView) findViewById(R.id.an_tv_scoreMax);
+        // UI Widgets
+        ImageView iv_icon = (ImageView) findViewById(R.id.iv_icon);
+        LinearLayout ll_score = (LinearLayout) findViewById(R.id.an_ll_score);
+        TextView tv_heading = (TextView) findViewById(R.id.an_tv_heading);
+        TextView tv_comment = (TextView) findViewById(R.id.an_tv_comment);
+        TextView tv_score = (TextView) findViewById(R.id.an_tv_score);
+        TextView tv_scoreMax = (TextView) findViewById(R.id.an_tv_scoreMax);
 
         // getting extras
         Bundle bundle = getIntent().getExtras();
-        this.isAnswerCorrect = bundle.getBoolean(Constants.KV_IS_ANSWER_CORRECT, true);
-        this.name = bundle.getString(Constants.KV_NAME, null);
-        this.score = bundle.getInt(Constants.KV_SCORE, -1);
+        boolean isAnswerCorrect = bundle.getBoolean(Constants.KV_IS_ANSWER_CORRECT, true);
+        String name = bundle.getString(Constants.KV_NAME, null);
+        int score = bundle.getInt(Constants.KV_SCORE, -1);
 
         if (isAnswerCorrect) {
             iv_icon.setImageResource(R.drawable.icon_sun);
             tv_heading.setText(getResources().getString(R.string.an_headingCorrect));
-            String comment;
             if (name != null) {
                 tv_comment.setText(String.format("%s, %s.", getResources().getString(R.string.an_commentCorrect), name));
             } else {
