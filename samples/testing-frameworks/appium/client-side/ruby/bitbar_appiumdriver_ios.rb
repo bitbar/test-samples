@@ -13,19 +13,25 @@ require 'fileutils'
 
 ##
 ## IMPORTANT: Set the following parameters.
+## Make sure that the screenshot directory already exists!
 ##
 screen_shot_dir = "screenshot-folder"
 bitbar_api_key = ENV["BITBAR_APIKEY"]
-bitbar_device = ENV["BITBAR_DEVICE"]
-bitbar_find_device = ENV["BITBAR_FIND_DEVICE"]
+bitbar_device = "Apple iPhone 7 A1778 15.4.1" # Example device. Change if you desire.
 bitbar_app_file = "../../../../../apps/ios/bitbar-ios-sample.ipa"
 
+##
+##  If your app is already uploaded assign its ID to the bitbar_app_id (can be found in bitbar files library)
+##
+bitbar_app_id = nil
 
 def log(msg)
   puts "#{Time.now}: #{msg}"
 end
 
-@bitbar_app = nil
+##
+##  Set other parameters if needed, see more in README
+## 
 desired_capabilities_cloud = {
     'device' => 'iphone',
     'bitbar_apiKey' => bitbar_api_key,
@@ -33,7 +39,6 @@ desired_capabilities_cloud = {
     'bitbar_description' => 'Appium project description',
     'bitbar_testrun' => 'Test Run 1',
     'bitbar_device' => bitbar_device,
-    'bitbar_findDevice' => bitbar_find_device,
     'bitbar_target' => 'ios',
     'deviceName' => 'iPhone device',
     'platformName' => 'iOS',
@@ -55,20 +60,18 @@ def upload_application(file_path, bitbar_api_key)
   c.http_post(Curl::PostField.file("file", file_path))
   resp = JSON.parse(c.body_str)
 
-  @bitbar_app = resp["id"]
+  bitbar_app_id = resp["id"]
 end
 
 describe "BitbarIOSSample testing" do
   before :all do
-
     FileUtils.mkdir_p screen_shot_dir
-
-    log ("Upload application #{bitbar_app_file}")
-    upload_application(bitbar_app_file, bitbar_api_key)
-    log ("Uploaded file id #{@bitbar_app}")
-
-    desired_capabilities_cloud['bitbar_app'] = @bitbar_app
-
+    if bitbar_app_id == nil
+      log ("Upload application #{bitbar_app_file}")
+      upload_application(bitbar_app_file, bitbar_api_key)
+      log ("Uploaded file id #{bitbar_app_id}")
+    end
+    desired_capabilities_cloud['bitbar_app'] = bitbar_app_id
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
     @web_driver = @driver.start_driver()
@@ -87,7 +90,7 @@ describe "BitbarIOSSample testing" do
     @driver.find_element(:name, "answer1").click
 
     log ("view1: Typing in edit field: Bitbar user")
-    @driver.find_element(:name, "your name").send_keys("Bitbar user\n")
+    @driver.find_element(:name, "userName").send_keys("Bitbar user\n")
     @driver.hide_keyboard('return', :pressKey)
     sleep(2)
 
@@ -134,3 +137,4 @@ describe "BitbarIOSSample testing" do
   end
 
 end
+

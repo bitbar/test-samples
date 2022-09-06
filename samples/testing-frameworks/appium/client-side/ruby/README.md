@@ -36,7 +36,8 @@ file needs to be updated with the following values.
 
 Here are all the values that you need to edit:
 
-* *screen_shot_dir* - where should screenshots be stored on your local drive
+* *screen_shot_dir* - where should screenshots be stored on your local drive.
+   Make sure that the directory already exists.
 
 * *bitbar_apiKey* - a personal unique key that allows you to
    connect to Bitbar cloud without the need to use your username
