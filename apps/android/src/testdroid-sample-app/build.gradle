@@ -3,16 +3,16 @@
 buildscript {
     repositories {
         mavenCentral()
-      google()
+        google()
     }
     dependencies {
-      classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath 'com.android.tools.build:gradle:7.2.2'
     }
 }
 
 allprojects {
     repositories {
         mavenCentral()
-      google()
+        google()
     }
 }
