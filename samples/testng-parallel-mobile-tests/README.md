@@ -52,5 +52,5 @@
 
     Run test with your Bitbar api key:
     ```
-    mvn clean test -DBITBAR_API_KEY=<YOUR_BITBAR_API_KEY>
+    mvn clean test -DBITBAR_API_KEY=<YOUR_BITBAR_API_KEY> -Dtestng.dtd.http=true
     ```
