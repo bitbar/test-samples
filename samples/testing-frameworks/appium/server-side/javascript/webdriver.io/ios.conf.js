@@ -40,7 +40,7 @@ exports.config = {
     },
 
     specs: [
-        './test/specs/ios.js'
+        './test/specs/ios.e2e.js'
     ],
 
     capabilities: [{

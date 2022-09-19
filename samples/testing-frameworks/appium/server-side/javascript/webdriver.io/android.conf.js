@@ -40,7 +40,7 @@ exports.config = {
     },
 
     specs: [
-        './test/specs/android.js'
+        './test/specs/android.e2e.js'
     ],
 
     capabilities: [{
