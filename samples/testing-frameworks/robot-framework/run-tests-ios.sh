@@ -19,7 +19,7 @@ unzip -o tests.zip
 
 echo "Installing requirements"
 chmod 0755 resources/requirements.txt
-pip3 install --user  --requirement resources/requirements.txt
+python3 -m pip install --user  --requirement resources/requirements.txt
 
 ## Start test execution
 echo "Running test"

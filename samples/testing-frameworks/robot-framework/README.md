@@ -6,7 +6,7 @@
 
 
 # How to install requirements:
-- pip install -r ./resources/requirements.txt
+- python3 -m pip install -r ./resources/requirements.txt
 
 # Running tests locally:
 There are two runner scripts for running the tests locally, ``run_android.py`` and ``run_ios.py``
