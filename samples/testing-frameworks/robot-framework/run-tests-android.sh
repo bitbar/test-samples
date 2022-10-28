@@ -6,7 +6,7 @@ unzip -o tests.zip
 
 echo "Installing requirements"
 chmod 0755 resources/requirements.txt
-pip3 install -r resources/requirements.txt
+python3 -m pip install -r resources/requirements.txt
 
 ## start Appium server
 echo "Starting Appium ..."

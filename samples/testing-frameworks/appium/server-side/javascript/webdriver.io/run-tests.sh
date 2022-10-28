@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "Starting Appium ..."
+appium --log-no-colors --log-timestamp > /dev/null
+
 echo "Preparing..."
 
 # Make sure there's no pre-existing `screenshots` file blocking symbolic link creation
@@ -16,10 +19,10 @@ npm install
 
 echo "Running tests..."
 if [ "$(uname)" == "Darwin" ]; then
-		./node_modules/.bin/wdio ios.conf.js
+	npm run test-ios
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-		./node_modules/.bin/wdio android.conf.js
+	npm run test-android
 else
-		echo "Unknown OS system, exiting..."
-		exit 1
+	echo "Unknown OS system, exiting..."
+	exit 1
 fi

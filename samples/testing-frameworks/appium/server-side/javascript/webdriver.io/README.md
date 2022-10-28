@@ -5,7 +5,7 @@ This directory contains simple test scenario using
 
 ## Structure
 
-```sh
+```text
 .
 ├── package.json
 ├── package-lock.json
@@ -15,15 +15,17 @@ This directory contains simple test scenario using
 │       ├─── android.js
 │       └─── ios.js
 ├─── android.conf.js
-└─── ios.conf.js
+├─── ios.conf.js
+└─── create-zip.sh
 ```
 
 * `package.json` and `package-lock.json` is obvious for everyone familiar with Node.js. Shortly for those who doesn't know:
 it contains information about project and what's more important - dependenencies.
-* `run-tests.sh` - starting point for Bitbar Cloud executor
+* `run-tests.sh` - starting point for BitBar Cloud executor
 * `test/specs/android.js` or `test/specs/ios.js` - Test itself
 * `android.conf.js` - Config for android [Webdriver.io Testrunner](https://webdriver.io/docs/gettingstarted.html)
 * `ios.conf.js` - Config for ios [Webdriver.io Testrunner](https://webdriver.io/docs/gettingstarted.html)
+* `create-zip.sh` - script creating zip file needed to run tests on BitBar
 
 ### Dependencies
 
@@ -43,17 +45,23 @@ it contains information about project and what's more important - dependenencies
 As always for server side execution you need to create zip package. Zip all files mentioned in [Structure](#structure)
 section above.
 
-You can do in either manually (with your OS file explorer) or by command line. Linux example:
+You can do it either manually (with your OS file explorer) or by command line. Linux example:
 
-```sh
-zip sample-test.zip \
-    package.json \
-    package-lock.json \
-    run-tests.sh \
-    test/specs/android.js \
-    test/specs/ios.js \.
-    android.conf.js
-    ios.conf.js
+```bash
+zip "sample-test.zip" \
+    "package.json" \
+    "package-lock.json" \
+    "run-tests.sh" \
+    "test/specs/android.js" \
+    "test/specs/ios.js" \
+    "android.conf.js" \
+    "ios.conf.js"
+```
+
+We've prepared script to make running that command easier. Just run `create-zip.sh` with output file name passed as parameter.
+
+```bash
+./create-zip.sh "sample-test"
 ```
 
 ### Upload Test and Create Test Run
