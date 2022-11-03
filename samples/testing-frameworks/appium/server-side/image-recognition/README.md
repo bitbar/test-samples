@@ -4,6 +4,8 @@ This Java project shows how to create Akaze image recognition tests together wit
 
 The project uses the Bitbar Sample App, will install it on the device, then check that the Bitbar logo is displayed on the screen using image recognition. The reference Bitbar logo image is located at: *queryimages/bitbar_logo.png*
 
+Current sample version works on iPhones and Android devices with API level below 28. 
+
 The project uses:
 
 - [mobile-opencv-image-recognition-library](https://github.com/bitbar/opencv-library) - Library that handles OpenCV related logic

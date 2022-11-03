@@ -42,6 +42,11 @@
             <version>20180130</version>
         </dependency>
         <dependency>
+          <groupId>org.openpnp</groupId>
+          <artifactId>opencv</artifactId>
+          <version>4.5.5-1</version>
+        </dependency>
+        <dependency>
             <groupId>com.testdroid</groupId>
             <artifactId>mobile-opencv-image-recognition-library</artifactId>
             <version>0.3</version>
@@ -78,7 +83,7 @@
         <dependency>
             <groupId>com.testdroid</groupId>
             <artifactId>testdroid-api</artifactId>
-            <version>3.6</version>
+            <version>3.7</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
