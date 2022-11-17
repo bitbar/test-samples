@@ -1,0 +1,6 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="default-testsuitename" tests="1" errors="0" failures="0" skipped="0" timestamp="2019-01-1T01:11:11" time="11.11">
+  <testcase name="default-testcase-1" classname="default-testcase-class">
+  <failure message="default-testcase-result"></failure>
+  </testcase>
+</testsuite>
