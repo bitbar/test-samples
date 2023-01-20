@@ -1,5 +1,6 @@
 import time
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common import by
 
 
 class BitbarUtils():
@@ -24,10 +25,10 @@ class BitbarUtils():
         orig_context = self.driver.current_context
         self.driver.switch_to.context("NATIVE_APP")
         self.driver.save_screenshot(self.screenshot_dir + "/" + screenshot_name)
-        # only change context if originally context was WEBVIEW 
+        # only change context if originally context was WEBVIEW
         if orig_context is not None and orig_context not in self.driver.current_context:
             self.driver.switch_to.context(orig_context)
-        
+
         self.screenshot_count += 1
 
     def wait_until_xpath_matches(self, xpath, timeout=10, step=1):
@@ -48,7 +49,7 @@ class BitbarUtils():
         while (time.time() < end_time and not found):
             self.log("  Looking for xpath {}".format(xpath))
             try:
-                elem = self.driver.find_element_by_xpath(xpath)
+                elem = self.driver.find_element(by.By.XPATH, value=xpath)
                 found = True
             except NoSuchElementException:
                 found = False
