@@ -22,16 +22,12 @@ ps -ef|grep appium
 bundle install
 echo "Running test ${TEST}"
 
-bundle exec rspec ${TEST} --format RspecJunitFormatter  --out result.xml
-
-## Post-processing
-ln -s *.xml TEST-all.xml
-
-# Make sure there's no pre-existing `screenshots` file blocking symbolic link creation
+# Make sure there's no pre-existing `screenshots` files
 rm -rf screenshots
-# Screenshots need to be available at root as directory `screenshots` .
-ln -s ${SCREENSHOT_FOLDER} screenshots
+bundle exec rspec ${TEST} --format RspecJunitFormatter  --out TEST-all.xml
 
+# Screenshots need to be available at root as directory `screenshots` .
+cp -a ${SCREENSHOT_FOLDER}. screenshots/
 
 
 
