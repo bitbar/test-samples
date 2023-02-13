@@ -32,7 +32,7 @@ exports.config = {
   capabilities: [
     {
       bitbar_apiKey: apiKey,
-      bitbar_device: "Sony Xperia Z3+ E6553",
+      bitbar_device: "Google Pixel 3a Android 12",
       bitbar_app: appId,
       biometricInstrumentation: true,
       platformName: "Android",

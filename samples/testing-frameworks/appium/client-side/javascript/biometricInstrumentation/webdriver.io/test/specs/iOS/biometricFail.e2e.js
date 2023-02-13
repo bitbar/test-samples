@@ -1,7 +1,16 @@
 describe("Fail biometric authentication", () => {
-  function sleep(n) {
-    return new Promise((resolve) => setTimeout(resolve, n));
-  }
+  it("should wait for injection to be ready", async () => {
+    const alertBiometrics = await $(
+      '//XCUIElementTypeAlert[@name="Biometric Authentication"]'
+    );
+    await alertBiometrics.waitForDisplayed({ timeout: 60000 });
+    const visable = await alertBiometrics.isDisplayed();
+    visable.should.be.true;
+    await browser.execute("mobile: alert", {
+      action: "accept",
+      buttonLabel: "OK",
+    });
+  });
 
   it("should click [BIOMETRIC AUTHENTICATION] button", async () => {
     const buttonBiometrics = await $(
