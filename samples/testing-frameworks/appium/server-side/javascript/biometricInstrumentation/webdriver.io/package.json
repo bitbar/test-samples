@@ -1,0 +1,22 @@
+{
+    "name": "appium-server-side-example-biometric",
+    "version": "1.0.0",
+    "description": "Bitbar Cloud Appium server side test example with biomtric instrumentation",
+    "license": "ISC",
+    "engines": {
+        "node": ">=12 <16"
+    },
+    "scripts": {
+        "android": "wdio run android.wdio.conf.js",
+        "ios": "wdio run ios.wdio.conf.js"
+    },
+    "dependencies": {
+        "@wdio/cli": "^6.12.1",
+        "@wdio/junit-reporter": "^6.11.0",
+        "@wdio/local-runner": "^6.12.1",
+        "@wdio/mocha-framework": "^6.11.0",
+        "@wdio/spec-reporter": "^6.11.0",
+        "@wdio/sync": "^6.11.0",
+        "chai": "^4.3.6"
+    }
+}
