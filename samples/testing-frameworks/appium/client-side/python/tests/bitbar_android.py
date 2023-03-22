@@ -26,21 +26,13 @@ class BitbarAndroid(BaseTest):
         self.desired_capabilities_cloud["appActivity"] = app_activity
         self.desired_capabilities_cloud["platformName"] = "Android"
         self.desired_capabilities_cloud["deviceName"] = "Android device"
-        if self.api_level <= 16:
-            self.desired_capabilities_cloud["bitbar_target"] = "selendroid"
-            self.desired_capabilities_cloud["automationName"] = "Selendroid"
-        else:
-            self.desired_capabilities_cloud["bitbar_target"] = "android"
-            self.desired_capabilities_cloud["automationName"] = "Appium"
+        self.desired_capabilities_cloud["bitbar_target"] = "android"
+        self.desired_capabilities_cloud["automationName"] = "Appium"
 
     def test_sample(self):
         super()._start_webdriver()
         self.utils.log("  Getting device screen size")
         self.utils.log("  " + str(self.driver.get_window_size()))
-
-        isSelendroid = None
-        if self.api_level < 17:
-            isSelendroid = True
 
         self.utils.screenshot("app_launch")
         self.utils.log("  Typing in name")
@@ -64,23 +56,17 @@ class BitbarAndroid(BaseTest):
         self.utils.screenshot("name_typed_keyboard_hidden")
 
         self.utils.log("  Clicking element 'Buy 101 devices'")
-        if isSelendroid:
-            elem = self.driver.find_element(By.LINK_TEXT, "Buy 101 devices")
-        else:
-            elem = self.driver.find_element(
-                AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Buy 101 devices")'
-            )
+        elem = self.driver.find_element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Buy 101 devices")'
+        )
         elem.click()
 
         self.utils.screenshot("clicked_button1")
 
         self.utils.log("  Clicking Answer")
-        if isSelendroid:
-            elem = self.driver.find_element(By.LINK_TEXT, "Answer")
-        else:
-            elem = self.driver.find_element(
-                AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Answer")'
-            )
+        elem = self.driver.find_element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Answer")'
+        )
         elem.click()
 
         self.utils.screenshot("answer")
@@ -90,24 +76,18 @@ class BitbarAndroid(BaseTest):
         self.utils.screenshot("main_activity")
 
         self.utils.log("  Clicking element 'Use Testdroid Cloud'")
-        if isSelendroid:
-            elem = self.driver.find_element(By.LINK_TEXT, "Use Testdroid Cloud")
-        else:
-            elem = self.driver.find_element(
-                AppiumBy.ANDROID_UIAUTOMATOR,
-                'new UiSelector().text("Use Testdroid Cloud")',
-            )
+        elem = self.driver.find_element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().text("Use Testdroid Cloud")',
+        )
         elem.click()
 
         self.utils.screenshot("clicked_button2")
 
         self.utils.log("  Clicking Answer")
-        if isSelendroid:
-            elem = self.driver.find_element(By.LINK_TEXT, "Answer")
-        else:
-            elem = self.driver.find_element(
-                AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Answer")'
-            )
+        elem = self.driver.find_element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Answer")'
+        )
         elem.click()
 
         self.utils.screenshot("answer")

@@ -25,12 +25,8 @@ class BitbarBiometricsAndroid(BaseTest):
         self.desired_capabilities_cloud["platformName"] = "Android"
         self.desired_capabilities_cloud["deviceName"] = "Android device"
         self.desired_capabilities_cloud["bitbar_biometricInstrumentation"] = True
-        if self.api_level <= 16:
-            self.desired_capabilities_cloud["bitbar_target"] = "selendroid"
-            self.desired_capabilities_cloud["automationName"] = "Selendroid"
-        else:
-            self.desired_capabilities_cloud["bitbar_target"] = "android"
-            self.desired_capabilities_cloud["automationName"] = "Appium"
+        self.desired_capabilities_cloud["bitbar_target"] = "android"
+        self.desired_capabilities_cloud["automationName"] = "Appium"
 
     def test_sample(self):
         super()._start_webdriver()
