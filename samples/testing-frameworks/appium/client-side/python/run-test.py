@@ -4,7 +4,7 @@ import unittest
 import importlib
 
 
-class BitbarTestRunner():
+class BitbarTestRunner:
     def __init__(self):
         self.variables = {"BITBAR_APIKEY": "",
                           "BITBAR_SCREENSHOTS": "",
@@ -12,7 +12,8 @@ class BitbarTestRunner():
                           "BITBAR_DEVICE": ""}
         self.available_tests = ['bitbar_chrome', 'bitbar_android',
                                 'bitbar_safari', 'bitbar_ios',
-                                'bitbar_android_hybrid']
+                                'bitbar_android_hybrid', 'bitbar_biometrics_ios',
+                                'bitbar_biometrics_android']
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Set needed environment variables for Bitbar sample tests')
@@ -77,7 +78,6 @@ class BitbarTestRunner():
 
         # export variables + values
         for key in self.variables:
-            # print("  {} : {}".format(key, self.variables[key]))
             os.environ[key] = str(self.variables[key])
 
     def print_values(self):
@@ -86,7 +86,8 @@ class BitbarTestRunner():
             print("  {} : {}".format(key, os.environ.get(key, 'Not set')))
 
     def run_selected_test(self):
-        module = importlib.import_module(self.selected_test)
+        module = importlib.import_module(
+            "." + self.selected_test, package="tests")
 
         test = module.initialize()
         suite = unittest.TestLoader().loadTestsFromTestCase(test)
@@ -96,5 +97,5 @@ class BitbarTestRunner():
 if __name__ == '__main__':
     runner = BitbarTestRunner()
     runner.parse_args()
-    # runner.print_values()
+    runner.print_values()
     runner.run_selected_test()
