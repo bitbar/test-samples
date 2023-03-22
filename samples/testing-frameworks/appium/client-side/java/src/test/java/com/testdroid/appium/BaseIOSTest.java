@@ -30,6 +30,8 @@ public class BaseIOSTest extends BaseTest {
     protected String getDesiredCapabilitiesPropertiesFileName() {
         if (isClientSideTestRun()) {
             return "desiredCapabilities.ios.clientside.properties";
+        } else if(isClientSideTestRunWithBiometry()) {
+            return "desiredCapabilities.iosBiometry.clientside.properties";
         } else {
             return "desiredCapabilities.ios.serverside.properties";
         }

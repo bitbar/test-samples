@@ -32,43 +32,83 @@ To find more information about these possibilities, visit https://docs.bitbar.co
 
 ### Android
 
-1. Download sample application [bitbar-sample-app.apk](../../../../../apps/android/bitbar-sample-app.apk)
+1.  Download sample application [bitbar-sample-app.apk](../../../../../apps/android/bitbar-sample-app.apk)
 
-1. Run the following command in the root directory of the project:
+2.  Run the following command in the root directory of the project:
 
-    ```sh
-    mvn clean test \
-        -Dtest=AndroidAppiumExampleTest \
-        -DexecutionType=clientside \
-        -DapiKey=<your_bitbar_apiKey> \
-        -DapplicationPath=</path/to/bitbar-sample-app.apk>
-    ```
+        ```sh
+        mvn clean test \
+            -Dtest=AndroidAppiumExampleTest \
+            -DexecutionType=clientside \
+            -DapiKey=<your_bitbar_apiKey> \
+            -DapplicationPath=</path/to/bitbar-sample-app.apk>
+        ```
 
-    Where:
+        Where:
 
-    - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
-https://cloud.bitbar.com/#user/my-account under _My Integrations_.
-    - `<path/to/bitbar-sample-app.apk>` is the path to the downloaded sample application
+        - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
+
+    https://cloud.bitbar.com/#user/my-account under _My Integrations_. - `<path/to/bitbar-sample-app.apk>` is the path to the downloaded sample application
+
+### Android with biometry
+
+1.  Download sample application [BitBarSampleApp.apk](../../../../../apps/android/BitBarSampleApp.apk)
+
+2.  Run the following command in the root directory of the project:
+
+        ```sh
+        mvn clean test \
+            -Dtest=AndroidBiometryAppiumExampleTest \
+            -DexecutionType=clientsideWithBiometry \
+            -DapiKey=<your_bitbar_apiKey> \
+            -DapplicationPath=</path/to/BitBarSampleApp.apk>
+        ```
+
+        Where:
+
+        - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
+
+    https://cloud.bitbar.com/#user/my-account under _My Integrations_. - `<path/to/BitBarSampleApp.apk>` is the path to the downloaded sample application
 
 ### iOS
 
-1. Download Sample Application [bitbar-ios-sample.ipa](../../../../../apps/ios/bitbar-ios-sample.ipa)
+1.  Download Sample Application [bitbar-ios-sample.ipa](../../../../../apps/ios/bitbar-ios-sample.ipa)
 
-1. Run the following command in the root directory of the project:
+2.  Run the following command in the root directory of the project:
 
-    ```sh
-    mvn clean test \
-        -Dtest=IosAppiumExampleTest \
-        -DexecutionType=clientside \
-        -DapiKey=<your_bitbar_apiKey> \
-        -DapplicationPath=</path/to/bitbar-ios-sample.ipa>
-    ```
+        ```sh
+        mvn clean test \
+            -Dtest=IosAppiumExampleTest \
+            -DexecutionType=clientside \
+            -DapiKey=<your_bitbar_apiKey> \
+            -DapplicationPath=</path/to/bitbar-ios-sample.ipa>
+        ```
 
-    Where:
+        Where:
 
-    - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
-https://cloud.bitbar.com/#user/my-account under _My Integrations_.
-    - `<path/to/bitbar-ios-sample.ipa>` is the path to the downloaded sample application
+        - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
+
+    https://cloud.bitbar.com/#user/my-account under _My Integrations_. - `<path/to/bitbar-ios-sample.ipa>` is the path to the downloaded sample application
+
+### iOS With Biometry
+
+1.  Download Sample Application [BitBarSampleApp.ipa](../../../../../apps/ios/BitBarSampleApp.ipa)
+
+2.  Run the following command in the root directory of the project:
+
+        ```sh
+        ./run_client_side_test_and_export_results.sh \
+            -Dtest=IosBiometryAppiumExampleTest \
+            -DexecutionType=clientsideWithBiometry \
+            -DapiKey=<your_bitbar_apiKey> \
+            -DapplicationPath=<path/to/BitBarSampleApp.ipa>
+        ```
+
+        Where:
+
+        - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
+
+    https://cloud.bitbar.com/#user/my-account under _My Integrations_. - `<path/to/BitBarSampleApp.ipa>` is the path to the downloaded sample application
 
 ### Notes
 
@@ -112,7 +152,7 @@ windows_client_side_test_and_export_results.bat ^
 
 Create a zip file containing the project, which will be uploaded to [Bitbar Cloud](https://cloud.bitbar.com/).
 
-- On OSX/Linux machines you can just run the following command at the project's root directory:
+-   On OSX/Linux machines you can just run the following command at the project's root directory:
 
     ```sh
     ./zip_project.sh
@@ -120,12 +160,12 @@ Create a zip file containing the project, which will be uploaded to [Bitbar Clou
 
     This creates a zip package called `server_side_test_package.zip`
 
-- You can also manually zip the project's sources. You have to include at least the following files in the zip package.
-Note that these files have to be at the root of the zip file, i.e. not inside any additional directory.
+-   You can also manually zip the project's sources. You have to include at least the following files in the zip package.
+    Note that these files have to be at the root of the zip file, i.e. not inside any additional directory.
 
-  - `run-tests.sh`
-  - `pom.xml`
-  - `src/`
+    -   `run-tests.sh`
+    -   `pom.xml`
+    -   `src/`
 
 ## Project Structure
 
@@ -133,24 +173,30 @@ Note that these files have to be at the root of the zip file, i.e. not inside an
 
 This is where the (Test)Magic happens. The test logic of the example test cases is located in:
 
-- *Android:* `src/test/java/com/testdroid/appium/android/sample/AndroidAppiumExampleTest.java`
+-   _Android:_ `src/test/java/com/testdroid/appium/android/sample/AndroidAppiumExampleTest.java`
 
-- *iOS:* `src/test/java/com/testdroid/appium/ios/sample/IosAppiumExampleTest.java`
+-   _iOS:_ `src/test/java/com/testdroid/appium/ios/sample/IosAppiumExampleTest.java`
 
-*These are the files you want to edit when testing your own application based on this template.*
+-   _Android With Biometry:_ `src/test/java/com/testdroid/appium/android_biometrics/AndroidBiometricsAppiumExampleTest.java`
+
+-   _iOS With Biometry:_ `src/test/java/com/testdroid/appium/ios_biometrics/IosBiometryAppiumExampleTest.java`
+
+_These are the files you want to edit when testing your own application based on this template._
 
 ### Session initialization
 
 The logic related to setting up the test session is located in:
 
-- `src/test/java/com/testdroid/appium/BaseTest.java`
+-   `src/test/java/com/testdroid/appium/BaseTest.java`
 
 This functionality is inherited by the test cases as follows:
 
-- *Android:* BaseTest.java --> BaseAndroidTest.java --> AndroidAppiumExampleTest.java
-- *iOS:* BaseTest.java --> BaseIOSTest.java --> IosAppiumExampleTest.java
+-   _Android:_ BaseTest.java --> BaseAndroidTest.java --> AndroidAppiumExampleTest.java
+-   _iOS:_ BaseTest.java --> BaseIOSTest.java --> IosAppiumExampleTest.java
+-   _Android With Biometry:_ BaseTest.java --> BaseAndroidTest.java --> AndroidBiometryAppiumExampleTest.java
+-   _iOS With Biometry:_ BaseTest.java --> BaseIOSTest.java --> IosBiometryAppiumExampleTest.java
 
-*Most likely you won't have to edit these files at all.*
+_Most likely you won't have to edit these files at all._
 
 ### Desired Capabilities
 
@@ -158,16 +204,20 @@ The desired capabilities are fetched from a properties-file.
 The properties-files are located in `src/test/resources/` and are specific to the test execution type
 and OS version that is under test:
 
-- *Android Server Side*: `desiredCapabilities.android.serverside.properties`
-- *Android Client Side*: `desiredCapabilities.android.clientside.properties`
-- *iOS Server Side*: `desiredCapabilities.ios.serverside.properties`
-- *iOS Client Side*: `desiredCapabilities.ios.clientside.properties`
+-   _Android Server Side_: `desiredCapabilities.android.serverside.properties`
+-   _Android Client Side_: `desiredCapabilities.android.clientside.properties`
+-   _Android Client Side With Biometry Instrumentation_: `desiredCapabilities.androidBiometrics.clientside.properties`
+-   _iOS Server Side_: `desiredCapabilities.ios.serverside.properties`
+-   _iOS Client Side_: `desiredCapabilities.ios.clientside.properties`
+-   _iOS Client Side With Biometry Instrumentation_: `desiredCapabilities.iosBiometry.clientside.properties`
 
 The properties-files are in the format `<desired_capability_name>=<desired_capability_value>`.
 
 The desired capabilities can be divided to Appium-specific desired capabilities
 (such as `platformName` and `deviceName`) and Bitbar-specific desired capabilities
 (such as `testdroid_device` or `testdroid_project`).
+
+For Test run with biometry instrumentation you have to add `bitbar_biometricInstrumentation=true` capability.
 
 The Bitbar-specific desired capabilities have to only be defined for Client Side Test Execution.
 
@@ -176,5 +226,5 @@ For more information about Bitbar specific capabilites, please refer to
 
 ## Helpful Resources
 
-- [Complete list of available devices](https://cloud.bitbar.com/#public/devices)
-- [Bitbar Documentation](http://docs.bitbar.com/)
+-   [Complete list of available devices](https://cloud.bitbar.com/#public/devices)
+-   [Bitbar Documentation](http://docs.bitbar.com/)
