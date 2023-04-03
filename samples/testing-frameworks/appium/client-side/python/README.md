@@ -49,9 +49,8 @@ $ python upload.py -k xg8x...YXto -a ../../../../../apps/android/testdroid-sampl
 File id to use in Bitbar capabilities in your test: 127314812
 ```
 
-The response message provides the application's cloud file name that
-is the path to use with `bitbar_app` capability. From the above
-example the path to store is: '127314812'.
+The response message provides the application's cloud id that
+should be used with `bitbar_app` capability.
 
 ## Common Settings in Example Tests
 
@@ -84,15 +83,14 @@ Common values used in tests:
   it in "Test Run x".
 
 * *bitbar_app* - id of the app uploaded using `upload.py`
-  script. Example id could be '127314812' To rerun using
-  last uploaded app bitbar_app can be set to *latest*
+  script or path for downloading an application. Example id could be '127314812'.
 * *bitbar_biometricInstrumentation* - boolean value, that informs whether
   biometry should be injected or not.
 
 ## Example Run
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -t bitbar_ios -a "latest"
+$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -t bitbar_ios -a "127314812"
 testSample (bitbar_ios.TestdroidIOS) ... Searching Available Free iOS Device...
 Found device 'Apple iPad Mini A1432 9.2.1'
 
@@ -129,7 +127,7 @@ To run iOS native app tests additional parameter is required to be provided:
 * **bundleId** - this is your application's unique name
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a "latest" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t bitbar_ios  
+$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a "127314812" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t bitbar_ios  
 ```
 
 This parameter is not needed if running against the sample BitbarIOSSample.ipa application, as it's set inside of the sample script.

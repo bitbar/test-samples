@@ -21,9 +21,10 @@ bitbar_device = "Motorola Nexus 6 7.1.1" # Example device. Change if you desire.
 bitbar_app_file = "../../../../../apps/android/bitbar-sample-app.apk"
 
 ##
-##  If your app is already uploaded assign its ID to the bitbar_app_id (can be found in bitbar files library)
+##  If your app is already uploaded assign its ID to the bitbar_app (can be found in bitbar files library) or pass the
+##  path for downloading your application in order to upload it to the cloud
 ##
-bitbar_app_id = nil
+bitbar_app = nil
 
 def log(msg)
   puts "#{Time.now}: #{msg}"
@@ -31,7 +32,7 @@ end
 
 ##
 ##  Set other parameters if needed, see more on README
-## 
+##
 desired_capabilities_cloud = {
     'device' => 'Android',
     'platformName' => 'Android',
@@ -60,17 +61,17 @@ def upload_application(file_path, bitbar_api_key)
   c.verbose = true
   c.http_post(Curl::PostField.file("file", file_path))
   resp = JSON.parse(c.body_str)
-  bitbar_app_id = resp["id"]
+  bitbar_app = resp["id"]
 end
 
 describe "BitbarSampleApp testing" do
   before :all do
-    if bitbar_app_id == nil
+    if bitbar_app == nil
       log ("Upload application #{bitbar_app_file}")
       upload_application(bitbar_app_file, bitbar_api_key)
-      log ("Uploaded file id #{bitbar_app_id}")
+      log ("Uploaded file #{bitbar_app}")
     end
-    desired_capabilities_cloud['bitbar_app'] = bitbar_app_id
+    desired_capabilities_cloud['bitbar_app'] = bitbar_app
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
     @web_driver = @driver.start_driver()

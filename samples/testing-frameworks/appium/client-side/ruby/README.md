@@ -87,7 +87,4 @@ look at Appium
 
 ## Tips
 
-* To run tests against your previously uploaded app you can simply set
-  your *bitbar_app* desired capability value to 'latest'
-
 * To find available free devices in Bitbar cloud, you can use this Ruby [tool](https://github.com/bootstraponline/bitbar_device_finder)

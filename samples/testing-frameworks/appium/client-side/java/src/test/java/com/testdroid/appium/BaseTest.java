@@ -32,17 +32,19 @@ public abstract class BaseTest {
 
         if (isClientSideTestRun()) {
             LOGGER.debug("Setting client side specific capabilities...");
-            String fileUUID = getDefaultFileUUID();
+            String app;
             if (isUploadApplication()) {
                 LOGGER.debug("Uploading " + getTargetAppPath() + " to Testdroid Cloud");
-                fileUUID = FileUploader.uploadFile(getTargetAppPath(), getCloudServerAddress(), getApiKey());
-                LOGGER.debug("File uploaded. File id is " + fileUUID);
+                app = FileUploader.uploadFile(getTargetAppPath(), getCloudServerAddress(), getApiKey());
+                LOGGER.debug("File uploaded. File id is " + app);
+            } else {
+              app = getAppCapability();
             }
             if (exportTestResultsToCloud()) {
                 LOGGER.debug("Exporting results enabled");
                 capabilities.setCapability("testdroid_junitWaitTime", 300);
             }
-            capabilities.setCapability("testdroid_app", fileUUID);
+            capabilities.setCapability("testdroid_app", app);
             capabilities.setCapability("testdroid_apiKey", getApiKey());
             LOGGER.debug("Setting client side specific capabilities... FINISHED");
         } else if (isServerSideTestRun()) {
@@ -57,14 +59,13 @@ public abstract class BaseTest {
         setAppiumDriver();
     }
 
-    private String getDefaultFileUUID() {
-        String defaultAppUUID = "latest";
-        String propertiesAppUUID = (String) capabilities.getCapability("testdroid_app");
+    private String getAppCapability() {
+        String propertiesAppUUID = (String) capabilities.getCapability("bitbar_app");
         if (propertiesAppUUID == null || propertiesAppUUID.isEmpty()) {
-            LOGGER.debug("testdroid_app not defined in properties, defaulting to \"latest\" if no .apk/.ipa has been defined with -DapplicationPath for upload");
-            return defaultAppUUID;
+            throw new IllegalArgumentException("bitbar_app not defined in desired capabilities");
+
         }
-        LOGGER.debug("testdroid_app defined in properties, defaulting to \"" + propertiesAppUUID + "\" if no .apk has been defined with -DapplicationPath for upload");
+        LOGGER.debug("bitbar_app defined in properties");
         return propertiesAppUUID;
     }
 
