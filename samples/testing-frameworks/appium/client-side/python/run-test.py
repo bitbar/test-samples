@@ -19,7 +19,7 @@ class BitbarTestRunner:
         parser.add_argument('-k', '--apikey', type=str, required=True, help="User's apiKey to identify to cloud")
         parser.add_argument('-s', '--screenshot_dir', type=str, required=True, help="Path to screenshot directory")
         parser.add_argument('-t', '--test', type=str, required=True, choices=self.available_tests, help="The test file to be run")
-        parser.add_argument('-a', '--app', type=str, required=False, help="Id of app uploaded to cloud using upload.py script. Or ""latest"" to reuse last used app. Mandatory for app testing")
+        parser.add_argument('-a', '--app', type=str, required=False, help="Id of app uploaded to cloud using upload.py script or path for downloading an app. Mandatory for app testing")
         group_device = parser.add_mutually_exclusive_group()
         group_device.add_argument('--device', type=str, required=False, help="Full name of device to use")
         group_device.add_argument('--device_group_id', type=str, required=False, help="The id of the Bitbar device group from where available devices are to be searched from")

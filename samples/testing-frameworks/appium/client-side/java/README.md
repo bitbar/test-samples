@@ -74,7 +74,10 @@ https://cloud.bitbar.com/#user/my-account under _My Integrations_.
 
 #### applicationPath-argument
 
-The applicationPath-argument is only required if the application has not yet been uploaded to Bitbar cloud project. When the applicationPath-argument is provided, the application will be automatically uploaded to Bitbar cloud before the actual test execution starts. If the application has already been uploaded, you can omit the parameter. In this case Bitbar cloud will use the latest application that has been uploaded.
+The applicationPath-argument is only required if the application has not yet been uploaded to Bitbar cloud project. 
+When the applicationPath-argument is provided, the application will be automatically uploaded to Bitbar cloud before 
+the actual test execution starts. Otherwise, id or path for downloading the application has to be set in 
+desired capabilities file.
 
 ### Upload Test Results
 
