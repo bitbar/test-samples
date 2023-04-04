@@ -44,7 +44,7 @@ namespace BitbarBiometricSample
             buttonAskBiometrics.Click();
             TakeScreenshot("Dialog");
 
-            var buttonPassBiometrics = driver.FindElement(By.XPath("//*[@text=\"Pass\"]"));
+            var buttonPassBiometrics = driver.FindElement(By.XPath("//*[@text=\"PASS\"]"));
             buttonPassBiometrics.Click();
 
             var textResult = driver.FindElement(MobileBy.AccessibilityId("Authentication status value"));
