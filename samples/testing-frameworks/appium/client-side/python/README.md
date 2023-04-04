@@ -86,6 +86,8 @@ Common values used in tests:
 * *bitbar_app* - id of the app uploaded using `upload.py`
   script. Example id could be '127314812' To rerun using
   last uploaded app bitbar_app can be set to *latest*
+* *bitbar_biometricInstrumentation* - boolean value, that informs whether
+  biometry should be injected or not.
 
 ## Example Run
 
@@ -148,23 +150,6 @@ For running the sample applications and tests these do not need to be set as the
 
 ```bash
 python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a '127314812' -p "Android Native" -r  `date +%R` -t bitbar_android
-```
-
-## Hybrid Android Specific Settings
-
-Example: `bitbar_android_hybrid.py`
-
-Additional parameters needed to run a hybrid app:
-
-* **app_package** - Java package of the Android app you want to run
-
-* **app_activity** - activity name for the Android activity you want to
-  launch from your package. Typically this is the main activity.
-
-The above parameters are already set into the test scripts, so they are not mandatory for the sample tests. For other apps they are.
-
-```bash
-python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -t bitbar_android_hybrid -p "Android Hybrid"  -r `date +%R` --app '127314812'
 ```
 
 ## Safari Browser Testing

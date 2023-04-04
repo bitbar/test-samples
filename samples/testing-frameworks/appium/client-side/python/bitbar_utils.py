@@ -3,7 +3,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common import by
 
 
-class BitbarUtils():
+class BitbarUtils:
     def __init__(self, dir):
         self.screenshot_count = 1
         self.screenshot_dir = dir
@@ -46,7 +46,7 @@ class BitbarUtils():
         """
         end_time = time.time() + timeout
         found = False
-        while (time.time() < end_time and not found):
+        while time.time() < end_time and not found:
             self.log("  Looking for xpath {}".format(xpath))
             try:
                 elem = self.driver.find_element(by.By.XPATH, value=xpath)
@@ -55,14 +55,16 @@ class BitbarUtils():
                 found = False
             time.sleep(step)
         if not found:
-            raise NoSuchElementException("Element wiht xpath: '{}' not found in {}s".format(xpath, timeout))
+            raise NoSuchElementException(
+                "Element wiht xpath: '{}' not found in {}s".format(xpath, timeout)
+            )
         return elem
 
     def update_driver(self, driver):
         self.driver = driver
 
     def log(self, msg):
-        print (time.strftime("%H:%M:%S") + ": " + msg)
+        print(time.strftime("%H:%M:%S") + ": " + msg)
         return
 
     def sleep(self, duration):
