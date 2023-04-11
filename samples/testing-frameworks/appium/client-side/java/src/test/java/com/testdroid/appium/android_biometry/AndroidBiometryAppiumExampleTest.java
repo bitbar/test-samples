@@ -24,18 +24,18 @@ class AndroidBiometryAppiumExampleTest extends BaseAndroidTest {
     @Test
     public void mainPageTest() {
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        takeScreenshot("start");
+        takeScreenshot("start_screen");
         wd.findElement(By.xpath("//android.view.ViewGroup[@content-desc='Biometric authentication']")).click();
-        takeScreenshot("First_screen");
+        takeScreenshot("second_screen");
         wd.findElement(By.xpath("//android.view.ViewGroup[@content-desc='Check if avialable']")).click();
-        takeScreenshot("Check_biometrics");
+        takeScreenshot("check_biometrics");
         wd.findElement(By.xpath("//android.view.ViewGroup[@content-desc='Ask biometric authentication']")).click();
-        takeScreenshot("Ask_for_authentication");
+        takeScreenshot("ask_for_authentication");
         wd.findElement(By.xpath("//*[@text=\"FAIL\"]")).click();
-        takeScreenshot("Fail_authenticarion");
+        takeScreenshot("fail_authenticarion");
         wd.findElement(By.xpath("//android.view.ViewGroup[@content-desc='Ask biometric authentication']")).click();
-        takeScreenshot("Ask_for_authentication");
+        takeScreenshot("ask_for_authentication");
         wd.findElement(By.xpath("//*[@text=\"PASS\"]")).click();
-        takeScreenshot("Pass_authentication");
+        takeScreenshot("pass_authentication");
     }
 }

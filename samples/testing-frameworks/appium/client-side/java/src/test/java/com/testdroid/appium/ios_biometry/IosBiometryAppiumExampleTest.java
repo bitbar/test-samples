@@ -34,8 +34,8 @@ class IosBiometryAppiumExampleTest extends BaseIOSTest {
         wd.executeScript("mobile: alert", ImmutableMap.of("action", "accept", "buttonLabel", "OK"));
         wd.findElement(By.xpath("(//*[@name='Biometric authentication'])[3]")).click();
         wd.findElement(By.xpath("//XCUIElementTypeOther[@name='Ask biometric authentication']")).click();
-        takeScreenshot("Ask_Biometrics");
+        takeScreenshot("ask_Biometrics");
         wd.executeScript("mobile: alert", ImmutableMap.of("action", "accept", "buttonLabel", "Pass"));
-        takeScreenshot("PassBiometrics");
+        takeScreenshot("pass_Biometrics");
     }
 }
