@@ -30,6 +30,8 @@ public class BaseAndroidTest extends BaseTest {
     protected String getDesiredCapabilitiesPropertiesFileName() {
         if (isClientSideTestRun()) {
             return "desiredCapabilities.android.clientside.properties";
+        } else if (isClientSideTestRunWithBiometry()) {
+            return "desiredCapabilities.androidBiometry.clientside.properties";
         } else {
             return "desiredCapabilities.android.serverside.properties";
         }

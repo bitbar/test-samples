@@ -35,5 +35,4 @@ class IosAppiumExampleTest extends BaseIOSTest {
         wd.findElement(By.xpath("//*[contains(@name, 'sendAnswer')]")).click();
         takeScreenshot("answer_sent");
     }
-
 }

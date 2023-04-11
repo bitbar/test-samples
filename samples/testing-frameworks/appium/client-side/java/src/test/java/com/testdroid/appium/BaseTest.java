@@ -18,6 +18,7 @@ public abstract class BaseTest {
     private static final String CLOUD_SERVER = "https://cloud.bitbar.com";
     private static final String serverSideTypeDefinition = "serverside";
     private static final String clientSideTypeDefinition = "clientside";
+    private static final String clientSideTypeDefinitionWithBiometry = "clientsideWithBiometry";
     protected static Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
     protected DesiredCapabilities capabilities;
 
@@ -30,7 +31,7 @@ public abstract class BaseTest {
     public void setUpAppiumDriver() throws IOException {
         this.capabilities = getDesiredCapabilitiesFromProperties();
 
-        if (isClientSideTestRun()) {
+        if (isClientSideTestRun() || isClientSideTestRunWithBiometry()) {
             LOGGER.debug("Setting client side specific capabilities...");
             String app;
             if (isUploadApplication()) {
@@ -118,6 +119,10 @@ public abstract class BaseTest {
         return getExecutionType().equals(clientSideTypeDefinition);
     }
 
+    public boolean isClientSideTestRunWithBiometry() {
+        return getExecutionType().equals(clientSideTypeDefinitionWithBiometry);
+    }
+
     private boolean isUploadApplication() {
         String targetAppPath = getTargetAppPath();
         return targetAppPath != null && !targetAppPath.isEmpty();
@@ -152,7 +157,7 @@ public abstract class BaseTest {
         String property = System.getProperty("appiumServerAddress");
         if (StringUtils.isNotBlank(property)) {
             return property;
-        } else if (isClientSideTestRun()) {
+        } else if (isClientSideTestRun() || isClientSideTestRunWithBiometry()) {
             return APPIUM_SERVER;
         }
         return LOCAL_APPIUM_ADDRESS;
