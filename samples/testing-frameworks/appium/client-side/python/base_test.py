@@ -34,7 +34,7 @@ class BaseTest(unittest.TestCase):
         # 2) Set device name to this python script
         # 3) Do not set #1 and #2 and let DeviceFinder to find free device for
         #    you
-        self.bitbar_device = os.environ.get("self.BITBAR_DEVICE") or ""
+        self.bitbar_device = os.environ.get("BITBAR_DEVICE") or ""
         self.device_finder = DeviceFinder(url=bitbar_url)
         self.utils = BitbarUtils(self.screenshot_dir)
         self.utils.log("Will save screenshots at: " + self.screenshot_dir)
