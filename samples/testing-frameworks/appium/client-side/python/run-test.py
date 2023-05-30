@@ -12,7 +12,7 @@ class BitbarTestRunner:
                           "BITBAR_DEVICE": ""}
         self.available_tests = ['bitbar_chrome', 'bitbar_android',
                                 'bitbar_safari', 'bitbar_ios',
-                                'bitbar_biometrics_ios','bitbar_biometrics_android']
+                                'bitbar_biometrics_ios', 'bitbar_biometrics_android']
 
     def parse_args(self):
         parser = argparse.ArgumentParser(description='Set needed environment variables for Bitbar sample tests')
