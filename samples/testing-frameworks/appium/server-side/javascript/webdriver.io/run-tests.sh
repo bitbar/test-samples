@@ -9,7 +9,8 @@ echo "Extracting tests.zip..."
 unzip tests.zip
 
 echo "Installing dependencies..."
-npm install
+export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+npm ci
 
 echo "Running tests..."
 if [ "$(uname)" == "Darwin" ]; then

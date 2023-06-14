@@ -33,25 +33,19 @@ exports.config = {
     port: 4723,
     path:  '/wd/hub',
 
-    services: ['appium'],
-    appium: {
-        command: 'appium',
-        logPath : './',
-    },
-
     specs: [
         './test/specs/ios.e2e.js'
     ],
 
     capabilities: [{
-        udid: process.env.IOS_UDID,
         platformName: 'IOS',
         maxInstances: 1,
 
+        'appium:udid': process.env.IOS_UDID,
         'appium:deviceName': 'Local Device',
         'appium:automationName': 'XCUITest',
         'appium:app': path.resolve('application.ipa'),
-        'appium:newCommandTimeout': 240
+        'appium:newCommandTimeout': 240,
     }],
 
     //
