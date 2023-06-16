@@ -31,7 +31,7 @@ To run the tests with Maven, open a command window and run:
 
 Or for gradle:
 
-    gradle build
+    gradle test
 
 ## Viewing the reports
 
