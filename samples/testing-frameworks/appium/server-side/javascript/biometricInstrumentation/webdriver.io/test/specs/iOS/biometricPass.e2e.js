@@ -6,7 +6,7 @@ describe("Pass biometric authentication", () => {
     await alertBiometrics.waitForDisplayed({ timeout: 60000 });
     const visable = await alertBiometrics.isDisplayed();
     visable.should.be.true;
-    await browser.execute("mobile: alert", {
+    await driver.execute("mobile: alert", {
       action: "accept",
       buttonLabel: "OK",
     });
@@ -42,7 +42,7 @@ describe("Pass biometric authentication", () => {
   });
 
   it("should pass biometric authentication", async () => {
-    const result = await browser.execute("mobile: alert", {
+    const result = await driver.execute("mobile: alert", {
       action: "accept",
       buttonLabel: "Pass",
     });
