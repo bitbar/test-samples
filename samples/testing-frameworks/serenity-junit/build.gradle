@@ -1,0 +1,53 @@
+plugins {
+    id "net.serenity-bdd.serenity-gradle-plugin" version "3.4.2"
+    id 'java'
+}
+
+defaultTasks 'clean', 'test', 'aggregate'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    slf4jVersion = '1.7.7'
+    serenityCoreVersion = '3.6.12'
+    junitVersion = '5.9.2'
+    junitVersion = '5.8.2'
+    assertJVersion = '3.23.1'
+    lombokVersion = '1.18.24'
+    logbackVersion = '1.2.11'
+}
+
+dependencies {
+    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-bitbar:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+            "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+            "org.junit.jupiter:junit-jupiter-engine:${junitVersion}",
+            "org.assertj:assertj-core:${assertJVersion}",
+            "org.projectlombok:lombok:${lombokVersion}",
+            "ch.qos.logback:logback-classic:${logbackVersion}"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+gradle.startParameter.continueOnFailure = true
+
+serenity {
+    reports = ["single-page-html"]
+
+    // // Specify the root package of any JUnit acceptance tests
+    testRoot="starter"
+}
+
+test.finalizedBy(aggregate)

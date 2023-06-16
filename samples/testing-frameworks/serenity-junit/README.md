@@ -13,7 +13,7 @@ webdriver {
     browserVersion = "latest"
     "bitbar:options" {
       osVersion = "10"
-      screenResolution = "1920x1200"
+      screenResolution = "1920x1080"
     }
   }
 }
@@ -28,6 +28,10 @@ bitbar {
 To run the tests with Maven, open a command window and run:
 
     mvn clean verify
+
+Or for gradle:
+
+    gradle build
 
 ## Viewing the reports
 
