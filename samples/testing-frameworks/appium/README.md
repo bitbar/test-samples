@@ -21,7 +21,7 @@ We are taking care for the rest.
 
 Currently we have samples for:
 
-* [Java (Image Recognition)](server-side/image-recognition/)
+* [Java](server-side/java/)
 * [JavaScript (Node.js)](server-side/javascript/)
 * [Python 3](server-side/python/)
 * [Ruby](server-side/ruby/)

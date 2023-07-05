@@ -1,6 +1,0 @@
-target/
-testdroid.properties
-run-tests.sh
-*.zip
-.idea/*
-!.idea/codeStyleSettings.xml
