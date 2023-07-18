@@ -1,22 +1,27 @@
-##
-## Example script for parallel selenium tests
-##
+#
+#  Example script for parallel Appium tests
+#
+
 import unittest
-import xmlrunner
 from time import sleep
-from TestdroidAppiumTest import TestdroidAppiumTest, log
+
+import xmlrunner
+from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import WebDriverException
 
-class BitbarSampleAppTest(TestdroidAppiumTest):
+from BitBarAppiumTest import BitBarAppiumTest, log
+
+
+class BitBarSampleAppTest(BitBarAppiumTest):
     def setUp(self):
-        # TestdroidAppiumTest takes settings (local or cloud) from environment variables
-        super(BitbarSampleAppTest, self).setUp()
+        # BitBarAppiumTest takes settings (local or cloud) from environment variables
+        super(BitBarSampleAppTest, self).setUp()
 
     # Test start.
     def test_the_app(self):
-        driver = self.get_driver() # Initialize Appium connection to device
+        driver = self.get_driver()  # Initialize Appium connection to device
 
-        sleep(10) # Wait that the app loads
+        sleep(10)  # Wait that the app loads
         log("Start!")
         # Use this to get detected screen hierarchy
         # print self.driver.page_source
@@ -26,39 +31,36 @@ class BitbarSampleAppTest(TestdroidAppiumTest):
                 log("Taking screenshot 0_appLaunch.png")
                 driver.save_screenshot(self.screenshot_dir + "/0_appLaunch.png")
                 log("Clicking element 'Use Testdroid Cloud'")
-                if self.isSelendroid():
-                    elem = driver.find_element_by_xpath("//LinearLayout[1]/FrameLayout[1]/ScrollView[1]/LinearLayout[1]/LinearLayout[1]/RadioGroup[1]/RadioButton[2]")
-                else:
-                    elem = self.driver.find_element_by_android_uiautomator('new UiSelector().text("Use Testdroid Cloud")')
+                elem = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                                'new UiSelector().text("Use Testdroid Cloud")')
                 self.assertTrue(elem)
                 elem.click()
-                sleep(2) # always sleep before taking screenshot to let transition animations finish
+                sleep(2)  # always sleep before taking screenshot to let transition animations finish
                 log("Taking screenshot: 1_radiobuttonPressed.png")
                 driver.save_screenshot(self.screenshot_dir + "/1_radiobuttonPressed.png")
 
-                log("Sleeping 3 before quitting webdriver")
+                log("Sleeping 3 before quitting WebDriver")
                 sleep(3)
             except WebDriverException:
                 log("Android testrun failed..")
-        else: # iOS
+        else:  # iOS
             try:
                 log("Taking screenshot 0_appLaunch.png")
                 driver.save_screenshot(self.screenshot_dir + "/0_appLaunch.png")
                 log("Finding buttons")
-                buttons = driver.find_elements_by_class_name('UIAButton')
+                buttons = driver.find_elements(AppiumBy.CLASS_NAME, 'UIAButton')
                 log("Clicking button [2] - Radiobutton 2")
                 buttons[2].click()
 
                 log("Taking screenshot 1_radiobuttonPressed.png")
                 driver.save_screenshot(self.screenshot_dir + "/1_radiobuttonPressed.png")
 
-                log("Sleeping 3 before quitting webdriver")
+                log("Sleeping 3 before quitting WebDriver")
                 sleep(3)
             except WebDriverException:
                 log("iOS testrun failed..")
-
     # Test end.
+
 
 if __name__ == '__main__':
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
-    

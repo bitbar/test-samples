@@ -4,7 +4,7 @@
 ## Work in progress! The dependency installations need to be done to the
 ## container so that we don't need to install them here.
 ##
-TEST=${TEST:="BitbarSampleAppTest.py"} #Name of the test file
+TEST=${TEST:="BitBarSampleAppTest.py"} #Name of the test file
 
 ##### Cloud testrun dependencies start
 echo "Extracting tests.zip..."
@@ -14,7 +14,7 @@ echo "Installing pip for python"
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py
 
-echo "Installing Appium Python Client 0.24 and xmlrunner 1.7.7"
+echo "Installing Appium Python Client and xmlrunner"
 chmod 0755 requirements.txt
 pip install -r requirements.txt
 

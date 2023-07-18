@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright(C) 2018 Bitbar Technologies Oy
+# Copyright(C) 2023 SmartBear Software
 #
 # NOTE: contributions are welcome
 #
@@ -25,4 +25,4 @@ TEST_FILE="test-package_${ENV}.zip"
 echo "Creating test file for environment: ${ENV}"
 cp run-tests_${ENV}.sh run-tests.sh && zip -r "${TEST_FILE}" requirements.txt *py run-tests.sh
 echo "
-You should now upload test file '${TEST_FILE}' to Bitbar Cloud"
+You should now upload test file '${TEST_FILE}' to BitBar Cloud"
