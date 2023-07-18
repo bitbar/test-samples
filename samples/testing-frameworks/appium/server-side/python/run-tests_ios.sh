@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Name of the test file
-TEST=${TEST:="BitbarSampleAppTest.py"}
+TEST=${TEST:="BitBarSampleAppTest.py"}
 
 echo "Extracting tests.zip..."
 unzip -o tests.zip
@@ -9,7 +9,7 @@ unzip -o tests.zip
 
 #########################################################
 #
-# Intalling PIP and required Python libraries
+# Installing PIP and required Python libraries
 #  - required libraries are in requirement.txt file that
 #    is uploaded with this script file
 #
@@ -24,7 +24,7 @@ echo "New PATH: ${PATH}"
 
 echo "Installing requirements from requirements.txt"
 chmod 0755 requirements.txt
-pip install --user  --requirement requirements.txt
+pip3 install --user  --requirement requirements.txt
 
 #########################################################
 #
@@ -48,6 +48,7 @@ appium -U ${IOS_UDID}  --log-no-colors --log-timestamp --command-timeout 120
 # - used for Appium desired capabilities
 # - note, APPIUM_URL is same for local and cloud server
 #   runs
+#
 #########################################################
 export APPIUM_APPFILE="$PWD/application.ipa"
 export APPIUM_URL="http://localhost:4723/wd/hub"
@@ -60,7 +61,7 @@ rm -rf screenshots
 
 ## Start test execution
 echo "Running test ${TEST}"
-python ${TEST}
+python3 ${TEST}
 
 #########################################################
 #
@@ -69,5 +70,6 @@ python ${TEST}
 #   need here
 # - also any additional files can be retrieved here
 # - retrieve files from device
+#
 #########################################################
 mv test-reports/*.xml TEST-all.xml
