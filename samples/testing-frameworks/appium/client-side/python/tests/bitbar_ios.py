@@ -16,13 +16,13 @@ class BitbarIOS(BaseTest):
         if self.bitbar_device == "":
             self._find_device("iOS")
 
-        self.desired_capabilities_cloud["bitbar_project"] = bitbar_project_name
-        self.desired_capabilities_cloud["bitbar_device"] = self.bitbar_device
-        self.desired_capabilities_cloud["bundleId"] = bitbar_bundle_id
         self.desired_capabilities_cloud["platformName"] = "iOS"
-        self.desired_capabilities_cloud["deviceName"] = "iOS device"
-        self.desired_capabilities_cloud["bitbar_target"] = "ios"
-        self.desired_capabilities_cloud["automationName"] = automation_name
+        self.desired_capabilities_cloud["bitbar:options"]["project"] = bitbar_project_name
+        self.desired_capabilities_cloud["bitbar:options"]["device"] = self.bitbar_device
+        self.desired_capabilities_cloud["bitbar:options"]["target"] = "ios"
+        self.desired_capabilities_cloud["appium:bundleId"] = bitbar_bundle_id
+        self.desired_capabilities_cloud["appium:automationName"] = automation_name
+        self.desired_capabilities_cloud["appium:deviceName"] = "iPhone device"
 
     def test_sample(self):
         super()._start_webdriver()

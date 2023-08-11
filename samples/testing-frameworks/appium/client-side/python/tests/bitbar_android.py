@@ -20,14 +20,14 @@ class BitbarAndroid(BaseTest):
         if self.bitbar_device == "":
             self._find_device("Android")
 
-        self.desired_capabilities_cloud["bitbar_project"] = bitbar_project_name
-        self.desired_capabilities_cloud["bitbar_device"] = self.bitbar_device
-        self.desired_capabilities_cloud["appPackage"] = app_package
-        self.desired_capabilities_cloud["appActivity"] = app_activity
         self.desired_capabilities_cloud["platformName"] = "Android"
-        self.desired_capabilities_cloud["deviceName"] = "Android device"
-        self.desired_capabilities_cloud["bitbar_target"] = "android"
-        self.desired_capabilities_cloud["automationName"] = "Appium"
+        self.desired_capabilities_cloud["bitbar:options"]["project"] = bitbar_project_name
+        self.desired_capabilities_cloud["bitbar:options"]["device"] = self.bitbar_device
+        self.desired_capabilities_cloud["bitbar:options"]["target"] = "android"
+        #self.desired_capabilities_cloud["bitbar:options"]["appiumVersion"] = "1.22.3" #launch tests on appium 1
+        self.desired_capabilities_cloud["appium:automationName"] = "uiautomator2"
+        self.desired_capabilities_cloud["appium:appPackage"] = app_package
+        self.desired_capabilities_cloud["appium:appActivity"] = app_activity
 
     def test_sample(self):
         super()._start_webdriver()

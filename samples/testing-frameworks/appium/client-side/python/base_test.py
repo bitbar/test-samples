@@ -40,14 +40,16 @@ class BaseTest(unittest.TestCase):
         self.utils.log("Will save screenshots at: " + self.screenshot_dir)
 
         self.desired_capabilities_cloud = {}
-        self.desired_capabilities_cloud["bitbar_apiKey"] = bitbar_apiKey
-        self.desired_capabilities_cloud["bitbar_testrun"] = bitbar_testrun_name
-        self.desired_capabilities_cloud["bitbar_app"] = bitbar_app
+        self.desired_capabilities_cloud["appium_newCommandTimeout"] = new_command_timeout
         self.desired_capabilities_cloud["fullReset"] = False
         self.desired_capabilities_cloud["noReset"] = True
-        self.desired_capabilities_cloud["newCommandTimeout"] = new_command_timeout
-        self.desired_capabilities_cloud["bitbar_testTimeout"] = bitbar_test_timeout
-        self.desired_capabilities_cloud["bitbar_findDevice"] = bitbar_find_device
+        self.desired_capabilities_cloud["bitbar:options"] = {
+            "apiKey": bitbar_apiKey,
+            "testrun": bitbar_testrun_name,
+            "testTimeout": bitbar_test_timeout,
+            "findDevice": bitbar_find_device,
+            **({"app": bitbar_app} if bitbar_app != "" else {})
+        }
 
     def test_sample(self):
         pass
