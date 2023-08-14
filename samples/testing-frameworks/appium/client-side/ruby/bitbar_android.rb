@@ -34,18 +34,23 @@ end
 ##  Set other parameters if needed, see more on README
 ##
 desired_capabilities_cloud = {
-    'device' => 'Android',
     'platformName' => 'Android',
-    'deviceName' => 'Android',
-    'fullReset' => false,
-    'noReset' => true,
-    'bitbar_apiKey' => bitbar_api_key,
-    'bitbar_project' => 'Appium Ruby Demo',
-    'bitbar_description' => 'Appium project description',
-    'bitbar_testrun' => 'Test Run 1',
-    'bitbar_device' => bitbar_device,
-    'app-package' => 'com.bitbar.testdroid',
-    'app-activity' => '.BitbarSampleApplicationActivity'
+    'appium:options' => {
+      'automationName' => 'uiautomator2',
+      'fullReset' => false,
+      'noReset' => true,
+      'app-package' => 'com.bitbar.testdroid',
+      'app-activity' => '.BitbarSampleApplicationActivity'
+    },
+    'bitbar:options' => {
+      'apiKey' => bitbar_api_key,
+      'project' => 'Appium Ruby Demo',
+      'description' => 'Appium project description',
+      'testrun' => 'Test Run 1',
+      'device' => bitbar_device,
+      'app' => bitbar_app
+      #'appiumVersion' => "1.22.3", # launch on appium 1
+    },
 }
 
 
@@ -70,8 +75,8 @@ describe "BitbarSampleApp testing" do
       log ("Upload application #{bitbar_app_file}")
       upload_application(bitbar_app_file, bitbar_api_key)
       log ("Uploaded file #{bitbar_app}")
+      desired_capabilities_cloud['bitbar:options']['app'] = bitbar_app
     end
-    desired_capabilities_cloud['bitbar_app'] = bitbar_app
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
     @web_driver = @driver.start_driver()
@@ -87,7 +92,7 @@ describe "BitbarSampleApp testing" do
     log ("view1: Clicking button - 'Buy 101 devices'")
     @driver.find_element(:id, 'com.bitbar.testdroid:id/radio0').click
     log ("view1: Typing in textfield[0]: Bitbar user")
-    @driver.find_element(:id, 'com.bitbar.testdroid:id/editText1').send_keys("Bitbar user")
+    @driver.find_element(:class, 'android.widget.EditText').send_keys("Bitbar user")
     @driver.navigate.back()
     log ("view1: Taking screenshot screenshot1.png")
     @driver.screenshot(screen_shot_dir + "/screenshot1.png")

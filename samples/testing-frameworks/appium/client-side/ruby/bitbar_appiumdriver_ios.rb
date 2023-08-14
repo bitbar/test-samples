@@ -33,17 +33,18 @@ end
 ##  Set other parameters if needed, see more in README
 ## 
 desired_capabilities_cloud = {
-    'device' => 'iphone',
-    'bitbar_apiKey' => bitbar_api_key,
-    'bitbar_project' => 'Appium iOS Project1',
-    'bitbar_description' => 'Appium project description',
-    'bitbar_testrun' => 'Test Run 1',
-    'bitbar_device' => bitbar_device,
-    'bitbar_target' => 'ios',
-    'deviceName' => 'iPhone device',
     'platformName' => 'iOS',
-    'bundleId' => 'com.bitbar.testdroid.BitbarIOSSample',
-    'automationName' => 'XCUITest'
+    'appium:automationName' => 'XCUITest',
+    'appium:bundleId' => 'com.bitbar.testdroid.BitbarIOSSample',
+    'appium:deviceName' => 'iPhone device',
+    'bitbar:options' => {
+      'apiKey' => bitbar_api_key,
+      'project' => 'Appium iOS Project1',
+      'description' => 'Appium project description',
+      'testrun' => 'Test Run 1',
+      'device' => bitbar_device,
+      'app' => bitbar_app_id
+    }
 }
 
 
@@ -70,8 +71,8 @@ describe "BitbarIOSSample testing" do
       log ("Upload application #{bitbar_app_file}")
       upload_application(bitbar_app_file, bitbar_api_key)
       log ("Uploaded file id #{bitbar_app_id}")
+      desired_capabilities_cloud['bitbar:options']['app'] = bitbar_app_id
     end
-    desired_capabilities_cloud['bitbar_app'] = bitbar_app_id
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
     @web_driver = @driver.start_driver()
