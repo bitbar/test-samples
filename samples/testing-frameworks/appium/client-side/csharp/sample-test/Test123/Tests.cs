@@ -5,6 +5,7 @@ using OpenQA.Selenium.Appium.Android;
 using System;
 using System.IO;
 using System.Net;
+using System.Collections.Generic;
 
 namespace TestdroidAndroidSample
 {
@@ -22,18 +23,18 @@ namespace TestdroidAndroidSample
 			String BITBAR_APIKEY = "<YOUR BITBAR API KEY>";
 
 			AppiumOptions capabilities = new AppiumOptions();
-			capabilities.AddAdditionalCapability("device", "Android");
-
-			capabilities.AddAdditionalCapability("deviceName", "Android");
 			capabilities.AddAdditionalCapability("platformName", "Android");
-			capabilities.AddAdditionalCapability("bitbar_apiKey", BITBAR_APIKEY);
-			capabilities.AddAdditionalCapability("bitbar_project", "C# Appium");
-			capabilities.AddAdditionalCapability("bitbar_testrun", "Android Run 1");
-
-			// See available devices at: https://cloud.bitbar.com/#public/devices
-			capabilities.AddAdditionalCapability("bitbar_device", "Google Pixel 6");
-			capabilities.AddAdditionalCapability("bitbar_app", "<APP ID>");
-
+			capabilities.AddAdditionalCapability("appium:automationName", "uiautomator2");
+			capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, object>
+			{
+				{"project", "C# Appium"},
+				{"testrun", "Android Run 1" },
+				{"device", "Google Pixel 6"}, // See available devices at: https://cloud.bitbar.com/#public/devices
+				{"apiKey", BITBAR_APIKEY},
+				{"app", "<APP ID>"},
+				//{"appiumVersion", "1.22.3"} //launch tests on appium 1
+			});
+			
 			Console.WriteLine("WebDriver request initiated. Waiting for response, this typically takes 2-3 mins");
 			driver = new AndroidDriver<AndroidElement>(new Uri("https://appium.bitbar.com/wd/hub"), capabilities, TimeSpan.FromSeconds(300));
 			Console.WriteLine("WebDriver response received.");

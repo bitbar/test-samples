@@ -10,14 +10,16 @@ namespace BitbarBiometricSample
         {
             //Platform dependent
             capabilities.AddAdditionalCapability("platformName", "Android");
-            capabilities.AddAdditionalCapability("deviceName", "Android Phone");
-            capabilities.AddAdditionalCapability("automationName", "Appium");
+            capabilities.AddAdditionalCapability("appium:automationName", "uiautomator2");
             //Customizable
-            capabilities.AddAdditionalCapability("bitbar_project", "C# Appium Automated Test");
-            capabilities.AddAdditionalCapability("bitbar_testrun", "Android Run");
-            capabilities.AddAdditionalCapability("bitbar_device", "Google Pixel 2");
-            //App ID
-            capabilities.AddAdditionalCapability("bitbar_app", "<APP_ID>");
+            capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, object>
+            {
+                {"project", "C# Appium Automated Test"},
+                {"testrun", "Android Run" },
+                {"device", "Google Pixel 2"},
+                {"app", "<APP_ID>" }
+                //{"appiumVersion", "1.22.3"} //launch tests on appium 1
+            });
 
             driver = new AndroidDriver<AndroidElement>(new Uri(AppiumHubURL), capabilities, TimeSpan.FromSeconds(300));
         }
