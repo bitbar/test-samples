@@ -51,7 +51,7 @@ Here are all the values that you need to edit:
 * *bitbar_testrun* - name or number of this test run. Test run
   names can be modified even at every test run
 
-* *bitbar_app* - should be the id of the app you uploaded to cloud.
+* *bitbar_app_id* - should be the id of the app you uploaded to cloud.
 
 ## Native iOS Specific Settings
 
