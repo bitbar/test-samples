@@ -31,15 +31,17 @@ exports.config = {
 
   capabilities: [
     {
-      bitbar_apiKey: apiKey,
-      bitbar_device: "Google Pixel 3a Android 12",
-      bitbar_app: appId,
-      biometricInstrumentation: true,
-      platformName: "Android",
-      deviceName: "Android Phone",
-      automationName: "Appium",
-      bitbar_project: "WebdriverIO_Android_biometric_sample",
-      bitbar_multiSessionWait: 10,
+      "platformName": "Android",
+      "appium:automationName": "uiautomator2",
+      "bitbar:options": {
+        apiKey: apiKey,
+        device: "Google Pixel 3a Android 12",
+        app: appId,
+        project: "WebdriverIO_Android_biometric_sample",
+        multiSessionWait: 10,
+        biometricInstrumentation: true,
+        //appiumVersion: "1.22.3" //launch tests on appium 1
+      }
     },
   ],
 

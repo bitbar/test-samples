@@ -31,16 +31,19 @@ exports.config = {
 
   capabilities: [
     {
-      bitbar_apiKey: apiKey,
-      bitbar_device: "Apple iPhone 11 Pro A2215 13.1.2",
-      bitbar_app: appId,
-      biometricInstrumentation: true,
-      platformName: "iOS",
-      deviceName: "iPhone device",
-      automationName: "XCUITest",
-      bitbar_project: "WebdriverIO_iOS_biometric_sample",
-      bundleId: "org.reactjs.native.example.BitBarSampleApp",
-      bitbar_multiSessionWait: 10,
+      "platformName": "iOS",
+      "appium:deviceName": "iPhone device",
+      "appium:automationName": "XCUITest",
+      "appium:bundleId": "org.reactjs.native.example.BitBarSampleApp",
+      "bitbar:options": {
+        app: appId,
+        apiKey: apiKey,
+        device: "Apple iPhone 11 Pro A2215 13.1.2",
+        biometricInstrumentation: true,
+        project: "WebdriverIO_iOS_biometric_sample",
+        multiSessionWait: 10,
+        //appiumVersion: "1.22.3" //launch tests on appium 1
+      }
     },
   ],
 
