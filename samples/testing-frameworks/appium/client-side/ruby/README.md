@@ -10,7 +10,7 @@ running with these scripts you should register with [Bitbar
 service](https://cloud.bitbar.com/).
 
 For more detailed guides on Appium please refer to the [documentation
-online](http://appium.io/slate/en/master/?python#about-appium).
+online](https://appium.io/docs/en/).
 
 ## Quick Start
 
@@ -18,16 +18,16 @@ online](http://appium.io/slate/en/master/?python#about-appium).
 and dependencies.
 
 * Install necessary gems and dependencies. Run in current directory:
-
+```
     bundle install
-
+```
 * Update your test script (bitbar_*.rb) with necessary information
   (see below).
 
 * Start test case run with eg.:
-
+```
     rspec bitbar_android.rb
-
+```
 ## Common Necessary Settings
 
 There are some common settings that you need to set in all scripts
@@ -51,7 +51,7 @@ Here are all the values that you need to edit:
 * *bitbar_testrun* - name or number of this test run. Test run
   names can be modified even at every test run
 
-* *bitbar_app* - should be the id of the app you uploaded to cloud.
+* *bitbar_app_id* - should be the id of the app you uploaded to cloud.
 
 ## Native iOS Specific Settings
 
@@ -79,12 +79,8 @@ common settings done above, you need to change the following values.
 
 ## Web App Specific Settings
 
-Example: bitbar_selendroid.rb and bitbar_webdriver_ios.rb
+Example: bitbar_webdriver_ios.rb
 
 For a more complete explanation on testing hybrid application take a
 look at Appium
-[documentation](https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/hybrid.md).
-
-## Tips
-
-* To find available free devices in Bitbar cloud, you can use this Ruby [tool](https://github.com/bootstraponline/bitbar_device_finder)
+[documentation](https://appium.readthedocs.io/en/stable/en/writing-running-appium/web/hybrid/).

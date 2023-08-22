@@ -18,30 +18,30 @@ require 'fileutils'
 screen_shot_dir = "screenshot-folder"
 bitbar_api_key = ENV["BITBAR_APIKEY"] #Your bitbar api key
 bitbar_device = "Apple iPhone 7 A1778 15.4.1" # Example device. Change if you desire.
-bitbar_app_file = "BitbarIOSSample.ipa"
+bitbar_app_file = "../../../../../apps/ios/bitbar-ios-sample.ipa"
 
 ##
 ##  If your app is already uploaded assign its ID to the bitbar_app_id (can be found in bitbar files library)
 ##
-bitbar_app_id = nil
+@bitbar_app_id = nil
 
 
 ##
 ##  Set other parameters if needed, see more on README
 ## 
 desired_capabilities_cloud = {
-    'device' => 'iphone',
-    'bitbar_app' => nil,
-    'bitbar_apiKey' => bitbar_api_key,
-    'bitbar_project' => 'Appium iOS Project1',
-    'bitbar_description' => 'Appium project description',
-    'bitbar_testrun' => 'Test Run 1',
-    'bitbar_device' => bitbar_device,
-    'bitbar_target' => 'ios',
-    'deviceName' => 'iPhone device',
     'platformName' => 'iOS',
-    'automationName': 'XCUITest',
-    'bundleId' => 'com.bitbar.testdroid.BitbarIOSSample'
+    'appium:automationName' => 'XCUITest',
+    'appium:bundleId' => 'com.bitbar.testdroid.BitbarIOSSample',
+    'appium:deviceName' => 'iPhone device',
+    'bitbar:options' => {
+      'apiKey' => bitbar_api_key,
+      'project' => 'Appium iOS Project1',
+      'description' => 'Appium project description',
+      'testrun' => 'Test Run 1',
+      'device' => bitbar_device,
+      'app' => @bitbar_app_id
+    }
 }
 
 
@@ -62,21 +62,20 @@ def upload_application(file_path, bitbar_api_key)
   c.http_post(Curl::PostField.file("file", file_path))
   resp = JSON.parse(c.body_str)
 
-  bitbar_app_id = resp["id"]
+  @bitbar_app_id = resp["id"]
 end
 
 describe "BitbarIOSSample testing" do
   before :all do
-    if bitbar_app_id == nil
+    if @bitbar_app_id == nil
       log ("Upload application #{bitbar_app_file}")
       upload_application(bitbar_app_file, bitbar_api_key)
-      log ("Uploaded file id #{@bitbar_app}")
+      log ("Uploaded file id #{@bitbar_app_id}")
+      desired_capabilities_cloud['bitbar:options']['app'] = @bitbar_app_id
     end
-    desired_capabilities_cloud['bitbar_app'] = bitbar_app_id
-
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
-    @web_driver = @driver.start_driver()
+    @web_driver = @driver.start_driver(:read_timeout => 999_999)
 
     log ("WebDriver response received")
   end

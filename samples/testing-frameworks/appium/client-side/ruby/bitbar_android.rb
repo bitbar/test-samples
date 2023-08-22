@@ -21,10 +21,10 @@ bitbar_device = "Motorola Nexus 6 7.1.1" # Example device. Change if you desire.
 bitbar_app_file = "../../../../../apps/android/bitbar-sample-app.apk"
 
 ##
-##  If your app is already uploaded assign its ID to the bitbar_app (can be found in bitbar files library) or pass the
+##  If your app is already uploaded assign its ID to the bitbar_app_id (can be found in bitbar files library) or pass the
 ##  path for downloading your application in order to upload it to the cloud
 ##
-bitbar_app = nil
+@bitbar_app_id = nil
 
 def log(msg)
   puts "#{Time.now}: #{msg}"
@@ -34,18 +34,23 @@ end
 ##  Set other parameters if needed, see more on README
 ##
 desired_capabilities_cloud = {
-    'device' => 'Android',
     'platformName' => 'Android',
-    'deviceName' => 'Android',
-    'fullReset' => false,
-    'noReset' => true,
-    'bitbar_apiKey' => bitbar_api_key,
-    'bitbar_project' => 'Appium Ruby Demo',
-    'bitbar_description' => 'Appium project description',
-    'bitbar_testrun' => 'Test Run 1',
-    'bitbar_device' => bitbar_device,
-    'app-package' => 'com.bitbar.testdroid',
-    'app-activity' => '.BitbarSampleApplicationActivity'
+    'appium:options' => {
+      'automationName' => 'uiautomator2',
+      'fullReset' => false,
+      'noReset' => true,
+      'app-package' => 'com.bitbar.testdroid',
+      'app-activity' => '.BitbarSampleApplicationActivity'
+    },
+    'bitbar:options' => {
+      'apiKey' => bitbar_api_key,
+      'project' => 'Appium Ruby Demo',
+      'description' => 'Appium project description',
+      'testrun' => 'Test Run 1',
+      'device' => bitbar_device,
+      'app' => @bitbar_app_id
+      #'appiumVersion' => "1.22.3", # launch on appium 1
+    },
 }
 
 
@@ -61,20 +66,20 @@ def upload_application(file_path, bitbar_api_key)
   c.verbose = true
   c.http_post(Curl::PostField.file("file", file_path))
   resp = JSON.parse(c.body_str)
-  bitbar_app = resp["id"]
+  @bitbar_app_id = resp["id"]
 end
 
 describe "BitbarSampleApp testing" do
   before :all do
-    if bitbar_app == nil
+    if @bitbar_app_id == nil
       log ("Upload application #{bitbar_app_file}")
       upload_application(bitbar_app_file, bitbar_api_key)
-      log ("Uploaded file #{bitbar_app}")
+      log ("Uploaded file #{@bitbar_app_id}")
+      desired_capabilities_cloud['bitbar:options']['app'] = @bitbar_app_id
     end
-    desired_capabilities_cloud['bitbar_app'] = bitbar_app
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
-    @web_driver = @driver.start_driver()
+    @web_driver = @driver.start_driver(:read_timeout => 999_999)
     log ("WebDriver response received")
   end
 
@@ -87,7 +92,7 @@ describe "BitbarSampleApp testing" do
     log ("view1: Clicking button - 'Buy 101 devices'")
     @driver.find_element(:id, 'com.bitbar.testdroid:id/radio0').click
     log ("view1: Typing in textfield[0]: Bitbar user")
-    @driver.find_element(:id, 'com.bitbar.testdroid:id/editText1').send_keys("Bitbar user")
+    @driver.find_element(:class, 'android.widget.EditText').send_keys("Bitbar user")
     @driver.navigate.back()
     log ("view1: Taking screenshot screenshot1.png")
     @driver.screenshot(screen_shot_dir + "/screenshot1.png")
