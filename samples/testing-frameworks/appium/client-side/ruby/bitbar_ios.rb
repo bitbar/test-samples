@@ -75,7 +75,7 @@ describe "BitbarIOSSample testing" do
     end
     log ("Start Webdriver with [#{desired_capabilities_cloud}]")
     @driver = Appium::Driver.new ({:caps => desired_capabilities_cloud, :appium_lib => {:server_url => server_url}})
-    @web_driver = @driver.start_driver()
+    @web_driver = @driver.start_driver(:read_timeout => 999_999)
 
     log ("WebDriver response received")
   end
