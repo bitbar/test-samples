@@ -14,13 +14,13 @@ class BitbarSafari(BaseTest):
         if self.bitbar_device == "":
             self._find_device("iOS")
 
-        self.desired_capabilities_cloud["platformName"] = "iOS"
-        self.desired_capabilities_cloud["browserName"] = "Safari"
-        self.desired_capabilities_cloud["bitbar:options"]["project"] = bitbar_project_name
-        self.desired_capabilities_cloud["bitbar:options"]["device"] = self.bitbar_device
-        self.desired_capabilities_cloud["bitbar:options"]["target"] = "safari"
-        self.desired_capabilities_cloud["appium:automationName"] = automation_name
-        self.desired_capabilities_cloud["appium:deviceName"] = "iPhone device"
+        self.capabilities["platformName"] = "iOS"
+        self.capabilities["browserName"] = "Safari"
+        self.capabilities["bitbar:options"]["project"] = bitbar_project_name
+        self.capabilities["bitbar:options"]["device"] = self.bitbar_device
+        self.capabilities["bitbar:options"]["target"] = "safari"
+        self.capabilities["appium:automationName"] = automation_name
+        self.capabilities["appium:deviceName"] = "iPhone device"
 
     def test_sample(self):
         super()._start_webdriver()

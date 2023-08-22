@@ -13,13 +13,13 @@ class BitbarChrome(BaseTest):
         if self.bitbar_device == "":
             self._find_device("Android")
 
-        self.desired_capabilities_cloud["platformName"] = "Android"
-        self.desired_capabilities_cloud["browserName"] = "chrome"
-        self.desired_capabilities_cloud["bitbar:options"]["project"] = bitbar_project_name
-        self.desired_capabilities_cloud["bitbar:options"]["device"] = self.bitbar_device
-        self.desired_capabilities_cloud["bitbar:options"]["target"] = "chrome"
-        #self.desired_capabilities_cloud["bitbar:options"]["appiumVersion"] = "1.22.3" #launch tests on appium 1
-        self.desired_capabilities_cloud["appium:automationName"] = "uiautomator2"
+        self.capabilities["platformName"] = "Android"
+        self.capabilities["browserName"] = "chrome"
+        self.capabilities["bitbar:options"]["project"] = bitbar_project_name
+        self.capabilities["bitbar:options"]["device"] = self.bitbar_device
+        self.capabilities["bitbar:options"]["target"] = "chrome"
+        #self.capabilities["bitbar:options"]["appiumVersion"] = "1.22.3" #launch tests on appium 1
+        self.capabilities["appium:automationName"] = "uiautomator2"
 
     def test_sample(self):
         super()._start_webdriver()
