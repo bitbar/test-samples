@@ -39,15 +39,18 @@ class BaseTest(unittest.TestCase):
         self.utils = BitbarUtils(self.screenshot_dir)
         self.utils.log("Will save screenshots at: " + self.screenshot_dir)
 
-        self.desired_capabilities_cloud = {}
-        self.desired_capabilities_cloud["bitbar_apiKey"] = bitbar_apiKey
-        self.desired_capabilities_cloud["bitbar_testrun"] = bitbar_testrun_name
-        self.desired_capabilities_cloud["bitbar_app"] = bitbar_app
-        self.desired_capabilities_cloud["fullReset"] = False
-        self.desired_capabilities_cloud["noReset"] = True
-        self.desired_capabilities_cloud["newCommandTimeout"] = new_command_timeout
-        self.desired_capabilities_cloud["bitbar_testTimeout"] = bitbar_test_timeout
-        self.desired_capabilities_cloud["bitbar_findDevice"] = bitbar_find_device
+        self.capabilities = {
+            "appium:newCommandTimeout": new_command_timeout,
+            "appium:fullReset": False,
+            "appium:noReset": True,
+            "bitbar:options": {
+                "apiKey": bitbar_apiKey,
+                "testrun": bitbar_testrun_name,
+                "testTimeout": bitbar_test_timeout,
+                "findDevice": bitbar_find_device,
+                **({"app": bitbar_app} if bitbar_app != "" else {})
+            }
+        }
 
     def test_sample(self):
         pass
@@ -60,7 +63,7 @@ class BaseTest(unittest.TestCase):
         self.utils.log(
             "WebDriver request initiated. Waiting for response, this typically takes 2-3 mins"
         )
-        self.driver = webdriver.Remote(self.appium_url, self.desired_capabilities_cloud)
+        self.driver = webdriver.Remote(self.appium_url, self.capabilities)
         self.utils.log("WebDriver response received")
         self.utils.update_driver(self.driver)
         self.utils.log("Driver session id: " + self.driver.session_id)

@@ -11,7 +11,7 @@ from requests.auth import HTTPBasicAuth
 class UploadApp():
     def __init__(self):
         self.myfile = os.environ.get('BITBAR_APP_PATH') or \
-            '../../../../../apps/android/testdroid-sample-app.apk'
+            '../../../../../apps/android/bitbar-sample-app.apk'
         self.upload_url = os.environ.get('BITBAR_UPLOAD_URL') or \
             'https://cloud.bitbar.com/api/v2/me/files'
         # Provide mandatory API key with this env var or with -k/--apikey flag

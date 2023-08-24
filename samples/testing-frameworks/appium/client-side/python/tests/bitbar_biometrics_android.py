@@ -18,15 +18,14 @@ class BitbarBiometricsAndroid(BaseTest):
         if self.bitbar_device == "":
             self._find_device("Android")
 
-        self.desired_capabilities_cloud["bitbar_project"] = bitbar_project_name
-        self.desired_capabilities_cloud["bitbar_device"] = self.bitbar_device
-        self.desired_capabilities_cloud["appPackage"] = app_package
-        self.desired_capabilities_cloud["appActivity"] = app_activity
-        self.desired_capabilities_cloud["platformName"] = "Android"
-        self.desired_capabilities_cloud["deviceName"] = "Android device"
-        self.desired_capabilities_cloud["bitbar_biometricInstrumentation"] = True
-        self.desired_capabilities_cloud["bitbar_target"] = "android"
-        self.desired_capabilities_cloud["automationName"] = "Appium"
+        self.capabilities["platformName"] = "Android"
+        self.capabilities["bitbar:options"]["project"] = bitbar_project_name
+        self.capabilities["bitbar:options"]["device"] = self.bitbar_device
+        self.capabilities["bitbar:options"]["biometricInstrumentation"] = True
+        #self.capabilities["bitbar:options"]["appiumVersion"] = "1.22.3" #launch tests on appium 1
+        self.capabilities["appium:automationName"] = "uiautomator2"
+        self.capabilities["appium:appPackage"] = app_package
+        self.capabilities["appium:appActivity"] = app_activity
 
     def test_sample(self):
         super()._start_webdriver()
