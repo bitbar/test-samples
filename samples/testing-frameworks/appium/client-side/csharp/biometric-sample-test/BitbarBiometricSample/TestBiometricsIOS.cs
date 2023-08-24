@@ -14,7 +14,7 @@ namespace BitbarBiometricSample
             capabilities.AddAdditionalCapability("appium:automationName", "XCUITest");
             capabilities.AddAdditionalCapability("appium:deviceName", "iPhone device");
             //Customizable
-            capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, object>
+            capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, string>
             {
                 {"project", "C# Appium Automated Test"},
                 {"testrun", "iOS Run"},

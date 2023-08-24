@@ -20,18 +20,19 @@ namespace TestdroidAndroidSample
 		public void BeforeAll()
 		{
 			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-			String BITBAR_APIKEY = "<YOUR BITBAR API KEY>";
+			string BITBAR_APIKEY = "<YOUR BITBAR API KEY>";
+			string BITBAR_APP =  "<ID OF YOUR APP>";
 
 			AppiumOptions capabilities = new AppiumOptions();
 			capabilities.AddAdditionalCapability("platformName", "Android");
 			capabilities.AddAdditionalCapability("appium:automationName", "uiautomator2");
-			capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, object>
+			capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, string>
 			{
 				{"project", "C# Appium"},
-				{"testrun", "Android Run 1" },
+				{"testrun", "Android Run 1"},
 				{"device", "Google Pixel 6"}, // See available devices at: https://cloud.bitbar.com/#public/devices
 				{"apiKey", BITBAR_APIKEY},
-				{"app", "<APP ID>"},
+				{"app", BITBAR_APP},
 				//{"appiumVersion", "1.22.3"} //launch tests on appium 1
 			});
 			

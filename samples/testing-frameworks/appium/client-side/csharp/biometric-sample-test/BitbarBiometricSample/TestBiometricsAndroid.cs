@@ -12,7 +12,7 @@ namespace BitbarBiometricSample
             capabilities.AddAdditionalCapability("platformName", "Android");
             capabilities.AddAdditionalCapability("appium:automationName", "uiautomator2");
             //Customizable
-            capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, object>
+            capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, string>
             {
                 {"project", "C# Appium Automated Test"},
                 {"testrun", "Android Run" },
