@@ -11,14 +11,17 @@ namespace BitbarBiometricSample
         {
             //Platform dependent
             capabilities.AddAdditionalCapability("platformName", "iOS");
-            capabilities.AddAdditionalCapability("deviceName", "iPhone device");
-            capabilities.AddAdditionalCapability("automationName", "XCUITest");
+            capabilities.AddAdditionalCapability("appium:automationName", "XCUITest");
+            capabilities.AddAdditionalCapability("appium:deviceName", "iPhone device");
             //Customizable
-            capabilities.AddAdditionalCapability("bitbar_project", "C# Appium Automated Test");
-            capabilities.AddAdditionalCapability("bitbar_testrun", "iOS Run");
-            capabilities.AddAdditionalCapability("bitbar_device", "Apple iPhone 11");
-            //App ID
-            capabilities.AddAdditionalCapability("bitbar_app", "<APP_ID>");
+            capabilities.AddAdditionalCapability("bitbar:options", new Dictionary<string, string>
+            {
+                {"project", "C# Appium Automated Test"},
+                {"testrun", "iOS Run"},
+                {"device", "Apple iPhone 11"},
+                {"app", "<APP_ID>" }
+                //{"appiumVersion", "1.22.3"} //launch tests on appium 1
+            });
 
             Console.WriteLine("Sending request to start a session. Waiting for response typically takes 2-3 minutes...");
             driver = new IOSDriver<IOSElement>(new Uri(AppiumHubURL), capabilities, TimeSpan.FromSeconds(300));
