@@ -22,42 +22,27 @@ app (apk or ipa) needs to be provided.
 If no app is provided on command line, then the Bitbar Sample Android app is
 uploaded.
 
+Upload a mobile app to Bitbar cloud and get a handle to it
+
 ```bash
 $ python upload.py -h
 usage: upload.py [-h] [-k APIKEY] [-a APP_PATH] [-u URL]
 ```
-Upload a mobile app to Bitbar cloud and get a handle to it
 
 optional arguments:
-```
+
+```bash
   -h, --help            show this help message and exit
   -k APIKEY, --apikey APIKEY
-                        User's apiKey to identify to cloud
-  -s SCREENSHOT_DIR, --screenshot_dir SCREENSHOT_DIR
-                        Path to screenshot directory
-  -t {bitbar_chrome,bitbar_android,bitbar_safari,bitbar_ios,bitbar_biometrics_ios,bitbar_biometrics_android}, --test {bitbar_chrome,bitbar_android,bitbar_safari,bitbar_ios,bitbar_biometrics_ios,bitbar_biometrics_android}
-                        The test file to be run
-  -a APP, --app APP     Id of app uploaded to cloud using upload.py script or path for downloading an app. Mandatory for app testing
-  --device DEVICE       Full name of device to use
-  --device_group_id DEVICE_GROUP_ID
-                        The id of the Bitbar device group from where available devices are to be searched from
-  -p PROJECT, --project PROJECT
-                        The name of the cloud project
-  -r RUN_NAME, --run_name RUN_NAME
-                        The name of the test run
-  -u URL, --url URL     Bitbar url where test project and devices are found
-  -i APPIUM_URL, --appium_url APPIUM_URL
-                        Bitbar Appium url
-  --bundle_id BUNDLE_ID
-                        Mandatory bundleID when running iOS tests
-  --app_package APP_PACKAGE
-                        Mandatory app package path for native Android tests
-  --app_activity APP_ACTIVITY
-                        Mandatory main activity for native Android tests
-  --cmd_timeout CMD_TIMEOUT
-                        New command timeout value, default is 60s
-  --test_timeout TEST_TIMEOUT
-                        Maximum test duration, defaults to 600s
+                        User's apiKey to identify to cloud, or set environment
+                        variable BITBAR_APIKEY
+  -a APP_PATH, --app_path APP_PATH
+                        Path to app to upload or set environment variable
+                        BITBAR_APP_PATH. Current value is:
+                        '../../../../../apps/android/testdroid-sample-app.apk'
+  -u URL, --url URL     Bitbar cloud url to upload app or set environment
+                        variable BITBAR_UPLOAD_URL. Current value is:
+                        'https://cloud.bitbar.com/api/v2/me/files'
 ```
 
 The below example shows how to upload a hybrid Android demo app to Bitbar Cloud.
@@ -104,6 +89,39 @@ in the files. Values can also be given as command line parameters to
   script or path for downloading an application. Example id could be '127314812'.
 * *bitbar_biometricInstrumentation* - boolean value, that informs whether
   biometry should be injected or not.
+
+### `run-test.py` paramaters:
+
+```
+  -h, --help            show this help message and exit
+  -k APIKEY, --apikey APIKEY
+                        User's apiKey to identify to cloud
+  -s SCREENSHOT_DIR, --screenshot_dir SCREENSHOT_DIR
+                        Path to screenshot directory
+  -t {bitbar_chrome,bitbar_android,bitbar_safari,bitbar_ios,bitbar_biometrics_ios,bitbar_biometrics_android}, --test {bitbar_chrome,bitbar_android,bitbar_safari,bitbar_ios,bitbar_biometrics_ios,bitbar_biometrics_android}
+                        The test file to be run
+  -a APP, --app APP     Id of app uploaded to cloud using upload.py script or path for downloading an app. Mandatory for app testing
+  --device DEVICE       Full name of device to use
+  --device_group_id DEVICE_GROUP_ID
+                        The id of the Bitbar device group from where available devices are to be searched from
+  -p PROJECT, --project PROJECT
+                        The name of the cloud project
+  -r RUN_NAME, --run_name RUN_NAME
+                        The name of the test run
+  -u URL, --url URL     Bitbar url where test project and devices are found
+  -i APPIUM_URL, --appium_url APPIUM_URL
+                        Bitbar Appium url
+  --bundle_id BUNDLE_ID
+                        Mandatory bundleID when running iOS tests
+  --app_package APP_PACKAGE
+                        Mandatory app package path for native Android tests
+  --app_activity APP_ACTIVITY
+                        Mandatory main activity for native Android tests
+  --cmd_timeout CMD_TIMEOUT
+                        New command timeout value, default is 60s
+  --test_timeout TEST_TIMEOUT
+                        Maximum test duration, defaults to 600s
+```
 
 ## Example Run
 
