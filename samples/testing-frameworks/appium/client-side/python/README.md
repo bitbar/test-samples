@@ -25,27 +25,45 @@ uploaded.
 ```bash
 $ python upload.py -h
 usage: upload.py [-h] [-k APIKEY] [-a APP_PATH] [-u URL]
-
+```
 Upload a mobile app to Bitbar cloud and get a handle to it
 
 optional arguments:
+```
   -h, --help            show this help message and exit
   -k APIKEY, --apikey APIKEY
-                        User's apiKey to identify to cloud, or set environment
-                        variable BITBAR_APIKEY
-  -a APP_PATH, --app_path APP_PATH
-                        Path to app to upload or set environment variable
-                        BITBAR_APP_PATH. Current value is:
-                        '../../../../../apps/android/testdroid-sample-app.apk'
-  -u URL, --url URL     Bitbar cloud url to upload app or set environment
-                        variable BITBAR_UPLOAD_URL. Current value is:
-                        'https://cloud.bitbar.com/api/v2/me/files'
+                        User's apiKey to identify to cloud
+  -s SCREENSHOT_DIR, --screenshot_dir SCREENSHOT_DIR
+                        Path to screenshot directory
+  -t {bitbar_chrome,bitbar_android,bitbar_safari,bitbar_ios,bitbar_biometrics_ios,bitbar_biometrics_android}, --test {bitbar_chrome,bitbar_android,bitbar_safari,bitbar_ios,bitbar_biometrics_ios,bitbar_biometrics_android}
+                        The test file to be run
+  -a APP, --app APP     Id of app uploaded to cloud using upload.py script or path for downloading an app. Mandatory for app testing
+  --device DEVICE       Full name of device to use
+  --device_group_id DEVICE_GROUP_ID
+                        The id of the Bitbar device group from where available devices are to be searched from
+  -p PROJECT, --project PROJECT
+                        The name of the cloud project
+  -r RUN_NAME, --run_name RUN_NAME
+                        The name of the test run
+  -u URL, --url URL     Bitbar url where test project and devices are found
+  -i APPIUM_URL, --appium_url APPIUM_URL
+                        Bitbar Appium url
+  --bundle_id BUNDLE_ID
+                        Mandatory bundleID when running iOS tests
+  --app_package APP_PACKAGE
+                        Mandatory app package path for native Android tests
+  --app_activity APP_ACTIVITY
+                        Mandatory main activity for native Android tests
+  --cmd_timeout CMD_TIMEOUT
+                        New command timeout value, default is 60s
+  --test_timeout TEST_TIMEOUT
+                        Maximum test duration, defaults to 600s
 ```
 
 The below example shows how to upload a hybrid Android demo app to Bitbar Cloud.
 
 ```bash
-$ python upload.py -k xg8x...YXto -a ../../../../../apps/android/testdroid-sample-app.apk
+$ python upload.py -k xg8x...YXto -a ../../../../../apps/android/bitbar-sample-app.apk
 File id to use in Bitbar capabilities in your test: 127314812
 ```
 
@@ -60,7 +78,7 @@ needs to have the following values set as environment variables or set
 in the files. Values can also be given as command line parameters to
 `run-test.py` script.
 
-Common values used in tests:
+### Values used in tests:
 
 * *screenshot_dir* - where should screenshots be stored on your local drive
 
@@ -89,8 +107,14 @@ Common values used in tests:
 
 ## Example Run
 
+Remember to download pip packages listed in `python3-requirements.txt`:
+
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -t bitbar_ios -a "127314812"
+python3 -m pip install -r python3-requirements.txt
+```
+
+```bash
+$ python run-test.py -k xYY5...PeOA6 -s ./screenshots -p "iOS" -t bitbar_ios -a "127314812"
 testSample (bitbar_ios.TestdroidIOS) ... Searching Available Free iOS Device...
 Found device 'Apple iPad Mini A1432 9.2.1'
 
@@ -127,7 +151,7 @@ To run iOS native app tests additional parameter is required to be provided:
 * **bundleId** - this is your application's unique name
 
 ```bash
-$ python run-test.py -k xYY5...PeOA6 -s /tmp/screens/ -p "iOS" -r `date +%R` -a "127314812" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t bitbar_ios  
+$ python run-test.py -k xYY5...PeOA6 -s ./screenshots -p "iOS" -r `date +%R` -a "127314812" --bundle_id "com.bitbar.testdroid.BitbarIOSSample" -t bitbar_ios  
 ```
 
 This parameter is not needed if running against the sample BitbarIOSSample.ipa application, as it's set inside of the sample script.
@@ -147,7 +171,7 @@ following additional information:
 For running the sample applications and tests these do not need to be set as they are set inside of the sample scripts if no parameter is given.
 
 ```bash
-python run-test.py -k xYY5...PeOA6 -s /tmp/screens -a '127314812' -p "Android Native" -r  `date +%R` -t bitbar_android
+python run-test.py -k xYY5...PeOA6 -s ./screenshots -a '127314812' -p "Android Native" -r  `date +%R` -t bitbar_android
 ```
 
 ## Safari Browser Testing
@@ -157,7 +181,7 @@ Does not need any specific settings.
 Example: `bitbar_safari.py`
 
 ```bash
-python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t bitbar_safari -p "Safari browser"  -r `date +%R`
+python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s ./screenshots -t bitbar_safari -p "Safari browser"  -r `date +%R`
 ```
 
 ## Chrome Browser Testing
@@ -167,5 +191,5 @@ Does not need any special settings.
 Example: `bitbar_chrome.py`
 
 ```bash
-python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s /tmp/screens/ -t bitbar_chrome -p "Chrome browser"  -r `date +%R`
+python run-test.py -k xYY5hc8PXAXsBBd1G3ijnb18wlqPeOA6 -s ./screenshots -t bitbar_chrome -p "Chrome browser"  -r `date +%R`
 ```

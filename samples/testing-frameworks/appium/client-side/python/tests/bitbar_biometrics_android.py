@@ -21,7 +21,6 @@ class BitbarBiometricsAndroid(BaseTest):
         self.capabilities["platformName"] = "Android"
         self.capabilities["bitbar:options"]["project"] = bitbar_project_name
         self.capabilities["bitbar:options"]["device"] = self.bitbar_device
-        self.capabilities["bitbar:options"]["target"] = "android"
         self.capabilities["bitbar:options"]["biometricInstrumentation"] = True
         #self.capabilities["bitbar:options"]["appiumVersion"] = "1.22.3" #launch tests on appium 1
         self.capabilities["appium:automationName"] = "uiautomator2"

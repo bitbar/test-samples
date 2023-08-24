@@ -18,7 +18,6 @@ class BitbarSafari(BaseTest):
         self.capabilities["browserName"] = "Safari"
         self.capabilities["bitbar:options"]["project"] = bitbar_project_name
         self.capabilities["bitbar:options"]["device"] = self.bitbar_device
-        self.capabilities["bitbar:options"]["target"] = "safari"
         self.capabilities["appium:automationName"] = automation_name
         self.capabilities["appium:deviceName"] = "iPhone device"
 

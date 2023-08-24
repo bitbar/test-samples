@@ -19,7 +19,6 @@ class BitbarIOS(BaseTest):
         self.capabilities["platformName"] = "iOS"
         self.capabilities["bitbar:options"]["project"] = bitbar_project_name
         self.capabilities["bitbar:options"]["device"] = self.bitbar_device
-        self.capabilities["bitbar:options"]["target"] = "ios"
         self.capabilities["appium:bundleId"] = bitbar_bundle_id
         self.capabilities["appium:automationName"] = automation_name
         self.capabilities["appium:deviceName"] = "iPhone device"

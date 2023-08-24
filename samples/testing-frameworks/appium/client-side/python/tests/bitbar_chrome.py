@@ -17,7 +17,6 @@ class BitbarChrome(BaseTest):
         self.capabilities["browserName"] = "chrome"
         self.capabilities["bitbar:options"]["project"] = bitbar_project_name
         self.capabilities["bitbar:options"]["device"] = self.bitbar_device
-        self.capabilities["bitbar:options"]["target"] = "chrome"
         #self.capabilities["bitbar:options"]["appiumVersion"] = "1.22.3" #launch tests on appium 1
         self.capabilities["appium:automationName"] = "uiautomator2"
 
