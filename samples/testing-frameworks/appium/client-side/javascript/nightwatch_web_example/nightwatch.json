@@ -57,8 +57,8 @@
             },
             "capabilities": {
                 "platformName": "iOS",
-                "autoAcceptAlerts": "true",
                 "browserName": "safari",
+                "appium:autoAcceptAlerts": "true",
                 "appium:newCommandTimeout":"120",
                 "appium:deviceName": "iPhone",
                 "appium:automationName": "XCUITest"
