@@ -30,18 +30,6 @@ public abstract class BaseTest {
 
     public void setUpAppiumDriver() throws IOException {
         this.capabilities = getDesiredCapabilitiesFromProperties();
-
-        if (isClientSideTestRun() || isClientSideTestRunWithBiometry()) {
-            LOGGER.debug("Setting client side specific capabilities...");
-            LOGGER.debug("Setting client side specific capabilities... FINISHED");
-        } else if (isServerSideTestRun()) {
-            LOGGER.debug("Setting server side specific capabilities...");
-            capabilities.setCapability("app", getServerSideApplicationPath());
-            if (System.getenv("AUTOMATION_NAME") != null) {
-                capabilities.setCapability("automationName", System.getenv("AUTOMATION_NAME"));
-            }
-            LOGGER.debug("Setting server side specific capabilities... FINISHED");
-        }
         LOGGER.debug("Creating Appium session, this may take couple minutes..");
         setAppiumDriver();
     }
@@ -79,16 +67,29 @@ private DesiredCapabilities getDesiredCapabilitiesFromProperties() throws IOExce
             desiredCapabilities.setCapability(key, value);
         }
     }
-    bitbarOptions.setCapability("apiKey", getApiKey());
-    String app;
-    if (isUploadApplication()) {
-        LOGGER.debug("Uploading " + getTargetAppPath() + " to Testdroid Cloud");
-        app = FileUploader.uploadFile(getTargetAppPath(), getCloudServerAddress(), getApiKey());
-        LOGGER.debug("File uploaded. File id is " + app);
-    } else {
-        app = getAppCapability();
+
+    if (isClientSideTestRun() || isClientSideTestRunWithBiometry()) {
+        LOGGER.debug("Setting client side specific capabilities...");
+        String app;
+        if (isUploadApplication()) {
+            LOGGER.debug("Uploading " + getTargetAppPath() + " to Testdroid Cloud");
+            app = FileUploader.uploadFile(getTargetAppPath(), getCloudServerAddress(), getApiKey());
+            LOGGER.debug("File uploaded. File id is " + app);
+        } else {
+            app = getAppCapability();
+        }
+        bitbarOptions.setCapability("app", app);
+        bitbarOptions.setCapability("apiKey", getApiKey());
+        LOGGER.debug("Setting client side specific capabilities... FINISHED");
+    } else if (isServerSideTestRun()) {
+        LOGGER.debug("Setting server side specific capabilities...");
+        bitbarOptions.setCapability("app", getServerSideApplicationPath());
+        if (System.getenv("AUTOMATION_NAME") != null) {
+            bitbarOptions.setCapability("automationName", System.getenv("AUTOMATION_NAME"));
+        }
+        LOGGER.debug("Setting server side specific capabilities... FINISHED");
     }
-    bitbarOptions.setCapability("app", app);
+
     desiredCapabilities.setCapability("appium:options", appiumOptions);
     desiredCapabilities.setCapability("bitbar:options", bitbarOptions);
     return desiredCapabilities;
