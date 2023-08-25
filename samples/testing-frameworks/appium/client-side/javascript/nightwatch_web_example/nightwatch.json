@@ -14,15 +14,17 @@
                 "enabled": false,
                 "path": ""
             },
-            "desiredCapabilities": {
-                "bitbar_apiKey": "<insert_your_apiKey_to_credentials_file>",
-                "bitbar_device": "Apple iPhone 7 A1778 15.4.1",
+            "capabilities": {
                 "platformName": "iOS",
-                "deviceName": "iPhone device",
-                "automationName": "XCUITest",
                 "browserName": "safari",
-                "bitbar_project": "Nightwatch_Example_IOS",
-                "bitbar_testrun": "TestRun_IOS"
+                "appium:deviceName": "iPhone device",
+                "appium:automationName": "XCUITest",
+                "bitbar:options": {
+                    "apiKey": "<insert_your_apiKey_to_credentials_file>",
+                    "device": "Apple iPhone 12",
+                    "project": "Nightwatch_Example_IOS",
+                    "testrun": "TestRun_IOS"
+                }
             }
         },
         "bitbar_android": {
@@ -33,15 +35,16 @@
                 "enabled": false,
                 "path": ""
             },
-            "desiredCapabilities": {
-                "bitbar_apiKey": "<insert_your_apiKey_to_credentials_file>",
-                "bitbar_device": "Google Pixel 3a Android 12",
+            "capabilities": {
                 "platformName": "Android",
-                "deviceName": "Android Phone",
                 "browserName": "chrome",
-                "automationName": "Appium",
-                "bitbar_project": "Nightwatch_Example_Android",
-                "bitbar_testrun": "TestRun_Android"
+                "appium:automationName": "uiautomator2",
+                "bitbar:options": {
+                    "apiKey": "<insert_your_apiKey_to_credentials_file>",
+                    "device": "Google Pixel 3a Android 12",
+                    "project": "Nightwatch_Example_Android",
+                    "testrun": "TestRun_Android"
+                }
             }
         },
         "bitbar_ios_server_side": {
@@ -52,13 +55,13 @@
                 "enabled": false,
                 "path": ""
             },
-            "desiredCapabilities": {
-                "newCommandTimeout":"120",
-                "autoAcceptAlerts": "true",
+            "capabilities": {
                 "platformName": "iOS",
                 "browserName": "safari",
-                "deviceName": "iPhone",
-                "automationName": "XCUITest"
+                "appium:autoAcceptAlerts": "true",
+                "appium:newCommandTimeout":"120",
+                "appium:deviceName": "iPhone",
+                "appium:automationName": "XCUITest"
             }
         },
         "bitbar_android_server_side": {
@@ -69,10 +72,9 @@
                 "enabled": false,
                 "path": ""
             },
-            "desiredCapabilities": {
+            "capabilities": {
                 "platformName": "Android",
-                "browserName": "chrome",
-                "deviceName": "Android Phone"
+                "browserName": "chrome"
             }
         }
     }
