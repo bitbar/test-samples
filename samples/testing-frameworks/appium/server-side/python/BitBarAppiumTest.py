@@ -95,24 +95,22 @@ class BitBarAppiumTest(unittest.TestCase):
     def get_desired_capabilities(self):
         desired_caps = {
             'platformName': self.platform_name,
-            'appium:automationName': self.automation_name
+            'appium:automationName': self.automation_name,
+            'appium:deviceName': self.device_name
         }
         if self.bundle_id:
             log(f'Using bundleId {self.bundle_id}')
             desired_caps['appium:bundleId'] = self.bundle_id
         if self.application_file:
             log(f'Using application file {self.application_file}')
-            desired_caps['app'] = self.application_file
+            desired_caps['appium:app'] = self.application_file
         if self.browser_name:
             log(f'Using mobile browser {self.browser_name}')
             desired_caps['browserName'] = self.browser_name
-        desired_caps['appium:deviceName'] = self.device_name
         if self.application_package:
             desired_caps['appium:appPackage'] = self.application_package
         if self.application_activity:
             desired_caps['appium:appActivity'] = self.application_activity
-        desired_caps['appium:fullReset'] = self.fullReset
-        desired_caps['appium:noReset'] = self.noReset
 
         log(pprint.pformat(desired_caps))
         return desired_caps
