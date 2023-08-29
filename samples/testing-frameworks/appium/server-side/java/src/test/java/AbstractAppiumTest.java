@@ -56,32 +56,16 @@ public abstract class AbstractAppiumTest {
         if (platformVersion == null) {
             platformVersion = "";
         }
-        if (automationName == null) {
-            DefaultArtifactVersion version = new DefaultArtifactVersion(ideviceinfoCheck("ProductVersion"));
-            DefaultArtifactVersion minVersion = new DefaultArtifactVersion("9.3.5");
-            // Use XCUITest if device is above iOS version 9.3.5
-            if (version.compareTo(minVersion) >= 0) {
-                automationName = "XCUITest";
-            } else {
-                automationName = "Appium";
-            }
-        }
-        if (udid == null) {
-            udid = ideviceinfoCheck("UniqueDeviceID");
-        }
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("automationName", automationName);
-        capabilities.setCapability("platformName", "IOS");
-        capabilities.setCapability("deviceName", deviceName);
+        DesiredCapabilities appiumOptions = new DesiredCapabilities();
+        appiumOptions.setCapability("automationName", "XCUITest");
         if (udid != null) {
-            capabilities.setCapability("udid", udid);
+            appiumOptions.setCapability("udid", udid);
         }
-        if (platformVersion != null) {
-            capabilities.setCapability("platformVersion", platformVersion);
-        }
-        capabilities.setCapability("app", appFile);
-        capabilities.setCapability("newCommandTimeout", 120);
+        appiumOptions.setCapability("app", appFile);
+        capabilities.setCapability("platformName", "IOS");
+        capabilities.setCapability("appium:options", appiumOptions);
 
         log("Creating Appium session, this may take couple minutes..");
         driver = new IOSDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
@@ -91,23 +75,14 @@ public abstract class AbstractAppiumTest {
 
     public static AppiumDriver getAndroidDriver() throws Exception {
         adbCheck();
-        if (automationName == null) {
-            automationName = "appium";
-        }
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("automationName", automationName);
+        DesiredCapabilities appiumOptions = new DesiredCapabilities();
+        appiumOptions.setCapability("automationName", "uiautomator2");
+        appiumOptions.setCapability("deviceName", "Android Device");
+        appiumOptions.setCapability("app", appFile);
         capabilities.setCapability("platformName", "ANDROID");
-        capabilities.setCapability("deviceName", "Android Device");
-        if (udid != null) {
-            capabilities.setCapability("udid", udid);
-        }
-        if (platformVersion != null) {
-            capabilities.setCapability("platformVersion", platformVersion);
-        }
-
-        capabilities.setCapability("app", appFile);
-        capabilities.setCapability("newCommandTimeout", 120);
+        capabilities.setCapability("appium:options", appiumOptions);
 
         log("Creating Appium session, this may take couple minutes..");
         driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);

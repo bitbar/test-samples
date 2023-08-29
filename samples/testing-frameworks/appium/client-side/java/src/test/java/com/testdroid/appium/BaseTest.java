@@ -83,9 +83,9 @@ private DesiredCapabilities getDesiredCapabilitiesFromProperties() throws IOExce
         LOGGER.debug("Setting client side specific capabilities... FINISHED");
     } else if (isServerSideTestRun()) {
         LOGGER.debug("Setting server side specific capabilities...");
-        bitbarOptions.setCapability("app", getServerSideApplicationPath());
+        appiumOptions .setCapability("app", getServerSideApplicationPath());
         if (System.getenv("AUTOMATION_NAME") != null) {
-            bitbarOptions.setCapability("automationName", System.getenv("AUTOMATION_NAME"));
+            appiumOptions.setCapability("automationName", System.getenv("AUTOMATION_NAME"));
         }
         LOGGER.debug("Setting server side specific capabilities... FINISHED");
     }
