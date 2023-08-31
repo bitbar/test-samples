@@ -40,11 +40,15 @@ exports.config = {
     {
       platformName: "Android",
       maxInstances: 1,
-
-      "appium:deviceName": "Android device",
-      "appium:automationName": "UiAutomator2",
-      "appium:app": path.resolve("application.apk"),
-      "appium:newCommandTimeout": 240,
+      'appium:version': {
+        'deviceName': 'Android device',
+        'automationName': 'UiAutomator2',
+        'app': path.resolve('application.apk'),
+        'newCommandTimeout': 240,
+      },
+      // 'bitbar:options': {
+      //   'appiumVersion': '1.22.3' //launch tests on appium 1
+      // }
     },
   ],
 
