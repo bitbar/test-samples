@@ -45,6 +45,7 @@ exports.config = {
 
     capabilities: [{
         platformName: 'Android',
+        maxInstances: 1,
         'appium:options': {
             'deviceName': 'Android device',
             'automationName': 'UiAutomator2',
