@@ -40,7 +40,7 @@ exports.config = {
     {
       platformName: "Android",
       maxInstances: 1,
-      'appium:version': {
+      'appium:options': {
         'deviceName': 'Android device',
         'automationName': 'UiAutomator2',
         'app': path.resolve('application.apk'),
