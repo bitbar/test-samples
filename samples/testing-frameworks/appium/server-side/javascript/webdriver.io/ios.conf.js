@@ -45,10 +45,7 @@ exports.config = {
         'automationName': 'XCUITest',
         'app': path.resolve('application.ipa'),
         'newCommandTimeout': 240,
-        },
-        // 'bitbar:options': {
-        //     'appiumVersion': '1.22.3'
-        // }
+        }
     }],
 
     //

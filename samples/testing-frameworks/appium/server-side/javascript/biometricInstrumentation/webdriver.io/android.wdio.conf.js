@@ -45,10 +45,7 @@ exports.config = {
         'automationName': 'UiAutomator2',
         'app': path.resolve('application.apk'),
         'newCommandTimeout': 240,
-      },
-      // 'bitbar:options': {
-      //   'appiumVersion': '1.22.3' //launch tests on appium 1
-      // }
+      }
     },
   ],
 
