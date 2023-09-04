@@ -58,10 +58,12 @@
             "capabilities": {
                 "platformName": "iOS",
                 "browserName": "safari",
-                "appium:autoAcceptAlerts": "true",
-                "appium:newCommandTimeout":"120",
-                "appium:deviceName": "iPhone",
-                "appium:automationName": "XCUITest"
+                "appium:options": {
+                "automationName": "XCUITest",
+                "deviceName": "Iphone",
+                "newCommandTimeout": "120",
+                "autoAcceptAlerts": "true"
+                }
             }
         },
         "bitbar_android_server_side": {
@@ -74,7 +76,12 @@
             },
             "capabilities": {
                 "platformName": "Android",
-                "browserName": "chrome"
+                "browserName": "chrome",
+                "appium:options": {
+                "deviceName": "Android device",
+                "automationName": "UiAutomator2",
+                "newCommandTimeout": 240
+                }
             }
         }
     }
