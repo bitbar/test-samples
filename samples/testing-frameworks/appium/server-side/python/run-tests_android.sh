@@ -11,7 +11,7 @@ echo "Extracting tests.zip..."
 unzip tests.zip
 
 echo "Installing pip for python"
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
 python get-pip.py
 
 echo "Installing Appium Python Client and xmlrunner"

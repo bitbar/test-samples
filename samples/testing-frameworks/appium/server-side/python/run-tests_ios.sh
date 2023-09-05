@@ -16,7 +16,7 @@ unzip -o tests.zip
 #########################################################
 
 echo "Installing pip"
-curl https://bootstrap.pypa.io/get-pip.py | python - --user
+curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python - --user
 
 echo "Exporting PATH for pip"
 export PATH=/Users/testdroid/Library/Python/2.7/bin:${PATH}

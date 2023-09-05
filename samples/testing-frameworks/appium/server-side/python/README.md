@@ -4,6 +4,12 @@ This folder contains a sample Appium server side test case for Android
 and iOS environments. To read more about server and client Appium runs
 in BitBar Cloud, check our online documentation from `https://support.smartbear.com/bitbar/docs/testing-with-bitbar/automated-testing/appium/index.html`.
 
+## Apps
+
+You will find the necessary applications in:
+Android: `test-samples/apps/android/testdroid-sample-app.apk`
+iOS: `test-samples/apps/ios/bitbar-ios-sample.ipa`
+
 ## Folder Content
 
 This folder contains the following files:
