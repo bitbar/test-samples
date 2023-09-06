@@ -59,10 +59,10 @@
                 "platformName": "iOS",
                 "browserName": "safari",
                 "appium:options": {
-                "automationName": "XCUITest",
-                "deviceName": "Iphone",
-                "newCommandTimeout": "120",
-                "autoAcceptAlerts": "true"
+                    "automationName": "XCUITest",
+                    "deviceName": "Iphone",
+                    "newCommandTimeout": "120",
+                    "autoAcceptAlerts": "true"
                 }
             }
         },
@@ -78,9 +78,9 @@
                 "platformName": "Android",
                 "browserName": "chrome",
                 "appium:options": {
-                "deviceName": "Android device",
-                "automationName": "UiAutomator2",
-                "newCommandTimeout": 240
+                    "deviceName": "Android device",
+                    "automationName": "UiAutomator2",
+                    "newCommandTimeout": 240
                 }
             }
         }

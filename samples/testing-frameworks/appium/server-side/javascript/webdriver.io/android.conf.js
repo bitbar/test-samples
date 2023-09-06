@@ -44,13 +44,13 @@ exports.config = {
     ],
 
     capabilities: [{
-        platformName: 'Android',
+        platformName: "Android",
         maxInstances: 1,
-        'appium:options': {
-            'deviceName': 'Android device',
-            'automationName': 'UiAutomator2',
-            'app': path.resolve('application.apk'),
-            'newCommandTimeout': 240
+        "appium:options": {
+            "deviceName": "Android device",
+            "automationName": "UiAutomator2",
+            "app": path.resolve("application.apk"),
+            "newCommandTimeout": 240
         }
     }],
     
