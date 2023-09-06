@@ -40,12 +40,13 @@ exports.config = {
     {
       platformName: "IOS",
       maxInstances: 1,
-
-      "appium:udid": process.env.IOS_UDID,
-      "appium:deviceName": "Local Device",
-      "appium:automationName": "XCUITest",
-      "appium:app": path.resolve("application.ipa"),
-      "appium:newCommandTimeout": 240,
+      "appium:options": {
+        udid: process.env.IOS_UDID,
+        deviceName: "Local Device",
+        automationName: "XCUITest",
+        app: path.resolve("application.ipa"),
+        newCommandTimeout: 240,
+      }
     },
   ],
 
