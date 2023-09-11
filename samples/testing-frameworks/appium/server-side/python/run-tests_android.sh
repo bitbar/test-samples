@@ -10,17 +10,13 @@ TEST=${TEST:="BitBarSampleAppTest.py"} #Name of the test file
 echo "Extracting tests.zip..."
 unzip tests.zip
 
-echo "Installing pip for python"
-curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
-python get-pip.py
-
 echo "Installing Appium Python Client and xmlrunner"
-chmod 0755 requirements.txt
-pip install -r requirements.txt
+chmod 0444 requirements.txt
+pip3 install -r requirements.txt
 
 echo "Starting Appium ..."
 
-appium --log-no-colors --log-timestamp
+appium-1.22 --log-no-colors --log-timestamp
 
 ps -ef|grep appium
 ##### Cloud testrun dependencies end.

@@ -7,8 +7,8 @@ in BitBar Cloud, check our online documentation from `https://support.smartbear.
 ## Apps
 
 You will find the necessary applications in:
-Android: `test-samples/apps/android/testdroid-sample-app.apk`
-iOS: `test-samples/apps/ios/bitbar-ios-sample.ipa`
+ - Android: [bitbar-sample-app.apk](../../../../../apps/android/bitbar-sample-app.apk)
+ - iOS:  [bitbar-ios-sample.ipa](../../../../../apps/ios/bitbar-ios-sample.ipa)
 
 ## Folder Content
 

@@ -9,22 +9,15 @@ unzip -o tests.zip
 
 #########################################################
 #
-# Installing PIP and required Python libraries
+# Installing required Python libraries
 #  - required libraries are in requirement.txt file that
 #    is uploaded with this script file
 #
 #########################################################
 
-echo "Installing pip"
-curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python - --user
-
-echo "Exporting PATH for pip"
-export PATH=/Users/testdroid/Library/Python/2.7/bin:${PATH}
-echo "New PATH: ${PATH}"
-
 echo "Installing requirements from requirements.txt"
-chmod 0755 requirements.txt
-pip3 install --user  --requirement requirements.txt
+chmod 0444 requirements.txt
+pip3 install -r requirements.txt
 
 #########################################################
 #
