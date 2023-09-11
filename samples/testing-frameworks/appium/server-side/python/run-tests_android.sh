@@ -16,7 +16,7 @@ pip3 install -r requirements.txt
 
 echo "Starting Appium ..."
 
-appium-1.22 --log-no-colors --log-timestamp
+appium --log-no-colors --log-timestamp
 
 ps -ef|grep appium
 ##### Cloud testrun dependencies end.
