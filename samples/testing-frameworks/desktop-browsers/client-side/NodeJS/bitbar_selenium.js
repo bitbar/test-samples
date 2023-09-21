@@ -11,16 +11,18 @@ var webdriver = require('selenium-webdriver');
 
 // user-customizable parameters start here
 var capabilities = {
-    'bitbar_apiKey': '<insert your BitBar API key here>',
-    'platform': 'Windows',
+  'platform': 'Windows',
+  'browserName': 'chrome',
+  'browserVersion': '118_beta',
+  'bitbar:options': {
+    'project': 'Selenium sample project',
+    'testrun': 'Java sample test',
+    'apiKey': '<insert your BitBar API key here>',
     'osVersion': '10',
-    'browserName': 'Chrome',
-    'version': '102',
-    'resolution': '1920x1080',
-    'bitbar_project': 'Selenium sample project',
-    'bitbar_testrun': 'NodeJS sample test',
-    'bitbar_testTimeout': '600'
-}
+    'resolution': '2560x1920',
+    'testTimeout': '600'
+  }
+};
 // user-customizable parameters end here
 
 async function nodeJsSample() {

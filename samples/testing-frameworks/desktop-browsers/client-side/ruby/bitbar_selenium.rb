@@ -9,16 +9,19 @@ require 'selenium-webdriver'
 #
 
 # user-customizable parameters start here
-capabilities = Selenium::WebDriver::Remote::Capabilities.new
-capabilities['bitbar_apiKey'] = '<insert your BitBar API key here>'
-capabilities['platform'] = 'Windows'
-capabilities['osVersion'] = '10'
-capabilities['browserName'] = 'Chrome'
-capabilities['version'] = '102'
-capabilities['resolution'] = '1920x1080'
-capabilities['bitbar_project'] = 'Selenium sample project'
-capabilities['bitbar_testrun'] = 'Ruby sample test'
-capabilities['bitbar_testTimeout'] = '600'
+capabilities = Selenium::WebDriver::Remote::Capabilities.new({
+	'platform' => 'Windows'
+	'browserName' => 'chrome'
+	'browserVersion' => '118_beta'
+	'bitbar:options' => {
+		'project' => 'Selenium sample project'
+		'testrun' => 'Java sample test'
+		'apiKey' => '<insert your BitBar API key here>'
+		'osVersion' => '10'
+		'resolution' => '2560x1920'
+		'testTimeout' => '600'
+	}
+})
 # user-customizable parameters end here
 
 begin
