@@ -1,10 +1,13 @@
 package com.bitbar.selenium;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.By;
+import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
+import java.util.HashMap;
 
 
 public class BitbarSelenium {
@@ -15,20 +18,22 @@ public class BitbarSelenium {
         // IMPORTANT: Set the following parameters according to your needs.
         // You can use Capabilities creator:
         // https://cloud.bitbar.com/#public/capabilities-creator
-        // Please mind bitbar_apiKey is required and can be found at
+        // Please mind apiKey is required and can be found at
         // https://cloud.bitbar.com/#user/my-account (My Integrations > API Access)
 
         // user-customizable parameters start here
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("bitbar_apiKey", "<insert your BitBar API key here>");
-        capabilities.setCapability("platform", "Windows");
-        capabilities.setCapability("osVersion", "10");
-        capabilities.setCapability("browserName", "Chrome");
-        capabilities.setCapability("version", "102");
-        capabilities.setCapability("resolution", "1920x1080");
-        capabilities.setCapability("bitbar_project", "Selenium sample project");
-        capabilities.setCapability("bitbar_testrun", "Java sample test");
-        capabilities.setCapability("bitbar_testTimeout", "600");
+        MutableCapabilities capabilities = new MutableCapabilities();
+        capabilities.setCapability("platformName", "Windows");
+        capabilities.setCapability("browserName", "chrome");
+        capabilities.setCapability("browserVersion", "latest");
+
+        HashMap<String, String> bitbarOptions = new HashMap<String, String>();
+        bitbarOptions.put("project", "Selenium sample project");
+        bitbarOptions.put("testrun", "Java sample test");
+        bitbarOptions.put("apiKey", "<insert your BitBar API key here>");
+        bitbarOptions.put("osVersion", "11");
+        bitbarOptions.put("resolution", "1920x1080");
+        capabilities.setCapability("bitbar:options", bitbarOptions);
         // user-customizable parameters end here
 
         WebDriver driver = new RemoteWebDriver(new URL(URL), capabilities);
