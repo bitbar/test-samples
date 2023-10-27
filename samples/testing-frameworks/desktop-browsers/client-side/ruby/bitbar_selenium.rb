@@ -4,21 +4,23 @@ require 'selenium-webdriver'
 # IMPORTANT: Set the following parameters according to your needs.
 # You can use Capabilities creator:
 # https://cloud.bitbar.com/#public/capabilities-creator
-# Please mind bitbar_apiKey is required and can be found at
+# Please mind apiKey is required and can be found at
 # https://cloud.bitbar.com/#user/my-account (My Integrations > API Access)
 #
 
 # user-customizable parameters start here
-capabilities = Selenium::WebDriver::Remote::Capabilities.new
-capabilities['bitbar_apiKey'] = '<insert your BitBar API key here>'
-capabilities['platform'] = 'Windows'
-capabilities['osVersion'] = '10'
-capabilities['browserName'] = 'Chrome'
-capabilities['version'] = '102'
-capabilities['resolution'] = '1920x1080'
-capabilities['bitbar_project'] = 'Selenium sample project'
-capabilities['bitbar_testrun'] = 'Ruby sample test'
-capabilities['bitbar_testTimeout'] = '600'
+capabilities = Selenium::WebDriver::Remote::Capabilities.new({
+	'platformName' => 'Windows',
+	'browserName' => 'chrome',
+	'browserVersion' => 'latest',
+	'bitbar:options' => {
+		'project' => 'Selenium sample project',
+		'testrun' => 'Ruby sample test',
+		'apiKey' => '<insert your BitBar API key here>',
+		'osVersion' => '11',
+		'resolution' => '1920x1080'
+	}
+})
 # user-customizable parameters end here
 
 begin

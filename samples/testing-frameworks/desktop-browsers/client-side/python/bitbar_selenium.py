@@ -2,6 +2,7 @@ import os
 import unittest
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 
 class BitbarSeleniumSample(unittest.TestCase):
@@ -11,21 +12,22 @@ class BitbarSeleniumSample(unittest.TestCase):
         # IMPORTANT: Set the following parameters according to your needs.
         # You can use Capabilities creator:
         # https://cloud.bitbar.com/#public/capabilities-creator
-        # Please mind bitbar_apiKey is required and can be found at
+        # Please mind apiKey is required and can be found at
         # https://cloud.bitbar.com/#user/my-account (My Integrations > API Access)
         #
 
         # user-customizable parameters start here
         capabilities = {
-            'bitbar_apiKey': '<insert your BitBar API key here>',
-            'platform': 'Windows',
-            'osVersion': '10',
-            'browserName': 'Chrome',
-            'version': '102',
-            'resolution': '1920x1080',
-            'bitbar_project': 'Selenium sample project',
-            'bitbar_testrun': 'Python sample test',
-            'bitbar_testTimeout': '600'
+            'platformName': 'Windows',
+            'browserName': 'chrome',
+            'browserVersion': 'latest',
+            'bitbar:options': {
+                'project': 'Selenium sample project',
+                'testrun': 'Python sample test',
+                'apiKey': '<insert your BitBar API key here>',
+                'osVersion': '11',
+                'resolution': '1920x1080'
+            }
         }
         # user-customizable parameters end here
 
@@ -47,12 +49,12 @@ class BitbarSeleniumSample(unittest.TestCase):
         self.driver.get_screenshot_as_file(self.screenshot_dir + '/' + '1_home_page.png')
 
         # click "Click for answer" button
-        button = self.driver.find_element_by_xpath('//button[contains(., "Click for answer")]')
+        button = self.driver.find_element(By.XPATH, '//button[contains(., "Click for answer")]')
         button.click()
 
         # check answer text
-        self.driver.find_element_by_xpath('//p[@id="result_element" and contains(., "Bitbar")]')
-        print(self.driver.find_element_by_id('result_element').text)
+        self.driver.find_element(By.XPATH, '//p[@id="result_element" and contains(., "Bitbar")]')
+        print(self.driver.find_element(By.ID, 'result_element').text)
 
         # verify button changed color
         style = str(button.get_attribute('style'))

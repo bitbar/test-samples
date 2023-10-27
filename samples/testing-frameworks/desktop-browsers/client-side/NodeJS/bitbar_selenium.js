@@ -5,22 +5,23 @@ var webdriver = require('selenium-webdriver');
 // IMPORTANT: Set the following parameters according to your needs.
 // You can use Capabilities creator:
 // https://cloud.bitbar.com/#public/capabilities-creator
-// Please mind bitbar_apiKey is required and can be found at
+// Please mind apiKey is required and can be found at
 // https://cloud.bitbar.com/#user/my-account (My Integrations > API Access)
 //
 
 // user-customizable parameters start here
 var capabilities = {
-    'bitbar_apiKey': '<insert your BitBar API key here>',
-    'platform': 'Windows',
-    'osVersion': '10',
-    'browserName': 'Chrome',
-    'version': '102',
-    'resolution': '1920x1080',
-    'bitbar_project': 'Selenium sample project',
-    'bitbar_testrun': 'NodeJS sample test',
-    'bitbar_testTimeout': '600'
-}
+	'platformName': 'Windows',
+	'browserName': 'chrome',
+	'browserVersion': 'latest',
+	'bitbar:options': {
+		'project': 'Selenium sample project',
+		'testrun': 'NodeJS sample test',
+		'apiKey': '<insert your BitBar API key here>',
+		'osVersion': '11',
+		'resolution': '1920x1080',
+	}
+};
 // user-customizable parameters end here
 
 async function nodeJsSample() {
