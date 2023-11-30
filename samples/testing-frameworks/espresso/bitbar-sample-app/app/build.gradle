@@ -1,23 +1,23 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+  compileSdkVersion 33
 
   defaultConfig {
-        applicationId "com.bitbar.testdroid"
-        minSdkVersion 19
-        targetSdkVersion 30
+    applicationId "com.bitbar.testdroid"
+    minSdkVersion 19
+    targetSdkVersion 33
 
-        testApplicationId "com.bitbar.testdroid.sampletests.test"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
+    testApplicationId "com.bitbar.testdroid.sampletests.test"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
     }
+  }
   packagingOptions {
     resources {
       excludes += ['META-INF/maven/com.google.guava/guava/pom.properties', 'META-INF/maven/com.google.guava/guava/pom.xml']
@@ -25,21 +25,21 @@ android {
   }
 
 }
-dependencies{
-    testImplementation 'junit:junit:4.13.2'
+dependencies {
+  testImplementation 'junit:junit:4.13.2'
 
-    // Android runner and rules support
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+  // Android runner and rules support
+  androidTestImplementation 'com.android.support.test:runner:1.0.2'
+  androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
-    // Espresso support
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+  // Espresso support
+  androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
 
-    // add this for intent mocking support
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+  // add this for intent mocking support
+  androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 
-    // add this for webview testing support
-    androidTestImplementation 'com.android.support.test.espresso:espresso-web:3.0.2'
+  // add this for webview testing support
+  androidTestImplementation 'com.android.support.test.espresso:espresso-web:3.0.2'
 }
