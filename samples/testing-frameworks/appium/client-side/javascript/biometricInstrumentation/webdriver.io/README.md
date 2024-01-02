@@ -39,7 +39,6 @@ This directory contains simple test scenario using
 -   `@wdio/local-runner` - To run test "locally" (because from server perspective it's locally)
 -   `@wdio/mocha-framework` - Mocha support
 -   `@wdio/spec-reporter` - Default [spec reporter](https://webdriver.io/docs/spec-reporter.html)
--   `@wdio/sync` - To be able to enable [sync mode](https://webdriver.io/docs/sync-vs-async.html)
 -   `chai` - Chai for Mocha (because I wanted to use [should](https://www.chaijs.com/guide/styles/#should) [BDD style])
 
 ## Usage
