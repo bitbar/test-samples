@@ -4,20 +4,16 @@
   "description": "Bitbar Cloud Appium Server Side Test Example",
   "author": "Marek Sierociński <marek.sierocinski@smartbear.com>",
   "license": "ISC",
-  "engines": {
-    "node": ">=12 <16"
-  },
   "scripts": {
     "test-android": "wdio run android.conf.js",
     "test-ios": "wdio run ios.conf.js"
   },
   "dependencies": {
-    "@wdio/cli": "^7.31.1",
-        "@wdio/junit-reporter": "^7.31.1",
-        "@wdio/local-runner": "^7.31.1",
-        "@wdio/mocha-framework": "^7.30.2",
-        "@wdio/spec-reporter": "^7.31.1",
-        "@wdio/sync": "^7.31.1",
-        "chai": "^4.3.7"
+    "@wdio/cli": "^7.34.0",
+        "@wdio/junit-reporter": "^7.33.0",
+        "@wdio/local-runner": "^7.34.0",
+        "@wdio/mocha-framework": "^7.33.0",
+        "@wdio/spec-reporter": "^7.33.0",
+        "chai": "^4.3.10"
   }
 }
