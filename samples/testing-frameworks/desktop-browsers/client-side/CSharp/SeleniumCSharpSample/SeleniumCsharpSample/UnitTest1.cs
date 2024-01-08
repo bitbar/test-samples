@@ -19,6 +19,7 @@ namespace BitbarSeleniumSampleCSharp
         [OneTimeSetUp]
         public void Setup()
         {
+            // user-customizable parameters start here
             var capabilities = new FirefoxOptions();
             capabilities.PlatformName = "Windows";
             capabilities.BrowserVersion = "120";
@@ -31,8 +32,9 @@ namespace BitbarSeleniumSampleCSharp
             bitbar_options.Add("resolution", "1920x1080");
             bitbar_options.Add("seleniumVersion", "4");
 
-
             capabilities.AddAdditionalOption("bitbar:options", bitbar_options);
+            // user-customizable parameters end here
+
             screenshot_dir = Environment.CurrentDirectory + "/screenshots'";
             driver = new RemoteWebDriver(new Uri("https://appiumstaging.bitbar.com/wd/hub"), capabilities);
         }
