@@ -2,7 +2,10 @@
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Remote;
 
 using System;
@@ -36,7 +39,7 @@ namespace BitbarSeleniumSampleCSharp
             // user-customizable parameters end here
 
             screenshot_dir = Environment.CurrentDirectory + "/screenshots'";
-            driver = new RemoteWebDriver(new Uri("https://appiumstaging.bitbar.com/wd/hub"), capabilities);
+            driver = new RemoteWebDriver(new Uri("https://eu-desktop-hub.bitbar.com/wd/hub"), capabilities);
         }
 
         [Test]
