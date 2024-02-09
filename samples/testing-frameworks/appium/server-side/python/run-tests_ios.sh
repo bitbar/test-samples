@@ -32,7 +32,7 @@ pip3 install -r requirements.txt
 
 echo "UDID set to ${IOS_UDID}"
 echo "Starting Appium ..."
-appium -U ${IOS_UDID}  --log-no-colors --log-timestamp --command-timeout 120
+appium --log-no-colors --log-timestamp
 
 
 #########################################################
