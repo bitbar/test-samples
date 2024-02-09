@@ -14,7 +14,7 @@ echo "Setting UDID..."
 echo "UDID set to ${IOS_UDID}"
 
 echo "Starting Appium ..."
-appium -U ${IOS_UDID}  --log-no-colors --log-timestamp --command-timeout 120
+appium --log-no-colors --log-timestamp
 ps -ef|grep appium
 ##### Cloud testrun dependencies end.
 

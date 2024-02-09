@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Starting Appium ..."
-appium --log-no-colors --log-timestamp >/dev/null
+appium --log-no-colors --log-timestamp > /dev/null
 
 echo "Preparing..."
 
