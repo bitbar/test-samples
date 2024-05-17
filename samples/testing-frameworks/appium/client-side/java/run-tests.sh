@@ -27,6 +27,8 @@ startAppiumLinux(){
 	# Create the screenshots directory, if it doesn't exist'
 	mkdir -p .screenshots
         echo "Starting Appium on Linux..."
+  # Use appium-X.X, to choose a specific Appium server version. More about supported versions at
+  # https://support.smartbear.com/bitbar/docs/en/mobile-app-tests/automated-testing/appium-support.html
 	appium --log-no-colors --log-timestamp
 }
 

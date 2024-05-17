@@ -15,7 +15,8 @@ chmod 0444 requirements.txt
 pip3 install -r requirements.txt
 
 echo "Starting Appium ..."
-
+# Use appium-X.X, to choose a specific Appium server version. More about supported versions at
+# https://support.smartbear.com/bitbar/docs/en/mobile-app-tests/automated-testing/appium-support.html
 appium --log-no-colors --log-timestamp
 
 ps -ef|grep appium

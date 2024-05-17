@@ -33,8 +33,9 @@ else
 fi
 
 ## Appium server launch
-# Use appium-1.4, appium-1.5 or appium-1.6 to choose Appium server version
 echo "Starting Appium ..."
+# Use appium-X.X, to choose a specific Appium server version. More about supported versions at
+# https://support.smartbear.com/bitbar/docs/en/mobile-app-tests/automated-testing/appium-support.html
 appium --log-no-colors --log-timestamp
 
 ## Dependency installation

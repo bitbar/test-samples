@@ -23,6 +23,8 @@ startAppium(){
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		# Create the screenshots directory, if it doesn't exist'
 		echo "Starting Appium on Linux..."
+    # Use appium-X.X, to choose a specific Appium server version. More about supported versions at
+    # https://support.smartbear.com/bitbar/docs/en/mobile-app-tests/automated-testing/appium-support.html
 		appium --log-no-colors --log-timestamp
 	else
 		echo "Operating system not supported, exiting..."
@@ -53,8 +55,8 @@ executeTests(){
 
 	cp tests/reports/*.xml TEST-all.xml
 
-	if [ ! -f "TEST-all.xml" ]; then 
-		echo "Error occured during the test run"; 
+	if [ ! -f "TEST-all.xml" ]; then
+		echo "Error occured during the test run";
 		exit 1
 	fi
 }
