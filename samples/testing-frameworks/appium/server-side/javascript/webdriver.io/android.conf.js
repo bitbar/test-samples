@@ -89,20 +89,23 @@ exports.config = {
      */
     // before: function (capabilities, specs) {
     // },
-    before: function() {
-        const chai = require('chai');
+    before: function () {
+        const chai = require("chai");
         global.expect = chai.expect;
         chai.should();
 
-        const fs = require('fs');
+        const fs = require("fs");
 
         global.takeScreenshot = async (fileName) => {
-            let screenshot = await driver.takeScreenshot();
-            screenshot = screenshot.replace(/^data:image\/png;base64,/, "")
-            let filePath = path.resolve(`./screenshots/${fileName}.png`);
-            fs.writeFileSync(filePath, screenshot, 'base64');
+          const screenshotsDir = path.resolve("./screenshots");
+          if (!fs.existsSync(screenshotsDir)) {
+            fs.mkdirSync(screenshotsDir);
+          }
+          let screenshot = await driver.takeScreenshot();
+          screenshot = screenshot.replace(/^data:image\/png;base64,/, "");
+          let filePath = path.resolve(`${screenshotsDir}/${fileName}.png`);
+          fs.writeFileSync(filePath, screenshot, "base64");
         };
-
     }
 
     /**
