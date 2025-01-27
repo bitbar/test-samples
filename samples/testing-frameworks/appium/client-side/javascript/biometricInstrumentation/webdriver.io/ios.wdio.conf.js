@@ -23,7 +23,7 @@ exports.config = {
   reporters: ["spec"],
 
   protocol: "https",
-  hostname: "appium.bitbar.com",
+  hostname: "eu-mobile-hub.bitbar.com",
   port: 443,
   path: "/wd/hub",
 
