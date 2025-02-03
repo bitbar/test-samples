@@ -87,7 +87,6 @@ public abstract class AbstractAppiumTest {
         log("Creating Appium session, this may take couple minutes..");
         driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(defaultWaitTime));
-        ((AndroidDriver) driver).resetApp();
         return driver;
     }
 

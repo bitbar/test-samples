@@ -51,7 +51,7 @@ or
     ./createiOSZip.sh
 
 Now that you have your test zip and the application file (this sample uses the Bitbar Sample Apps available at
-[apps/builds](https://github.com/bitbar/testdroid-samples/tree/master/apps/builds), you're ready to create a testrun
+[apps](https://github.com/bitbar/bitbar-samples/tree/master/apps/), you're ready to create a testrun
 in your project at the [BitBar Cloud](https://cloud.bitbar.com). Upload the app and test zip in the Files Library
 and go to the [Test Run Creator](https://cloud.bitbar.com/#testing/test-run-creator), choose proper OS type and pick
 Server Side test framework. Use uploaded files, choose devices and run the test execution.
