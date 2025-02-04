@@ -14,6 +14,7 @@ webdriver {
     "bitbar:options" {
       osVersion = "10"
       screenResolution = "1920x1080"
+      apiKey = "API_KEY" # due to serenity issue, it has to be here as well
     }
   }
 }
@@ -53,6 +54,7 @@ environments {
         "bitbar:options" {
           osVersion = "10"
           screenResolution = "1920x1080"
+          apiKey = "API_KEY" # due to serenity issue, it has to be here as well
         }
       }
     }
@@ -66,6 +68,7 @@ environments {
         browserVersion = "latest"
         "bitbar:options" {
           screenResolution = "1920x1080"
+          apiKey = "API_KEY" # due to serenity issue, it has to be here as well
         }
       }
     }
