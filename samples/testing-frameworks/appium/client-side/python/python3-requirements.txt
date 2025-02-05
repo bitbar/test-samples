@@ -1,7 +1,7 @@
-Appium-Python-Client==2.6.0
-certifi==2019.6.16
-chardet==5.0.0
-idna==3.3 
-requests==2.28.1
-selenium==4.3.0
-urllib3==1.26.11
+Appium-Python-Client==4.5.0
+certifi==2025.1.31
+chardet==5.2.0
+idna==3.10
+requests==2.32.3
+selenium==4.28.1
+urllib3==2.3.0

@@ -7,6 +7,8 @@ import os
 import unittest
 import subprocess
 from appium import webdriver
+from appium.options.common import AppiumOptions
+
 from bitbar_utils import BitbarUtils
 from device_finder import DeviceFinder
 
@@ -63,7 +65,8 @@ class BaseTest(unittest.TestCase):
         self.utils.log(
             "WebDriver request initiated. Waiting for response, this typically takes 2-3 mins"
         )
-        self.driver = webdriver.Remote(self.appium_url, self.capabilities)
+        options = AppiumOptions().load_capabilities(self.capabilities)
+        self.driver = webdriver.Remote(self.appium_url, options=options)
         self.utils.log("WebDriver response received")
         self.utils.update_driver(self.driver)
         self.utils.log("Driver session id: " + self.driver.session_id)
