@@ -1,6 +1,8 @@
 *.iml
 .idea/*
+**/.idea/*
 !.idea/codeStyleSettings.xml
+!**/.idea/codeStyleSettings.xml
 *.pyc
 *~
 *.swp
