@@ -1,5 +1,3 @@
-const path = require('path');
-
 const credentials = require('./.credentials.json');
 const apiKey = credentials["apiKey"];
 const appId = credentials["appId"];
@@ -40,8 +38,7 @@ exports.config = {
         device: "Google Pixel 3a Android 12",
         app:  appId,
         project: "WebdriverIO_Example_Android",
-        testrun: "TestRun_Android",
-        //appiumVersion: "1.22.3" //launch tests on appium 1
+        testrun: "TestRun_Android"
       }
     }],
 
@@ -87,18 +84,13 @@ exports.config = {
      */
     // before: function (capabilities, specs) {
     // },
-    before: function() {
-        const chai = require('chai');
+    before: async function() {
+        const chai = await import('chai');
         global.expect = chai.expect;
         chai.should();
 
-        const fs = require('fs');
-
         global.takeScreenshot = async (fileName) => {
-            let screenshot = await driver.takeScreenshot();
-            screenshot = screenshot.replace(/^data:image\/png;base64,/, "")
-            let filePath = path.resolve(`./screenshots/${fileName}.png`);
-            fs.writeFileSync(filePath, screenshot, 'base64');
+            await driver.saveScreenshot(`./screenshots/${fileName}.png`);
         };
     }
 
