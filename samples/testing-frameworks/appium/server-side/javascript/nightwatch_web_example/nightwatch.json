@@ -1,0 +1,55 @@
+{
+  "src_folders": [
+    "tests"
+  ],
+  "output_folder": "./tests/reports",
+  "custom_commands_path": "",
+  "custom_assertions_path": "",
+  "page_objects_path": "",
+  "globals_path": "",
+  "test_settings": {
+    "bitbar_ios_server_side": {
+      "launch_url": "http://localhost:4723/wd/hub",
+      "selenium_port": 4723,
+      "selenium_host": "localhost",
+      "screenshots": {
+        "enabled": false,
+        "path": ""
+      },
+      "capabilities": {
+        "firstMatch": [
+          {
+            "appium:options": {
+              "automationName": "XCUITest",
+              "deviceName": "Iphone",
+              "autoAcceptAlerts": "true"
+            },
+            "platformName": "IOS",
+            "browserName": "Safari"
+          }
+        ]
+      }
+    },
+    "bitbar_android_server_side": {
+      "launch_url": "http://localhost:4723/wd/hub",
+      "selenium_port": 4723,
+      "selenium_host": "localhost",
+      "screenshots": {
+        "enabled": false,
+        "path": ""
+      },
+      "capabilities": {
+        "firstMatch": [
+          {
+            "appium:options": {
+              "deviceName": "Android device",
+              "automationName": "UiAutomator2"
+            },
+            "platformName": "Android",
+            "browserName": "Chrome"
+          }
+        ]
+      }
+    }
+  }
+}
