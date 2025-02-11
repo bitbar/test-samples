@@ -4,8 +4,8 @@ describe("Pass biometric authentication", () => {
       '//android.view.ViewGroup[@content-desc="Biometric authentication"]'
     );
     await buttonBiometrics.waitForDisplayed({ timeout: 10000 });
-    const visable = await buttonBiometrics.isDisplayed();
-    visable.should.be.true;
+    const visible = await buttonBiometrics.isDisplayed();
+    visible.should.be.true;
     await buttonBiometrics.click();
   });
 
@@ -14,8 +14,8 @@ describe("Pass biometric authentication", () => {
       '//android.view.ViewGroup[@content-desc="Ask biometric authentication"]'
     );
     await buttonAskBiometrics.waitForDisplayed({ timeout: 10000 });
-    const visable = await buttonAskBiometrics.isDisplayed();
-    visable.should.be.true;
+    const visible = await buttonAskBiometrics.isDisplayed();
+    visible.should.be.true;
     await buttonAskBiometrics.click();
   });
 

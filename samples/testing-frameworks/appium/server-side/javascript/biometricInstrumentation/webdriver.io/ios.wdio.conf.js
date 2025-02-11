@@ -42,7 +42,6 @@ exports.config = {
       maxInstances: 1,
       "appium:options": {
         udid: process.env.IOS_UDID,
-        deviceName: "Local Device",
         automationName: "XCUITest",
         app: path.resolve("application.ipa"),
         newCommandTimeout: 240,
@@ -85,20 +84,21 @@ exports.config = {
    */
   // before: function (capabilities, specs) {
   // },
-  before: function () {
-    const chai = require("chai");
+  before: async function () {
+    const chai = await import('chai');
     global.expect = chai.expect;
     chai.should();
 
     const fs = require("fs");
 
     global.takeScreenshot = async (fileName) => {
-      let screenshot = await driver.takeScreenshot();
-      screenshot = screenshot.replace(/^data:image\/png;base64,/, "");
-      let filePath = path.resolve(`./screenshots/${fileName}.png`);
-      fs.writeFileSync(filePath, screenshot, "base64");
+      const screenshotsDir = path.resolve("./screenshots");
+      if (!fs.existsSync(screenshotsDir)) {
+        fs.mkdirSync(screenshotsDir);
+      }
+      await driver.saveScreenshot(`${screenshotsDir}/${fileName}.png`);
     };
-  },
+  }
 
   /**
    * Runs before a WebdriverIO command gets executed.
