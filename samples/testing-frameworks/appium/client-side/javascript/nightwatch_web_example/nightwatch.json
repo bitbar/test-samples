@@ -1,5 +1,7 @@
 {
-    "src_folders": ["tests"],
+    "src_folders": [
+        "tests"
+    ],
     "output_folder": "./tests/reports",
     "custom_commands_path": "",
     "custom_assertions_path": "",
@@ -16,8 +18,7 @@
             },
             "capabilities": {
                 "platformName": "iOS",
-                "browserName": "safari",
-                "appium:deviceName": "iPhone device",
+                "browserName": "Safari",
                 "appium:automationName": "XCUITest",
                 "bitbar:options": {
                     "apiKey": "<insert_your_apiKey_to_credentials_file>",
@@ -37,50 +38,13 @@
             },
             "capabilities": {
                 "platformName": "Android",
-                "browserName": "chrome",
+                "browserName": "Chrome",
                 "appium:automationName": "uiautomator2",
                 "bitbar:options": {
                     "apiKey": "<insert_your_apiKey_to_credentials_file>",
                     "device": "Google Pixel 3a Android 12",
                     "project": "Nightwatch_Example_Android",
                     "testrun": "TestRun_Android"
-                }
-            }
-        },
-        "bitbar_ios_server_side": {
-            "launch_url": "http://localhost:4723/wd/hub",
-            "selenium_port": 4723,
-            "selenium_host": "localhost",
-            "screenshots": {
-                "enabled": false,
-                "path": ""
-            },
-            "capabilities": {
-                "platformName": "iOS",
-                "browserName": "safari",
-                "appium:options": {
-                    "automationName": "XCUITest",
-                    "deviceName": "Iphone",
-                    "newCommandTimeout": "120",
-                    "autoAcceptAlerts": "true"
-                }
-            }
-        },
-        "bitbar_android_server_side": {
-            "launch_url": "http://localhost:4723/wd/hub",
-            "selenium_port": 4723,
-            "selenium_host": "localhost",
-            "screenshots": {
-                "enabled": false,
-                "path": ""
-            },
-            "capabilities": {
-                "platformName": "Android",
-                "browserName": "chrome",
-                "appium:options": {
-                    "deviceName": "Android device",
-                    "automationName": "UiAutomator2",
-                    "newCommandTimeout": 240
                 }
             }
         }
