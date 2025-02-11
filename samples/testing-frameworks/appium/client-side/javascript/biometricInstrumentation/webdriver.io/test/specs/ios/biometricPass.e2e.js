@@ -4,8 +4,8 @@ describe("Pass biometric authentication", () => {
       '//XCUIElementTypeAlert[@name="Biometric Authentication"]'
     );
     await alertBiometrics.waitForDisplayed({ timeout: 60000 });
-    const visable = await alertBiometrics.isDisplayed();
-    visable.should.be.true;
+    const visible = await alertBiometrics.isDisplayed();
+    visible.should.be.true;
     await browser.execute("mobile: alert", {
       action: "accept",
       buttonLabel: "OK",
@@ -17,8 +17,8 @@ describe("Pass biometric authentication", () => {
       '(//XCUIElementTypeOther[@name="Biometric authentication"])[3]'
     );
     await buttonBiometrics.waitForDisplayed({ timeout: 10000 });
-    const visable = await buttonBiometrics.isDisplayed();
-    visable.should.be.true;
+    const visible = await buttonBiometrics.isDisplayed();
+    visible.should.be.true;
     await buttonBiometrics.click();
   });
 
@@ -27,8 +27,8 @@ describe("Pass biometric authentication", () => {
       '//XCUIElementTypeOther[@name="Ask biometric authentication"]'
     );
     await buttonAskBiometrics.waitForDisplayed({ timeout: 10000 });
-    const visable = await buttonAskBiometrics.isDisplayed();
-    visable.should.be.true;
+    const visible = await buttonAskBiometrics.isDisplayed();
+    visible.should.be.true;
     await buttonAskBiometrics.click();
   });
 
@@ -37,8 +37,8 @@ describe("Pass biometric authentication", () => {
       '//XCUIElementTypeAlert[@name="Biometric Authentication"]'
     );
     await alertBiometrics.waitForDisplayed({ timeout: 10000 });
-    const visable = await alertBiometrics.isDisplayed();
-    visable.should.be.true;
+    const visible = await alertBiometrics.isDisplayed();
+    visible.should.be.true;
   });
 
   it("should pass biometric authentication", async () => {
