@@ -1,0 +1,17 @@
+{
+    "name": "bitbar-nightwatch-example",
+    "description": "Basic example of using BitBar together with gulp and nightwatch",
+    "license": "Apache-2.0",
+    "engines": {
+        "npm": ">=8.0.0",
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "nightwatch": "3.11.0"
+    },
+    "devDependencies": {
+        "gulp": "^5.0.0",
+        "gulp-nightwatch": "^1.2.0",
+        "gulp-zip": "^6.1.0"
+    }
+}
