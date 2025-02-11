@@ -1,5 +1,3 @@
-const path = require("path");
-
 const credentials = require("./.credentials.json");
 const apiKey = credentials["apiKey"];
 const appId = credentials["iosAppId"];
@@ -23,7 +21,7 @@ exports.config = {
   reporters: ["spec"],
 
   protocol: "https",
-  hostname: "eu-mobile-hub.bitbar.com",
+  hostname: "appium.bitbar.com",
   port: 443,
   path: "/wd/hub",
 
@@ -32,7 +30,6 @@ exports.config = {
   capabilities: [
     {
       "platformName": "iOS",
-      "appium:deviceName": "iPhone device",
       "appium:automationName": "XCUITest",
       "appium:bundleId": "org.reactjs.native.example.BitBarSampleApp",
       "bitbar:options": {
@@ -94,13 +91,8 @@ exports.config = {
     global.expect = chai.expect;
     chai.should();
 
-    const fs = require("fs");
-
     global.takeScreenshot = async (fileName) => {
-      let screenshot = await driver.takeScreenshot();
-      screenshot = screenshot.replace(/^data:image\/png;base64,/, "");
-      let filePath = path.resolve(`./screenshots/${fileName}.png`);
-      fs.writeFileSync(filePath, screenshot, "base64");
+      await driver.saveScreenshot(`./screenshots/${fileName}.png`);
     };
   },
 
