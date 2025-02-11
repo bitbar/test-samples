@@ -33,12 +33,6 @@ exports.config = {
     port: 4723,
     path:  '/wd/hub',
 
-    services: ['appium'],
-    appium: {
-        command: 'appium',
-        logPath : './',
-    },
-
     specs: [
         './test/specs/android.e2e.js'
     ],
@@ -47,13 +41,12 @@ exports.config = {
         platformName: 'Android',
         maxInstances: 1,
         'appium:options': {
-            deviceName: 'Android device',
             automationName: 'UiAutomator2',
             app: path.resolve('application.apk'),
             newCommandTimeout: 240
         }
     }],
-    
+
     //
     // =====
     // Hooks
@@ -89,22 +82,19 @@ exports.config = {
      */
     // before: function (capabilities, specs) {
     // },
-    before: function () {
-        const chai = require("chai");
+    before: async function() {
+        const chai = await import('chai');
         global.expect = chai.expect;
         chai.should();
 
-        const fs = require("fs");
+        const fs = require('fs');
 
         global.takeScreenshot = async (fileName) => {
           const screenshotsDir = path.resolve("./screenshots");
           if (!fs.existsSync(screenshotsDir)) {
             fs.mkdirSync(screenshotsDir);
           }
-          let screenshot = await driver.takeScreenshot();
-          screenshot = screenshot.replace(/^data:image\/png;base64,/, "");
-          let filePath = path.resolve(`${screenshotsDir}/${fileName}.png`);
-          fs.writeFileSync(filePath, screenshot, "base64");
+          await driver.saveScreenshot(`${screenshotsDir}/${fileName}.png`);
         };
     }
 

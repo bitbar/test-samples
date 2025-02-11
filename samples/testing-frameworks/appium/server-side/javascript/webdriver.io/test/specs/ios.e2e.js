@@ -2,7 +2,7 @@ describe('Bitbar Sample App', () => {
     it('2nd radio button should be clicked ', async () => {
         let el;
 
-        console.log("view1: Clicking button - 'Use Testdroid Cloud'");
+        console.log("view1: Clicking button - 'Use Bitbar Cloud'");
         el = await $('//XCUIElementTypeButton[@name="answer2"]');
         el.click();
 
