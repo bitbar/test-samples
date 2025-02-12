@@ -25,11 +25,11 @@
 * To run the test on iOS
 
     ```sh
-    npx gulp ios
+    npm run test:ios
     ```
 
 * To run the test on Android
 
     ```sh
-    npx gulp android
+    npm run test:android
     ```

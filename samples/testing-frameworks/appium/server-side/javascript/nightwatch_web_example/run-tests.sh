@@ -43,10 +43,10 @@ initializeTestRun(){
 executeTests(){
 	if [ "$(uname)" == "Darwin" ]; then
 		echo "Running iOs Tests..."
-		node_modules/gulp/bin/gulp.js iosServerSide
+		npm run test:ios
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		echo "Running Android Tests..."
-		node_modules/gulp/bin/gulp.js androidServerSide
+		npm run test:android
 	fi
 	echo "Finished Running Tests!"
 

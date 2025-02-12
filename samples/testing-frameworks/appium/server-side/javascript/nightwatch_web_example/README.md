@@ -2,35 +2,14 @@
 
 ### Setup
 
-* Install NPM Dependencies
-
-    ```sh
-    npm install
-    ```
-
-* Add your apiKey to `./.credentials.json`
-
-   Create a file called ".credentials.json" in the project's root and add your bitbar apiKey to it as described below:
-
-    ```json
-    {
-        "apiKey": "YOUR_BITBAR_CLOUD_APIKEY"
-    }
-    ```
-
 * Modify the `nightwatch.json` file according to your project
 
 
-* Create a zip file to be uploaded to BitBar
-  * Run the following command at the project's root folder:
+* Create a zip file to be uploaded to BitBar by running the following command at the project's root folder:
 
-      ```sh
-      npx gulp zip
-      ```
-
-    This creates a zip-file of the project to the "dist"-folder.
-
-  * Zip the project manually
+    ```sh
+    ./create-zip.sh "sample-test"
+    ```
 
 ### Run the test
 
