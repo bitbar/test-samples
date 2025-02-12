@@ -1,4 +1,3 @@
-
 module.exports = {
     'Basic Test Example' : function (browser) {
         browser

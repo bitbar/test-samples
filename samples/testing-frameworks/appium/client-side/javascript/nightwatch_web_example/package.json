@@ -1,17 +1,17 @@
 {
-  "name": "bitbar-nightwatch-example",
-  "description": "Basic example of using BitBar together with gulp and nightwatch",
-  "license": "Apache-2.0",
-  "engines" : {
-    "npm" : ">=8.0.0",
-    "node" : ">=18.0.0"
-  },
-  "dependencies": {
-    "nightwatch": "3.11.0"
-  },
-  "devDependencies": {
-    "gulp": "^5.0.0",
-    "gulp-replace": "^1.1.4",
-    "gulp-nightwatch": "^1.2.0"
-  }
+    "name": "bitbar-nightwatch-example",
+    "description": "Basic example of using BitBar together with gulp and nightwatch",
+    "license": "Apache-2.0",
+    "scripts": {
+        "build-client-side": "node build-client-side.js",
+        "test:ios": "npm run build-client-side && nightwatch --config build/nightwatch.json --env bitbar_ios",
+        "test:android": "npm run build-client-side && nightwatch --config build/nightwatch.json --env bitbar_android"
+    },
+    "engines": {
+        "npm": ">=8.0.0",
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "nightwatch": "^3.11.0"
+    }
 }

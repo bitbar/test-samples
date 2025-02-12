@@ -2,16 +2,15 @@
     "name": "bitbar-nightwatch-example",
     "description": "Basic example of using BitBar together with gulp and nightwatch",
     "license": "Apache-2.0",
+    "scripts": {
+        "test:ios": "npx nightwatch --config nightwatch.json --env bitbar_ios_server_side",
+        "test:android": "npx nightwatch --config nightwatch.json --env bitbar_android_server_side"
+    },
     "engines": {
-        "npm": ">=8.0.0",
-        "node": ">=18.0.0"
+        "npm": ">=7.10.0",
+        "node": ">=16.0.0"
     },
     "dependencies": {
-        "nightwatch": "3.11.0"
-    },
-    "devDependencies": {
-        "gulp": "^5.0.0",
-        "gulp-nightwatch": "^1.2.0",
-        "gulp-zip": "^6.1.0"
+        "nightwatch": "^2.6.25"
     }
 }

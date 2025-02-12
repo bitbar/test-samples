@@ -11,3 +11,4 @@ npm-debug.log
 /tests/reports/*
 !tests/reports/.gitkeep
 /dist/*
+*.zip
