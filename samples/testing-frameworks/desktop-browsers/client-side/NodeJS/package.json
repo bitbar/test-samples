@@ -1,6 +1,6 @@
 {
   "name": "node.js",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "bitbar_selenium.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "selenium-webdriver": "^4.14.0",
-    "assert": "^2.1.0"
+    "selenium-webdriver": "^4.28.1",
+    "chai": "^5.1.2"
   }
 }
