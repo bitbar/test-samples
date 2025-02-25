@@ -19,5 +19,8 @@
         "@wdio/mocha-framework": "^8.41.0",
         "@wdio/spec-reporter": "^8.41.0",
         "chai": "^5.1.2"
+    },
+    "overrides": {
+        "ws": "8.18.1"
     }
 }
