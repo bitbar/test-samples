@@ -1,8 +1,30 @@
 # Intro
 
 This folder contains a sample Cypress server side test case for desktop browsers.
-This test case was taken from https://github.com/cypress-io/cypress-example-kitchensink.
+This test case was taken from https://github.com/cypress-io/cypress-example-kitchensink/tree/v4.0.0
 To read more about server Cypress runs in BitBar Cloud, check our online documentation from https://support.smartbear.com/bitbar/docs/en/web-app-tests/automated-testing/cypress.html
+
+## Supported browsers
+
+Before running the test, make sure you have selected currently supported version of the browser in `run-test.sh` and `run-test.ps1`.
+
+Paths to the supported browsers:
+
+* Windows
+
+    * `C:\nodes\node-chrome-{version}\browser\chrome.exe` - Chrome
+
+    * `C:\nodes\node-firefox-{version}\browser\firefox.exe` - Firefox
+
+    * `C:\nodes\node-edge-{version}\browser\msedge.exe` - Edge
+
+* MacOS
+
+    * `/opt/nodes/node-chrome-{version}/browser/Chrome.app/Contents/MacOS/Google Chrome` - Chrome
+
+    * `/opt/nodes/node-firefox-{version}/browser/Firefox.app/Contents/MacOS/firefox` - Firefox
+
+    * `/opt/nodes/node-safari-{version}/browser/Safari.app/Contents/MacOS/Safari` - Safari
 
 ## Folder content
 
