@@ -25,7 +25,6 @@ context('Spies, Stubs, and Clock', () => {
        * @param x {any}
       */
       foo (x) {
-        /* eslint-disable-next-line no-console */
         console.log('obj.foo called with', x)
       },
     }
@@ -54,7 +53,6 @@ context('Spies, Stubs, and Clock', () => {
        * @param b {string}
       */
       foo (a, b) {
-        // eslint-disable-next-line no-console
         console.log('a', a, 'b', b)
       },
     }
@@ -69,30 +67,33 @@ context('Spies, Stubs, and Clock', () => {
   it('cy.clock() - control time in the browser', () => {
     // https://on.cypress.io/clock
 
-    // create the date in UTC so its always the same
+    // create the date in UTC so it's always the same
     // no matter what local timezone the browser is running in
     const now = new Date(Date.UTC(2017, 2, 14)).getTime()
 
     cy.clock(now)
     cy.visit('http://localhost:8080/commands/spies-stubs-clocks')
     cy.get('#clock-div').click()
+    cy.get('#clock-div')
       .should('have.text', '1489449600')
   })
 
   it('cy.tick() - move time in the browser', () => {
     // https://on.cypress.io/tick
 
-    // create the date in UTC so its always the same
+    // create the date in UTC so it's always the same
     // no matter what local timezone the browser is running in
     const now = new Date(Date.UTC(2017, 2, 14)).getTime()
 
     cy.clock(now)
     cy.visit('http://localhost:8080/commands/spies-stubs-clocks')
     cy.get('#tick-div').click()
+    cy.get('#tick-div')
       .should('have.text', '1489449600')
 
     cy.tick(10000) // 10 seconds passed
     cy.get('#tick-div').click()
+    cy.get('#tick-div')
       .should('have.text', '1489449610')
   })
 
