@@ -9,9 +9,8 @@ Folder Content
 
 This folder contains the following files:
 
-* `BitbarSeleniumTest.py` and `BitbarSampleWebTest.py` are the actual test files 
-  written in Python. The test execution uses Python's unittest framework for 
-  test execution.
+* `BitbarSampleWebTest.py` is a test file written in Python. It uses 
+  Python's unittest framework for test execution.
 
 * `requirements.txt` lists the required Python packages that need to be installed 
   for the test to be executable, eg. Selenium Python Bindings.
