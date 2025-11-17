@@ -6,9 +6,12 @@ Start-Process -FilePath "pwsh" -ArgumentList "-Command", "npm", "start" -NoNewWi
 # Wait for the app to launch
 Start-Sleep -Seconds 30
 
+# Increase Cypress verify timeout to avoid timeout issues on Bitbar Cloud
+set CYPRESS_VERIFY_TIMEOUT=100000
+
 # Run tests.
 # It is crucial to set junit as a reporter. In user's project it can be achieved also in cypress.config.js.
-npm run cy:run --- --reporter junit --reporter-options "mochaFile=cypress/results/results-[hash].xml" --browser "C:\nodes\node-chrome-134\browser\chrome.exe"
+npx cypress run --reporter junit --reporter-options "mochaFile=cypress/results/results-[hash].xml" --browser "C:\nodes\node-chrome-142\browser\chrome.exe"
 
 # Prepare TEST-all.xml needed by BitBar
 npm install junit-report-merger --save-dev
