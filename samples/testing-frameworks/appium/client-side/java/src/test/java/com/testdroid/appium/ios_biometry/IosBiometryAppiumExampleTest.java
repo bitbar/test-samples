@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 class IosBiometryAppiumExampleTest extends BaseIOSTest {
 
@@ -28,9 +28,9 @@ class IosBiometryAppiumExampleTest extends BaseIOSTest {
 
     @Test
     public void mainPageTest() {
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
         takeScreenshot("start_screen");
-        wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wd.executeScript("mobile: alert", ImmutableMap.of("action", "accept", "buttonLabel", "OK"));
         wd.findElement(By.xpath("(//*[@name='Biometric authentication'])[3]")).click();
         wd.findElement(By.xpath("//XCUIElementTypeOther[@name='Ask biometric authentication']")).click();

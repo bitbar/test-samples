@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 class AndroidBiometryAppiumExampleTest extends BaseAndroidTest {
 
@@ -23,7 +23,7 @@ class AndroidBiometryAppiumExampleTest extends BaseAndroidTest {
 
     @Test
     public void mainPageTest() {
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
         takeScreenshot("start_screen");
         wd.findElement(By.xpath("//android.view.ViewGroup[@content-desc='Biometric authentication']")).click();
         takeScreenshot("second_screen");
