@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 class AndroidAppiumExampleTest extends BaseAndroidTest {
 
@@ -22,7 +22,7 @@ class AndroidAppiumExampleTest extends BaseAndroidTest {
 
     @Test
     public void mainPageTest() {
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
         takeScreenshot("start");
         wd.findElement(By.xpath("//android.widget.RadioButton[@text='Use Testdroid Cloud']")).click();
         wd.findElement(By.xpath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).sendKeys("John Doe");

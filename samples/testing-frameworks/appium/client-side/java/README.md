@@ -1,10 +1,10 @@
 # Appium Client Side Java Sample
 
 This folder includes sample Appium tests using Java for Android and iOS, which can be run
-in [Bitbar Cloud](https://cloud.bitbar.com/).
+in [BitBar Cloud](https://cloud.bitbar.com/).
 
 This example can be run either using client side execution or server side execution.
-To find more information about these possibilities, visit https://docs.bitbar.com/testing/appium/
+To find more information about these possibilities, visit https://support.smartbear.com/bitbar/docs/en/mobile-app-tests/automated-testing/appium-support.html
 
 ## Test Execution
 
@@ -12,7 +12,7 @@ To find more information about these possibilities, visit https://docs.bitbar.co
 
 1. Install Java
 
-    Currently the example project is targeting Java 1.7. To change that, modify the target and source field in pom.xml
+    Currently, the example project is targeting Java 11. To change that, modify the target and source field in pom.xml
 
     ```xml
     <plugin>
@@ -20,8 +20,8 @@ To find more information about these possibilities, visit https://docs.bitbar.co
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.6.0</version>
         <configuration>
-            <source>1.7</source>
-            <target>1.7</target>
+            <source>11</source>
+            <target>11</target>
         </configuration>
     </plugin>
     ```
@@ -36,19 +36,19 @@ To find more information about these possibilities, visit https://docs.bitbar.co
 
 2.  Run the following command in the root directory of the project:
 
-        ```sh
-        mvn clean test \
-            -Dtest=AndroidAppiumExampleTest \
-            -DexecutionType=clientside \
-            -DapiKey=<your_bitbar_apiKey> \
-            -DapplicationPath=</path/to/bitbar-sample-app.apk>
-        ```
+    ```sh
+    mvn clean test \
+        -Dtest=AndroidAppiumExampleTest \
+        -DexecutionType=clientside \
+        -DapiKey=<your_bitbar_apiKey> \
+        -DapplicationPath=</path/to/bitbar-sample-app.apk>
+    ```
 
-        Where:
+    Where:
 
-        - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
-
-    https://cloud.bitbar.com/#user/my-account under _My Integrations_. - `<path/to/bitbar-sample-app.apk>` is the path to the downloaded sample application
+    - `<your_bitbar_apiKey>` is your API key to BitBar Cloud. You can find API key in https://cloud.bitbar.com/#user/profile under _My Integrations/API Access_. 
+ 
+    - `<path/to/bitbar-sample-app.apk>` is the path to the downloaded sample application
 
 ### Android with biometry
 
@@ -56,19 +56,20 @@ To find more information about these possibilities, visit https://docs.bitbar.co
 
 2.  Run the following command in the root directory of the project:
 
-        ```sh
-        mvn clean test \
-            -Dtest=AndroidBiometryAppiumExampleTest \
-            -DexecutionType=clientsideWithBiometry \
-            -DapiKey=<your_bitbar_apiKey> \
-            -DapplicationPath=</path/to/BitBarSampleApp.apk>
-        ```
+    ```sh
+    mvn clean test \
+        -Dtest=AndroidBiometryAppiumExampleTest \
+        -DexecutionType=clientsideWithBiometry \
+        -DapiKey=<your_bitbar_apiKey> \
+        -DapplicationPath=</path/to/BitBarSampleApp.apk>
+    ```
 
-        Where:
+    Where:
 
-        - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
+    - `<your_bitbar_apiKey>` is your API key to BitBar Cloud. You can find API key in https://cloud.bitbar.com/#user/profile under _My Integrations/API Access_.
 
-    https://cloud.bitbar.com/#user/my-account under _My Integrations_. - `<path/to/BitBarSampleApp.apk>` is the path to the downloaded sample application
+    - `<path/to/BitbarSampleApp.apk>` is the path to the downloaded sample application is the path to the 
+      downloaded sample application
 
 ### iOS
 
@@ -76,19 +77,19 @@ To find more information about these possibilities, visit https://docs.bitbar.co
 
 2.  Run the following command in the root directory of the project:
 
-        ```sh
-        mvn clean test \
-            -Dtest=IosAppiumExampleTest \
-            -DexecutionType=clientside \
-            -DapiKey=<your_bitbar_apiKey> \
-            -DapplicationPath=</path/to/bitbar-ios-sample.ipa>
-        ```
+    ```sh
+    mvn clean test \
+        -Dtest=IosAppiumExampleTest \
+        -DexecutionType=clientside \
+        -DapiKey=<your_bitbar_apiKey> \
+        -DapplicationPath=</path/to/bitbar-ios-sample.ipa>
+    ```
 
-        Where:
+    Where:
 
-        - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
+    - `<your_bitbar_apiKey>` is your API key to BitBar Cloud. You can find API key in https://cloud.bitbar.com/#user/profile under _My Integrations/API Access_.
 
-    https://cloud.bitbar.com/#user/my-account under _My Integrations_. - `<path/to/bitbar-ios-sample.ipa>` is the path to the downloaded sample application
+    - `<path/to/bitbar-ios-sample.ipa>` is the path to the downloaded sample application
 
 ### iOS With Biometry
 
@@ -96,32 +97,33 @@ To find more information about these possibilities, visit https://docs.bitbar.co
 
 2.  Run the following command in the root directory of the project:
 
-        ```sh
-        ./run_client_side_test_and_export_results.sh \
-            -Dtest=IosBiometryAppiumExampleTest \
-            -DexecutionType=clientsideWithBiometry \
-            -DapiKey=<your_bitbar_apiKey> \
-            -DapplicationPath=<path/to/BitBarSampleApp.ipa>
-        ```
+    ```sh
+    ./run_client_side_test_and_export_results.sh \
+        -Dtest=IosBiometryAppiumExampleTest \
+        -DexecutionType=clientsideWithBiometry \
+        -DapiKey=<your_bitbar_apiKey> \
+        -DapplicationPath=<path/to/BitBarSampleApp.ipa>
+    ```
 
-        Where:
+    Where:
 
-        - `<your_bitbar_apiKey>` is your API key to Bitbar Cloud. You can find API key in
+    - `<your_bitbar_apiKey>` is your API key to BitBar Cloud. You can find API key in https://cloud.bitbar.com/#user/profile under _My Integrations/API Access_.
 
-    https://cloud.bitbar.com/#user/my-account under _My Integrations_. - `<path/to/BitBarSampleApp.ipa>` is the path to the downloaded sample application
+    - <path/to/BitBarSampleApp.ipa>` is the path to the downloaded sample application
 
 ### Notes
 
 #### applicationPath-argument
 
-The applicationPath-argument is only required if the application has not yet been uploaded to Bitbar cloud project. 
-When the applicationPath-argument is provided, the application will be automatically uploaded to Bitbar cloud before 
+The applicationPath-argument is only required if the application has not yet been uploaded to BitBar Cloud project. 
+When the applicationPath-argument is provided, the application will be automatically uploaded to BitBar Cloud before 
 the actual test execution starts. Otherwise, id or path for downloading the application has to be set in 
 desired capabilities file.
 
 ### Upload Test Results
 
-When using Client Side test execution, the test results have to be uploaded to Bitbar in order for it to correctly visualize the test run's success and test cases that have been run.
+When using Client Side test execution, the test results have to be uploaded to BitBar in order for it to correctly 
+visualize the test run's success and test cases that have been run.
 
 #### OSX, Linux and Windows with Cygwin
 
@@ -153,7 +155,7 @@ windows_client_side_test_and_export_results.bat ^
 
 ## Server Side Test Execution
 
-Create a zip file containing the project, which will be uploaded to [Bitbar Cloud](https://cloud.bitbar.com/).
+Create a zip file containing the project, which will be uploaded to [BitBar Cloud](https://cloud.bitbar.com/).
 
 -   On OSX/Linux machines you can just run the following command at the project's root directory:
 
@@ -217,17 +219,17 @@ and OS version that is under test:
 The properties-files are in the format `<desired_capability_name>=<desired_capability_value>`.
 
 The desired capabilities can be divided to Appium-specific desired capabilities
-(such as `platformName` and `deviceName`) and Bitbar-specific desired capabilities
-(such as `testdroid_device` or `testdroid_project`).
+(such as `platformName` and `deviceName`) and BitBar-specific desired capabilities
+(such as `bitbar_device` or `bitbar_project`).
 
 For Test run with biometry instrumentation you have to add `bitbar_biometricInstrumentation=true` capability.
 
-The Bitbar-specific desired capabilities have to only be defined for Client Side Test Execution.
+The BitBar-specific desired capabilities have to only be defined for Client Side Test Execution.
 
-For more information about Bitbar specific capabilites, please refer to
-<http://docs.bitbar.com/testing/appium/desired-caps/>
+For more information about BitBar specific capabilities, please refer to
+<https://support.smartbear.com/bitbar/docs/en/mobile-app-tests/automated-testing/appium-support/capabilities.html>
 
 ## Helpful Resources
 
 -   [Complete list of available devices](https://cloud.bitbar.com/#public/devices)
--   [Bitbar Documentation](http://docs.bitbar.com/)
+-   [BitBar Documentation](http://docs.bitbar.com/)
