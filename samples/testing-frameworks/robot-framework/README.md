@@ -1,40 +1,121 @@
-# Template for Robot Framework
+# Robot Framework sample
 
-- Libs folder: Place for self made libraries.
-- Tests folder: Contains test files. Resource ``${PROJECTROOT}${/}resources${/}common.robot`` should be included under ``*** settings ***`` on each test file so they can use common resources. Write all test files under this folder.
-- Resources folder: Contains generic keywords and settings (common.robot), also other files required by the tests. Add all common keywords to common.robot and add all required extra features to this folder.
+This sample contains Robot Framework tests for Android and iOS, with scripts for client-side execution and BitBar cloud packaging.
 
+## Project structure
 
-# How to install requirements:
-- python3 -m pip install -r ./resources/requirements.txt
+- `libs/`: custom Python libraries for tests.
+- `resources/`: shared assets and settings.
+  - `common.robot`: common keywords.
+  - `requirements.txt`: Python dependencies.
+  - `app/`: sample app binaries.
+- `tests-android/`: Android app + Chrome test suites.
+- `tests-ios/`: iOS app + Safari test suites.
+- `run_android.py`, `run_ios.py`: local Robot Framework runners.
+- `create-test-zip-android.sh`, `create-test-zip-ios.sh`: package tests for cloud runs.
+- `run-tests-android.sh`, `run-tests-ios.sh`: entrypoint scripts used inside cloud execution.
 
-# Running tests locally:
-There are two runner scripts for running the tests locally, ``run_android.py`` and ``run_ios.py``
+## Install requirements
 
-- ``python run_<OS>.py`` Runs the whole suite. For example ``python run_android.py`` runs all the Android tests.
-- ``python run_<OS>.py -i <tag name>`` Runs tests that contains ``[Tags]    <tag name>``
-- ``python run_<OS>.py --test <name>`` Runs tests that contains name ``<name>`` in them.
-- ``python run_<OS>.py --suite <name>`` Runs the suite containing ``<name>``.
-- ``python run_<OS>.py --dryrun`` Runs everything as a dryrun
-- ``-x <xunit_output_file>`` command line option can be used to generate report in xUnit compatible XML format. So for example ``python run_<OS>.py -x xunit`` will run all the test and create ``xunit.xml`` file relatively to the output directory of other test results.
+**macOS/Linux**
 
-# Running tests on the Cloud:
-- From ``common.robot`` choose the correct ``${APP_ANDROID}`` or ``${APP_IOS}`` path by uncommenting the one with ``application.apk`` or ``application.ipa`` and commenting out other paths.
-- ``create-test-zip-android.sh`` and ``create-test-zip-ios.sh`` will create .zip files containing all necessary files for cloud execution. Scripts output ``tests-robot-android.zip`` and ``tests-robot-ios.zip`` files that can be uploaded to Testdroid Cloud for test execution.
-- By default the tests will be run as server-side Appium and the driver is configured to use ``localhost`` address as: ``${REMOTE_URL}    http://localhost:4723/wd/hub``
-- Framework can be configured also to run the tests as client-side Appium. To do this, the ``localhost`` address has to be replaced with ``appium.bitbar.com``. Also following additional capabilities have to be added:
-	- ``testdroid_username``
-	- ``testdroid_password``
-	- ``testdroid_target``
-	- ``testdroid_project``
-	- ``testdroid_testrun``
-	- ``testdroid_device``
-	- ``testdroid_app``
-	- ``BundleID``
+```bash
+python3 -m pip install -r resources/requirements.txt
+```
 
-	More information about desired capabilities for client-side Appium can be found from Testdroid [Appium Documentation](http://docs.bitbar.com/testing/appium/desired-caps/)
+**Windows (PowerShell)**
 
-# References
+```powershell
+py -3 -m pip install -r .\resources\requirements.txt
+```
+
+## Client-side execution
+
+The runner scripts automatically set `PROJECTROOT` and execute all suites under the platform-specific test folder.
+
+**macOS/Linux**
+
+```bash
+python3 run_android.py
+python3 run_ios.py
+```
+
+**Windows (PowerShell)**
+
+```powershell
+py -3 .\run_android.py
+py -3 .\run_ios.py
+```
+
+Common filtering options are passed directly to Robot Framework.
+
+**macOS/Linux**
+
+```bash
+python3 run_android.py -i cloud
+python3 run_android.py --test "Simple Smoke Test - Correct Answer"
+python3 run_ios.py --suite safari_example
+python3 run_ios.py --dryrun
+python3 run_android.py -x xunit
+```
+
+**Windows (PowerShell)**
+
+```powershell
+py -3 .\run_android.py -i cloud
+py -3 .\run_android.py --test "Simple Smoke Test - Correct Answer"
+py -3 .\run_ios.py --suite safari_example
+py -3 .\run_ios.py --dryrun
+py -3 .\run_android.py -x xunit
+```
+
+Notes:
+- `-x xunit` creates `xunit.xml` under Robot Framework output directory.
+- Current defaults in `resources/common.robot` are cloud-oriented (`REMOTE_URL` and `bitbar:*` capabilities).
+- To run against local Appium, update `REMOTE_URL` and desired capabilities in `resources/common.robot` to match your local setup and app paths.
+
+## Server-side execution in BitBar cloud
+
+1. Package test zip.
+
+**macOS/Linux**
+
+```bash
+./create-test-zip-android.sh
+./create-test-zip-ios.sh
+```
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item .\run-tests-android.sh .\run-tests.sh
+if (Test-Path .\tests-robot-android.zip) { Remove-Item .\tests-robot-android.zip }
+Compress-Archive -Path .\run-tests.sh, .\run_android.py, .\libs, .\resources, .\tests-android -DestinationPath .\tests-robot-android.zip
+
+Copy-Item .\run-tests-ios.sh .\run-tests.sh
+if (Test-Path .\tests-robot-ios.zip) { Remove-Item .\tests-robot-ios.zip }
+Compress-Archive -Path .\run-tests.sh, .\run_ios.py, .\libs, .\resources, .\tests-ios -DestinationPath .\tests-robot-ios.zip
+```
+
+2. Upload generated package:
+- `tests-robot-android.zip`
+- `tests-robot-ios.zip`
+
+What the package contains:
+- `run-tests.sh` (copied from platform-specific `run-tests-<platform>.sh`)
+- runner script (`run_android.py` or `run_ios.py`)
+- `libs/`, `resources/`, and platform test folder
+
+Inside cloud execution, `run-tests.sh`:
+- unzips `tests.zip`
+- installs Python requirements
+- starts Appium
+- runs tests (`python3 run_<platform>.py -x TEST-all`)
+- collects outputs to `output-files/` (screenshots, `report.html`, `log.html`)
+- all the data is automatically collected by BitBar and available in the test run details.
+
+## References
+
 - [Robot Framework User Guide](http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
-- [Appium Library Keyword Documentation](http://jollychang.github.io/robotframework-appiumlibrary/doc/AppiumLibrary.html)
-- [robotframework.org](http://robotframework.org/)
+- [AppiumLibrary keyword docs](http://jollychang.github.io/robotframework-appiumlibrary/doc/AppiumLibrary.html)
+- [Bitbar Appium desired capabilities](http://docs.bitbar.com/testing/appium/desired-caps/)

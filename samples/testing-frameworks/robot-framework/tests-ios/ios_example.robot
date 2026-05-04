@@ -8,9 +8,8 @@ ${INPUT_NAME_FIELD}    xpath=//*[@name='userName']
 ${SUBMIT_BUTTON}       xpath=//*[@name='sendAnswer']
 
 *** Test cases ***
-
 Simple Smoke Test - Correct Answer
-    [Tags]    cloud
+    [Tags]           cloud
     Set Up And Open Ios Application
     Input Name       ${NAME}
     Select Option    answer2
@@ -18,7 +17,7 @@ Simple Smoke Test - Correct Answer
     Validate Correct Answer
 
 Simple Smoke Test - Wrong Answer
-    [Tags]    101
+    [Tags]           101
     Set Up And Open Ios Application
     Input Name       ${NAME}
     Select Option    answer1
@@ -26,7 +25,7 @@ Simple Smoke Test - Wrong Answer
     Validate Wrong Answer
 
 Simple Smoke Test - Wrong Answer 2
-    [Tags]    mom
+    [Tags]           mom
     Set Up And Open Ios Application
     Input Name       ${NAME}
     Select Option    answer3
@@ -42,14 +41,13 @@ Simple Smoke Test - Fails Intentionally
     Validate Correct Answer
 
 *** Keywords ***
-
 Input Name
-    [Arguments]    ${name}
-    Input Value    ${INPUT_NAME_FIELD}    ${name}
+    [Arguments]      ${name}
+    Input Text       ${INPUT_NAME_FIELD}    ${name}
     Hide Keyboard    Return
 
 Select Option
-    [Arguments]    ${option}
+    [Arguments]      ${option}
     Click Element    xpath=//*[@name='${option}']
 
 Submit Selection
