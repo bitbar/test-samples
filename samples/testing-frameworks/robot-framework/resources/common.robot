@@ -6,28 +6,24 @@ Library           OperatingSystem
 ${PROJECTROOT}                   ${CURDIR}${/}..
 ${PROJECT_ROOT}                  ${PROJECTROOT}
 ${SCREENSHOTS}                   ${PROJECTROOT}${/}screenshots
+${APP_FILE}                      %{APPFILE=}
 
-
-${REMOTE_URL}                   https://appiumstaging.bitbar.com/wd/hub
-#${REMOTE_URL}                   http://localhost:4723/wd/hub    # Use this for Server-side execution in BitBar cloud
-${APIKEY}
-${AUTOMATION_NAME}              uiautomator2
-${IOS_AUTOMATION_NAME}          XCUITest
+${REMOTE_URL}                   https://eu-mobile-hub.bitbar.com/wd/hub
+#${REMOTE_URL}                   http://localhost:4723/wd/hub    # Use this for server-side execution in BitBar
+${APIKEY}                        # your_bitbar_api_key_here    # for client-side execution only
 
 ${PLATFORM_NAME_ANDROID}        Android
-${DEVICE_NAME_ANDROID}          Samsung
-${APP_ANDROID}                  ${CURDIR}${/}app${/}BitbarSampleApp.apk
-#${APP_ANDROID}                  ${PROJECTROOT}${/}application.apk    # Use this for Server-side execution in BitBar cloud
+${AUTOMATION_NAME}              uiautomator2
+${DEVICE_NAME_ANDROID}          Google Pixel
+${APP_ANDROID}                  app_id_here    # BitBar app ID for BitbarSampleApp.apk application
+#${APP_ANDROID}                  ${APP_FILE}    # Use this for server-side execution in BitBar
 
 ${PLATFORM_NAME_IOS}            iOS
-${DEVICE_NAME_IOS}              iPhone
-${APP_IOS}                      ${CURDIR}${/}app${/}BitbarIOSSample.ipa
-#${APP_IOS}                      ${PROJECTROOT}${/}application.ipa    # Use this for Server-side execution in BitBar cloud
+${IOS_AUTOMATION_NAME}          XCUITest
+${DEVICE_NAME_IOS}              Apple iPhone
+${APP_IOS}                      app_id_here    # BitBar app ID for BitbarSampleApp.apk application
+#${APP_IOS}                      ${APP_FILE}    # Use this for server-side execution in BitBar
 ${AUTO_ACCEPT_ALERTS}           true
-
-${BITBAR_PROJECT}               YourProjectName
-${BITBAR_TESTRUN}               YourTestRunName
-
 
 *** Keywords ***
 Set Up And Open Android Application
@@ -36,8 +32,8 @@ Set Up And Open Android Application
     ...    appium:automationName=${AUTOMATION_NAME}
     ...    bitbar:apiKey=${APIKEY}
     ...    bitbar:device=${DEVICE_NAME_ANDROID}
-    ...    bitbar:app=${APP_ANDROID}
-    ...    noReset=true
+    ...    bitbar:app=${APP_ANDROID}    # change to appium:app for server-side execution in BitBar
+    ...    noReset=false
     ...    fullReset=false
     Wait Until Page Contains    What is the best way to test your application    5s
 
@@ -46,9 +42,9 @@ Set Up And Open Ios Application
     ...    platformName=${PLATFORM_NAME_IOS}
     ...    appium:automationName=${IOS_AUTOMATION_NAME}
     ...    bitbar:apiKey=${APIKEY}
-    ...    bitbar:device=${DEVICE_NAME_ANDROID}
-    ...    bitbar:app=${APP_IOS}
-    ...    startIWDP=true
+    ...    bitbar:device=${DEVICE_NAME_IOS}
+    ...    bitbar:app=${APP_IOS}    # change to appium:app for server-side execution in BitBar
+    ...    autoAcceptAlerts=${AUTO_ACCEPT_ALERTS}
     Wait Until Page Contains    What is the best way to test your application    5s
 
 Set Up And Open Chrome
@@ -66,11 +62,8 @@ Set Up And Open Safari
     ...    appium:automationName=${IOS_AUTOMATION_NAME}
     ...    bitbar:apiKey=${APIKEY}
     ...    bitbar:device=${DEVICE_NAME_IOS}
-    ...    startIWDP=true
-    Wait Until Page Contains    Automation for Apps   10s
 
 Capture Screenshot On Failure
     Run Keyword And Ignore Error    Create Directory    ${SCREENSHOTS}
     ${status}    ${message}=    Run Keyword And Ignore Error    Capture Page Screenshot    ${SCREENSHOTS}${/}${TEST NAME}.png
     Run Keyword If    '${status}' == 'FAIL'    Log    Could not capture screenshot: ${message}    WARN
-F

@@ -1,91 +1,98 @@
 # Robot Framework sample
 
-This sample contains Robot Framework tests for Android and iOS, with scripts for client-side execution and BitBar cloud packaging.
+This sample contains Robot Framework tests for Android and iOS, including app and mobile browser coverage for BitBar cloud.
 
 ## Project structure
 
-- `libs/`: custom Python libraries for tests.
-- `resources/`: shared assets and settings.
-  - `common.robot`: common keywords.
+- `libs/`: custom Python libraries used by tests.
+- `resources/`: shared test assets.
+  - `common.robot`: shared variables and setup keywords.
   - `requirements.txt`: Python dependencies.
-  - `app/`: sample app binaries.
-- `tests-android/`: Android app + Chrome test suites.
-- `tests-ios/`: iOS app + Safari test suites.
-- `run_android.py`, `run_ios.py`: local Robot Framework runners.
-- `create-test-zip-android.sh`, `create-test-zip-ios.sh`: package tests for cloud runs.
-- `run-tests-android.sh`, `run-tests-ios.sh`: entrypoint scripts used inside cloud execution.
+  - `app/`: sample binaries (`BitbarSampleApp.apk`, `BitbarIOSSample.ipa`).
+- `tests-android/`: Android app (`android_example.robot`) and Chrome (`chrome_example.robot`) suites.
+- `tests-ios/`: iOS app (`ios_example.robot`) and Safari (`safari_example.robot`) suites.
+- `run_android.py`, `run_ios.py`: local/client-side runners.
+- `create-test-zip-android.sh`, `create-test-zip-ios.sh`: package tests for BitBar server-side runs.
+- `run-tests-android.sh`, `run-tests-ios.sh`: server-side entrypoint scripts.
 
 ## Install requirements
 
-**macOS/Linux**
+### macOS/Linux
 
 ```bash
 python3 -m pip install -r resources/requirements.txt
 ```
 
-**Windows (PowerShell)**
+### Windows (PowerShell)
 
 ```powershell
 py -3 -m pip install -r .\resources\requirements.txt
 ```
 
+## Configure `resources/common.robot`
+
+Update these variables before running tests.
+
+| Variable | Client-side cloud run | Server-side BitBar run |
+| --- | --- | --- |
+| `${REMOTE_URL}` | `https://eu-mobile-hub.bitbar.com/wd/hub` | `http://localhost:4723/wd/hub` |
+| `${APIKEY}` | Your BitBar API key | Not required |
+| `${APP_ANDROID}` | BitBar app id (for example `123456789`) | `${APP_FILE}` and use `appium:app` capability |
+| `${APP_IOS}` | BitBar app id (or cloud app reference) | `${APP_FILE}` |
+
+Notes:
+- `run-tests-android.sh` and `run-tests-ios.sh` set `APPFILE` from `application.apk` / `application.ipa` when running server-side.
+- The Android setup keyword currently uses `bitbar:app`; for server-side packaging, switch it to `appium:app=${APP_ANDROID}` as already noted in `common.robot`.
+- iOS setup already uses `appium:app=${APP_IOS}`.
+
 ## Client-side execution
 
-The runner scripts automatically set `PROJECTROOT` and execute all suites under the platform-specific test folder.
+Runner scripts append `--variable PROJECTROOT:<repo path>` and execute all suites in the platform folder.
 
-**macOS/Linux**
+### Run all Android or iOS suites
 
 ```bash
 python3 run_android.py
 python3 run_ios.py
 ```
 
-**Windows (PowerShell)**
-
 ```powershell
 py -3 .\run_android.py
 py -3 .\run_ios.py
 ```
 
-Common filtering options are passed directly to Robot Framework.
-
-**macOS/Linux**
+### Useful filters
 
 ```bash
 python3 run_android.py -i cloud
+python3 run_android.py -e fail
 python3 run_android.py --test "Simple Smoke Test - Correct Answer"
 python3 run_ios.py --suite safari_example
 python3 run_ios.py --dryrun
 python3 run_android.py -x xunit
 ```
 
-**Windows (PowerShell)**
-
 ```powershell
 py -3 .\run_android.py -i cloud
+py -3 .\run_android.py -e fail
 py -3 .\run_android.py --test "Simple Smoke Test - Correct Answer"
 py -3 .\run_ios.py --suite safari_example
 py -3 .\run_ios.py --dryrun
 py -3 .\run_android.py -x xunit
 ```
 
-Notes:
-- `-x xunit` creates `xunit.xml` under Robot Framework output directory.
-- Current defaults in `resources/common.robot` are cloud-oriented (`REMOTE_URL` and `bitbar:*` capabilities).
-- To run against local Appium, update `REMOTE_URL` and desired capabilities in `resources/common.robot` to match your local setup and app paths.
-
 ## Server-side execution in BitBar cloud
 
-1. Package test zip.
+### 1) Create the test package
 
-**macOS/Linux**
+macOS/Linux:
 
 ```bash
 ./create-test-zip-android.sh
 ./create-test-zip-ios.sh
 ```
 
-**Windows (PowerShell)**
+Windows PowerShell equivalent:
 
 ```powershell
 Copy-Item .\run-tests-android.sh .\run-tests.sh
@@ -97,22 +104,28 @@ if (Test-Path .\tests-robot-ios.zip) { Remove-Item .\tests-robot-ios.zip }
 Compress-Archive -Path .\run-tests.sh, .\run_ios.py, .\libs, .\resources, .\tests-ios -DestinationPath .\tests-robot-ios.zip
 ```
 
-2. Upload generated package:
+### 2) Upload package(s)
+
 - `tests-robot-android.zip`
 - `tests-robot-ios.zip`
 
-What the package contains:
-- `run-tests.sh` (copied from platform-specific `run-tests-<platform>.sh`)
-- runner script (`run_android.py` or `run_ios.py`)
-- `libs/`, `resources/`, and platform test folder
+### 3) What runs in BitBar server-side scripts
 
-Inside cloud execution, `run-tests.sh`:
+`run-tests-<platform>.sh` does the following:
 - unzips `tests.zip`
-- installs Python requirements
+- installs dependencies from `resources/requirements.txt`
 - starts Appium
-- runs tests (`python3 run_<platform>.py -x TEST-all`)
-- collects outputs to `output-files/` (screenshots, `report.html`, `log.html`)
-- all the data is automatically collected by BitBar and available in the test run details.
+- runs `python3 run_<platform>.py -x TEST-all` (with `APPFILE` when available)
+- collects `screenshots/`, `report.html`, and `log.html` into `output-files/`
+
+## Test suites included
+
+- Android app: `tests-android/android_example.robot`
+- Android browser: `tests-android/chrome_example.robot`
+- iOS app: `tests-ios/ios_example.robot`
+- iOS browser: `tests-ios/safari_example.robot`
+
+Some cases are intentionally failing and tagged with `fail` for pipeline validation.
 
 ## References
 
