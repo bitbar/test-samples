@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class ExampleLibraryException(Exception):
-    """It is a good practice to throw library specific exceptions so
-    that you know where the exception is coming"""
+    """It is a good practice to throw library-specific exceptions so
+    that you know where the exception is coming from"""
     pass
 
 class ExampleLibrary(object):
