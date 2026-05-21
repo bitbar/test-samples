@@ -2,19 +2,19 @@ package com.bitbar.testdroid.sampletests;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.ViewAssertion;
-import android.support.test.runner.screenshot.BasicScreenCaptureProcessor;
-import android.support.test.runner.screenshot.ScreenCapture;
-import android.support.test.runner.screenshot.ScreenCaptureProcessor;
-import android.support.test.runner.screenshot.Screenshot;
+import androidx.test.espresso.NoMatchingViewException;
+import androidx.test.espresso.ViewAssertion;
+import androidx.test.runner.screenshot.BasicScreenCaptureProcessor;
+import androidx.test.runner.screenshot.ScreenCapture;
+import androidx.test.runner.screenshot.ScreenCaptureProcessor;
+import androidx.test.runner.screenshot.Screenshot;
 import android.view.View;
 
 import java.io.IOException;
 import java.util.HashSet;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 
 /**
  * Created by testdroid on 26/03/2018.
