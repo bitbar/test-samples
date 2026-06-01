@@ -18,6 +18,7 @@ ${AUTOMATION_NAME}              uiautomator2
 ${DEVICE_NAME_ANDROID}          Google Pixel
 ${APP_ANDROID}                  app_id_here    # BitBar app ID for BitbarSampleApp.apk application
 #${APP_ANDROID}                  ${APP_FILE}    # Use this for server-side execution in BitBar
+${BITBAR_PROJECT_NAME_ANDROID}  Robot Framework Android Sample
 
 ${PLATFORM_NAME_IOS}            iOS
 ${IOS_AUTOMATION_NAME}          XCUITest
@@ -25,6 +26,7 @@ ${DEVICE_NAME_IOS}              Apple iPhone
 ${APP_IOS}                      app_id_here    # BitBar app ID for BitbarIOSSample.ipa application
 #${APP_IOS}                      ${APP_FILE}    # Use this for server-side execution in BitBar
 ${AUTO_ACCEPT_ALERTS}           true
+${BITBAR_PROJECT_NAME_IOS}      Robot Framework iOS Sample
 
 *** Keywords ***
 Set Up And Open Android Application
@@ -34,6 +36,7 @@ Set Up And Open Android Application
     ...    bitbar:apiKey=${APIKEY}
     ...    bitbar:device=${DEVICE_NAME_ANDROID}
     ...    bitbar:app=${APP_ANDROID}    # change to appium:app for server-side execution in BitBar
+    ...    bitbar:project=${BITBAR_PROJECT_NAME_ANDROID}
     ...    noReset=false
     ...    fullReset=false
     Wait Until Page Contains    What is the best way to test your application    5s
@@ -45,6 +48,7 @@ Set Up And Open Ios Application
     ...    bitbar:apiKey=${APIKEY}
     ...    bitbar:device=${DEVICE_NAME_IOS}
     ...    bitbar:app=${APP_IOS}    # change to appium:app for server-side execution in BitBar
+    ...    bitbar:project=${BITBAR_PROJECT_NAME_IOS}
     ...    autoAcceptAlerts=${AUTO_ACCEPT_ALERTS}
     Wait Until Page Contains    What is the best way to test your application    5s
 
@@ -55,6 +59,7 @@ Set Up And Open Chrome
     ...    appium:automationName=${AUTOMATION_NAME}
     ...    bitbar:apiKey=${APIKEY}
     ...    bitbar:device=${DEVICE_NAME_ANDROID}
+    ...    bitbar:project=${BITBAR_PROJECT_NAME_ANDROID}
 
 Set Up And Open Safari
     Open Application    ${REMOTE_URL}
@@ -63,6 +68,7 @@ Set Up And Open Safari
     ...    appium:automationName=${IOS_AUTOMATION_NAME}
     ...    bitbar:apiKey=${APIKEY}
     ...    bitbar:device=${DEVICE_NAME_IOS}
+    ...    bitbar:project=${BITBAR_PROJECT_NAME_IOS}
 
 Hide Ios Keyboard
     # Driver-level fallback chain handles iOS 26+ versions
