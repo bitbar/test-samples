@@ -10,11 +10,24 @@ python3 -m pip install -r resources/requirements.txt
 
 ## start Appium server
 echo "Starting Appium ..."
-appium --log-no-colors --log-timestamp --command-timeout 120
+
+appium --log-no-colors --log-timestamp
+
+ps -ef|grep appium
+
+if [ -f application.apk ]; then
+  export APPFILE=$PWD/application.apk
+fi
+
+echo "App file is ${APPFILE}"
 
 ## Start test execution
 echo "Running test"
-python3 run_android.py -x TEST-all
+if [ -n "${APPFILE}" ]; then
+  python3 run_android.py --variable "APPFILE:${APPFILE}" -x TEST-all
+else
+  python3 run_android.py -x TEST-all
+fi
 
 echo "Gathering results"
 mkdir -p output-files

@@ -1,4 +1,4 @@
-Appium-Python-Client==0.45
-robotframework>=3.0.1
-robotframework-appiumlibrary>=1.4.4
-six>=1.11.0
+Appium-Python-Client>=3.5.1
+robotframework>=7.4.2
+robotframework-appiumlibrary>=3.2.1
+six>=1.17.0

@@ -8,12 +8,6 @@ if [ -z ${UDID} ] ; then
 fi
 echo "UDID is ${UDID}"
 
-# Create the screenshots directory, if it doesn't exist'
-mkdir -p .screenshots
-
-echo "Starting Appium ..."
-appium -U ${UDID} --log-no-colors --log-timestamp
-
 echo "Extracting tests.zip..."
 unzip -o tests.zip
 
@@ -21,9 +15,23 @@ echo "Installing requirements"
 chmod 0755 resources/requirements.txt
 python3 -m pip install --user  --requirement resources/requirements.txt
 
+# Create the screenshots directory, if it doesn't exist'
+mkdir -p screenshots
+
+echo "Starting Appium ..."
+appium --log-no-colors --log-timestamp
+
+ps -ef|grep appium
+
+export APPFILE="$PWD/application.ipa"
+
 ## Start test execution
 echo "Running test"
-python3 run_ios.py -x TEST-all
+if [ -n "${APPFILE}" ]; then
+  python3 run_ios.py --variable "APPFILE:${APPFILE}" -x TEST-all
+else
+  python3 run_ios.py -x TEST-all
+fi
 
 echo "Gathering results"
 mkdir -p output-files

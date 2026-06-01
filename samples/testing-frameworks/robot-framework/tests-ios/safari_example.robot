@@ -9,23 +9,21 @@ ${RESULT_ELEMENT}      xpath = //p[@id="result_element" and contains(., "Bitbar"
 ${EXPECTED_STYLE}      xpath = //button[contains(@style, "rgb(127, 255, 0")]
 
 *** Test cases ***
-
 Safari Smoke Test - Correct Style
-    [Tags]    cloud
+    [Tags]                              cloud
     Set Up And Open Safari
-    Go To Url   ${URL}
+    Go To Url                           ${URL}
     Wait Until Page Contains Element    ${ANSWER_BUTTON}
-    Click Element   ${ANSWER_BUTTON}
+    Click Element                       ${ANSWER_BUTTON}
     Validate Style
 
 Safari Smoke Test - Fails Intentionally
-    [Tags]    fail
+    [Tags]                              fail
     Set Up And Open Safari
-    Go To Url   ${URL}
+    Go To Url                           ${URL}
     Wait Until Page Contains Element    ${ANSWER_BUTTON}
     Validate Style
 
 *** Keywords ***
-
 Validate Style
-        Wait Until Page Contains Element    ${EXPECTED_STYLE}    5s
+    Wait Until Page Contains Element    ${EXPECTED_STYLE}    5s
