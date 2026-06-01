@@ -1,6 +1,7 @@
 *** Settings ***
 Library           AppiumLibrary    run_on_failure=Capture Screenshot On Failure
 Library           OperatingSystem
+Library           ${CURDIR}${/}..${/}libs${/}ExampleLibrary.py
 
 *** Variables ***
 ${PROJECTROOT}                   ${CURDIR}${/}..
@@ -21,7 +22,7 @@ ${APP_ANDROID}                  app_id_here    # BitBar app ID for BitbarSampleA
 ${PLATFORM_NAME_IOS}            iOS
 ${IOS_AUTOMATION_NAME}          XCUITest
 ${DEVICE_NAME_IOS}              Apple iPhone
-${APP_IOS}                      app_id_here    # BitBar app ID for BitbarSampleApp.apk application
+${APP_IOS}                      app_id_here    # BitBar app ID for BitbarIOSSample.ipa application
 #${APP_IOS}                      ${APP_FILE}    # Use this for server-side execution in BitBar
 ${AUTO_ACCEPT_ALERTS}           true
 
@@ -62,6 +63,10 @@ Set Up And Open Safari
     ...    appium:automationName=${IOS_AUTOMATION_NAME}
     ...    bitbar:apiKey=${APIKEY}
     ...    bitbar:device=${DEVICE_NAME_IOS}
+
+Hide Ios Keyboard
+    # Driver-level fallback chain handles iOS 26+ versions
+    Run Keyword And Ignore Error    ExampleLibrary.Hide Ios Keyboard
 
 Capture Screenshot On Failure
     Run Keyword And Ignore Error    Create Directory    ${SCREENSHOTS}

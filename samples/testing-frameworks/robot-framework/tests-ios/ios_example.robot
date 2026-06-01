@@ -44,7 +44,7 @@ Simple Smoke Test - Fails Intentionally
 Input Name
     [Arguments]      ${name}
     Input Text       ${INPUT_NAME_FIELD}    ${name}
-    Hide Keyboard    Return
+    Hide Ios Keyboard
 
 Select Option
     [Arguments]      ${option}

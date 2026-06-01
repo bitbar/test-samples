@@ -17,6 +17,8 @@ This sample contains Robot Framework tests for Android and iOS, including app an
 
 ## Install requirements
 
+Works on Python 3.11+
+
 ### macOS/Linux
 
 ```bash
