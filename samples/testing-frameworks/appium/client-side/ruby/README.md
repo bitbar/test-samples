@@ -17,10 +17,22 @@ online](https://appium.io/docs/en/).
 * Install [Bundler](http://bundler.io/) to install all necessary gems
 and dependencies.
 
+Mac commands:
+```
+  gem install bundler
+```
+
 * Install necessary gems and dependencies. Run in current directory:
 ```
     bundle install
 ```
+
+On macOS, run the test through Bundler so the project-local `rspec`
+executable is used:
+```
+  bundle exec rspec bitbar_android.rb
+```
+
 * Update your test script (bitbar_*.rb) with necessary information
   (see below).
 
