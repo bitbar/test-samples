@@ -3,6 +3,7 @@ import unittest
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.client_config import ClientConfig
 
 
 class BitbarSeleniumSample(unittest.TestCase):
@@ -27,14 +28,26 @@ class BitbarSeleniumSample(unittest.TestCase):
                 'apiKey': '<insert your BitBar API key here>',
                 'osVersion': '11',
                 'resolution': '1920x1080'
-            }
+            } 
         }
         # user-customizable parameters end here
 
         self.screenshot_dir = os.getcwd() + '/screenshots'
+        
+        hub_url = 'https://us-west-desktop-hub.bitbar.com/wd/hub'
 
-        self.driver = webdriver.Remote(command_executor='https://us-west-desktop-hub.bitbar.com/wd/hub',
-                                       desired_capabilities=capabilities)
+        options = webdriver.ChromeOptions()
+        for capability_name, capability_value in capabilities.items():
+            options.set_capability(capability_name, capability_value)
+
+        self.driver = webdriver.Remote(
+            command_executor=hub_url,
+            options=options,
+            client_config=ClientConfig(
+                remote_server_addr=hub_url,
+                ignore_certificates=True,
+            ),
+        )
 
     def tearDown(self):
         self.driver.quit()
