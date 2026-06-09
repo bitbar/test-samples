@@ -1,12 +1,12 @@
 Intro
 =====
 
-This folder contains a Python client-side Selenium sample for running a desktop browser test in Bitbar Cloud.
+This folder contains a Python client-side Selenium sample for running a desktop browser test in BitBar Cloud.
 
 Files
 =====
 
-* `bitbar_selenium.py` contains the sample unittest that opens the Bitbar sample page, verifies the result text, and saves screenshots locally.
+* `bitbar_selenium.py` contains the sample unittest that opens the BitBar sample page, verifies the result text, and saves screenshots locally.
 * `screenshots/` is created when the test runs and stores the captured images.
 
 Prerequisites
@@ -14,7 +14,7 @@ Prerequisites
 
 * Python 3
 * Selenium for Python
-* A valid Bitbar API key
+* A valid BitBar API key
 
 Setup
 =====
@@ -39,7 +39,7 @@ or
 python3 -m pip install --break-system-packages selenium
 ```
 
-Then set your Bitbar API key in the test capabilities in `bitbar_selenium.py`.
+Then set your BitBar API key in the test capabilities in `bitbar_selenium.py`.
 
 Run
 ===
@@ -66,5 +66,5 @@ Troubleshooting
 ===============
 
 * `ModuleNotFoundError: No module named 'selenium'` means Selenium is not installed for the Python interpreter you used to launch the test.
-* `SessionNotCreatedException: Full authentication is required to access this resource` usually means the Bitbar API key is missing, invalid, or expired.
+* `SessionNotCreatedException: Full authentication is required to access this resource` usually means the BitBar API key is missing, invalid, or expired.
 * The sample saves screenshots into the local `screenshots` folder in the current working directory.
