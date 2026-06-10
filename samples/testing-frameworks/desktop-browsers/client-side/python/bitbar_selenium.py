@@ -27,6 +27,7 @@ class BitbarSeleniumSample(unittest.TestCase):
                 'apiKey': '<insert your BitBar API key here>',
                 'osVersion': '11',
                 'resolution': '1920x1080'
+            }
         }
         # user-customizable parameters end here
 
