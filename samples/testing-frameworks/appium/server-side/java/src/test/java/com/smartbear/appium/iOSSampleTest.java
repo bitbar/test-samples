@@ -1,6 +1,5 @@
 package com.smartbear.appium;
 
-import io.appium.java_client.AppiumDriver;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 
 /**
- * Testdroid Image Recognition Sample Test
+ * Testdroid Sample Test
  */
 @ExtendWith(TestResultExtension.class)
 class iOSSampleTest extends AbstractAppiumTest {

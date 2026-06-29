@@ -2,7 +2,6 @@ package com.smartbear.appium;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
@@ -12,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 
 /**
- * Testdroid Image Recognition Sample Test
+ * Testdroid Sample Test
  */
 @ExtendWith(TestResultExtension.class)
 class AndroidSampleTest extends AbstractAppiumTest {

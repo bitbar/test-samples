@@ -81,9 +81,7 @@ abstract class AbstractAppiumTest {
             LOGGER.info("Couldn't execute command", e);
         }
         if (exitVal != 0) {
-            String errorMsg = "idevicescreenshot exited with value: %s. Please install it or add it to " +
-                    "your path in order to use the image-recognition-opencv-library.";
-            throw new Exception(String.format(errorMsg, exitVal));
+            throw new Exception(String.format("idevicescreenshot exited with value: %s", exitVal));
         }
     }
 
@@ -97,9 +95,7 @@ abstract class AbstractAppiumTest {
             LOGGER.error("Couldn't execute command", e);
         }
         if (exitVal != 0) {
-            String errorMsg = "adb exited with value: %s. Please install it or add it to your path in order to use " +
-                    "the image-recognition-opencv-library.";
-            throw new Exception(String.format(errorMsg, exitVal));
+            throw new Exception(String.format("adb exited with value: %s", exitVal));
         }
     }
 
