@@ -20,8 +20,8 @@ namespace TestdroidAndroidSample
 		public void BeforeAll()
 		{
 			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-			string BITBAR_APIKEY = "<YOUR BITBAR API KEY>";
-			string BITBAR_APP =  "<ID OF YOUR APP>";
+			string BITBAR_APIKEY = "99SjDVpJX82Xakc7ipDawk2jemJBkanU";
+			string BITBAR_APP =  "305662619";
 
 			AppiumOptions capabilities = new AppiumOptions();
 			capabilities.AddAdditionalCapability("platformName", "Android");
@@ -55,9 +55,9 @@ namespace TestdroidAndroidSample
 			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 			TakeScreenshot("First");
 			driver.FindElement(By.XPath("//android.widget.RadioButton[@text='Use Testdroid Cloud']")).Click();
-			driver.FindElement(By.XPath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).SendKeys("C Sharp");
 			TakeScreenshot("Second");
-			driver.Navigate().Back();
+			driver.FindElement(By.XPath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).SendKeys("C Sharp");
+			//driver.Navigate().Back();
 			TakeScreenshot("Third");
 			driver.FindElement(By.XPath("//android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.Button[1]")).Click();
 			TakeScreenshot("Fourth");
