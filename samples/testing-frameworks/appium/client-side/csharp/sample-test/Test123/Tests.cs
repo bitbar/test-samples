@@ -20,8 +20,8 @@ namespace TestdroidAndroidSample
 		public void BeforeAll()
 		{
 			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-			string BITBAR_APIKEY = "99SjDVpJX82Xakc7ipDawk2jemJBkanU";
-			string BITBAR_APP =  "305662619";
+			string BITBAR_APIKEY = "<YOUR BITBAR API KEY>";
+			string BITBAR_APP =  "<ID OF YOUR APP>";
 
 			AppiumOptions capabilities = new AppiumOptions();
 			capabilities.AddAdditionalCapability("platformName", "Android");
