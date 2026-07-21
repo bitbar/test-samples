@@ -50,7 +50,7 @@
     ```
 3. Run tests
 
-    Run test with your Bitbar api key:
+    Run test with your BitBar api key:
     ```
     mvn clean test -DBITBAR_API_KEY=<YOUR_BITBAR_API_KEY>
     ```

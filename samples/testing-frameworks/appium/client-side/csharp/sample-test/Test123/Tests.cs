@@ -57,7 +57,6 @@ namespace TestdroidAndroidSample
 			driver.FindElement(By.XPath("//android.widget.RadioButton[@text='Use Testdroid Cloud']")).Click();
 			TakeScreenshot("Second");
 			driver.FindElement(By.XPath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).SendKeys("C Sharp");
-			//driver.Navigate().Back();
 			TakeScreenshot("Third");
 			driver.FindElement(By.XPath("//android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.Button[1]")).Click();
 			TakeScreenshot("Fourth");

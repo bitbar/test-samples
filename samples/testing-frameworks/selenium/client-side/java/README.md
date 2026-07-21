@@ -18,7 +18,7 @@ Requirements
 
 * Java 8 or newer
 * Maven 3.6 or newer
-* A valid Bitbar API key
+* A valid BitBar API key
 
 Before Running
 --------------

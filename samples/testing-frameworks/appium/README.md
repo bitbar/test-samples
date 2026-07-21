@@ -1,6 +1,6 @@
 # Appium
 
-Bitbar Cloud support both - Client and Server (Cloud) side testing.
+BitBar Cloud support both - Client and Server (Cloud) side testing.
 
 ## Client Side
 

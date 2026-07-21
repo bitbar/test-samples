@@ -1,6 +1,6 @@
 # Appium Client Side C# Sample
 
-The capabilities has been set to run tests for Bitbar Sample Android app.
+The capabilities has been set to run tests for BitBar Sample Android app.
 Before running tests modify Tests.cs and replace `BITBAR_APIKEY` with your api key. You can find it in
 https://cloud.bitbar.com/#user/my-account under _My Integrations_. Set the `SCREENSHOT_FOLDER` to an existing directory on your system.
 
