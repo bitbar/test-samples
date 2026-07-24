@@ -1,12 +1,12 @@
 # Appium Client Side Ruby Samples
 
-Bitbar can be used to run Appium tests against real devices to test
+BitBar can be used to run Appium tests against real devices to test
 native Android or iOS applications, hybrid (Android & iOS) or for web
 testing (Safari on iOS and Chrome on Android).
 
 You'll find here all steps you need to start running your mobile tests
-against real devices in Bitbar cloud. Before continuing with
-running with these scripts you should register with [Bitbar
+against real devices in BitBar cloud. Before continuing with
+running with these scripts you should register with [BitBar
 service](https://cloud.bitbar.com/).
 
 For more detailed guides on Appium please refer to the [documentation
@@ -52,13 +52,13 @@ Here are all the values that you need to edit:
    Make sure that the directory already exists.
 
 * *bitbar_apiKey* - a personal unique key that allows you to
-   connect to Bitbar cloud without the need to use your username
+   connect to BitBar cloud without the need to use your username
    and passwords in your tests. You can find your api key under "My
-   account" in [Bitbar cloud](https://cloud.bitbar.com/) UI.
+   account" in [BitBar cloud](https://cloud.bitbar.com/) UI.
 
 * *bitbar_project* - has a default value, but you might want to add
   your own name to this. Project name is visible in your project view
-  in Bitbar cloud. Each project must have a unique name
+  in BitBar cloud. Each project must have a unique name
 
 * *bitbar_testrun* - name or number of this test run. Test run
   names can be modified even at every test run

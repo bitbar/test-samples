@@ -25,7 +25,7 @@ namespace BitbarSeleniumSampleCSharp
             // user-customizable parameters start here
             var capabilities = new FirefoxOptions();
             capabilities.PlatformName = "Windows";
-            capabilities.BrowserVersion = "120";
+            capabilities.BrowserVersion = "latest";
 
             var bitbar_options = new Dictionary<string, string>();
             bitbar_options.Add("project", "Selenium sample project");

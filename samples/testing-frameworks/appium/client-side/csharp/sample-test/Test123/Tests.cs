@@ -55,9 +55,8 @@ namespace TestdroidAndroidSample
 			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 			TakeScreenshot("First");
 			driver.FindElement(By.XPath("//android.widget.RadioButton[@text='Use Testdroid Cloud']")).Click();
-			driver.FindElement(By.XPath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).SendKeys("C Sharp");
 			TakeScreenshot("Second");
-			driver.Navigate().Back();
+			driver.FindElement(By.XPath("//android.widget.EditText[@resource-id='com.bitbar.testdroid:id/editText1']")).SendKeys("C Sharp");
 			TakeScreenshot("Third");
 			driver.FindElement(By.XPath("//android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.Button[1]")).Click();
 			TakeScreenshot("Fourth");
