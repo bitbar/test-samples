@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Android real device integration tests Bitbar cloud
-# Already installed versions: 1.20.4, 2.10.5, 3.3.8
-VERSION=3.3.8
+VERSION=3.24.0
 fvm install $VERSION
 fvm global $VERSION
 

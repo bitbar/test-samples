@@ -2,6 +2,6 @@ Appium-Python-Client==4.5.0
 certifi==2025.1.31
 chardet==5.2.0
 idna==3.10
-requests==2.32.3
+requests==2.33
 selenium==4.28.1
-urllib3==2.3.0
+urllib3==2.6.3

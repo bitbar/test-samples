@@ -20,10 +20,6 @@ TEST_CASE="#mainPageTest"
 ## Environment variables setup
 export PLATFORM_NAME=iOS
 export UDID=${IOS_UDID}
-export DYLD_FALLBACK_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:$PWD/lib/mac/opencv:/Users/Shared/libimobiledevice-binaries-master
-# Replace all spaces with escape: "\ "
-export DYLD_FALLBACK_LIBRARY_PATH=${DYLD_FALLBACK_LIBRARY_PATH// /\\ }
-echo "DYLD_FALLBACK_LIBRARY_PATH=${DYLD_FALLBACK_LIBRARY_PATH}"
 export PLATFORM_VERSION=$(ideviceinfo --key ProductVersion)
 echo "iOS Version: ${PLATFORM_VERSION}"
 
