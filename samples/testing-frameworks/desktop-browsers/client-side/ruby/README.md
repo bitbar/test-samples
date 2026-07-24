@@ -21,7 +21,7 @@ bundle install
 
 The script connects to BitBar cloud platform. You may need to configure:
 
-- **API Key**: Update the `bitbar_api_key` variable if running against Bitbar services
+- **API Key**: Update the `bitbar_api_key` variable if running against BitBar services
 - **Target URL**: The script currently tests against public BitBar demo pages
 - **Browser**: Chrome is used by default
 
