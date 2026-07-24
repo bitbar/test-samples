@@ -1,6 +1,6 @@
 # Desktop Browsers - Client Side (C# Selenium Sample)
 
-This sample runs a Selenium test in C# using NUnit against BitBar Desktop Browser Cloud.
+This sample runs a Selenium test in C# using NUnit against BitBar Cloud.
 
 ## Project Location
 
