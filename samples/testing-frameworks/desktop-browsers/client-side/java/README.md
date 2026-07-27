@@ -49,6 +49,6 @@ Bitbar
 Troubleshooting
 ===============
 
-* `SessionNotCreatedException: Full authentication is required to access this resource` usually means the Bitbar API key is missing, invalid, expired, or lacks the needed desktop access.
-* `Failed to submit test run! No desktop browser matching Desired Capabilities` means the selected browser, platform, browser version, or Bitbar options do not match an available desktop environment.
+* `SessionNotCreatedException: Full authentication is required to access this resource` usually means the BitBar API key is missing, invalid, expired, or lacks the needed desktop access.
+* `Failed to submit test run! No desktop browser matching Desired Capabilities` means the selected browser, platform, browser version, or BitBar options do not match an available desktop environment.
 * If Maven appears to run stale code after editing the sample, use the `clean test-compile` command shown above so the test class is rebuilt before execution.

@@ -2,7 +2,7 @@ Intro
 =====
 
 This folder contains a sample client side Selenium test for desktop browsers in BitBar Cloud.
-To run the sample, go to `https://cloud.bitbar.com/` and use a valid Bitbar API key.
+To run the sample, go to `https://cloud.bitbar.com/` and use a valid BitBar API key.
 
 Folder Content
 --------------
