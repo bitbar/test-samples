@@ -11,6 +11,6 @@
         "node": ">=16.0.0"
     },
     "dependencies": {
-        "nightwatch": "^2.6.25"
+        "nightwatch": "^3.16.0"
     }
 }
