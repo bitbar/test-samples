@@ -12,5 +12,8 @@
   "dependencies": {
     "selenium-webdriver": "^4.28.1",
     "chai": "^5.1.2"
+  },
+  "overrides": {
+    "ws": "8.20.1"
   }
 }
