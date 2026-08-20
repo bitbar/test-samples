@@ -18,5 +18,8 @@
         "@wdio/spec-reporter": "^9.8.0",
         "chai": "^5.1.2",
         "rimraf": "^5.0.10"
-    }
+    },
+    "overrides": {
+    "undici": "7.29.0"
+  }
 }
