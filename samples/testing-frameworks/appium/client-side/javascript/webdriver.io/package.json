@@ -22,5 +22,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/bitbar/test-samples.git"
+  },
+  "overrides": {
+    "undici": "7.29.0"
   }
 }
