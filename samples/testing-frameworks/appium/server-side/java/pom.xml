@@ -8,7 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-jupiter.version>5.14.4</junit-jupiter.version>
-        <log4j.version>2.26.0</log4j.version>
+        <log4j.version>2.26.1</log4j.version>
         <maven-artifact.version>3.9.16</maven-artifact.version>
         <appium-java-client.version>10.1.1</appium-java-client.version>
         <json.version>20251224</json.version>
