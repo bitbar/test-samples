@@ -24,6 +24,7 @@
     "url": "https://github.com/bitbar/test-samples.git"
   },
   "overrides": {
+    "deepmerge-ts": "8.0.0",
     "undici": "7.29.0"
   }
 }

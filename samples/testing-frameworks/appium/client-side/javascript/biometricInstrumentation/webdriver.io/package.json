@@ -19,7 +19,8 @@
         "chai": "^5.1.2",
         "rimraf": "^5.0.10"
     },
-    "overrides": {
-    "undici": "7.29.0"
-  }
+        "overrides": {
+                "deepmerge-ts": "8.0.0",
+                "undici": "7.29.0"
+        }
 }
