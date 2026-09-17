@@ -67,10 +67,10 @@ Here are all the values that you need to edit:
 
 ## Native iOS Specific Settings
 
-Example script: bitbar_appiumdriver_ios.rb
+Example script: bitbar_ios.rb
 
 To run your Appium tests against your native iOS application with real
-devices you need to edit the bitbar_appiumdriver_ios.rb script.
+devices you need to edit the bitbar_ios.rb script.
 
 In addition to the above mentioned Appium capabilities for iOS testing
 you need set
