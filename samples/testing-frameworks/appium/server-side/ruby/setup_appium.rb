@@ -23,7 +23,7 @@ class SetupAppium
   def get_android_driver
     desired_caps = {}
     desired_caps['platformName'] = 'Android'
-    desired_caps['automationName'] = 'Appium'
+    desired_caps['automationName'] = 'uiautomator2'
     desired_caps['appPackage'] = 'com.bitbar.testdroid'
     desired_caps['appActivity'] = '.BitbarSampleApplicationActivity'
     desired_caps['deviceName'] = 'Android device'
