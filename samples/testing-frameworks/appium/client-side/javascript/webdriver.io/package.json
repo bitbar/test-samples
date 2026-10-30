@@ -26,6 +26,6 @@
   },
   "overrides": {
     "deepmerge-ts": "8.0.0",
-    "undici": "7.29.1"
+    "undici": "7.30.1"
   }
 }
