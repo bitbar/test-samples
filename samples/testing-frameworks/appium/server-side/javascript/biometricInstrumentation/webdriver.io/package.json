@@ -23,6 +23,7 @@
     "overrides": {
         "deepmerge-ts": "8.0.0",
         "ws": "8.20.1",
-        "tmp": "0.2.7"
+        "tmp": "0.2.7",
+        "basic-ftp": "6.2.3"
     }
 }
