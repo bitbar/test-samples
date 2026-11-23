@@ -11,7 +11,7 @@
         <log4j.version>2.26.1</log4j.version>
         <maven-artifact.version>3.9.16</maven-artifact.version>
         <appium-java-client.version>10.1.1</appium-java-client.version>
-        <json.version>20251224</json.version>
+        <json.version>20260719</json.version>
         <commons-io.version>2.22.0</commons-io.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>

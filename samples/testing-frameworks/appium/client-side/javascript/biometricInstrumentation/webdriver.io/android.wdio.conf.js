@@ -21,7 +21,7 @@ exports.config = {
   reporters: ["spec"],
 
   protocol: "https",
-  hostname: "appium.bitbar.com",
+  hostname: "eu-mobile-hub.bitbar.com",
   port: 443,
   path: "/wd/hub",
 
@@ -33,7 +33,7 @@ exports.config = {
       "appium:automationName": "UiAutomator2",
       "bitbar:options": {
         apiKey: apiKey,
-        device: "Google Pixel 3a Android 12",
+        device: "Google Pixel 3a | G020F | Android 12 | EU",
         app: appId,
         project: "WebdriverIO_Android_biometric_sample",
         multiSessionWait: 10,
