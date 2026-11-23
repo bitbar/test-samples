@@ -42,6 +42,8 @@ it contains information about project and what's more important - dependenencies
 
 ### Install Dependencies
 
+Node.js 20.18.1 or later in the 20.x series, or Node.js 22 or later, is required.
+
 ```
 npm ci
 ```
