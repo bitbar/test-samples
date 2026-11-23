@@ -21,7 +21,7 @@ exports.config = {
   reporters: ["spec"],
 
   protocol: "https",
-  hostname: "appium.bitbar.com",
+  hostname: "eu-mobile-hub.bitbar.com",
   port: 443,
   path: "/wd/hub",
 
@@ -35,7 +35,7 @@ exports.config = {
       "bitbar:options": {
         app: appId,
         apiKey: apiKey,
-        device: "Apple iPhone 11 Pro A2215 13.1.2",
+        device: "Apple iPhone XS | A1920 | iOS 13.5.1 | EU",
         biometricInstrumentation: true,
         project: "WebdriverIO_iOS_biometric_sample",
         multiSessionWait: 10,
